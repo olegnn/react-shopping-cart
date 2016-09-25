@@ -1,0 +1,108 @@
+{
+  "parser": "babel-eslint",
+
+  "plugins": [
+    "flowtype"
+  ],
+  "rules": {
+    "flowtype/boolean-style": [
+      2,
+      "boolean"
+    ],
+    "flowtype/define-flow-type": 1,
+    "flowtype/delimiter-dangle": [
+      2,
+      "always"
+    ],
+    "flowtype/generic-spacing": [
+      2,
+      "never"
+    ],
+    "flowtype/no-weak-types": 0,
+    "flowtype/require-parameter-type": 0,
+    "flowtype/require-return-type": [
+      0,
+      "always",
+      {
+        "annotateUndefined": "never"
+      }
+    ],
+    "flowtype/require-valid-file-annotation": 2,
+    "flowtype/semi": [
+      2,
+      "always"
+    ],
+    "flowtype/space-after-type-colon": [
+      2,
+      "always"
+    ],
+    "flowtype/space-before-generic-bracket": [
+      2,
+      "never"
+    ],
+    "flowtype/space-before-type-colon": [
+      2,
+      "always"
+    ],
+    "flowtype/type-id-match": [
+      2,
+      "^([A-Z][a-z0-9]+)+Type$"
+    ],
+    "flowtype/union-intersection-spacing": [
+      2,
+      "always"
+    ],
+    "flowtype/use-flow-type": 1,
+    "flowtype/valid-syntax": 1,
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "no-console": [0],
+    "func-names": [0],
+    "key-spacing": [2, {
+      "beforeColon": false,
+      "afterColon": true,
+    }],
+    "semi": [2, "always"],
+    "no-extra-semi": [2],
+    "space-before-function-paren": [0],
+    "arrow-body-style": [2, "as-needed"],
+    "no-else-return": [0],
+    "space-infix-ops": [0],
+    "react/prefer-es6-class": [0],
+    "react/prefer-stateless-function": [1],
+    "import/no-unresolved": [0],
+    "global-require": [1],
+    "prefer-template": [0],
+    "no-unused-vars": [1],
+    "no-unused-expressions": [0],
+    "no-unsafe-negation": [0],
+    "no-undef": [1],
+    "curly": [1, "multi"],
+    "import/no-extraneous-dependencies": [0],
+    "react/jsx-filename-extension": [0],
+    "no-void": [0],
+    "one-var": [0],
+    "jsx-a11y/anchor-has-content": [0],
+    "react/jsx-curly-spacing": [2, "always"],
+    "react/jsx-equals-spacing": [2, "never"],
+    "no-confusing-arrow": [0],
+    "jsx-a11y/img-has-alt": [0],
+    "no-mixed-operators": [0],
+    "react/jsx-no-bind": [0],
+    "react/prop-types": [1],
+    "no-bitwise": [0],
+    "jsx-a11y/no-static-element-interactions": [1],
+    "no-param-reassign": ["error", { "props": false }],
+    "valid-jsdoc": [1],
+    "arrow-parens": [0],
+    "default-case": [1]
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true,
+    }
+  },
+  "extends": "airbnb",
+  "globals": {
+    "__PREFIX_LINKS__": true,
+  },
+}

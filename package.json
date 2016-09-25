@@ -1,0 +1,69 @@
+{
+  "name": "react-shopping-cart",
+  "version": "0.0.2",
+  "author": "Oleg Nosov <olegnosov1@gmail.com>",
+  "description": "React shopping cart",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "cart",
+    "product",
+    "shop"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olegnn/react-shopping-cart.git"
+  },
+  "main": "./index.js",
+  "dependencies": {
+    "babel-runtime": "^6.11.6",
+    "react-overlays": "^0.6.6",
+    "react-scroll": "^1.2.0",
+    "underscore.string": "^3.2.2"
+  },
+  "peerDependencies": {
+    "animate.css": "^3.5.2",
+    "bootstrap": "^4.0.0-alpha.4",
+    "react": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.11.4",
+    "babel-eslint": "^6.1.2",
+    "babel-jest": "^15.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "documentation": "^4.0.0-beta10",
+    "enzyme": "^2.4.1",
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb": "^11.1.0",
+    "eslint-config-pedant": "^0.8.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-flowtype": "^2.19.0",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-jsdoc": "^2.3.1",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
+    "flow-bin": "^0.31.1",
+    "jest-cli": "^15.1.0",
+    "node-sass": "^3.10.0",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "uglify-js": "^2.7.3"
+  },
+  "scripts": {
+    "build": "bash build",
+    "test": "jest",
+    "flow": "flow; test $? -eq 0 -o $? -eq 2",
+    "lint": "./node_modules/.bin/eslint .",
+    "doc": "bash doc",
+    "prepublish": "npm run build && npm run doc && npm run test -- -u;"
+  }
+}

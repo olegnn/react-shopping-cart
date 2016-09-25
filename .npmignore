@@ -1,0 +1,7 @@
+.eslintrc
+.gitignore
+.git
+build
+npm-debug.log
+node_modules
+__tests__

@@ -1,0 +1,12 @@
+[ignore]
+.*/__tests__/.*
+
+[options]
+esproposal.class_instance_fields=enable
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=.
+esproposal.class_static_fields=enable
+unsafe.enable_getters_and_setters=true
+
+[libs]
+./src/types.js
