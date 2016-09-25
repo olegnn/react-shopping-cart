@@ -2,7 +2,7 @@
  * @flow
  * @module CheckoutButton
  *
- * @author Oleg
+ * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
  *
  * @description

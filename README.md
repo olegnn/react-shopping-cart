@@ -162,7 +162,7 @@ Checkout button with grand total.
 
 **Meta**
 
--   **author**: Oleg
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
 ## propTypes
