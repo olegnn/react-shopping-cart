@@ -14,72 +14,73 @@
 
  declare function onRemoveProductType(key : string): void;
 
+ /**
+ * @namespace ProductInfoType
+ * @memberof Types
+ * @prop {string} name - Display name
+ * @prop {number} price - Price (only value)
+ * @prop {string} currency - Price currency
+ * @prop {string} imagePath - Path to main image
+ *
+ */
  declare type ProductInfoType = {
-  /**
-   * @namespace ProductInfoType
-   * @memberof Types
-   * @prop {string} name - Display name
-   * @prop {number} price - Price (only value)
-   * @prop {string} currency - Price currency
-   * @prop {string} imagePath - Path to main image
-   *
-   */
   name : string,
   price : number,
   currency : string,
   imagePath : string,
 }
 
+/**
+* @namespace ProductType
+* @memberof Types
+* @prop {string} id - MUST BE PATH TO PRODUCT'S PAGE (!!!)
+* @prop {number} quantity
+* @prop {Object.<string, string | number>} properties -
+* Custom product properties.
+* In order to make prop visible in cart, add its name
+* to productPropsToShow array
+* @prop {ProductInfoType} productInfo
+* @example
+*  {
+*    id: '/shop/macbook-case/',
+*    quantity: 3,
+*    properties: {
+*      colour: 'red'
+*    },
+*    productInfo: {
+*      name: 'Macbook case',
+*      price: 80,
+*      currency: '£',
+*      imagePath: '/shop/macbook-case/1-483x321.jpeg'
+*    }
+*  }
+*/
  declare type ProductType = {
-  /**
-   * @namespace ProductType
-   * @memberof Types
-   * @prop {string} id - MUST BE PATH TO PRODUCT'S PAGE (!!!)
-   * @prop {number} quantity
-   * @prop {Object.<string, string | number>} properties -
-   * Custom product properties.
-   * In order to make prop visible in cart, add its name
-   * to productPropsToShow array
-   * @prop {ProductInfoType} productInfo
-   * @example
-   *  {
-   *    id: '/shop/macbook-case/',
-   *    quantity: 3,
-   *    properties: {
-   *      colour: 'red'
-   *    },
-   *    productInfo: {
-   *      name: 'Macbook case',
-   *      price: 80,
-   *      currency: '£',
-   *      imagePath: '/shop/macbook-case/1-483x321.jpeg'
-   *    }
-   *  }
-   */
   id : string,
+  quantity : number,
   properties : {
     [propName : string] : string | number,
   },
   productInfo : ProductInfoType,
 };
 
+/**
+* @namespace ProductsMapType
+* @memberof Types
+* @prop {ProductType} productKey - Pair (productKey: product)
+*/
  declare type ProductsMapType = {
- /**
-  * @namespace ProductsMapType
-  * @memberof Types
-  * @prop {ProductType} productKey - Pair (productKey: product)
-  */
   [productKey: string] : ProductType,
 };
 
- declare type CartType = {
 /**
-  * @namespace CartType
-  * @memberof Types
-  * @prop {number} total - Grand total
-  * @prop {string} summary - Readable stringified cart
-  * @prop {Object.<string, ProductType>} products - Products map
-  */
+* @namespace CartType
+* @memberof Types
+* @prop {number} total - Grand total
+* @prop {string} summary - Readable stringified cart
+* @prop {Object.<string, ProductType>} products - Products map
+*/
+ declare type CartType = {
   total : number,
   summary : string,
   products : ProductsMapType,

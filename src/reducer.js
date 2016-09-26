@@ -1,5 +1,5 @@
 /**
- * @flow
+ * @flow weak
  * @file cartReducer
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
@@ -12,7 +12,7 @@
 import * as actionTypes from './actionTypes';
 
 const initialState = { total: 0, summary: '', products: {} };
-const actionVals = {};
+const actionVals : Object = {};
 Object.values(actionTypes).forEach((v) => { actionVals[v] = true; });
 
 function getTotal(products : ProductsMapType) : number {

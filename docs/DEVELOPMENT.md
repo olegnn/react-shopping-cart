@@ -1,8 +1,6 @@
 
 ##Development
 
-You need __bash__ to perform tasks below
-
 **Build**
 
 ```shell

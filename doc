@@ -1,8 +1,0 @@
-#!/bin/bash
-
-./node_modules/documentation/bin/documentation.js build --shallow -f=md ./src/components -o ./docs/COMPONENTS.md
-./node_modules/documentation/bin/documentation.js build --shallow -f=md ./src/types.js -o ./docs/TYPES.md
-cat ./docs/MAIN.md > README.md
-cat ./docs/COMPONENTS.md >> README.md
-cat ./docs/TYPES.md >> README.md
-cat ./docs/DEVELOPMENT.md >> README.md

@@ -32,7 +32,7 @@ function style({ enabled = true, duration = 1000, ...rest } = {}) {
 /**
  * @memberof helpers
  */
-export function animate(options : Object) : Object {
+export function animate(options : number) : Object {
   return style(isNaN(options) ? options : { duration: options });
 }
 //-------------------------------------------------------------------
