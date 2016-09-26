@@ -8,7 +8,7 @@ Shopping cart package provides several components:
 which can be used separately or in union.
 By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate data.
 
-So, it's you choice to use Redux or not, but its reducers, actions and actionTypes are already included.
+So, it's your choice to use Redux or not, but its reducers, actions and actionTypes are already included.
 
 **Meta**
 
