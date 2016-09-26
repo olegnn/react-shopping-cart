@@ -16,10 +16,10 @@ import CheckoutButton from '../containers/CheckoutButton';
 import { configure } from '../helpers';
 
 const mapStateToProps = (
-  { cart: { products, total } } : { cart : CartType, }
+  { cart: { products } } : { cart : CartType, }
 ) : { products : ProductsMapType, } => ({
   products,
-  isCartEmpty: !total,
+  isCartEmpty: !Object.keys(products).length,
 });
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
