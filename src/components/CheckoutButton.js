@@ -58,7 +58,10 @@ function CheckoutButton (
       timeout={ 500 }
       unmountOnExit
     >
-      <Link to={ checkoutURL } className="btn btn-primary btn-block">
+      <Link
+        to={ checkoutURL }
+        className={ 'btn btn-primary btn-block' + (!grandTotal ? ' disabled' : '') }
+      >
         <i className={ iconCheckoutClassName } />
         Checkout (Grand total £{ grandTotal.toFixed(2) })
       </Link>

@@ -11,9 +11,9 @@
 import { connect } from 'react-redux';
 import CheckoutButton from '../components/CheckoutButton';
 
-const mapStateToProps = ({ cart: { total } } : { cart : CartType, }) : Object => ({
+const mapStateToProps = ({ cart: { total, products } } : { cart : CartType, }) : Object => ({
   grandTotal: total,
-  hidden: !total,
+  hidden: !Object.keys(products).length,
 });
 
 export default connect(mapStateToProps)(CheckoutButton);
