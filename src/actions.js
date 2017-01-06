@@ -11,42 +11,38 @@
 import * as actionTypes from './actionTypes';
 
 /**
- * @memberof helpers
+ * @memberof actions
  */
-export function addToCart(id : string, props : Object) : Object {
-  return {
+export const addToCart = (id : string, props : Object) : Object =>
+  ({
     type: actionTypes.CART_ADD,
     id,
     ...props,
-  };
-}
+  });
 
 /**
- * @memberof helpers
+ * @memberof actions
  */
-export function removeFromCart(key : string) : Object {
-  return {
+export const removeFromCart = (key : string) : Object =>
+  ({
     type: actionTypes.CART_REMOVE,
     key,
-  };
-}
+  });
 
 /**
- * @memberof helpers
+ * @memberof actions
  */
-export function updateCart(key : string, updateProps : Object) : Object {
-  return {
+export const updateCart = (key : string, updateProps : Object) : Object =>
+  ({
     type: actionTypes.CART_UPDATE,
     key,
     updateProps,
-  };
-}
+  });
 
 /**
- * @memberof helpers
+ * @memberof actions
  */
-export function emptyCart() : Object {
-  return {
+export const emptyCart = () : Object =>
+  ({
     type: actionTypes.CART_EMPTY,
-  };
-}
+  });

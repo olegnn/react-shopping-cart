@@ -9,29 +9,40 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import Product from '../src/components/Product';
+import { Product } from '../src/components';
 
 const createProduct = ({ cartState, props }) =>
   mount(
     <Product
-      { ...props }
+      {...props}
       onAddProduct={
-        (id, { quantity, productInfo, properties }) => { cartState[id + Object.values(properties).join('_')] = { quantity, id, ...productInfo, properties }; }
+        (
+          id,
+          {
+            quantity,
+            productInfo,
+            properties,
+          },
+        ) => void (
+          cartState[id + Object.values(properties).join('_')] =
+            { quantity, id, ...productInfo, properties }
+          )
       }
-      CheckoutButton={ <a /> }
+      CheckoutButton={<a />}
     />);
 
 
 describe('Product', () => {
   const iPadCaseInCart = {
-    id: '/shop/ipad-case/',
+    id: 'ipad-case',
     properties: {
       colour: 'red',
     },
     quantity: 1,
     productInfo: {
       name: 'iPad / Tablet case',
-      price: 70,
+      prices: { '£': 70 },
+      path: '/shop/ipad-case/',
       imagePath: '/shop/ipad-case/1-483x321.jpeg',
       currency: '£',
     },
@@ -42,7 +53,8 @@ describe('Product', () => {
       colour: ['red', 'green'],
     },
     name: 'iPad / Tablet case',
-    price: 70,
+    prices: { '£': 70 },
+    currency: '£',
     path: '/shop/ipad-case/',
     imagePath: '1-483x321.jpeg',
   };
@@ -54,7 +66,8 @@ describe('Product', () => {
     // Current product is ipad case (see props above)
     const renderedProduct = createProduct({ cartState, props: iPadCaseProps });
 
-    const simulateAddProductEvent = () => renderedProduct.find('form').simulate('submit');
+    const simulateAddProductEvent =
+      () => renderedProduct.find('form').simulate('submit');
 
     simulateAddProductEvent();
 
@@ -70,7 +83,9 @@ describe('Product', () => {
 
     // Now add green case in our cart
 
-    renderedProduct.find('select').simulate('change', { target: { value: 'green' } });
+    renderedProduct
+      .find('select')
+      .simulate('change', { target: { value: 'green' } });
 
     simulateAddProductEvent();
 

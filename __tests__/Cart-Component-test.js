@@ -9,17 +9,18 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import Cart from '../src/components/Cart';
+import { Cart } from '../src/components';
 
 const createCart = ({ products }) =>
   mount(
     <Cart
-      products={ products }
+      products={products}
       onUpdateProduct={
-        (key, updateProps) => { products[key] = { ...products[key], ...updateProps }; }
+        (key, updateProps) =>
+          void (products[key] = { ...products[key], ...updateProps })
       }
       onRemoveProduct={
-        (key) => delete products[key]
+        key => void delete products[key]
       }
       CheckoutButton={
         <a />

@@ -42,7 +42,13 @@ export function animate(options : number) : Object {
  */
 export const configure = (
   Component : Function,
-  configuration : Object
+  configuration : Object,
 ) : Function =>
     (props : Object) : React$Element<any> =>
-      <Component { ...configuration } { ...props } />;
+      <Component {...configuration} {...props} />;
+
+/**
+ * @memberof helpers
+ */
+export const isNaturalNumber = (num: number) : boolean =>
+  Number.isSafeInteger(num) && num > -1;

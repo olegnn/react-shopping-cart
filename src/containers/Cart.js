@@ -11,28 +11,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateCart, removeFromCart } from '../actions';
-import Cart from '../components/Cart';
+import { Cart } from '../components';
 import CheckoutButton from '../containers/CheckoutButton';
 import { configure } from '../helpers';
+import { getDefaultLocalization } from '../localization';
 
 const mapStateToProps = (
-  { cart: { products } } : { cart : CartType, }
+  { cart: { products, currency } } : { cart : CartType, },
 ) : { products : ProductsMapType, } => ({
   products,
   isCartEmpty: !Object.keys(products).length,
+  currency,
 });
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onUpdateProduct: (key : string, updateProps : Object) => {
-    dispatch(updateCart(key, updateProps));
-  },
-  onRemoveProduct: (key : string) => {
-    dispatch(removeFromCart(key));
-  },
+  onUpdateProduct: (key : string, updateProps : Object = {}) =>
+    void dispatch(updateCart(key, updateProps)),
+  onRemoveProduct: (key : string) =>
+    void dispatch(removeFromCart(key)),
 });
 
 export default(
   connect(mapStateToProps, mapDispatchToProps)(
-    configure(Cart, { CheckoutButton: <CheckoutButton /> })
+    configure(Cart,
+      {
+        CheckoutButton: <CheckoutButton />,
+        getLocalization: getDefaultLocalization('cart'),
+      },
+    ),
   )
 );

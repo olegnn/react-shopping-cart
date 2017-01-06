@@ -18,39 +18,44 @@
  * @namespace ProductInfoType
  * @memberof Types
  * @prop {string} name - Display name
- * @prop {number} price - Price (only value)
- * @prop {string} currency - Price currency
+ * @prop {Object.<string, number>} prices -
+ * Object contains { [currency]: price } pairs
  * @prop {string} imagePath - Path to main image
+ * @prop {string} path - Link to product's page
  *
  */
  declare type ProductInfoType = {
   name : string,
-  price : number,
-  currency : string,
+  prices: {
+    [currency: string]: number,
+  },
   imagePath : string,
+  path: string,
 }
 
 /**
 * @namespace ProductType
 * @memberof Types
-* @prop {string} id - MUST BE PATH TO PRODUCT'S PAGE (!!!)
+* @prop {string} id
 * @prop {number} quantity
-* @prop {Object.<string, string | number>} properties -
+* @prop {Object.<string, string|number>} properties -
 * Custom product properties.
 * In order to make prop visible in cart, add its name
 * to productPropsToShow array
 * @prop {ProductInfoType} productInfo
 * @example
 *  {
-*    id: '/shop/macbook-case/',
+*    id: 'macbook-case',
 *    quantity: 3,
 *    properties: {
 *      colour: 'red'
 *    },
 *    productInfo: {
 *      name: 'Macbook case',
-*      price: 80,
-*      currency: '£',
+*      prices: {
+*       GBP: 50
+*      },
+*      path: '/shop/macbook-case/',
 *      imagePath: '/shop/macbook-case/1-483x321.jpeg'
 *    }
 *  }
@@ -84,11 +89,17 @@
   total : number,
   summary : string,
   products : ProductsMapType,
+  currency: string,
 };
 
-// TO DO
+// TODO
  declare type CartActionType = {
-  type : 'cart/ADD' | 'cart/REMOVE' | 'cart/UPDATE' | 'cart/EMPTY',
+  type :
+    'cart/ADD'
+  | 'cart/REMOVE'
+  | 'cart/UPDATE'
+  | 'cart/EMPTY'
+  | 'cart/SET_CURRENCY',
   id : string,
   key : string | void,
   quantity : number,

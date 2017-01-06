@@ -14,6 +14,8 @@ import React, { Component, PropTypes } from 'react';
 import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
 import capitalize from 'underscore.string/capitalize';
 
+import { isNaturalNumber } from '../../helpers';
+
 const
   /**
    * @static propTypes
@@ -24,15 +26,19 @@ const
    * @prop {number} price - Price (value only). Required
    * @prop {string} imagePath - Path to main image. Required
    * @prop {string} currency - Price currency. Default is £
-   * @prop {Object.<string, Array<(string | number)>>} options - Custom product properties.
+   * @prop {Object.<string, Array<(string | number)>>} options - Custom
+   * product properties.
    * Default is {}
-   * @prop {string} iconAddProductClassName - ClassName for cart icon on add to button.
+   * @prop {string} iconAddProductClassName - ClassName for cart icon
+   * on add to button.
    * Default is 'icon-cart-plus'
    */
   propTypes = {
     name: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    prices: PropTypes.objectOf(
+      PropTypes.number,
+    ).isRequired,
     imagePath: PropTypes.string.isRequired,
     currency: PropTypes.string,
     options: PropTypes.objectOf(
@@ -41,9 +47,9 @@ const
           [
             PropTypes.string,
             PropTypes.number,
-          ]
-        )
-      )
+          ],
+        ),
+      ),
     ),
     iconAddProductClassName: PropTypes.string,
   },
@@ -55,12 +61,13 @@ const
   * user want to add product in his cart
   * Example: onAddProduct('macbook-case', { quantity: 30, properties: { colour: 'red' } });
   * Required.
-  * @prop {React Element} CheckoutButton - Button in the bottom of product.
+  * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
   * Default is 'icon-cart-plus'
   */
   containerPropTypes = {
     onAddProduct: PropTypes.func.isRequired,
     CheckoutButton: PropTypes.element.isRequired,
+    getLocalization: PropTypes.func.isRequired,
   },
   defaultProps = {
     currency: '£',
@@ -68,9 +75,10 @@ const
     iconAddProductClassName: 'icon-cart-plus',
   };
 
-function getAbsoluteOffsetTop({ offsetTop, offsetParent } : HTMLElement | Object = {}) : number {
-  return offsetTop + (offsetParent && getAbsoluteOffsetTop(offsetParent));
-}
+const getAbsoluteOffsetTop = (
+  { offsetTop, offsetParent } : HTMLElement | Object = {},
+) : number =>
+  offsetTop + (offsetParent && getAbsoluteOffsetTop(offsetParent));
 
 export default class Product extends Component {
 
@@ -82,44 +90,50 @@ export default class Product extends Component {
   };
 
   handleQuantityValueChange = (
-    { target: { value } } : { target : HTMLInputElement, }
+    { target: { value } } : { target : HTMLInputElement, },
   ) => {
-    +value > -1 ? this.setState({ quantity: +value }) : 0;
+    const quantity = Number.parseInt(value, 10);
+    if (isNaturalNumber(quantity))
+      this.setState({ quantity });
   }
 
   handleSelectInputValueChange = (
     name : string,                 // product property name
     list : Array<string | number>, // product property options list
-    { target: { value: listOptionName } } : { target : HTMLInputElement, }
-  ) => {
-    this.setState({ [name]: list.indexOf(listOptionName) });
-  }
+    { target: { value: listOptionName } } : { target : HTMLInputElement, },
+  ) => void this.setState({ [name]: list.indexOf(listOptionName) });
 
   /*
    * Return form-group consits of select input element
    * label value will be capitalized name
    * options - the list array
    */
-  createSelectInputFromArray(name : string, list : Array<string | number>) : React$Element<any> {
+  createSelectInputFromArray(
+    name : string,
+    list : Array<string | number>,
+  ) : React$Element<any> {
     return (
-      <div key={ name } className="form-group row">
-        <label htmlFor={ name } className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label">
-          { capitalize(name) + ':' }
+      <div key={name} className="form-group row">
+        <label
+          htmlFor={name}
+          className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
+        >
+          { `${capitalize(name)}:` }
         </label>
         <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
           <select
-            onChange={ this.handleSelectInputValueChange.bind(this, name, list) }
+            onChange={this.handleSelectInputValueChange.bind(this, name, list)}
             className="form-control"
-            value={ list[this.state[name] || 0] }
+            value={list[this.state[name] || 0]}
           >
             {
               /*
                * Generate select input options based on list values
                */
               list.map((v, k) =>
-                <option key={ v + k } value={ v }>
+                <option key={v + k} value={v}>
                   { capitalize(v) }
-                </option>
+                </option>,
               )
             }
           </select>
@@ -128,25 +142,28 @@ export default class Product extends Component {
     );
   }
 
-  generateProductProps() : Object {
-    const { options, price, name, imagePath, currency } = this.props;
+  generateProductProps = () : Object => {
+    const { options, prices, name, imagePath, path } = this.props;
     const { quantity } = this.state;
     return (
-      {
-        quantity,
-        properties: Object.entries(options).reduce((obj, [propName, list]) =>
-        ({
-          ...obj,
-          [propName]: list[this.state[propName] || 0],
-        })
-      , {}),
-        productInfo: {
-          name,
-          price,
-          currency,
-          imagePath,
-        },
-      }
+    {
+      quantity,
+      properties:
+        Object
+          .entries(options)
+          .reduce((obj, [propName, list]) =>
+            ({
+              ...obj,
+              [propName]: list[this.state[propName] || 0],
+            })
+          , {}),
+      productInfo: {
+        name,
+        prices,
+        path,
+        imagePath,
+      },
+    }
     );
   }
 
@@ -167,37 +184,73 @@ export default class Product extends Component {
            &&
            onAddProduct(
              path,
-             this.generateProductProps()
+             this.generateProductProps(),
            );
   }
 
   render() {
-    const { price, currency, options, CheckoutButton, iconAddProductClassName } = this.props;
+    const {
+      name,
+      prices,
+      currency,
+      options,
+      CheckoutButton,
+      iconAddProductClassName,
+      getLocalization,
+    } = this.props;
+
+    const {
+      quantity,
+    } = this.state;
+
+    const {
+      addProductFormSubmit,
+      handleQuantityValueChange,
+    } = this;
+
+    const price = prices[currency];
 
     return (
       <div>
         <p>
-          <strong>
-            Price: { currency + price.toFixed(2) }
-          </strong>
+          { getLocalization('price', { price, currency }) }
         </p>
-        <form className="m-t-1" onSubmit={ this.addProductFormSubmit }>
+        <form className="m-t-1" onSubmit={addProductFormSubmit}>
           {
             Object.entries(options).map(
-              option => this.createSelectInputFromArray(...option)
+              option => this.createSelectInputFromArray(...option),
             )
           }
           <div className="form-group row">
-            <label htmlFor="product-quantity" className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label">
-              Quantity:
+            <label
+              htmlFor="product-quantity"
+              className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
+            >
+              { getLocalization('quantityLabel') }
             </label>
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-              <input onChange={ this.handleQuantityValueChange } className="form-control" type="number" value={ this.state.quantity } />
+              <input
+                onChange={handleQuantityValueChange}
+                className="form-control"
+                type="number"
+                value={quantity}
+              />
             </div>
           </div>
-          <button type="submit" className="btn btn-success btn-block" disabled={ !this.state.quantity }>
-            <i className={ iconAddProductClassName } />
-            Add to cart
+          <button
+            type="submit"
+            className="btn btn-success btn-block"
+            disabled={!quantity}
+          >
+            <i className={iconAddProductClassName} />
+            {
+              getLocalization('addToCart', {
+                quantity,
+                price,
+                currency,
+                name,
+              })
+            }
           </button>
           { CheckoutButton }
         </form>

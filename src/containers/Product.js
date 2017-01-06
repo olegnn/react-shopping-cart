@@ -10,10 +10,12 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { addToCart } from '../actions';
-import Product from '../components/Product';
+
+import { Product } from '../components';
 import CheckoutButton from '../containers/CheckoutButton';
+import { addToCart } from '../actions';
 import { configure } from '../helpers';
+import { getDefaultLocalization } from '../localization';
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
   onAddProduct: (id : string, props : Object) => {
@@ -23,6 +25,9 @@ const mapDispatchToProps = (dispatch : Function) : Object => ({
 
 export default(
   connect(null, mapDispatchToProps)(
-    configure(Product, { CheckoutButton: <CheckoutButton /> })
+    configure(Product, {
+      CheckoutButton: <CheckoutButton />,
+      getLocalization: getDefaultLocalization('product'),
+    }),
   )
 );

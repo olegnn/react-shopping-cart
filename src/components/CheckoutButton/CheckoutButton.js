@@ -10,11 +10,11 @@
  * Checkout button with grand total.
  *
  */
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
 import Transition from 'react-overlays/lib/Transition';
 
-import { animate } from '../helpers';
+import { animate } from '../../helpers';
 
 const
 /**
@@ -23,12 +23,14 @@ const
   *
   * @prop {string} checkoutURL - Link to checkout page.
   * Default is '/shop/checkout/'
-  * @prop {string} iconCheckoutClassName - ClassName for cart icon on checkout button.
+  * @prop {string} iconCheckoutClassName - ClassName
+  * for cart icon on checkout button.
   * Default is 'icon-basket'
   */
   propTypes = {
     checkoutURL: PropTypes.string,
     iconCheckoutClassName: PropTypes.string,
+    currency: PropTypes.string,
   },
 /**
   * @static containerPropTypes
@@ -40,30 +42,46 @@ const
   containerPropTypes = {
     grandTotal: PropTypes.number.isRequired,
     hidden: PropTypes.bool.isRequired,
+    getLocalization: PropTypes.func.isRequired,
   },
   defaultProps = {
     checkoutURL: '/shop/checkout/',
     iconCheckoutClassName: 'icon-basket',
+    currency: '£',
   };
 
-function CheckoutButton (
-  { grandTotal, hidden, checkoutURL, iconCheckoutClassName } : Object
+export default function CheckoutButton (
+  {
+    grandTotal,
+    hidden,
+    checkoutURL,
+    currency,
+    iconCheckoutClassName,
+    getLocalization,
+  } : Object,
 ) : React$Element<any> {
   return (
     <Transition
-      style={ animate(500) }
-      in={ !hidden }
+      style={animate(500)}
+      in={!hidden}
       enteringClassName="fadeInUp"
       exitingClassName="fadeOut"
-      timeout={ 500 }
+      timeout={500}
       unmountOnExit
     >
       <Link
-        to={ checkoutURL }
-        className={ 'btn btn-primary btn-block' + (!grandTotal ? ' disabled' : '') }
+        to={checkoutURL}
+        className={`btn btn-primary btn-block${!grandTotal ? ' disabled' : ''}`}
       >
-        <i className={ iconCheckoutClassName } />
-        Checkout (Grand total £{ grandTotal.toFixed(2) })
+        <i className={iconCheckoutClassName} />
+        {
+          getLocalization(
+            'checkoutTotal', {
+              currency,
+              total: grandTotal,
+            },
+          )
+        }
       </Link>
     </Transition>
   );
@@ -71,5 +89,3 @@ function CheckoutButton (
 
 CheckoutButton.propTypes = { ...propTypes, ...containerPropTypes };
 CheckoutButton.defaultProps = defaultProps;
-
-export default CheckoutButton;
