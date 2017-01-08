@@ -19,7 +19,7 @@ const
         PropTypes.number,
       ]),
     ),
-    productPropsToShow: PropTypes.arrayOf(
+    propertiesToShow: PropTypes.arrayOf(
       PropTypes.string,
     ),
     imagePath: PropTypes.string.isRequired,
@@ -31,7 +31,7 @@ const
   },
   defaultProps = {
     properties: {},
-    productPropsToShow: [],
+    propertiesToShow: [],
   };
 
 export default class CartProduct extends Component {
@@ -40,26 +40,28 @@ export default class CartProduct extends Component {
   static defaultProps = defaultProps;
 
   /*
-   * Create form-group for each of properties which is in productPropsToShow
+   * Create form-group for each of properties which is in propertiesToShow
    * array
    */
   static generateProductDescription = (
     properties : {
       [propName : string]: number|string
     },
-    productPropsToShow: Array<string>,
+    propertiesToShow: Array<string>,
+    getLocalization: Function,
   ) : Array<React$Element<any>> =>
     Object
       .entries(properties)
       .reduce(
         (acc, [propName, propValue]) => [
           ...acc, ...(
-          productPropsToShow.indexOf(propName) + 1
+          propertiesToShow.indexOf(propName) + 1
           ? [
             <ProductPropertyDescription
               key={propName}
               propName={propName}
               propValue={propValue}
+              getLocalization={getLocalization}
             />,
           ]
           : []
@@ -72,7 +74,7 @@ export default class CartProduct extends Component {
     );
 
   handleQuantityValueChange = ({ target: { value } }) => {
-    const quantity = Number.parseInt(value, 10);
+    const quantity = +value;
     /*
      * Check if quantity value is correct
      * and then update product
@@ -92,7 +94,7 @@ export default class CartProduct extends Component {
       currency,
       price,
       properties,
-      productPropsToShow,
+      propertiesToShow,
       iconTrashClassName,
       getLocalization,
     } = this.props;
@@ -106,13 +108,15 @@ export default class CartProduct extends Component {
       generateProductDescription,
     } = CartProduct;
 
+    const localizedName = getLocalization(name);
+
     return (
       <div
         className="list-group-item list-group-item-action animated"
       >
         <Link to={path}>
           <div className="list-group-item-heading">
-            <h5>{ getLocalization('productName', { name }) }</h5>
+            <h5>{ getLocalization('productName', { name: localizedName }) }</h5>
           </div>
         </Link>
         <div className="list-group-item-text row">
@@ -138,7 +142,13 @@ export default class CartProduct extends Component {
                 />
               </div>
             </div>
-            { generateProductDescription(properties, productPropsToShow) }
+            {
+              generateProductDescription(
+                properties,
+                propertiesToShow,
+                getLocalization,
+              )
+            }
             <div className="form-group row">
               <label
                 htmlFor="price"

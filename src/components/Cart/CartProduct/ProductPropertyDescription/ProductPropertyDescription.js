@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import capitalize from 'underscore.string/capitalize';
 
 const
   propTypes = {
@@ -10,28 +9,50 @@ const
         PropTypes.number,
       ],
     ).isRequired,
+    getLocalization: PropTypes.func.isRequired,
   },
   defaultProps = {
 
   };
 
-export default function CartProductDescription({
+export default function ProductPropertyDescription({
   propName,
   propValue,
+  getLocalization,
 }) {
+  const localizedPropName = getLocalization(propName, { value: propValue }),
+    localizedPropValue =
+      typeof propValue === 'string'
+             ? getLocalization(propValue)
+             : propValue;
   return (
     <div className="form-group row">
       <label
         htmlFor={propName}
         className="col-xs-6 col-md-5 col-lg-4 col-form-label"
       >
-        { capitalize(propName) }:
+        {
+          getLocalization(
+            'productPropertyLabel', {
+              name: localizedPropName,
+              value: localizedPropValue,
+            },
+          )
+        }
       </label>
       <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
-        { capitalize(propValue) }
+        {
+          getLocalization(
+            'productPropertyValue', {
+              name: localizedPropName,
+              value: localizedPropValue,
+            },
+          )
+        }
       </div>
     </div>
   );
 }
 
-Object.assign(CartProductDescription, { propTypes, defaultProps });
+ProductPropertyDescription.propTypes = propTypes;
+ProductPropertyDescription.defaultProps = defaultProps;

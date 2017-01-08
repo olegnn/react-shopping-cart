@@ -14,9 +14,6 @@ import Transition from 'react-overlays/lib/Transition';
 
 import CartProduct from './CartProduct/CartProduct';
 import { animate } from '../../helpers';
-import { ProductType } from '../../types';
-
-console.log(ProductType);
 
 const
   /**
@@ -34,9 +31,10 @@ const
    * Default is 'icon-trash'
    */
   propTypes = {
-    productPropsToShow: PropTypes.arrayOf(PropTypes.string),
     showHeader: PropTypes.bool,
     iconTrashClassName: PropTypes.string,
+    cartTransition: PropTypes.object,
+    cartItemTransition: PropTypes.object,
   },
   /**
    * @static containerPropTypes
@@ -69,6 +67,9 @@ const
           PropTypes.number,
         ).isRequired,
         imagePath: PropTypes.string.isRequired,
+        propertiesToShowInCart: PropTypes.arrayOf(
+          PropTypes.string,
+        ),
       }).isRequired,
     })).isRequired,
     currency: PropTypes.string.isRequired,
@@ -79,9 +80,22 @@ const
     CheckoutButton: PropTypes.element.isRequired,
   },
   defaultProps = {
-    productPropsToShow: ['colour', 'size'],
     showHeader: true,
     iconTrashClassName: 'icon-trash',
+    cartTransition: {
+      style: animate(500),
+      enteringClassName: 'fadeInUp',
+      exitingClassName: 'fadeOut',
+      timeout: 500,
+    },
+    cartItemTransition: {
+      transitionName: {
+        enter: 'bounceInLeft',
+        leave: 'bounceOutRight',
+      },
+      transitionEnterTimeout: 500,
+      transitionLeaveTimeout: 500,
+    },
   };
 
 
@@ -90,12 +104,13 @@ export default function Cart (
    * Look at the propTypes
    */
   {
-    productPropsToShow,
     showHeader,
     products,
     isCartEmpty,
     iconTrashClassName,
     currency,
+    cartTransition,
+    cartItemTransition,
     onUpdateProduct,
     onRemoveProduct,
     getLocalization,
@@ -104,37 +119,45 @@ export default function Cart (
   return (
     <div className="row m-t-1">
       <Transition
-        style={animate(500)}
         in={!isCartEmpty}
-        enteringClassName="fadeInUp"
-        exitingClassName="fadeOut"
-        timeout={500}
         unmountOnExit
+        {...cartTransition}
       >
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           { showHeader ? getLocalization('shoppingCartTitle') : void 0 }
           <div className="list-group">
             <ReactCSSTransitionGroup
-              transitionName={{
-                enter: 'bounceInLeft',
-                leave: 'bounceOutRight',
-              }}
-              transitionEnterTimeout={500} transitionLeaveTimeout={500}
+              {...cartItemTransition}
             >
               {
                 Object
                   .entries(products)
-                  .map(([productKey, { productInfo, ...product }]) => (
+                  .map((
+                    [productKey,
+                      {
+                        productInfo: {
+                          prices,
+                          path,
+                          name,
+                          imagePath,
+                          propertiesToShowInCart,
+                        },
+                        quantity,
+                        properties,
+                      },
+                    ],
+                  ) => (
                     <CartProduct
                       key={productKey}
                       productKey={productKey}
-                      quantity={product.quantity}
-                      price={productInfo.prices[currency]}
+                      quantity={quantity}
+                      properties={properties}
+                      price={prices[currency]}
                       currency={currency}
-                      path={productInfo.path}
-                      name={productInfo.name}
-                      imagePath={productInfo.imagePath}
-                      productPropsToShow={productPropsToShow}
+                      path={path}
+                      name={name}
+                      imagePath={imagePath}
+                      propertiesToShow={propertiesToShowInCart}
                       iconTrashClassName={iconTrashClassName}
                       onUpdateProduct={onUpdateProduct}
                       onRemoveProduct={onRemoveProduct}

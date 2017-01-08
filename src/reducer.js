@@ -69,7 +69,7 @@ export default function(
       key || id + (propsValues.length ? `_${propsValues.join('_')}` : '');
     const { products, total, summary, ...restOfCart } = state;
     const { [productKey]: product, ...restOfProducts } = products;
-    const currency = action.currency || state.currency;
+    const currency: string = action.currency || state.currency;
     switch (type) {
       case actionTypes.CART_ADD: {
         const newProducts = {

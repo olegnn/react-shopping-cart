@@ -17,6 +17,12 @@ export const defaultLocalization = {
                   '=0 {0}' +
                   'other {#}}',
       remove: 'Remove',
+      productPropertyLabel: '{name}:',
+      productPropertyValue: '{value}',
+      colour: 'Colour',
+      red: 'Red',
+      green: 'Green',
+      ipadTabletCase: 'iPad / Tablet case',
     },
     checkoutButton: {
       checkoutTotal: 'Checkout ({total, plural, ' +
@@ -27,6 +33,11 @@ export const defaultLocalization = {
       price: 'Price: {currency}{price}',
       quantityLabel: 'Quantity:',
       addToCart: 'Add to cart',
+      colour: 'Colour',
+      red: 'Red',
+      green: 'Green',
+      propertyLabel: '{name}:',
+      ipadTabletCase: 'iPad / Tablet case',
     },
   },
 };

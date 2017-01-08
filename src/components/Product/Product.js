@@ -1,5 +1,5 @@
 /**
- * @flow weak
+ * @flow
  * @module Product
  * @extends React.Component
  *
@@ -12,8 +12,8 @@
  */
 import React, { Component, PropTypes } from 'react';
 import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
-import capitalize from 'underscore.string/capitalize';
 
+import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
 import { isNaturalNumber } from '../../helpers';
 
 const
@@ -40,8 +40,8 @@ const
       PropTypes.number,
     ).isRequired,
     imagePath: PropTypes.string.isRequired,
-    currency: PropTypes.string,
-    options: PropTypes.objectOf(
+    currency: PropTypes.string.isRequired,
+    properties: PropTypes.objectOf(
       PropTypes.arrayOf(
         PropTypes.oneOfType(
           [
@@ -50,6 +50,9 @@ const
           ],
         ),
       ),
+    ),
+    propertiesToShowInCart: PropTypes.arrayOf(
+      PropTypes.string,
     ),
     iconAddProductClassName: PropTypes.string,
   },
@@ -70,8 +73,8 @@ const
     getLocalization: PropTypes.func.isRequired,
   },
   defaultProps = {
-    currency: '£',
-    options: {},
+    properties: {},
+    propertiesToShowInCart: [],
     iconAddProductClassName: 'icon-cart-plus',
   };
 
@@ -85,6 +88,26 @@ export default class Product extends Component {
   static propTypes = { ...propTypes, ...containerPropTypes };
   static defaultProps = defaultProps;
 
+  static createPropertiesInputList = (
+    properties: {
+      [propertyName: string]: Array<string|number>
+    },
+    propertiesSelectedIndexes,
+    handlePropertyValueChange,
+    getLocalization,
+  ): Array<React$Element<any>> =>
+    Object.entries(properties).map(
+      ([name, options]) =>
+        <ProductPropertyInput
+          key={name}
+          name={name}
+          options={options}
+          selectedOptionIndex={propertiesSelectedIndexes[name]}
+          onChange={handlePropertyValueChange}
+          getLocalization={getLocalization}
+        />,
+    );
+
   state = {
     quantity: 1,
   };
@@ -92,69 +115,35 @@ export default class Product extends Component {
   handleQuantityValueChange = (
     { target: { value } } : { target : HTMLInputElement, },
   ) => {
-    const quantity = Number.parseInt(value, 10);
+    const quantity = +value;
     if (isNaturalNumber(quantity))
       this.setState({ quantity });
   }
 
-  handleSelectInputValueChange = (
-    name : string,                 // product property name
-    list : Array<string | number>, // product property options list
-    { target: { value: listOptionName } } : { target : HTMLInputElement, },
-  ) => void this.setState({ [name]: list.indexOf(listOptionName) });
-
-  /*
-   * Return form-group consits of select input element
-   * label value will be capitalized name
-   * options - the list array
-   */
-  createSelectInputFromArray(
-    name : string,
-    list : Array<string | number>,
-  ) : React$Element<any> {
-    return (
-      <div key={name} className="form-group row">
-        <label
-          htmlFor={name}
-          className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
-        >
-          { `${capitalize(name)}:` }
-        </label>
-        <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-          <select
-            onChange={this.handleSelectInputValueChange.bind(this, name, list)}
-            className="form-control"
-            value={list[this.state[name] || 0]}
-          >
-            {
-              /*
-               * Generate select input options based on list values
-               */
-              list.map((v, k) =>
-                <option key={v + k} value={v}>
-                  { capitalize(v) }
-                </option>,
-              )
-            }
-          </select>
-        </div>
-      </div>
-    );
-  }
+  hanglePropertyValueChange = (
+    { value }: { value: { [propName: string]: string|number }},
+  ) => void this.setState(value);
 
   generateProductProps = () : Object => {
-    const { options, prices, name, imagePath, path } = this.props;
+    const {
+      properties,
+      propertiesToShowInCart,
+      prices,
+      name,
+      imagePath,
+      path
+    } = this.props;
     const { quantity } = this.state;
     return (
     {
       quantity,
       properties:
         Object
-          .entries(options)
-          .reduce((obj, [propName, list]) =>
+          .entries(properties)
+          .reduce((obj, [propName, options]) =>
             ({
               ...obj,
-              [propName]: list[this.state[propName] || 0],
+              [propName]: options[this.state[propName] || 0],
             })
           , {}),
       productInfo: {
@@ -162,16 +151,18 @@ export default class Product extends Component {
         prices,
         path,
         imagePath,
+        propertiesToShowInCart,
       },
     }
     );
   }
 
   addProductFormSubmit = (event : Event) => {
-    event.preventDefault();
     const { path, onAddProduct } = this.props;
     const { quantity } = this.state;
-    setTimeout(target =>
+    const { target } = event;
+    event.preventDefault();
+    setTimeout(() =>
       animateScroll.scrollTo(
         getAbsoluteOffsetTop(
           target.children[target.children.length - 2]) - 5, {
@@ -179,7 +170,7 @@ export default class Product extends Component {
             delay: 0,
             smooth: true,
           })
-    , 50, event.target);
+    , 50);
     return quantity
            &&
            onAddProduct(
@@ -193,7 +184,7 @@ export default class Product extends Component {
       name,
       prices,
       currency,
-      options,
+      properties,
       CheckoutButton,
       iconAddProductClassName,
       getLocalization,
@@ -206,6 +197,7 @@ export default class Product extends Component {
     const {
       addProductFormSubmit,
       handleQuantityValueChange,
+      hanglePropertyValueChange,
     } = this;
 
     const price = prices[currency];
@@ -217,8 +209,11 @@ export default class Product extends Component {
         </p>
         <form className="m-t-1" onSubmit={addProductFormSubmit}>
           {
-            Object.entries(options).map(
-              option => this.createSelectInputFromArray(...option),
+            Product.createPropertiesInputList(
+              properties,
+              this.state,
+              hanglePropertyValueChange,
+              getLocalization,
             )
           }
           <div className="form-group row">
@@ -226,7 +221,7 @@ export default class Product extends Component {
               htmlFor="product-quantity"
               className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
             >
-              { getLocalization('quantityLabel') }
+              { getLocalization('quantityLabel', { quantity }) }
             </label>
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
               <input

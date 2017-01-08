@@ -17,15 +17,20 @@ class App extends Component {
       <Provider store={store}>
         <div>
           <Product
-            options={{
+            properties={{
               colour: ['red', 'green'],
             }}
-            name="iPad / Tablet case"
+            propertiesToShowInCart={
+              ['colour']
+            }
+            name="ipadTabletCase"
             prices={
               {
                 '£': 50,
               }
             }
+            currency="£"
+
             path="/shop/ipad-case/"
             imagePath="1-483x321.jpeg"
           />
