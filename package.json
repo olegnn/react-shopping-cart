@@ -21,6 +21,7 @@
     "react-overlays": "^0.6.6",
     "react-router": "^2.6.1",
     "react-scroll": "^1.2.0",
+    "reselect": "^2.5.4",
     "underscore.string": "^3.2.2"
   },
   "peerDependencies": {
@@ -45,13 +46,13 @@
     "babel-preset-stage-0": "^6.5.0",
     "bootstrap": "^4.0.0-alpha.4",
     "css-loader": "^0.25.0",
-    "documentation": "^4.0.0-beta10",
+    "documentation": "^4.0.0-beta15",
     "enzyme": "^2.4.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-pedant": "^0.8.0",
     "eslint-loader": "^1.5.0",
-    "eslint-plugin-flowtype": "^2.19.0",
+    "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsdoc": "^2.3.1",
     "eslint-plugin-jsx-a11y": "^2.2.3",

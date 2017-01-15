@@ -16,8 +16,8 @@ const createCart = ({ products }) =>
     <Cart
       products={products}
       onUpdateProduct={
-        (key, updateProps) =>
-          void (products[key] = { ...products[key], ...updateProps })
+        (key, updateProperties) =>
+          void (products[key] = { ...products[key], ...updateProperties })
       }
       onRemoveProduct={
         key => void delete products[key]

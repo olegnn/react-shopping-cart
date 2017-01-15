@@ -1,17 +1,44 @@
+/**
+ * @flow
+ * @module ProductPropertyInput
+ * @extends React.Component
+ *
+ * @author Oleg Nosov <olegnosov1@gmail.com>
+ * @license MIT
+ *
+ * @description
+ * React form for product property(options select only).
+ *
+ */
 import React, { Component, PropTypes } from 'react';
 
+const
+  propTypes = {
+    name: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
+    ).isRequired,
+    selectedOptionIndex: PropTypes.number,
+    onChange: PropTypes.func.isRequired,
+    getLocalization: PropTypes.func.isRequired,
+  },
+  defaultProps = {
+    selectedOptionIndex: 0,
+  };
 
-/*
- * Return form-group consits of select input element
- * label value will be capitalized name
- * options - the options array
- */
 export default class ProductPropertyInput extends Component {
-
+  static propTypes = propTypes;
+  static defaultProps = defaultProps;
   /*
    * Generate select input options based on options values
    */
-  static generateOptionsSelectionList(options, getLocalization) {
+  static generateOptionsSelectionList(
+    options : Array<string | number>,
+    getLocalization : getBoundLocalizationType,
+  ) : Array<React$Element<any>> {
     return options.map(optionValue =>
       <option key={optionValue} value={optionValue}>
         {
@@ -31,8 +58,9 @@ export default class ProductPropertyInput extends Component {
     const {
       name,
       options,
-      onChange
+      onChange,
     } = this.props;
+
     onChange({
       value: { [name]: options.indexOf(optionName) },
     });

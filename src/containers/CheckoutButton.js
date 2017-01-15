@@ -11,13 +11,15 @@
 import { connect } from 'react-redux';
 import { CheckoutButton } from '../components';
 import { getDefaultLocalization } from '../localization';
+import { totalSelector, isCartEmptySelector } from '../selectors';
 import { configure } from '../helpers';
 
 const mapStateToProps = (
-  { cart: { total, products } } : { cart : CartType, },
+  state,
 ) : Object => ({
-  grandTotal: total,
-  hidden: !Object.keys(products).length,
+  grandTotal: totalSelector(state),
+  hidden: isCartEmptySelector(state),
+  currency: state.cart.currency,
 });
 
 export default (

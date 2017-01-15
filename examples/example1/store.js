@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from 'redux';
-import cartReducer from '../../src/reducer';
+import cartReducer from '../../src/reducers/cart';
 
 /*eslint-disable*/
 export default createStore(combineReducers(

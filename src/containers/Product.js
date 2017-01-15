@@ -18,8 +18,8 @@ import { configure } from '../helpers';
 import { getDefaultLocalization } from '../localization';
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onAddProduct: (id : string, props : Object) => {
-    dispatch(addToCart(id, props));
+  onAddProduct: (id : string, props : Object, productCurrency: string) => {
+    dispatch(addToCart(id, props, productCurrency));
   },
 });
 

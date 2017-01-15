@@ -1,3 +1,14 @@
+/**
+ * @flow
+ * @module localization
+ *
+ * @author Oleg Nosov <olegnosov1@gmail.com>
+ * @license MIT
+ *
+ * @description
+ * Default localization and API funcs
+ *
+ */
 import React from 'react';
 import IntlMessageFormat from 'intl-messageformat';
 
@@ -11,51 +22,49 @@ export const defaultLocalization = {
       productName: '{name}',
       quantityLabel: 'Quantity:',
       priceLabel: 'Price:',
-      totalLabel: 'Total:',
       priceValue: '{currency}{price}',
+      totalLabel: 'Total:',
       totalValue: '{currency}{total, plural, ' +
                   '=0 {0}' +
                   'other {#}}',
       remove: 'Remove',
       productPropertyLabel: '{name}:',
       productPropertyValue: '{value}',
-      colour: 'Colour',
-      red: 'Red',
-      green: 'Green',
-      ipadTabletCase: 'iPad / Tablet case',
     },
     checkoutButton: {
-      checkoutTotal: 'Checkout ({total, plural, ' +
-                     '=0 {Your cart is empty :C}' +
-                     'other {Grand total {currency}# }})',
+      checkoutTotal: 'Checkout (Grand total {currency}{total, plural, ' +
+                      '=0 {0}' +
+                      'other {#}})',
     },
     product: {
       price: 'Price: {currency}{price}',
       quantityLabel: 'Quantity:',
-      addToCart: 'Add to cart',
-      colour: 'Colour',
-      red: 'Red',
-      green: 'Green',
       propertyLabel: '{name}:',
-      ipadTabletCase: 'iPad / Tablet case',
+      addToCart: 'Add to cart',
     },
   },
 };
 
 export const getLocalization = (
-  localization,
-  language,
-  id,
-  params = {},
+  localization : LocalizationObjectType,
+  language : string,
+  id : string,
+  params : Object = {},
 ) => {
   const localizationPattern = localization[id];
 
-  if (typeof localizationPattern === 'undefined')
-    throw new Error(
-      'Check your localization, you ' +
-      `didn't add pattern for ${id}`,
+  if (typeof localizationPattern === 'undefined') {
+    console.error(
+      `Missing localization for ${id}, language: ${language}`,
     );
-  else if (typeof localizationPattern === 'object')
+    return id;
+  } else if (
+    typeof localizationPattern === 'object'
+    && typeof localizationPattern.text === 'string'
+    && ['string', 'function'].includes(
+      typeof localizationPattern.component,
+    )
+  )
     return (
       React.createElement(
         localizationPattern.component,
@@ -69,12 +78,18 @@ export const getLocalization = (
     return (
       new IntlMessageFormat(localizationPattern, language).format(params)
     );
-  else throw new Error('You put some strange thing in localization object.');
+  else throw new Error(
+    `Localization pattern error for ${id}, language: ${language}`,
+  );
 };
 
 export const getDefaultLocalization =
-  (componentName, language = 'en') =>
-    (...args) =>
+  (
+    componentName : string,
+    language : string = 'en',
+    localization : LocalizationObjectType = defaultLocalization,
+  ) =>
+    (...args : Array<any>) =>
       getLocalization(
-        defaultLocalization[language][componentName], language, ...args,
+        localization[language][componentName], language, ...args,
       );

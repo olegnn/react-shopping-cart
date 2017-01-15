@@ -15,18 +15,19 @@ import { Cart } from '../components';
 import CheckoutButton from '../containers/CheckoutButton';
 import { configure } from '../helpers';
 import { getDefaultLocalization } from '../localization';
+import { isCartEmptySelector } from '../selectors';
 
 const mapStateToProps = (
-  { cart: { products, currency } } : { cart : CartType, },
-) : { products : ProductsMapType, } => ({
-  products,
-  isCartEmpty: !Object.keys(products).length,
-  currency,
+  state,
+) : Object => ({
+  products: state.cart.products,
+  isCartEmpty: isCartEmptySelector(state),
+  currency: state.cart.currency,
 });
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onUpdateProduct: (key : string, updateProps : Object = {}) =>
-    void dispatch(updateCart(key, updateProps)),
+  onUpdateProduct: (key : string, updateProperties : Object = {}) =>
+    void dispatch(updateCart(key, updateProperties)),
   onRemoveProduct: (key : string) =>
     void dispatch(removeFromCart(key)),
 });

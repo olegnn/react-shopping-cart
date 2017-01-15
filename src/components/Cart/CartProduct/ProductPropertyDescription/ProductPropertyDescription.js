@@ -1,3 +1,13 @@
+/**
+ * @flow
+ * @module ProductPropertyDescription
+ *
+ * @author Oleg Nosov <olegnosov1@gmail.com>
+ * @license MIT
+ *
+ * @description
+ * React stateless component to display product's description in cart.
+ */
 import React, { PropTypes } from 'react';
 
 const
@@ -19,6 +29,10 @@ export default function ProductPropertyDescription({
   propName,
   propValue,
   getLocalization,
+} : {
+  propName : string,
+  propValue : string | number,
+  getLocalization : getBoundLocalizationType,
 }) {
   const localizedPropName = getLocalization(propName, { value: propValue }),
     localizedPropValue =

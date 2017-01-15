@@ -2,7 +2,7 @@
 
 # Cart
 
-React stateless component which represents shopping cart
+React stateless component which represents shopping cart.
 
 **Meta**
 
@@ -13,13 +13,32 @@ React stateless component which represents shopping cart
 
 **Properties**
 
--   `productPropsToShow` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Array of product's
-    props which need to be shown in cart.
-    Default is ['colour', 'size']
 -   `showHeader` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide header 'Shopping cart'.
     Default is true
--   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for trash icon on remove button.
+-   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for
+    trash icon on remove button.
     Default is 'icon-trash'
+-   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Cart's config for Transition.
+    Default is
+      {
+        style: animate(500),
+        enteringClassName: 'fadeInUp',
+        exitingClassName: 'fadeOut',
+        timeout: 500,
+      }.
+    Look at src/components/Cart/Cart.js for details
+-   `cartItemTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Cart item's config
+    for ReactCSSTransitionGroup.
+    Default is
+      {
+        transitionName: {
+          enter: 'bounceInLeft',
+          leave: 'bounceOutRight',
+        },
+        transitionEnterTimeout: 500,
+        transitionLeaveTimeout: 500,
+      }.
+    Look at src/components/Cart/Cart.js for details
 
 ## containerPropTypes
 
@@ -30,12 +49,59 @@ React stateless component which represents shopping cart
     function which will be called when product should be updated.
     First arg is product's key in products, second - props to update.
     For instance, it may be called like:
-    onUpdateProduct('/shop/macbook-case/\_red', { quantity : 50});
+    onUpdateProduct('macbook-case/\_red', { quantity : 50 });
     Required.
 -   `onRemoveProduct` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Callback to call
-    when need to remove product from products. Accept product's key in products.
+    when need to remove product from products.
+    Accept product's key in products.
     For example: onRemoveProduct('/shop/macbook-case/\_red');
     Required.
+-   `CheckoutButton` **ReactElement** Button in the bottom of cart.
+    Required.
+
+# Product
+
+**Extends React.Component**
+
+React component - Product form with price.
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+## propTypes
+
+**Properties**
+
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display. Required
+-   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required
+-   `price` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Price (value only). Required
+-   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image. Required
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Price currency. Default is £
+-   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))>>** Custom
+    product properties.
+    Default is {}
+-   `iconAddProductClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for cart icon
+    on add to button.
+    Default is 'icon-cart-plus'
+
+## containerPropTypes
+
+**Properties**
+
+-   `CheckoutButton` **ReactElement** Button in the bottom of product.
+    Required.
+-   `onAddProduct` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Callback to call when
+    user want to add product in his cart
+    Example:
+    onAddProduct(
+      'macbook-case',
+      { quantity: 30, properties: { colour: 'red' } },
+      'GBP'
+    );
+    Required.
+-   `getLocalization` **getBoundLocalizationType** Required.
 
 # CheckoutButton
 
@@ -52,47 +118,16 @@ Checkout button with grand total.
 **Properties**
 
 -   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page.
-    Default is '/shop/checkout/'
--   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for cart icon on checkout button.
+    Required
+-   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName
+    for cart icon on checkout button.
     Default is 'icon-basket'
 
 ## containerPropTypes
 
 **Properties**
 
--   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Amount of money to pay. Required
--   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required
-
-# Product
-
-**Extends React.Component**
-
-React component - Product form with price
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-## propTypes
-
-**Properties**
-
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display. Required
--   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required
--   `price` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Price (value only). Required
--   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image. Required
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Price currency. Default is £
--   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))>>** Custom product properties.
-    Default is {}
--   `iconAddProductClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for cart icon on add to button.
-    Default is 'icon-cart-plus'
-
-## containerPropTypes
-
-**Properties**
-
--   `onAddProduct` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Callback to call when
-    user want to add product in his cart
-    Example: onAddProduct('macbook-case', { quantity: 30, properties: { colour: 'red' } });
-    Required.
+-   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Amount of money to pay. Required.
+-   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required.
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current cart currency. Required.
+-   `getLocalization` **getBoundLocalizationType** Required.

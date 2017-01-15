@@ -22,32 +22,32 @@ const
   * @memberof CheckoutButton
   *
   * @prop {string} checkoutURL - Link to checkout page.
-  * Default is '/shop/checkout/'
+  * Required
   * @prop {string} iconCheckoutClassName - ClassName
   * for cart icon on checkout button.
   * Default is 'icon-basket'
   */
   propTypes = {
-    checkoutURL: PropTypes.string,
+    checkoutURL: PropTypes.string.isRequired,
     iconCheckoutClassName: PropTypes.string,
-    currency: PropTypes.string,
   },
 /**
   * @static containerPropTypes
   * @memberof CheckoutButton
   *
-  * @prop {number} grandTotal - Amount of money to pay. Required
-  * @prop {boolean} hidden - Show or hide button. Required
+  * @prop {number} grandTotal - Amount of money to pay. Required.
+  * @prop {boolean} hidden - Show or hide button. Required.
+  * @prop {string} currency - Current cart currency. Required.
+  * @prop {getBoundLocalizationType} getLocalization - Required.
   */
   containerPropTypes = {
     grandTotal: PropTypes.number.isRequired,
     hidden: PropTypes.bool.isRequired,
+    currency: PropTypes.string.isRequired,
     getLocalization: PropTypes.func.isRequired,
   },
   defaultProps = {
-    checkoutURL: '/shop/checkout/',
     iconCheckoutClassName: 'icon-basket',
-    currency: '£',
   };
 
 export default function CheckoutButton (
@@ -60,7 +60,7 @@ export default function CheckoutButton (
     getLocalization,
   } : Object,
 ) : React$Element<any> {
-  return (
+  return !hidden && (
     <Transition
       style={animate(500)}
       in={!hidden}
@@ -77,7 +77,9 @@ export default function CheckoutButton (
         {
           getLocalization(
             'checkoutTotal', {
-              currency,
+              currency: getLocalization(
+                currency,
+              ),
               total: grandTotal,
             },
           )

@@ -97,7 +97,7 @@ import { CartComponent, ProductComponent, CheckoutButtonComponent } from 'react-
 <CartComponent
   products={ products }
   onUpdateProduct={
-    (key, updateProps) => // Update something
+    (key, updateProperties) => // Update something
   }
   onRemoveProduct={
     (key) => // Remove something

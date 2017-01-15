@@ -1,12 +1,12 @@
 /**
- * @flow weak
+ * @flow
  * @module Cart
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
  *
  * @description
- * React stateless component which represents shopping cart
+ * React stateless component which represents shopping cart.
  */
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
@@ -20,15 +20,32 @@ const
    * @static propTypes
    * @memberof Cart
    *
-   * @prop {Array<string>} productPropsToShow - Array of product's
-   * props which need to be shown in cart.
-   * Default is ['colour', 'size']
-   *
    * @prop {boolean} showHeader - Show or hide header 'Shopping cart'.
    * Default is true
    * @prop {string} iconTrashClassName - ClassName for
    * trash icon on remove button.
    * Default is 'icon-trash'
+   * @prop {Object} cartTransition - Cart's config for Transition.
+   * Default is
+   *   {
+   *     style: animate(500),
+   *     enteringClassName: 'fadeInUp',
+   *     exitingClassName: 'fadeOut',
+   *     timeout: 500,
+   *   }.
+   * Look at src/components/Cart/Cart.js for details
+   * @prop {Object} cartItemTransition - Cart item's config
+   * for ReactCSSTransitionGroup.
+   * Default is
+   *   {
+   *     transitionName: {
+   *       enter: 'bounceInLeft',
+   *       leave: 'bounceOutRight',
+   *     },
+   *     transitionEnterTimeout: 500,
+   *     transitionLeaveTimeout: 500,
+   *   }.
+   * Look at src/components/Cart/Cart.js for details
    */
   propTypes = {
     showHeader: PropTypes.bool,
@@ -45,11 +62,12 @@ const
    * function which will be called when product should be updated.
    * First arg is product's key in products, second - props to update.
    * For instance, it may be called like:
-   * onUpdateProduct('/shop/macbook-case/_red', { quantity : 50});
+   * onUpdateProduct('macbook-case/_red', { quantity : 50 });
    * Required.
    *
    * @prop {Function<string>} onRemoveProduct - Callback to call
-   * when need to remove product from products. Accept product's key in products.
+   * when need to remove product from products.
+   * Accept product's key in products.
    * For example: onRemoveProduct('/shop/macbook-case/_red');
    * Required.
    *

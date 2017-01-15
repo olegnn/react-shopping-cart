@@ -50,5 +50,19 @@ export const configure = (
 /**
  * @memberof helpers
  */
-export const isNaturalNumber = (num: number) : boolean =>
+export const isNaturalNumber = (num : number) : boolean =>
   Number.isSafeInteger(num) && num > -1;
+
+/**
+ * @memberof helpers
+ */
+export const getProductKey = (
+  id : string,
+  properties : {
+    [propertyName : string] : string | number,
+  },
+) : string =>
+  id + Object.entries(properties)
+         .reduce((acc : string, [propName, propValue]) =>
+           `${acc}_${propName}-${propValue}`
+         , '');

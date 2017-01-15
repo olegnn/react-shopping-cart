@@ -92,6 +92,8 @@
     "no-unsafe-negation": [0],
     "no-undef": [1],
     "no-void": [0],
+    "no-shadow": [0],
+    "no-use-before-define": [1],
 
     "react/prop-types": [1],
     "react/jsx-curly-spacing": [2, "never"],

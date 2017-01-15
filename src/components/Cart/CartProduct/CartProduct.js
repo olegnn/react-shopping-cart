@@ -1,10 +1,20 @@
+/**
+ * @flow
+ * @module CartProduct
+ * @extends React.Component
+ *
+ * @author Oleg Nosov <olegnosov1@gmail.com>
+ * @license MIT
+ *
+ * @description
+ * React component to display product in cart.
+ */
 import React, { Component, PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
 
 import ProductPropertyDescription
   from './ProductPropertyDescription/ProductPropertyDescription';
 import { isNaturalNumber } from '../../../helpers';
-
 
 const
   propTypes = {
@@ -73,7 +83,9 @@ export default class CartProduct extends Component {
         this.props.productKey,
     );
 
-  handleQuantityValueChange = ({ target: { value } }) => {
+  handleQuantityValueChange = (
+    { target: { value } } : { target : HTMLInputElement },
+  ) => {
     const quantity = +value;
     /*
      * Check if quantity value is correct
@@ -109,6 +121,8 @@ export default class CartProduct extends Component {
     } = CartProduct;
 
     const localizedName = getLocalization(name);
+
+    const localizedCurrency = getLocalization(currency);
 
     return (
       <div
@@ -160,7 +174,7 @@ export default class CartProduct extends Component {
                 {
                   getLocalization(
                     'priceValue', {
-                      currency,
+                      currency: localizedCurrency,
                       price,
                     },
                   )
@@ -178,7 +192,7 @@ export default class CartProduct extends Component {
                 {
                   getLocalization(
                     'totalValue', {
-                      currency,
+                      currency: localizedCurrency,
                       total: price * quantity,
                     },
                   )

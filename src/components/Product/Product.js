@@ -7,8 +7,7 @@
  * @license MIT
  *
  * @description
- * React component - Product form with price
- *
+ * React component - Product form with price.
  */
 import React, { Component, PropTypes } from 'react';
 import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
@@ -35,6 +34,7 @@ const
    */
   propTypes = {
     name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     prices: PropTypes.objectOf(
       PropTypes.number,
@@ -54,28 +54,41 @@ const
     propertiesToShowInCart: PropTypes.arrayOf(
       PropTypes.string,
     ),
+    scrollAnimationConfig: PropTypes.object,
     iconAddProductClassName: PropTypes.string,
+    afterPriceNode: PropTypes.node,
   },
   /**
   * @static containerPropTypes
   * @memberof Product
-  *
+  * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
+  * Required.
   * @prop {Function<string>} onAddProduct - Callback to call when
   * user want to add product in his cart
-  * Example: onAddProduct('macbook-case', { quantity: 30, properties: { colour: 'red' } });
+  * Example:
+  * onAddProduct(
+  *   'macbook-case',
+  *   { quantity: 30, properties: { colour: 'red' } },
+  *   'GBP'
+  * );
   * Required.
-  * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
-  * Default is 'icon-cart-plus'
+  * @prop {getBoundLocalizationType} getLocalization - Required.
   */
   containerPropTypes = {
-    onAddProduct: PropTypes.func.isRequired,
     CheckoutButton: PropTypes.element.isRequired,
+    onAddProduct: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
   },
   defaultProps = {
     properties: {},
     propertiesToShowInCart: [],
     iconAddProductClassName: 'icon-cart-plus',
+    scrollAnimationConfig: {
+      duration: 750,
+      delay: 0,
+      smooth: true,
+    },
+    afterPriceNode: null,
   };
 
 const getAbsoluteOffsetTop = (
@@ -131,9 +144,20 @@ export default class Product extends Component {
       prices,
       name,
       imagePath,
-      path
+      path,
+    } : {
+      properties: { [propName: string]: string|number },
+      propertiesToShowInCart: Array<string>,
+      prices: { [currency: string]: number },
+      name: string,
+      imagePath: string,
+      path: string,
     } = this.props;
-    const { quantity } = this.state;
+
+    const { state } = this;
+
+    const { quantity } = state;
+
     return (
     {
       quantity,
@@ -143,7 +167,7 @@ export default class Product extends Component {
           .reduce((obj, [propName, options]) =>
             ({
               ...obj,
-              [propName]: options[this.state[propName] || 0],
+              [propName]: options[state[propName] || 0],
             })
           , {}),
       productInfo: {
@@ -158,25 +182,31 @@ export default class Product extends Component {
   }
 
   addProductFormSubmit = (event : Event) => {
-    const { path, onAddProduct } = this.props;
+    const {
+      id,
+      path,
+      currency,
+      scrollAnimationConfig,
+      onAddProduct,
+    } = this.props;
     const { quantity } = this.state;
+    const { generateProductProps } = this;
     const { target } = event;
     event.preventDefault();
     setTimeout(() =>
       animateScroll.scrollTo(
         getAbsoluteOffsetTop(
-          target.children[target.children.length - 2]) - 5, {
-            duration: 750,
-            delay: 0,
-            smooth: true,
-          })
+          target.children[target.children.length - 2],
+        ) - 5, scrollAnimationConfig,
+      )
     , 50);
-    return quantity
-           &&
-           onAddProduct(
-             path,
-             this.generateProductProps(),
-           );
+    if (quantity) {
+      onAddProduct(
+         id,
+         generateProductProps(),
+         currency,
+      );
+    }
   }
 
   render() {
@@ -185,8 +215,9 @@ export default class Product extends Component {
       prices,
       currency,
       properties,
-      CheckoutButton,
       iconAddProductClassName,
+      afterPriceNode,
+      CheckoutButton,
       getLocalization,
     } = this.props;
 
@@ -198,20 +229,28 @@ export default class Product extends Component {
       addProductFormSubmit,
       handleQuantityValueChange,
       hanglePropertyValueChange,
+      state,
     } = this;
 
+    const {
+      createPropertiesInputList,
+    } = Product;
+
     const price = prices[currency];
+
+    const localizedCurrency = getLocalization(currency);
 
     return (
       <div>
         <p>
-          { getLocalization('price', { price, currency }) }
+          { getLocalization('price', { price, currency: localizedCurrency }) }
         </p>
+        { afterPriceNode }
         <form className="m-t-1" onSubmit={addProductFormSubmit}>
           {
-            Product.createPropertiesInputList(
+            createPropertiesInputList(
               properties,
-              this.state,
+              state,
               hanglePropertyValueChange,
               getLocalization,
             )

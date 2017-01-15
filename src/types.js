@@ -10,9 +10,18 @@
  *
  */
 
- declare function onUpdateProductType(key : string, updateProps : Object): void;
+ declare function onUpdateProductType(key : string, updateProperties : Object): void;
 
  declare function onRemoveProductType(key : string): void;
+
+ declare function getBoundLocalizationType(id : string, params? : Object) : string;
+
+ declare function getLocalizationType(
+   localization : LocalizationObjectType,
+   language : string,
+   id : string,
+   params? : Object,
+ ) : string;
 
  /**
  * @namespace ProductInfoType
@@ -22,6 +31,8 @@
  * Object contains { [currency]: price } pairs
  * @prop {string} imagePath - Path to main image
  * @prop {string} path - Link to product's page
+ * @prop {Array<string>=} propertiesToShowInCart - Array
+ * of names of properties which need to be shown in cart
  *
  */
  declare type ProductInfoType = {
@@ -31,6 +42,7 @@
   },
   imagePath : string,
   path: string,
+  propertiesToShowInCart?: Array<string>,
 }
 
 /**
@@ -56,7 +68,8 @@
 *       GBP: 50
 *      },
 *      path: '/shop/macbook-case/',
-*      imagePath: '/shop/macbook-case/1-483x321.jpeg'
+*      imagePath: '/shop/macbook-case/1-483x321.jpeg',
+*      propertiesToShowInCart: ['colour']
 *    }
 *  }
 */
@@ -86,26 +99,58 @@
 * @prop {Object.<string, ProductType>} products - Products map
 */
  declare type CartType = {
-  total : number,
-  summary : string,
   products : ProductsMapType,
   currency: string,
 };
 
-// TODO
- declare type CartActionType = {
-  type :
-    'cart/ADD'
-  | 'cart/REMOVE'
-  | 'cart/UPDATE'
-  | 'cart/EMPTY'
-  | 'cart/SET_CURRENCY',
+
+ declare type CartAddActionType = {
+  type : 'cart/ADD',
   id : string,
-  key : string | void,
   quantity : number,
-  properties? : {
+  properties : {
     [propName : string] : string | number,
   },
-  productInfo? : ProductInfoType,
-  updateProps? : Object,
+  productInfo : ProductInfoType,
+  productCurrency : string,
+};
+
+ declare type CartUpdateActionType = {
+  type : 'cart/UPDATE',
+  key : string,
+  quantity: number,
+  updateProperties: Object,
+};
+
+ declare type CartRemoveActionType = {
+  type : 'cart/REMOVE',
+  key : string,
+};
+
+ declare type CartSetCurrencyActionType = {
+  type : 'cart/SET_CURRENCY',
+  currency : string,
+};
+
+ declare type CartEmptyActionType = {
+  type : 'cart/EMPTY',
+};
+
+declare type CartActionType =
+  CartAddActionType
+  | CartUpdateActionType
+  | CartRemoveActionType
+  | CartEmptyActionType
+  | CartSetCurrencyActionType;
+
+declare type LocalizationObjectType = {
+  [languageName : string] : {
+    [componentName : string ] : {
+      [id : string] : string | {
+        component : string | Function,
+        props? : Object,
+        text : string,
+      },
+    },
+  },
 };
