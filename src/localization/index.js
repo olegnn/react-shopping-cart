@@ -22,9 +22,9 @@ export const defaultLocalization = {
       productName: '{name}',
       quantityLabel: 'Quantity:',
       priceLabel: 'Price:',
-      priceValue: '{currency}{price}',
+      priceValue: '{localizedCurrency}{price}',
       totalLabel: 'Total:',
-      totalValue: '{currency}{total, plural, ' +
+      totalValue: '{localizedCurrency}{total, plural, ' +
                   '=0 {0}' +
                   'other {#}}',
       remove: 'Remove',
@@ -51,6 +51,7 @@ export const getLocalization = (
   id : string,
   params : Object = {},
 ) => {
+  console.log(localization, language,id,params)
   const localizationPattern = localization[id];
 
   if (typeof localizationPattern === 'undefined') {
@@ -64,8 +65,7 @@ export const getLocalization = (
     && ['string', 'function'].includes(
       typeof localizationPattern.component,
     )
-  )
-    return (
+  ) return (
       React.createElement(
         localizationPattern.component,
         localizationPattern.props || {},
@@ -73,7 +73,7 @@ export const getLocalization = (
           localizationPattern.text, language,
         ).format(params),
       )
-    );
+  );
   else if (typeof localizationPattern === 'string')
     return (
       new IntlMessageFormat(localizationPattern, language).format(params)

@@ -120,9 +120,23 @@ export default class CartProduct extends Component {
       generateProductDescription,
     } = CartProduct;
 
-    const localizedName = getLocalization(name);
+    const total = price * quantity;
 
-    const localizedCurrency = getLocalization(currency);
+    const localizationScope = {
+      quantity,
+      price,
+      total,
+      name,
+      currency,
+    };
+
+    Object.assign(
+      localizationScope,
+      {
+        localizedName: getLocalization(name, localizationScope),
+        localizedCurrency: getLocalization(currency, localizationScope),
+      },
+    );
 
     return (
       <div
@@ -130,7 +144,7 @@ export default class CartProduct extends Component {
       >
         <Link to={path}>
           <div className="list-group-item-heading">
-            <h5>{ getLocalization('productName', { name: localizedName }) }</h5>
+            <h5>{ getLocalization('productName', localizationScope) }</h5>
           </div>
         </Link>
         <div className="list-group-item-text row">
@@ -145,7 +159,7 @@ export default class CartProduct extends Component {
                 htmlFor="quantity"
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
               >
-                { getLocalization('quantityLabel') }
+                { getLocalization('quantityLabel', localizationScope) }
               </label>
               <div className="col-xs-6 col-md-7 col-lg-8">
                 <input
@@ -168,16 +182,13 @@ export default class CartProduct extends Component {
                 htmlFor="price"
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
               >
-                { getLocalization('priceLabel') }
+                {
+                  getLocalization('priceLabel', localizationScope)
+                }
               </label>
               <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
                 {
-                  getLocalization(
-                    'priceValue', {
-                      currency: localizedCurrency,
-                      price,
-                    },
-                  )
+                  getLocalization('priceValue', localizationScope)
                 }
               </div>
             </div>
@@ -186,16 +197,13 @@ export default class CartProduct extends Component {
                 htmlFor="total"
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
               >
-                { getLocalization('totalLabel') }
+                {
+                  getLocalization('totalLabel', localizationScope)
+                }
               </label>
               <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
                 {
-                  getLocalization(
-                    'totalValue', {
-                      currency: localizedCurrency,
-                      total: price * quantity,
-                    },
-                  )
+                  getLocalization('totalValue', localizationScope)
                 }
               </div>
             </div>
@@ -208,7 +216,7 @@ export default class CartProduct extends Component {
                   onClick={handleRemoveProductClick}
                 >
                   <i className={iconTrashClassName} />
-                  { getLocalization('remove') }
+                  { getLocalization('remove', localizationScope) }
                 </button>
               </div>
             </div>
