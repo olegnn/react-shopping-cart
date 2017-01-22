@@ -12,8 +12,8 @@ import React, { PropTypes } from 'react';
 
 const
   propTypes = {
-    propName: PropTypes.string.isRequired,
-    propValue: PropTypes.oneOfType(
+    name: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType(
       [
         PropTypes.string,
         PropTypes.number,
@@ -26,41 +26,42 @@ const
   };
 
 export default function ProductPropertyDescription({
-  propName,
-  propValue,
+  name,
+  value,
   getLocalization,
 } : {
-  propName : string,
-  propValue : string | number,
+  name : string,
+  value : string | number,
   getLocalization : getBoundLocalizationType,
 }) {
-  const localizedPropName = getLocalization(propName, { value: propValue }),
-    localizedPropValue =
-      typeof propValue === 'string'
-             ? getLocalization(propValue)
-             : propValue;
+  const localizationScope = {
+    name,
+    value,
+    get localizedName() {
+      return getLocalization(name, localizationScope);
+    },
+    get localizedValue() {
+      return typeof value === 'string'
+           ? getLocalization(value, localizationScope)
+           : value;
+    },
+  };
   return (
     <div className="form-group row">
       <label
-        htmlFor={propName}
+        htmlFor={name}
         className="col-xs-6 col-md-5 col-lg-4 col-form-label"
       >
         {
           getLocalization(
-            'productPropertyLabel', {
-              name: localizedPropName,
-              value: localizedPropValue,
-            },
+            'productPropertyLabel', localizationScope,
           )
         }
       </label>
       <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
         {
           getLocalization(
-            'productPropertyValue', {
-              name: localizedPropName,
-              value: localizedPropValue,
-            },
+            'productPropertyValue', localizationScope,
           )
         }
       </div>

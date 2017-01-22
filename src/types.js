@@ -106,6 +106,7 @@
 
  declare type CartAddActionType = {
   type : 'cart/ADD',
+  key : string,
   id : string,
   quantity : number,
   properties : {

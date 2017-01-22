@@ -76,9 +76,9 @@ export default class App extends Component {
 
     return (
       <Provider store={store}>
-        <div>
+        <div className="container">
           <Product
-            id="macbook-case"
+            id="ipad-case"
             getLocalization={
               getProductLocalization
             }
@@ -114,7 +114,6 @@ export default class App extends Component {
     );
   }
 }
-
 
 const mainDiv = document.createElement('div');
 

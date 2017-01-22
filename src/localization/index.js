@@ -19,7 +19,10 @@ export const defaultLocalization = {
         text: 'Shopping cart',
         component: 'h4',
       },
-      productName: '{name}',
+      productName: {
+        text: '{localizedName}',
+        component: 'h5',
+      },
       quantityLabel: 'Quantity:',
       priceLabel: 'Price:',
       priceValue: '{localizedCurrency}{price}',
@@ -28,18 +31,22 @@ export const defaultLocalization = {
                   '=0 {0}' +
                   'other {#}}',
       remove: 'Remove',
-      productPropertyLabel: '{name}:',
-      productPropertyValue: '{value}',
+      productPropertyLabel: '{localizedName}:',
+      productPropertyValue: '{localizedValue}',
     },
     checkoutButton: {
-      checkoutTotal: 'Checkout (Grand total {currency}{total, plural, ' +
-                      '=0 {0}' +
-                      'other {#}})',
+      checkoutTotal:
+        'Checkout (Grand total {localizedCurrency}{total, plural, ' +
+        '=0 {0}' +
+        'other {#}})',
     },
     product: {
-      price: 'Price: {currency}{price}',
+      price: {
+        text: 'Price: {localizedCurrency}{price}',
+        component: 'strong',
+      },
       quantityLabel: 'Quantity:',
-      propertyLabel: '{name}:',
+      propertyLabel: '{localizedName}:',
       addToCart: 'Add to cart',
     },
   },
@@ -51,7 +58,6 @@ export const getLocalization = (
   id : string,
   params : Object = {},
 ) => {
-  console.log(localization, language,id,params)
   const localizationPattern = localization[id];
 
   if (typeof localizationPattern === 'undefined') {

@@ -1,0 +1,17 @@
+exports[`CheckoutButton takes snapshot 1`] = `
+<a
+  className="btn btn-primary btn-block"
+  onClick={[Function bound handleClick]}
+  style={
+    Object {
+      "WebkitAnimationDuration": "0.5s",
+      "WebkitAnimationFillMode": "both",
+      "animationDuration": "0.5s",
+      "animationFillMode": "both"
+    }
+  }>
+  <i
+    className="icon-basket" />
+  Checkout (Grand total £100)
+</a>
+`;

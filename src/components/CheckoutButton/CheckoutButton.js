@@ -59,7 +59,14 @@ export default function CheckoutButton (
     iconCheckoutClassName,
     getLocalization,
   } : Object,
-) : React$Element<any> {
+) : React$Element<any> | false {
+  const localizationScope = {
+    currency,
+    total: grandTotal,
+    get localizedCurrency() {
+      return getLocalization(currency, localizationScope);
+    },
+  };
   return !hidden && (
     <Transition
       style={animate(500)}
@@ -75,14 +82,7 @@ export default function CheckoutButton (
       >
         <i className={iconCheckoutClassName} />
         {
-          getLocalization(
-            'checkoutTotal', {
-              currency: getLocalization(
-                currency,
-              ),
-              total: grandTotal,
-            },
-          )
+          getLocalization('checkoutTotal', localizationScope)
         }
       </Link>
     </Transition>

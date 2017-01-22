@@ -11,51 +11,41 @@
  */
 import { createSelector } from 'reselect';
 
+/**
+ * @memberof selectors
+ * @private
+ */
 const productsSelector = ({ cart: { products } }) => products;
+
+/**
+ * @memberof selectors
+ * @private
+ */
 const currencySelector = ({ cart: { currency } }) => currency;
 
-/*
- * Generate description in format
- * product.name: product.quantity product.properties[...]
- * For Example 'MacBook case: 1; The West End: 1 nickel finish XS:31”;'
- */
-export const summarySelector = createSelector(
-   productsSelector,
-   (products : ProductsMapType) =>
-     Object
-       .values(products)
-       .map(
-         ({ quantity, properties, productInfo: { name } }) =>
-         `${`${name}:` +
-         ` ${quantity}`}${
-         Object
-           .values(properties)
-           .reduce(
-             (str, propValue) =>
-               str + (propValue && ` ${propValue}` || ''), '',
-           )}`,
-       )
-       .join('; '),
- );
-
-/*
+/**
+ * @memberof selectors
+ * @description
  * Calculate total products' cost
  */
 export const totalSelector = createSelector(
   productsSelector,
   currencySelector,
-  (products : ProductsMapType, currency : string) =>
+  (products : ProductsMapType, currency : string) : number =>
     Object
       .values(products)
       .map(
         (
-          { quantity, productInfo: { prices } },
-        ) => quantity * prices[currency],
+          { quantity, productInfo: { prices: { [currency]: price } } },
+        ) => quantity * price,
       )
       .reduce((total : number, current : number) => total + current, 0),
 );
 
+/**
+ * @memberof selectors
+ */
 export const isCartEmptySelector = createSelector(
   productsSelector,
-  products => !Object.keys(products).length,
+  (products : ProductsMapType) : boolean => !Object.keys(products).length,
 );

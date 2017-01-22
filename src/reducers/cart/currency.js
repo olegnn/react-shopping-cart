@@ -20,10 +20,7 @@ const currencyActions = {
       {
         productCurrency,
       } : CartAddActionType,
-    ) : string =>
-      currency.length
-      ? currency
-      : productCurrency,
+    ) : string => currency || productCurrency,
   [actionTypes.CART_SET_CURRENCY]:
     (
       _,

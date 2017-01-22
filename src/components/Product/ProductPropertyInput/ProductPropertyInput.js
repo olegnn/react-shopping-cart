@@ -38,6 +38,7 @@ export default class ProductPropertyInput extends Component {
   static generateOptionsSelectionList(
     options : Array<string | number>,
     getLocalization : getBoundLocalizationType,
+    localizationScope: Object = {},
   ) : Array<React$Element<any>> {
     return options.map(optionValue =>
       <option key={optionValue} value={optionValue}>
@@ -45,6 +46,7 @@ export default class ProductPropertyInput extends Component {
           typeof optionValue === 'string'
           ? getLocalization(
               optionValue,
+              localizationScope,
             )
           : optionValue
         }
@@ -82,7 +84,12 @@ export default class ProductPropertyInput extends Component {
       generateOptionsSelectionList,
     } = ProductPropertyInput;
 
-    const localizedName = getLocalization(name);
+    const localizationScope = {
+      name,
+      get localizedName() {
+        return getLocalization(name, localizationScope);
+      },
+    };
 
     return (
       <div className="form-group row">
@@ -91,9 +98,7 @@ export default class ProductPropertyInput extends Component {
           className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
         >
           {
-            getLocalization('propertyLabel', {
-              name: localizedName,
-            })
+            getLocalization('propertyLabel', localizationScope)
           }
         </label>
         <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
@@ -104,7 +109,7 @@ export default class ProductPropertyInput extends Component {
           >
             {
               generateOptionsSelectionList(
-                options, getLocalization,
+                options, getLocalization, localizationScope,
               )
             }
           </select>

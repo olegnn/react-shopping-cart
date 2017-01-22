@@ -9,7 +9,6 @@
  * Products reducer for cart
  *
  */
-import { getProductKey } from '../../helpers';
 import * as actionTypes from '../../actionTypes';
 
 const initialState = {};
@@ -17,30 +16,26 @@ const initialState = {};
 const productActions = {
   [actionTypes.CART_ADD]:
     (
-      products : ProductsMapType,
+      { [key]: product, ...restOfProducts } : ProductsMapType,
       {
+        key,
         id,
         quantity,
         properties,
         productInfo,
       } : CartAddActionType,
-    ) : ProductsMapType => {
-      const productKey = getProductKey(id, properties);
-      const { [productKey]: product, ...restOfProducts } = products;
-
-      return {
-        [productKey]: {
-          id,
-          quantity:
-            quantity + (
-              !!product && product.quantity
-            ),
-          properties,
-          productInfo,
-        },
-        ...restOfProducts,
-      };
-    },
+    ) : ProductsMapType => ({
+      [key]: {
+        id,
+        quantity:
+          quantity + (
+            !!product && product.quantity
+          ),
+        properties,
+        productInfo,
+      },
+      ...restOfProducts,
+    }),
   [actionTypes.CART_UPDATE]:
     (
       products : ProductsMapType,

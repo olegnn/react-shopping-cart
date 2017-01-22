@@ -8,54 +8,66 @@
  */
 
 import React from 'react';
+import renderer from 'react-test-renderer';
+import IntlMessageFormat from 'intl-messageformat';
 import { mount } from 'enzyme';
 import { Product } from '../src/components';
+import { generateProductKey } from '../src/helpers';
 
-const createProduct = ({ cartState, props }) =>
-  mount(
+const testProductLocalization = {
+  colour: 'Colour',
+  iPadCase: 'iPad case',
+  red: 'Red',
+  green: 'Green',
+  price: 'Price: {localizedCurrency}{price}',
+  GBP: '£',
+  quantityLabel: 'Quantity:',
+  propertyLabel: '{localizedName}:',
+  addToCart: 'Add to my cart :)',
+};
+
+const getLocalization = (id, params = {}) =>
+  new IntlMessageFormat(testProductLocalization[id]).format(params);
+
+const createProduct = ({ cartState, props }, renderFunc = mount) =>
+  renderFunc(
     <Product
       {...props}
       onAddProduct={
         (
-          id,
+          key,
           {
+            id,
             quantity,
             productInfo,
             properties,
           },
         ) => void (
-          cartState[id + Object.values(properties).join('_')] =
-            { quantity, id, ...productInfo, properties }
+          cartState[key] =
+            { quantity, id, productInfo, properties }
           )
       }
       CheckoutButton={<a />}
-    />);
+      getLocalization={
+        getLocalization
+      }
+      currency="GBP"
+      generateProductKey={generateProductKey}
+    />,
+  );
 
 
 describe('Product', () => {
-  const iPadCaseInCart = {
-    id: 'ipad-case',
-    properties: {
-      colour: 'red',
-    },
-    quantity: 1,
-    productInfo: {
-      name: 'iPad / Tablet case',
-      prices: { '£': 70 },
-      path: '/shop/ipad-case/',
-      imagePath: '/shop/ipad-case/1-483x321.jpeg',
-      currency: '£',
-    },
-  };
-
   const iPadCaseProps = {
-    options: {
+    name: 'ipadCase',
+    id: 'ipad-case',
+    path: '/shop/ipad-case/',
+    properties: {
       colour: ['red', 'green'],
     },
-    name: 'iPad / Tablet case',
-    prices: { '£': 70 },
-    currency: '£',
-    path: '/shop/ipad-case/',
+    propertiesToShowInCart: ['colour'],
+    prices: { GBP: 70 },
+    currency: 'GBP',
     imagePath: '1-483x321.jpeg',
   };
 
@@ -66,14 +78,18 @@ describe('Product', () => {
     // Current product is ipad case (see props above)
     const renderedProduct = createProduct({ cartState, props: iPadCaseProps });
 
+    const productKey = generateProductKey(
+      iPadCaseProps.id,
+      { colour: 'red' },
+    );
+
     const simulateAddProductEvent =
       () => renderedProduct.find('form').simulate('submit');
 
     simulateAddProductEvent();
-
-
+    
     // Our product is in cart already
-    expect(cartState['/shop/ipad-case/red'].quantity).toBe(1);
+    expect(cartState[productKey].quantity).toBe(1);
 
     // Try to change quantity to -1
     renderedProduct.find('input').simulate('change', { target: { value: -1 } });
@@ -94,8 +110,10 @@ describe('Product', () => {
   });
 
   it('takes snapshot', () => {
-    const cartState = {};
-    const renderedProduct = createProduct({ cartState, props: iPadCaseProps });
-    expect(renderedProduct.html()).toMatchSnapshot();
+    const renderedProduct = createProduct(
+      { props: iPadCaseProps },
+      renderer.create,
+    );
+    expect(renderedProduct.toJSON()).toMatchSnapshot();
   });
 });

@@ -1,0 +1,60 @@
+exports[`Product takes snapshot 1`] = `
+<div>
+  <p>
+    Price: £70
+  </p>
+  <form
+    className="m-t-1"
+    onSubmit={[Function anonymous]}>
+    <div
+      className="form-group row">
+      <label
+        className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
+        htmlFor="colour">
+        Colour:
+      </label>
+      <div
+        className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <select
+          className="form-control"
+          onChange={[Function anonymous]}
+          value="red">
+          <option
+            value="red">
+            Red
+          </option>
+          <option
+            value="green">
+            Green
+          </option>
+        </select>
+      </div>
+    </div>
+    <div
+      className="form-group row">
+      <label
+        className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
+        htmlFor="product-quantity">
+        Quantity:
+      </label>
+      <div
+        className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        <input
+          className="form-control"
+          onChange={[Function anonymous]}
+          type="number"
+          value={1} />
+      </div>
+    </div>
+    <button
+      className="btn btn-success btn-block"
+      disabled={false}
+      type="submit">
+      <i
+        className="icon-cart-plus" />
+      Add to my cart :)
+    </button>
+    <a />
+  </form>
+</div>
+`;

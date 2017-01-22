@@ -14,13 +14,13 @@ import * as actionTypes from './actionTypes';
  * @memberof actions
  */
 export const addToCart = (
-  id : string,
+  key : string,
   props : Object,
-  productCurrency: string,
+  productCurrency : string,
 ) : Object =>
   ({
     type: actionTypes.CART_ADD,
-    id,
+    key,
     ...props,
     productCurrency,
   });

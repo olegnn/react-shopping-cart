@@ -69,8 +69,8 @@ export default class CartProduct extends Component {
           ? [
             <ProductPropertyDescription
               key={propName}
-              propName={propName}
-              propValue={propValue}
+              name={propName}
+              value={propValue}
               getLocalization={getLocalization}
             />,
           ]
@@ -126,17 +126,15 @@ export default class CartProduct extends Component {
       quantity,
       price,
       total,
-      name,
       currency,
-    };
-
-    Object.assign(
-      localizationScope,
-      {
-        localizedName: getLocalization(name, localizationScope),
-        localizedCurrency: getLocalization(currency, localizationScope),
+      name,
+      get localizedName() {
+        return getLocalization(name, localizationScope);
       },
-    );
+      get localizedCurrency() {
+        return getLocalization(currency, localizationScope);
+      },
+    };
 
     return (
       <div
@@ -144,7 +142,7 @@ export default class CartProduct extends Component {
       >
         <Link to={path}>
           <div className="list-group-item-heading">
-            <h5>{ getLocalization('productName', localizationScope) }</h5>
+            { getLocalization('productName', localizationScope) }
           </div>
         </Link>
         <div className="list-group-item-text row">
@@ -183,12 +181,16 @@ export default class CartProduct extends Component {
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
               >
                 {
-                  getLocalization('priceLabel', localizationScope)
+                  getLocalization(
+                    'priceLabel', localizationScope,
+                  )
                 }
               </label>
               <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
                 {
-                  getLocalization('priceValue', localizationScope)
+                  getLocalization(
+                    'priceValue', localizationScope,
+                  )
                 }
               </div>
             </div>
@@ -198,12 +200,16 @@ export default class CartProduct extends Component {
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
               >
                 {
-                  getLocalization('totalLabel', localizationScope)
+                  getLocalization(
+                    'totalLabel', localizationScope,
+                  )
                 }
               </label>
               <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
                 {
-                  getLocalization('totalValue', localizationScope)
+                  getLocalization(
+                    'totalValue', localizationScope,
+                  )
                 }
               </div>
             </div>

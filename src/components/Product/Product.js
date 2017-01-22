@@ -13,7 +13,10 @@ import React, { Component, PropTypes } from 'react';
 import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
 
 import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
-import { isNaturalNumber } from '../../helpers';
+import {
+  isNaturalNumber,
+  getAbsoluteOffsetTop,
+} from '../../helpers';
 
 const
   /**
@@ -21,11 +24,12 @@ const
    * @memberof Product
    *
    * @prop {string} name - Name to display. Required
+   * @prop {id} id - Product's id. Required
    * @prop {string} path - Path to product. Required
-   * @prop {number} price - Price (value only). Required
+   * @prop {Object.<string, number>} prices - Prices (currency-value). Required
    * @prop {string} imagePath - Path to main image. Required
-   * @prop {string} currency - Price currency. Default is £
-   * @prop {Object.<string, Array<(string | number)>>} options - Custom
+   * @prop {string} currency - Price currency. Required
+   * @prop {Object.<string, Array<(string | number)>>} properties - Custom
    * product properties.
    * Default is {}
    * @prop {string} iconAddProductClassName - ClassName for cart icon
@@ -73,11 +77,15 @@ const
   * );
   * Required.
   * @prop {getBoundLocalizationType} getLocalization - Required.
+  * @prop {generateProductKey} generateProductKey - Function which generates
+  * product's key based on id and properties. Example:
+  * generateProductKey('macbook-case', { colour: 'red'} ).
   */
   containerPropTypes = {
     CheckoutButton: PropTypes.element.isRequired,
     onAddProduct: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
+    generateProductKey: PropTypes.func.isRequired,
   },
   defaultProps = {
     properties: {},
@@ -91,11 +99,6 @@ const
     afterPriceNode: null,
   };
 
-const getAbsoluteOffsetTop = (
-  { offsetTop, offsetParent } : HTMLElement | Object = {},
-) : number =>
-  offsetTop + (offsetParent && getAbsoluteOffsetTop(offsetParent));
-
 export default class Product extends Component {
 
   static propTypes = { ...propTypes, ...containerPropTypes };
@@ -108,9 +111,10 @@ export default class Product extends Component {
     propertiesSelectedIndexes,
     handlePropertyValueChange,
     getLocalization,
-  ): Array<React$Element<any>> =>
-    Object.entries(properties).map(
-      ([name, options]) =>
+  ) : Array<React$Element<any>> =>
+    Object
+      .entries(properties)
+      .map(([name, options]) =>
         <ProductPropertyInput
           key={name}
           name={name}
@@ -121,8 +125,65 @@ export default class Product extends Component {
         />,
     );
 
+  static generateCartProduct(
+    {
+      properties,
+      propertiesToShowInCart,
+      prices,
+      name,
+      imagePath,
+      path,
+      id,
+    } : {
+      properties : { [propName : string] : string|number },
+      propertiesToShowInCart : Array<string>,
+      prices : { [currency : string] : number },
+      name : string,
+      imagePath : string,
+      path : string,
+      id : string,
+    },
+    quantity,
+    selectedPropertyIndexes : {[propName: string] : number},
+  ) : ProductType {
+    return {
+      id,
+      quantity,
+      properties:
+        Object
+          .entries(properties)
+          .reduce((obj, [propName, options]) =>
+            ({
+              ...obj,
+              [propName]: options[selectedPropertyIndexes[propName]|0],
+            })
+          , {}),
+      productInfo: {
+        name,
+        prices,
+        path,
+        imagePath,
+        propertiesToShowInCart,
+      },
+    };
+  }
+
   state = {
     quantity: 1,
+  };
+
+  componentWillUnmount() {
+    this.clearScrollTimeout();
+  }
+
+  // Explicit define property for flow
+  scrollTimeout = void 0;
+
+  clearScrollTimeout = () => {
+    if (typeof this.scrollTimeout !== 'undefined') {
+      clearTimeout(this.scrollTimeout);
+      delete this.scrollTimeout;
+    }
   };
 
   handleQuantityValueChange = (
@@ -137,73 +198,39 @@ export default class Product extends Component {
     { value }: { value: { [propName: string]: string|number }},
   ) => void this.setState(value);
 
-  generateProductProps = () : Object => {
-    const {
-      properties,
-      propertiesToShowInCart,
-      prices,
-      name,
-      imagePath,
-      path,
-    } : {
-      properties: { [propName: string]: string|number },
-      propertiesToShowInCart: Array<string>,
-      prices: { [currency: string]: number },
-      name: string,
-      imagePath: string,
-      path: string,
-    } = this.props;
-
-    const { state } = this;
-
-    const { quantity } = state;
-
-    return (
-    {
-      quantity,
-      properties:
-        Object
-          .entries(properties)
-          .reduce((obj, [propName, options]) =>
-            ({
-              ...obj,
-              [propName]: options[state[propName] || 0],
-            })
-          , {}),
-      productInfo: {
-        name,
-        prices,
-        path,
-        imagePath,
-        propertiesToShowInCart,
-      },
-    }
-    );
-  }
-
   addProductFormSubmit = (event : Event) => {
+    const { props } = this;
     const {
       id,
       path,
       currency,
       scrollAnimationConfig,
       onAddProduct,
-    } = this.props;
-    const { quantity } = this.state;
-    const { generateProductProps } = this;
-    const { target } = event;
+      generateProductKey,
+    } = props;
+    const { quantity, ...selectedPropertyIndexes } = this.state;
+    const { generateCartProduct } = Product;
+    const { target: { children } } = event;
     event.preventDefault();
-    setTimeout(() =>
-      animateScroll.scrollTo(
-        getAbsoluteOffsetTop(
-          target.children[target.children.length - 2],
-        ) - 5, scrollAnimationConfig,
-      )
-    , 50);
+
     if (quantity) {
+      this.clearScrollTimeout();
+      this.scrollTimeout = setTimeout(() =>
+        void animateScroll.scrollTo(
+          getAbsoluteOffsetTop(
+            children[children.length - 2],
+          ) - 5, scrollAnimationConfig,
+        )
+      , 50);
+      const product = generateCartProduct(
+        props, quantity, selectedPropertyIndexes,
+      );
       onAddProduct(
-         id,
-         generateProductProps(),
+         generateProductKey(
+           id,
+           product.properties,
+         ),
+         product,
          currency,
       );
     }
@@ -238,12 +265,23 @@ export default class Product extends Component {
 
     const price = prices[currency];
 
-    const localizedCurrency = getLocalization(currency);
+    const localizationScope = {
+      name,
+      quantity,
+      price,
+      currency,
+      get localizedCurrency() {
+        return getLocalization(currency, localizationScope);
+      },
+      get localizedName() {
+        return getLocalization(name, localizationScope);
+      },
+    };
 
     return (
       <div>
         <p>
-          { getLocalization('price', { price, currency: localizedCurrency }) }
+          { getLocalization('price', localizationScope) }
         </p>
         { afterPriceNode }
         <form className="m-t-1" onSubmit={addProductFormSubmit}>
@@ -260,7 +298,7 @@ export default class Product extends Component {
               htmlFor="product-quantity"
               className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
             >
-              { getLocalization('quantityLabel', { quantity }) }
+              { getLocalization('quantityLabel', localizationScope) }
             </label>
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
               <input
@@ -278,12 +316,7 @@ export default class Product extends Component {
           >
             <i className={iconAddProductClassName} />
             {
-              getLocalization('addToCart', {
-                quantity,
-                price,
-                currency,
-                name,
-              })
+              getLocalization('addToCart', localizationScope)
             }
           </button>
           { CheckoutButton }

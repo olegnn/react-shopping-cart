@@ -142,7 +142,7 @@ export default function Cart (
         {...cartTransition}
       >
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          { showHeader ? getLocalization('shoppingCartTitle') : void 0 }
+          { showHeader ? getLocalization('shoppingCartTitle') : null }
           <div className="list-group">
             <ReactCSSTransitionGroup
               {...cartItemTransition}

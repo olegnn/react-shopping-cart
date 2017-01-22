@@ -8,34 +8,31 @@
  */
 import React from 'react';
 
-/*-----------------------------------------------------------------
- * Animate Utility
- *
- * Copyright © Roman Nosov 2016
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
+/**
+ * @memberof helpers
  */
-
-function style({ enabled = true, duration = 1000, ...rest } = {}) {
-  return enabled ? {
-    WebkitAnimationDuration: `${duration / 1000}s`,
-    animationDuration: `${duration / 1000}s`,
-    WebkitAnimationFillMode: 'both',
-    animationFillMode: 'both',
-    ...rest,
-  }
-  : {}
-  ;
-}
+const generateStyle = (
+  {
+    enabled = true,
+    duration = 1000,
+    ...rest
+  } = {},
+) : Object =>
+  enabled
+    ? {
+      WebkitAnimationDuration: `${duration / 1000}s`,
+      animationDuration: `${duration / 1000}s`,
+      WebkitAnimationFillMode: 'both',
+      animationFillMode: 'both',
+      ...rest,
+    }
+    : {};
 
 /**
  * @memberof helpers
  */
-export function animate(options : number) : Object {
-  return style(isNaN(options) ? options : { duration: options });
-}
-//-------------------------------------------------------------------
+export const animate = (options : Object | number) : Object =>
+  generateStyle(typeof options === 'object' ? options : { duration: options });
 
 /**
  * @memberof helpers
@@ -56,13 +53,22 @@ export const isNaturalNumber = (num : number) : boolean =>
 /**
  * @memberof helpers
  */
-export const getProductKey = (
+export const getAbsoluteOffsetTop = (
+    { offsetTop, offsetParent } : HTMLElement | Object = {},
+  ) : number =>
+    offsetTop + (offsetParent && getAbsoluteOffsetTop(offsetParent));
+
+/**
+ * @memberof helpers
+ */
+export const generateProductKey = (
   id : string,
   properties : {
     [propertyName : string] : string | number,
   },
 ) : string =>
-  id + Object.entries(properties)
-         .reduce((acc : string, [propName, propValue]) =>
-           `${acc}_${propName}-${propValue}`
-         , '');
+  Object
+    .entries(properties)
+    .reduce((acc : string, [propName, propValue]) =>
+      `${acc}_${propName}-${propValue}`
+    , `${id}/`);

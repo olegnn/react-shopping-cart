@@ -47,16 +47,21 @@ With Redux
 import { Cart, Product, CheckoutButton } from 'react-shopping-cart';
 
 <Product
-  options={{
+  properties={{
     colour: ['red', 'green'],
   }}
-  name="iPad / Tablet case"
-  price={70}
+  id="ipad-case"
+  name="iPadCase"
+  prices={{
+    GBP: 70
+  }}
+  currency="GBP"
   path="/shop/ipad-case/"
   imagePath="1-483x321.jpeg"
+  propertiesToShowInCart={['colour']}
 />
 
-<Cart productPropsToShow={['colour']} />;
+<Cart />;
 
 // In reducers.js
 import { combineReducers } from 'redux';

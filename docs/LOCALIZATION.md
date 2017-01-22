@@ -14,24 +14,47 @@ The first one should be look like that if you use intl-messageformat (or somethi
   getLocalization = (id, params = {}) =>  
     new IntlMessageFormat(localization[id], language).format(params);
 ```
-__getLocalization__ API:
+__getLocalization__:
 id - templateID. Default localization includes:
 -_cart:_
-  -shoppingCartTitle
-  -productName {name}
-  -quantityLabel {quantity}
-  -priceLabel {price}
-  -priceValue {price}
-  -totalLabel {total}
-  -totalValue {total}
+  -shoppingCartTitle (no params)
+
+  -productName
+  -quantityLabel
+  -priceLabel
+  -priceValue
+  -totalLabel
+  -totalValue
   -remove
-  -productPropertyLabel {name, value}
-  -productPropertyValue {name, value}
+  with params     
+  {
+    quantity,
+    price,
+    total,
+    currency,
+    name,
+    localizedName
+    localizedCurrency
+  }
+
+
+  -productPropertyLabel
+  -productPropertyValue
+  with params {name, value, localizedName, localizedValue}
 -_checkoutButton_
-  -checkoutTotal
+  -checkoutTotal with params {currency, total, localizedCurrency}
 -_product_  
   -price
   -quantityLabel
   -propertyLabel
   -addToCart
-Components also will try to get localization for all of property names and values (string type only), which you passed to products,
+  with params
+  {
+    name,
+    quantity,
+    price,
+    currency,
+    localizedCurrency
+    localizedName
+  }
+Also you must provide localization for each product's name, product's property name, its' value(if string), currency

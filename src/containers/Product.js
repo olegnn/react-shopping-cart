@@ -14,13 +14,12 @@ import { connect } from 'react-redux';
 import { Product } from '../components';
 import CheckoutButton from '../containers/CheckoutButton';
 import { addToCart } from '../actions';
-import { configure } from '../helpers';
+import { configure, generateProductKey } from '../helpers';
 import { getDefaultLocalization } from '../localization';
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onAddProduct: (id : string, props : Object, productCurrency: string) => {
-    dispatch(addToCart(id, props, productCurrency));
-  },
+  onAddProduct: (key : string, product : Object, productCurrency: string) =>
+    void dispatch(addToCart(key, product, productCurrency)),
 });
 
 export default(
@@ -28,6 +27,7 @@ export default(
     configure(Product, {
       CheckoutButton: <CheckoutButton />,
       getLocalization: getDefaultLocalization('product'),
+      generateProductKey,
     }),
   )
 );
