@@ -51,6 +51,18 @@ const
           [
             PropTypes.string,
             PropTypes.number,
+            /*
+            PropTypes.shape({
+              additionalCost: PropTypes.number,
+              onSelect: PropTypes.func,
+              value: PropTypes.oneOfType(
+                [
+                  PropTypes.string,
+                  PropTypes.number,
+                ],
+              ),
+            }),
+            */
           ],
         ),
       ),
@@ -76,7 +88,7 @@ const
   *   'GBP'
   * );
   * Required.
-  * @prop {getBoundLocalizationType} getLocalization - Required.
+  * @prop {getLocalizationType} getLocalization - Required.
   * @prop {generateProductKey} generateProductKey - Function which generates
   * product's key based on id and properties. Example:
   * generateProductKey('macbook-case', { colour: 'red'} ).
@@ -107,6 +119,7 @@ export default class Product extends Component {
   static createPropertiesInputList = (
     properties: {
       [propertyName: string]: Array<string|number>
+      | {}
     },
     propertiesSelectedIndexes,
     handlePropertyValueChange,
@@ -238,6 +251,14 @@ export default class Product extends Component {
 
   render() {
     const {
+      addProductFormSubmit,
+      handleQuantityValueChange,
+      hanglePropertyValueChange,
+      state,
+      props,
+    } = this;
+
+    const {
       name,
       prices,
       currency,
@@ -246,18 +267,11 @@ export default class Product extends Component {
       afterPriceNode,
       CheckoutButton,
       getLocalization,
-    } = this.props;
+    } = props;
 
     const {
       quantity,
-    } = this.state;
-
-    const {
-      addProductFormSubmit,
-      handleQuantityValueChange,
-      hanglePropertyValueChange,
-      state,
-    } = this;
+    } = state;
 
     const {
       createPropertiesInputList,

@@ -10,11 +10,13 @@
  *
  */
 
- declare function onUpdateProductType(key : string, updateProperties : Object): void;
+ declare function
+  onUpdateProductType(key : string, updateProperties : Object): void;
 
  declare function onRemoveProductType(key : string): void;
 
- declare function getBoundLocalizationType(id : string, params? : Object) : string;
+ declare function
+  getLocalizationType(id : string, params? : Object) : string;
 
  declare function getLocalizationType(
    localization : LocalizationObjectType,

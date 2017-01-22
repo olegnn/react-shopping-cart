@@ -27,7 +27,7 @@ const testProductLocalization = {
 };
 
 const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(testProductLocalization[id]).format(params);
+  new IntlMessageFormat(testProductLocalization[id], 'en').format(params);
 
 const createProduct = ({ cartState, props }, renderFunc = mount) =>
   renderFunc(
@@ -87,7 +87,7 @@ describe('Product', () => {
       () => renderedProduct.find('form').simulate('submit');
 
     simulateAddProductEvent();
-    
+
     // Our product is in cart already
     expect(cartState[productKey].quantity).toBe(1);
 

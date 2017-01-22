@@ -9,7 +9,10 @@ import Product from '../../src/containers/Product';
 import Cart from '../../src/containers/Cart';
 import CheckoutButton from '../../src/containers/CheckoutButton';
 import {
-  defaultLocalization, getDefaultLocalization,
+  setCartCurrency,
+} from '../../src/actions';
+import {
+  getDefaultLocalization,
 } from '../../src/localization';
 import store from './store';
 
@@ -19,43 +22,38 @@ const productLocalization = {
   green: 'Green',
   ipadTabletCase: 'iPad / Tablet case',
   GBP: '£',
-};
-
-const localization = {
-  en: {
-    product: {
-      ...defaultLocalization.en.product,
-      ...productLocalization,
-    },
-    cart: {
-      ...defaultLocalization.en.cart,
-      ...productLocalization,
-    },
-    checkoutButton: {
-      ...defaultLocalization.en.checkoutButton,
-      ...productLocalization,
-    },
-  },
+  EUR: '€',
+  USD: '$',
 };
 
 export default class App extends Component {
+
   getProductLocalization =
     getDefaultLocalization(
       'product',
       'en',
-      localization,
+      productLocalization,
     );
+
   getCartLocalization =
     getDefaultLocalization(
       'cart',
       'en',
-      localization,
+      productLocalization,
     );
+
   getCheckoutButtonLocalization =
     getDefaultLocalization(
       'checkoutButton',
       'en',
-      localization,
+      productLocalization,
+    );
+
+  changeCurrency = currency =>
+    void store.dispatch(
+      setCartCurrency(
+        currency,
+      ),
     );
 
   render() {
@@ -63,6 +61,7 @@ export default class App extends Component {
       getProductLocalization,
       getCartLocalization,
       getCheckoutButtonLocalization,
+      changeCurrency,
     } = this;
 
     const checkoutButton = (
@@ -91,8 +90,9 @@ export default class App extends Component {
             name="ipadTabletCase"
             prices={{
               GBP: 50,
+              EUR: 60,
+              USD: 70,
             }}
-            currency="GBP"
             CheckoutButton={
               checkoutButton
             }
@@ -109,6 +109,24 @@ export default class App extends Component {
             }
             productPropsToShow={['colour']}
           />
+          <button
+            className="btn btn-primary"
+            onClick={() => changeCurrency('GBP')}
+          >
+            GBP
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => changeCurrency('EUR')}
+          >
+            EUR
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => changeCurrency('USD')}
+          >
+            USD
+          </button>
         </div>
       </Provider>
     );

@@ -52,6 +52,9 @@ export const defaultLocalization = {
   },
 };
 
+/**
+ * @memberof localization
+ */
 export const getLocalization = (
   localization : LocalizationObjectType,
   language : string,
@@ -89,13 +92,21 @@ export const getLocalization = (
   );
 };
 
+/**
+ * @memberof localization
+ */
 export const getDefaultLocalization =
   (
     componentName : string,
     language : string = 'en',
-    localization : LocalizationObjectType = defaultLocalization,
+    localization : Object = {},
   ) =>
     (...args : Array<any>) =>
       getLocalization(
-        localization[language][componentName], language, ...args,
+        {
+          ...defaultLocalization[language][componentName],
+          ...localization,
+        },
+        language,
+        ...args,
       );

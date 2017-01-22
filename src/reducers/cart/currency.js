@@ -11,16 +11,9 @@
  */
 import * as actionTypes from '../../actionTypes';
 
-const initialState = '';
+const initialState = 'USD';
 
 const currencyActions = {
-  [actionTypes.CART_ADD]:
-    (
-      currency : string,
-      {
-        productCurrency,
-      } : CartAddActionType,
-    ) : string => currency || productCurrency,
   [actionTypes.CART_SET_CURRENCY]:
     (
       _,

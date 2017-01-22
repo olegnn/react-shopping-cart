@@ -26,6 +26,15 @@ const
   * @prop {string} iconCheckoutClassName - ClassName
   * for cart icon on checkout button.
   * Default is 'icon-basket'
+  * @prop {Object} transitionConfig - CheckoutButton's transition config
+  * for react-overlays Transition.
+  * Default is {
+  *   style: animate(500),
+  *   enteringClassName: 'fadeInUp',
+  *   exitingClassName: 'fadeOut',
+  *   timeout: 500,
+  *   unmountOnExit: true,
+  * }
   */
   propTypes = {
     checkoutURL: PropTypes.string.isRequired,
@@ -38,7 +47,7 @@ const
   * @prop {number} grandTotal - Amount of money to pay. Required.
   * @prop {boolean} hidden - Show or hide button. Required.
   * @prop {string} currency - Current cart currency. Required.
-  * @prop {getBoundLocalizationType} getLocalization - Required.
+  * @prop {getLocalizationType} getLocalization - Required.
   */
   containerPropTypes = {
     grandTotal: PropTypes.number.isRequired,
@@ -48,6 +57,13 @@ const
   },
   defaultProps = {
     iconCheckoutClassName: 'icon-basket',
+    transitionConfig: {
+      style: animate(500),
+      enteringClassName: 'fadeInUp',
+      exitingClassName: 'fadeOut',
+      timeout: 500,
+      unmountOnExit: true,
+    },
   };
 
 export default function CheckoutButton (
@@ -57,6 +73,7 @@ export default function CheckoutButton (
     checkoutURL,
     currency,
     iconCheckoutClassName,
+    transitionConfig,
     getLocalization,
   } : Object,
 ) : React$Element<any> | false {
@@ -69,12 +86,8 @@ export default function CheckoutButton (
   };
   return !hidden && (
     <Transition
-      style={animate(500)}
       in={!hidden}
-      enteringClassName="fadeInUp"
-      exitingClassName="fadeOut"
-      timeout={500}
-      unmountOnExit
+      {...transitionConfig}
     >
       <Link
         to={checkoutURL}

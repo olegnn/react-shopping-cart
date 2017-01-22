@@ -9,4 +9,7 @@ module.exports = {
   cartActions: require('./dist/actions'),
   cartActionTypes: require('./dist/actionTypes'),
   cartReducer: require('./dist/reducers/cart'),
+  cartSelectors: require('./dist/selectors'),
+  cartHelpers: require('./dist/helpers'),
+  cartLocalization: require('./dist/localization'),
 };

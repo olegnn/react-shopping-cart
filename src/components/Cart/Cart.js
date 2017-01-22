@@ -57,7 +57,10 @@ const
    * @static containerPropTypes
    * @memberof Cart
    *
-   * @prop {Object.<string, ProductType>} products - Products map. Required
+   * @prop {Object.<string, ProductType>} products - Products map. Required.
+   *
+   * @prop {ReactElement} CheckoutButton - Button in the bottom of cart.
+   * Required.
    * @prop {Function<string, Object>} onUpdateProduct - Callback
    * function which will be called when product should be updated.
    * First arg is product's key in products, second - props to update.
@@ -71,8 +74,7 @@ const
    * For example: onRemoveProduct('/shop/macbook-case/_red');
    * Required.
    *
-   * @prop {ReactElement} CheckoutButton - Button in the bottom of cart.
-   * Required.
+   * @prop {getLocalizationType} getLocalization - Required.
    */
   containerPropTypes = {
     products: PropTypes.objectOf(PropTypes.shape({
@@ -92,10 +94,10 @@ const
     })).isRequired,
     currency: PropTypes.string.isRequired,
     isCartEmpty: PropTypes.bool.isRequired,
+    CheckoutButton: PropTypes.element.isRequired,
     onUpdateProduct: PropTypes.func.isRequired,
     onRemoveProduct: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
-    CheckoutButton: PropTypes.element.isRequired,
   },
   defaultProps = {
     showHeader: true,

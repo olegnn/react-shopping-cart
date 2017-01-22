@@ -33,7 +33,7 @@ const testCartLocalization = {
 };
 
 const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(testCartLocalization[id]).format(params);
+  new IntlMessageFormat(testCartLocalization[id], 'en').format(params);
 
 const createCart = ({ products }, renderFunc = mount) =>
   renderFunc(
@@ -42,7 +42,7 @@ const createCart = ({ products }, renderFunc = mount) =>
       onUpdateProduct={
         (key, updateProperties) =>
           // That's just a test. Don't do like this,
-          // use immutable structures, please :C
+          // use immutable structures
           void (products[key] = { ...products[key], ...updateProperties })
       }
       onRemoveProduct={

@@ -44,7 +44,9 @@ React stateless component which represents shopping cart.
 
 **Properties**
 
--   `products` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), ProductType>** Products map. Required
+-   `products` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), ProductType>** Products map. Required.
+-   `CheckoutButton` **ReactElement** Button in the bottom of cart.
+    Required.
 -   `onUpdateProduct` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** Callback
     function which will be called when product should be updated.
     First arg is product's key in products, second - props to update.
@@ -56,8 +58,7 @@ React stateless component which represents shopping cart.
     Accept product's key in products.
     For example: onRemoveProduct('/shop/macbook-case/\_red');
     Required.
--   `CheckoutButton` **ReactElement** Button in the bottom of cart.
-    Required.
+-   `getLocalization` **getLocalizationType** Required.
 
 # Product
 
@@ -102,7 +103,7 @@ React component - Product form with price.
       'GBP'
     );
     Required.
--   `getLocalization` **getBoundLocalizationType** Required.
+-   `getLocalization` **getLocalizationType** Required.
 -   `generateProductKey` **generateProductKey** Function which generates
     product's key based on id and properties. Example:
     generateProductKey('macbook-case', { colour: 'red'} ).
@@ -126,6 +127,15 @@ Checkout button with grand total.
 -   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName
     for cart icon on checkout button.
     Default is 'icon-basket'
+-   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** CheckoutButton's transition config
+    for react-overlays Transition.
+    Default is {
+      style: animate(500),
+      enteringClassName: 'fadeInUp',
+      exitingClassName: 'fadeOut',
+      timeout: 500,
+      unmountOnExit: true,
+    }
 
 ## containerPropTypes
 
@@ -134,4 +144,4 @@ Checkout button with grand total.
 -   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Amount of money to pay. Required.
 -   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required.
 -   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current cart currency. Required.
--   `getLocalization` **getBoundLocalizationType** Required.
+-   `getLocalization` **getLocalizationType** Required.

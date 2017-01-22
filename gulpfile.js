@@ -13,10 +13,11 @@ gulp.task('build', () =>
 
 const concatDocs = docsNum =>
   void (
-    docsNum === 4
+    docsNum === 5
     && gulp.src(
       [
         './docs/MAIN.md',
+        './docs/LOCALIZATION.md',
         './docs/COMPONENTS.md',
         './docs/TYPES.md',
         './docs/DEVELOPMENT.md'
@@ -26,7 +27,7 @@ const concatDocs = docsNum =>
   );
 
 gulp.task('doc', () => {
-  let docsNum = 2; // MAIN.md and DEVELOPMENT.md
+  let docsNum = 3; // MAIN.md, DEVELOPMENT.md, LOCALIZATION.md
   gulp.src('./src/types.js')
     .pipe(
       exec(

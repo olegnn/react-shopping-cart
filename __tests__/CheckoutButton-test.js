@@ -21,7 +21,9 @@ const testCheckoutButtonLocalization = {
 };
 
 const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(testCheckoutButtonLocalization[id]).format(params);
+  new IntlMessageFormat(
+    testCheckoutButtonLocalization[id], 'en',
+  ).format(params);
 
 describe('CheckoutButton', () => {
   it('takes snapshot', () => {
