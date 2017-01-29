@@ -12,4 +12,5 @@ module.exports = {
   cartSelectors: require('./dist/selectors'),
   cartHelpers: require('./dist/helpers'),
   cartLocalization: require('./dist/localization'),
+  setCartCurrency: require('./dist/actions').setCartCurrency,
 };

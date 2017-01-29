@@ -38,6 +38,7 @@ import 'animate.css/animate.min.css';
 ```
 
 With Redux
+__After store initialization you must dispatch setCartCurrency action or 'USD' will be used___
 ```javascript
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
@@ -48,6 +49,7 @@ import {
   CheckoutButton,
   cartLocalization,
   cartReducer,
+  setCartCurrency,
 } from 'react-shopping-cart';
 
 
@@ -63,7 +65,12 @@ const iPadCaseLocalization = {
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
+  yellow: 'Yellow',
   GBP: '£',
+};
+
+const iPadPropertiesWithAdditionalCostLocalization = {
+  yellow: 'Yellow (+{cost}{localizedCurrency})',
 };
 
 const store = createStore(
@@ -74,6 +81,11 @@ const store = createStore(
     }
   )
 );
+
+store.dispatch(
+  setCartCurrency('USD'),
+);
+
 
 class App extends Component {
   render() {
@@ -96,18 +108,39 @@ class App extends Component {
             id="ipad-case"
             path="/shop/ipad-case/"
             properties={{
-              colour: ['red', 'green'],
+              colour: ['red', 'green', {
+                additionalCost: {
+                  GBP: 1,
+                  EUR: 2,
+                  USD: 3.50,
+                },
+                value: 'yellow',
+              }],
             }}
             propertiesToShowInCart={['colour']}
             prices={{ GBP: 70, EUR: 80, USD: 90 }}
             currency="GBP"
             imagePath="1-483x321.jpeg"
             CheckoutButton={CheckoutButtonElement}
-            getLocalization={getDefaultLocalization('product', 'en', iPadCaseLocalization)}
+            getLocalization={
+              getDefaultLocalization(
+                'product',
+                'en',
+                {
+                  ...iPadCaseLocalization,
+                  ...iPadPropertiesWithAdditionalCostLocalization
+                }
+              )}
           />
           <Cart
             CheckoutButton={CheckoutButtonElement}
-            getLocalization={getDefaultLocalization('cart', 'en', iPadCaseLocalization)}
+            getLocalization={
+              getDefaultLocalization(
+                'cart',
+                'en',
+                iPadCaseLocalization
+              )
+            }
           />
         </div>
       </Provider>

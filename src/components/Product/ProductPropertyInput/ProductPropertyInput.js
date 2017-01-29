@@ -19,9 +19,22 @@ const
       PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,
+        PropTypes.shape({
+          additionalCost: PropTypes.objectOf(
+            PropTypes.number,
+          ),
+          onSelect: PropTypes.func,
+          value: PropTypes.oneOfType(
+            [
+              PropTypes.string,
+              PropTypes.number,
+            ],
+          ).isRequired,
+        }),
       ]),
     ).isRequired,
     selectedOptionIndex: PropTypes.number,
+    currency: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
   },
@@ -32,30 +45,60 @@ const
 export default class ProductPropertyInput extends Component {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
+
+  static getOptionValue(
+    value : number | string | Object,
+  ) {
+    return typeof value === 'object'
+      ? ProductPropertyInput.getOptionValue(value.value)
+      : value;
+  }
+
   /*
    * Generate select input options based on options values
    */
   static generateOptionsSelectionList(
-    options : Array<string | number>,
-    getLocalization : getBoundLocalizationType,
-    localizationScope: Object = {},
+    options : Array<ProductPropertyOptionType>,
+    getLocalization : getLocalizationType,
+    currency : string,
+    localizationScope : Object = {},
   ) : Array<React$Element<any>> {
-    return options.map(optionValue =>
-      <option key={optionValue} value={optionValue}>
-        {
-          typeof optionValue === 'string'
-          ? getLocalization(
-              optionValue,
-              localizationScope,
-            )
-          : optionValue
-        }
-      </option>,
+    const {
+      getOptionValue,
+    } = ProductPropertyInput;
+
+    return (
+      options
+        .map(getOptionValue)
+        .map(
+          (optionValue, index) =>
+            <option key={optionValue} value={optionValue}>
+              {
+                typeof optionValue === 'string'
+                ? getLocalization(
+                    optionValue,
+                  {
+                    ...localizationScope,
+                    ...(
+                      typeof options[index] === 'object'
+                      ? {
+                        cost: options[index].additionalCost
+                              && options[index].additionalCost[currency]
+                              || 0,
+                      }
+                      : {}
+                    ),
+                  },
+                )
+                : optionValue
+              }
+            </option>,
+        )
     );
   }
 
   handleSelectInputValueChange = (
-    { target: { value: optionName } } : { target : HTMLInputElement, },
+    { target: { value: optionValue } } : { target : HTMLInputElement, },
   ) => {
     const {
       name,
@@ -63,8 +106,22 @@ export default class ProductPropertyInput extends Component {
       onChange,
     } = this.props;
 
+    const {
+      getOptionValue,
+    } = ProductPropertyInput;
+
+    const selectedOptionIndex =
+      options
+        .map(getOptionValue)
+        .indexOf(optionValue);
+
+    const selectedOption = options[selectedOptionIndex];
+
+    if (typeof selectedOption.onSelect === 'function')
+      selectedOption.onSelect(selectedOption);
+
     onChange({
-      value: { [name]: options.indexOf(optionName) },
+      value: { [name]: selectedOptionIndex },
     });
   };
 
@@ -73,6 +130,7 @@ export default class ProductPropertyInput extends Component {
       name,
       options,
       selectedOptionIndex,
+      currency,
       getLocalization,
     } = this.props;
 
@@ -82,10 +140,15 @@ export default class ProductPropertyInput extends Component {
 
     const {
       generateOptionsSelectionList,
+      getOptionValue,
     } = ProductPropertyInput;
 
     const localizationScope = {
       name,
+      currency,
+      get localizedCurrency() {
+        return getLocalization(currency, localizationScope);
+      },
       get localizedName() {
         return getLocalization(name, localizationScope);
       },
@@ -105,11 +168,11 @@ export default class ProductPropertyInput extends Component {
           <select
             onChange={handleSelectInputValueChange}
             className="form-control"
-            value={options[selectedOptionIndex]}
+            value={getOptionValue(options[selectedOptionIndex])}
           >
             {
               generateOptionsSelectionList(
-                options, getLocalization, localizationScope,
+                options, getLocalization, currency, localizationScope,
               )
             }
           </select>
