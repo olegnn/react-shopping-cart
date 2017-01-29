@@ -85,7 +85,7 @@ __Localization__ default ids and params bindings:
       total,
       currency,
       name,
-      localizedName
+      localizedName,
       localizedCurrency
     }_
     - productName

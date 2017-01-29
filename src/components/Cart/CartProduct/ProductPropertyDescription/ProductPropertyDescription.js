@@ -31,7 +31,7 @@ export default function ProductPropertyDescription({
   getLocalization,
 } : {
   name : string,
-  value : string | number,
+  value : ProductPropertyOptionType,
   getLocalization : getLocalizationType,
 }) {
   const localizationScope = {

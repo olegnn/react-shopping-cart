@@ -29,8 +29,9 @@ const
    * @prop {Object.<string, number>} prices - Prices (currency-value). Required
    * @prop {string} imagePath - Path to main image. Required
    * @prop {string} currency - Price currency. Required
-   * @prop {Object.<string, Array<(string | number)>>} properties - Custom
-   * product properties.
+   * @prop {Object.<string, Array<(ProductPropertyOptionType)>>}
+   * properties - Custom product properties. May be array of number, string or
+   * shape({ additionalCost(optional), onSelect(optional), value(required)})
    * Default is {}
    * @prop {string} iconAddProductClassName - ClassName for cart icon
    * on add to button.
@@ -51,18 +52,18 @@ const
           [
             PropTypes.string,
             PropTypes.number,
-            /*
             PropTypes.shape({
-              additionalCost: PropTypes.number,
+              additionalCost: PropTypes.objectOf(
+                PropTypes.number,
+              ),
               onSelect: PropTypes.func,
               value: PropTypes.oneOfType(
                 [
                   PropTypes.string,
                   PropTypes.number,
                 ],
-              ),
+              ).isRequired,
             }),
-            */
           ],
         ),
       ),
@@ -118,10 +119,10 @@ export default class Product extends Component {
 
   static createPropertiesInputList = (
     properties: {
-      [propertyName: string]: Array<string|number>
-      | {}
+      [propertyName: string]: Array<ProductPropertyOptionType>
     },
     propertiesSelectedIndexes,
+    currency,
     handlePropertyValueChange,
     getLocalization,
   ) : Array<React$Element<any>> =>
@@ -133,10 +134,31 @@ export default class Product extends Component {
           name={name}
           options={options}
           selectedOptionIndex={propertiesSelectedIndexes[name]}
+          currency={currency}
           onChange={handlePropertyValueChange}
           getLocalization={getLocalization}
         />,
     );
+
+  static calculateAdditionalCost(
+    properties : { [propName : string] : ProductPropertyOptionType },
+    selectedPropertyIndexes : {[propName: string] : number},
+    currency : string,
+  ) : number {
+    return Object.entries(properties).reduce(
+      (sum, [propertyName, propertyOptions]) => {
+        const selectedOption
+          = propertyOptions[selectedPropertyIndexes[propertyName]|0];
+        return sum + (
+          typeof selectedOption === 'object'
+          && (
+            selectedOption.additionalCost
+            && selectedOption.additionalCost[currency]
+          ) || 0
+        );
+      }
+    , 0);
+  }
 
   static generateCartProduct(
     {
@@ -148,7 +170,7 @@ export default class Product extends Component {
       path,
       id,
     } : {
-      properties : { [propName : string] : string|number },
+      properties : { [propName : string] : ProductPropertyOptionType },
       propertiesToShowInCart : Array<string>,
       prices : { [currency : string] : number },
       name : string,
@@ -159,6 +181,7 @@ export default class Product extends Component {
     quantity,
     selectedPropertyIndexes : {[propName: string] : number},
   ) : ProductType {
+    const { calculateAdditionalCost } = Product;
     return {
       id,
       quantity,
@@ -168,12 +191,28 @@ export default class Product extends Component {
           .reduce((obj, [propName, options]) =>
             ({
               ...obj,
-              [propName]: options[selectedPropertyIndexes[propName]|0],
+              [propName]:
+                ProductPropertyInput
+                  .getOptionValue(
+                    options[selectedPropertyIndexes[propName]|0],
+                  ),
             })
           , {}),
       productInfo: {
         name,
-        prices,
+        prices:
+          Object
+            .entries(prices)
+            .reduce(
+              (acc, [currency, price]) => ({
+                ...acc,
+                [currency]: price + calculateAdditionalCost(
+                  properties,
+                  selectedPropertyIndexes,
+                  currency,
+                ),
+              }), {},
+            ),
         path,
         imagePath,
         propertiesToShowInCart,
@@ -208,7 +247,7 @@ export default class Product extends Component {
   }
 
   hanglePropertyValueChange = (
-    { value }: { value: { [propName: string]: string|number }},
+    { value }: { value: { [propName: string]: ProductPropertyOptionType }},
   ) => void this.setState(value);
 
   addProductFormSubmit = (event : Event) => {
@@ -271,13 +310,21 @@ export default class Product extends Component {
 
     const {
       quantity,
+      ...selectedPropertyIndexes
     } = state;
 
     const {
       createPropertiesInputList,
+      calculateAdditionalCost,
     } = Product;
 
-    const price = prices[currency];
+    const price =
+      prices[currency]
+      + calculateAdditionalCost(
+        properties,
+        selectedPropertyIndexes,
+        currency,
+      );
 
     const localizationScope = {
       name,
@@ -302,7 +349,8 @@ export default class Product extends Component {
           {
             createPropertiesInputList(
               properties,
-              state,
+              selectedPropertyIndexes,
+              currency,
               hanglePropertyValueChange,
               getLocalization,
             )

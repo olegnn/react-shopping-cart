@@ -25,6 +25,11 @@
    params? : Object,
  ) : string;
 
+/**
+ * @type {number|string|Object} ProductPropertyOptionType
+ */
+ declare type ProductPropertyOptionType = number | string | Object;
+
  /**
  * @namespace ProductInfoType
  * @memberof Types
@@ -52,7 +57,7 @@
 * @memberof Types
 * @prop {string} id
 * @prop {number} quantity
-* @prop {Object.<string, string|number>} properties -
+* @prop {Object.<string, ProductPropertyOptionType>} properties -
 * Custom product properties.
 * In order to make prop visible in cart, add its name
 * to productPropsToShow array
@@ -79,7 +84,7 @@
   id : string,
   quantity : number,
   properties : {
-    [propName : string] : string | number,
+    [propName : string] : ProductPropertyOptionType,
   },
   productInfo : ProductInfoType,
 };
@@ -112,7 +117,7 @@
   id : string,
   quantity : number,
   properties : {
-    [propName : string] : string | number,
+    [propName : string] : ProductPropertyOptionType,
   },
   productInfo : ProductInfoType,
   productCurrency : string,

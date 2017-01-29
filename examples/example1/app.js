@@ -16,10 +16,18 @@ import {
 } from '../../src/localization';
 import store from './store';
 
+const productPropertiesWithAdditionalCostLocalization = {
+  purple: 'Purple (+{cost}{localizedCurrency})',
+  yellow: 'Yellow (+{cost}{localizedCurrency})',
+};
+
 const productLocalization = {
   colour: 'Colour',
+  additionalColour: 'Additional colour',
   red: 'Red',
   green: 'Green',
+  purple: 'Purple',
+  yellow: 'Yellow',
   ipadTabletCase: 'iPad / Tablet case',
   GBP: '£',
   EUR: '€',
@@ -32,7 +40,10 @@ export default class App extends Component {
     getDefaultLocalization(
       'product',
       'en',
-      productLocalization,
+      {
+        ...productLocalization,
+        ...productPropertiesWithAdditionalCostLocalization,
+      },
     );
 
   getCartLocalization =
@@ -82,10 +93,25 @@ export default class App extends Component {
               getProductLocalization
             }
             properties={{
-              colour: ['red', 'green'],
+              colour: ['red', 'green', {
+                additionalCost: {
+                  GBP: 10,
+                  EUR: 15,
+                  USD: 20,
+                },
+                value: 'purple',
+              }],
+              additionalColour: ['red', 'green', {
+                additionalCost: {
+                  GBP: 1,
+                  EUR: 2,
+                  USD: 3.50,
+                },
+                value: 'yellow',
+              }],
             }}
             propertiesToShowInCart={
-              ['colour']
+              ['colour', 'additionalColour']
             }
             name="ipadTabletCase"
             prices={{
@@ -99,6 +125,37 @@ export default class App extends Component {
 
             path="/shop/ipad-case/"
             imagePath="1-483x321.jpeg"
+            afterPriceNode={
+              <div className="row justify-content-center">
+                <div className="col-4 text-center">
+                  <button
+                    key={0}
+                    className="btn btn-warning btn-block"
+                    onClick={() => changeCurrency('GBP')}
+                  >
+                    GBP
+                  </button>
+                </div>
+                <div className="col-4 text-center">
+                  <button
+                    key={1}
+                    className="btn btn-warning btn-block"
+                    onClick={() => changeCurrency('EUR')}
+                  >
+                    EUR
+                  </button>
+                </div>
+                <div className="col-4 text-center">
+                  <button
+                    key={2}
+                    className="btn btn-warning btn-block"
+                    onClick={() => changeCurrency('USD')}
+                  >
+                    USD
+                  </button>
+                </div>
+              </div>
+            }
           />
           <Cart
             getLocalization={
@@ -107,26 +164,7 @@ export default class App extends Component {
             CheckoutButton={
               checkoutButton
             }
-            productPropsToShow={['colour']}
           />
-          <button
-            className="btn btn-primary"
-            onClick={() => changeCurrency('GBP')}
-          >
-            GBP
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={() => changeCurrency('EUR')}
-          >
-            EUR
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={() => changeCurrency('USD')}
-          >
-            USD
-          </button>
         </div>
       </Provider>
     );

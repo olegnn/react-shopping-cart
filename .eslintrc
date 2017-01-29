@@ -69,6 +69,7 @@
     "space-before-function-paren": [0],
     "arrow-body-style": [2, "as-needed"],
     "no-else-return": [0],
+    "no-nested-ternary": [0],
     "space-infix-ops": [0],
     "max-len": [2, 80, 2],
 

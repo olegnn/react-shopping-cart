@@ -138,20 +138,20 @@ export default class CartProduct extends Component {
 
     return (
       <div
-        className="list-group-item list-group-item-action animated"
+        className="list-group-item list-group-item-action row animated"
       >
         <Link to={path}>
           <div className="list-group-item-heading">
             { getLocalization('productName', localizationScope) }
           </div>
         </Link>
-        <div className="list-group-item-text row">
-          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 m-b-1">
+        <div className="list-group-item-text col-12 row">
+          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 m-b-1">
             <Link to={path}>
               <img className="img-fluid" src={imagePath} />
             </Link>
           </div>
-          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-5">
+          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-5 col-xl-7">
             <div className="form-group row">
               <label
                 htmlFor="quantity"
@@ -214,7 +214,7 @@ export default class CartProduct extends Component {
               </div>
             </div>
           </div>
-          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2">
             <div className="form-group row">
               <div className="col-md-12 text-xs-center">
                 <button
