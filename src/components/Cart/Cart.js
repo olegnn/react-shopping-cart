@@ -31,7 +31,7 @@ const
    *   {
    *     style: animate(500),
    *     enteringClassName: 'fadeInUp',
-   *     exitingClassName: 'fadeOut',
+   *     exitedClassName: 'fadeOut',
    *     timeout: 500,
    *   }.
    * Look at src/components/Cart/Cart.js for details
@@ -95,7 +95,7 @@ const
     })).isRequired,
     currency: PropTypes.string.isRequired,
     isCartEmpty: PropTypes.bool.isRequired,
-    CheckoutButton: PropTypes.element.isRequired,
+    checkoutButton: PropTypes.element.isRequired,
     onUpdateProduct: PropTypes.func.isRequired,
     onRemoveProduct: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
@@ -106,7 +106,7 @@ const
     cartTransition: {
       style: animate(500),
       enteringClassName: 'fadeInUp',
-      exitingClassName: 'fadeOut',
+      exitedClassName: 'fadeOut',
       timeout: 500,
     },
     cartItemTransition: {
@@ -136,17 +136,16 @@ export default class Cart extends PureComponent {
       onUpdateProduct,
       onRemoveProduct,
       getLocalization,
-      CheckoutButton,
+      checkoutButton,
     } = this.props;
 
     return (
-      <div className="row m-t-1">
+      <div className="row mt-1">
         <Transition
           in={!isCartEmpty}
-          unmountOnExit
           {...cartTransition}
         >
-          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div className="col-12">
             { showHeader ? getLocalization('shoppingCartTitle') : null }
             <div className="list-group">
               <ReactCSSTransitionGroup
@@ -191,10 +190,10 @@ export default class Cart extends PureComponent {
                 }
               </ReactCSSTransitionGroup>
             </div>
-            <div className="row m-t-1">
+            <div className="row mt-1">
               <div className="col-xs-0 col-sm-2 col-md-2 col-lg-3 col-xl-3" />
               <div className="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-6">
-                { CheckoutButton }
+                { checkoutButton }
               </div>
             </div>
           </div>

@@ -21,8 +21,7 @@
     "react-overlays": "^0.6.6",
     "react-router": "^2.6.1",
     "react-scroll": "^1.2.0",
-    "reselect": "^2.5.4",
-    "underscore.string": "^3.2.2"
+    "reselect": "^2.5.4"
   },
   "peerDependencies": {
     "animate.css": "^3.5.2",
@@ -74,7 +73,8 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "uglify-js": "^2.7.3",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js build",
@@ -82,6 +82,7 @@
     "flow": "flow",
     "lint": "./node_modules/.bin/eslint .",
     "doc": "./node_modules/gulp/bin/gulp.js doc",
+    "develop": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js .",
     "prepublish": "npm run build && npm run doc && npm run test -- -u;"
   }
 }

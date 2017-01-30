@@ -1,6 +1,6 @@
 exports[`Cart takes snapshot 1`] = `
 <div
-  className="row m-t-1">
+  className="row mt-1">
   <div
     className="col-xs-12 col-sm-12 col-md-12 col-lg-12"
     style={
@@ -13,10 +13,10 @@ exports[`Cart takes snapshot 1`] = `
     }>
     My lovely shopping cart
     <div
-      className="list-group">
+      className="list-group row">
       <span>
         <div
-          className="list-group-item list-group-item-action row animated">
+          className="col-12 list-group-item list-group-item-action animated">
           <a
             onClick={[Function bound handleClick]}
             style={Object {}}>
@@ -26,7 +26,7 @@ exports[`Cart takes snapshot 1`] = `
             </div>
           </a>
           <div
-            className="list-group-item-text col-12 row">
+            className="list-group-item-text row">
             <div
               className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 m-b-1">
               <a
@@ -113,13 +113,11 @@ exports[`Cart takes snapshot 1`] = `
       </span>
     </div>
     <div
-      className="row m-t-1">
+      className="row mt-1">
       <div
         className="col-xs-0 col-sm-2 col-md-2 col-lg-3 col-xl-3" />
       <div
-        className="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-6">
-        <a />
-      </div>
+        className="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-6" />
     </div>
   </div>
 </div>

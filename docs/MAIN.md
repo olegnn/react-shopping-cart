@@ -39,8 +39,7 @@ And if you want to see animation, also include animate.css
 import 'animate.css/animate.min.css';
 ```
 
-With Redux
-__After store initialization you must dispatch setCartCurrency action or 'USD' will be used___
+__With Redux.__ After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
 ```javascript
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
@@ -60,7 +59,7 @@ import 'animate.css/animate.min.css';
 
 const { getDefaultLocalization } = cartLocalization;
 
-// You may take localization object from whwerever you want, that's just an example
+// You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
   colour: 'Colour',
@@ -69,6 +68,8 @@ const iPadCaseLocalization = {
   green: 'Green',
   yellow: 'Yellow',
   GBP: '£',
+  EUR: '€',
+  USD: '$',
 };
 
 const iPadPropertiesWithAdditionalCostLocalization = {
@@ -123,7 +124,7 @@ class App extends Component {
             prices={{ GBP: 70, EUR: 80, USD: 90 }}
             currency="GBP"
             imagePath="1-483x321.jpeg"
-            CheckoutButton={CheckoutButtonElement}
+            checkoutButton={CheckoutButtonElement}
             getLocalization={
               getDefaultLocalization(
                 'product',
@@ -135,7 +136,7 @@ class App extends Component {
               )}
           />
           <Cart
-            CheckoutButton={CheckoutButtonElement}
+            checkoutButton={CheckoutButtonElement}
             getLocalization={
               getDefaultLocalization(
                 'cart',
@@ -160,8 +161,9 @@ import { cartActions, cartActionTypes } from 'react-shopping-cart';
 // And do some cool things with them
 ```
 
-Without redux
+__Without redux__
 ```javascript
+import React from 'react';
 import {
   CartComponent,
   ProductComponent,
@@ -178,15 +180,18 @@ const iPadCaseLocalization = {
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
+  yellow: 'Yellow',
+  GBP: '£',
+  EUR: '€',
+  USD: '$',
 };
 
 <Product
-  name= "ipadCase",
+  name= "iPadCase",
   id="ipad-case",
   path="/shop/ipad-case/",
   properties={
-    colour: ['red', 'green'],
-
+    colour: ['red', 'green', 'yellow'],
   },
   propertiesToShowInCart=['colour'],
   prices={ GBP: 70, EUR: 80, USD: 90 },
@@ -207,7 +212,9 @@ const iPadCaseLocalization = {
 
 
 <CartComponent
-  products={ products }
+  products={
+    // Provide your own product's Object(Look at ProductsMapType)
+  }
   onUpdateProduct={
     (key, updateProperties) => // Update something
   }
@@ -215,7 +222,7 @@ const iPadCaseLocalization = {
   onRemoveProduct={
     key => // Remove something
   }
-  CheckoutButton={
+  checkoutButton={
     <a />
   }
   isCartEmpty={

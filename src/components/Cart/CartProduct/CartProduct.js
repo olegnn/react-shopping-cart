@@ -138,93 +138,92 @@ export default class CartProduct extends PureComponent {
 
     return (
       <div
-        className="list-group-item list-group-item-action row animated"
+        className={
+          'list-group-item list-group-item-action ' +
+          'align-items-start animated'
+        }
       >
-        <Link to={path}>
-          <div className="list-group-item-heading">
-            { getLocalization('productName', localizationScope) }
-          </div>
-        </Link>
-        <div className="list-group-item-text col-12 row">
-          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 m-b-1">
-            <Link to={path}>
-              <img className="img-fluid" src={imagePath} />
-            </Link>
-          </div>
-          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-5 col-xl-7">
-            <div className="form-group row">
-              <label
-                htmlFor="quantity"
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-              >
-                { getLocalization('quantityLabel', localizationScope) }
-              </label>
-              <div className="col-xs-6 col-md-7 col-lg-8">
-                <input
-                  type="number"
-                  className="form-control"
-                  value={quantity}
-                  onChange={handleQuantityValueChange}
-                />
-              </div>
+        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+          <Link to={path}>
+            <div className="list-group-item-heading">
+              { getLocalization('productName', localizationScope) }
             </div>
-            {
-              generateProductDescription(
-                properties,
-                propertiesToShow,
-                getLocalization,
-              )
-            }
-            <div className="form-group row">
-              <label
-                htmlFor="price"
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-              >
-                {
-                  getLocalization(
-                    'priceLabel', localizationScope,
-                  )
-                }
-              </label>
-              <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
-                {
-                  getLocalization(
-                    'priceValue', localizationScope,
-                  )
-                }
-              </div>
-            </div>
-            <div className="form-group row">
-              <label
-                htmlFor="total"
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-              >
-                {
-                  getLocalization(
-                    'totalLabel', localizationScope,
-                  )
-                }
-              </label>
-              <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
-                {
-                  getLocalization(
-                    'totalValue', localizationScope,
-                  )
-                }
-              </div>
+            <img className="img-fluid" src={imagePath} />
+          </Link>
+        </div>
+        <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7">
+          <div className="form-group row">
+            <label
+              htmlFor="quantity"
+              className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+            >
+              { getLocalization('quantityLabel', localizationScope) }
+            </label>
+            <div className="col-xs-6 col-md-7 col-lg-8">
+              <input
+                type="number"
+                className="form-control"
+                value={quantity}
+                onChange={handleQuantityValueChange}
+              />
             </div>
           </div>
-          <div className="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2">
-            <div className="form-group row">
-              <div className="col-md-12 text-xs-center">
-                <button
-                  className="btn btn-danger form-control"
-                  onClick={handleRemoveProductClick}
-                >
-                  <i className={iconTrashClassName} />
-                  { getLocalization('remove', localizationScope) }
-                </button>
-              </div>
+          {
+            generateProductDescription(
+              properties,
+              propertiesToShow,
+              getLocalization,
+            )
+          }
+          <div className="form-group row">
+            <label
+              htmlFor="price"
+              className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+            >
+              {
+                getLocalization(
+                  'priceLabel', localizationScope,
+                )
+              }
+            </label>
+            <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+              {
+                getLocalization(
+                  'priceValue', localizationScope,
+                )
+              }
+            </div>
+          </div>
+          <div className="form-group row">
+            <label
+              htmlFor="total"
+              className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+            >
+              {
+                getLocalization(
+                  'totalLabel', localizationScope,
+                )
+              }
+            </label>
+            <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+              {
+                getLocalization(
+                  'totalValue', localizationScope,
+                )
+              }
+            </div>
+          </div>
+        </div>
+        <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+          <div className="form-group row">
+            <div className="col-md-12 text-xs-center">
+              <button
+                className="btn btn-danger form-control"
+                onClick={handleRemoveProductClick}
+              >
+                <i className={iconTrashClassName} />
+                { getLocalization('remove', localizationScope) }
+              </button>
             </div>
           </div>
         </div>

@@ -60,7 +60,7 @@ export const getLocalization = (
   language : string,
   id : string,
   params : Object = {},
-) => {
+) : string => {
   const localizationPattern = localization[id];
 
   if (typeof localizationPattern === 'undefined') {

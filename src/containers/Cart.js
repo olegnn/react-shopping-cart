@@ -36,7 +36,7 @@ export default(
   connect(mapStateToProps, mapDispatchToProps)(
     configure(Cart,
       {
-        CheckoutButton: <CheckoutButton />,
+        checkoutButton: <CheckoutButton />,
         getLocalization: getDefaultLocalization('cart'),
       },
     ),

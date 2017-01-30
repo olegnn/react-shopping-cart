@@ -49,7 +49,7 @@ const createCart = ({ products }, renderFunc = mount) =>
         key => void delete products[key]
         // Don't mutate given objects, create new
       }
-      CheckoutButton={
+      checkoutButton={
         <a />
       }
       isCartEmpty={

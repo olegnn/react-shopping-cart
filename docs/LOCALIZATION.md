@@ -36,18 +36,14 @@ Or you could use __getDefaultLocalization__ func from _cartLocalization_:
 
   const localization = {
     GBP: '£',
-    USD: {
-      props: { className: 'BIG_PRICE' }, // Optional props object for component
-      component: 'h1', // String or react component
-      text: '$',
-    },
+    USD: '$',
   };
 
   <Cart
     getLocalization={getDefaultLocalization('cart', 'en', localization)}
   />
 ```
-Example usage of __getLocalization__ func from _cartLocalization__:
+Example usage of __getLocalization__ func from _cartLocalization_:
 ```javascript
   import { cartLocalization } from 'react-shopping-cart';
 
