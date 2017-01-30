@@ -47,7 +47,7 @@ const createProduct = ({ cartState, props }, renderFunc = mount) =>
             { quantity, id, productInfo, properties }
           )
       }
-      CheckoutButton={<a />}
+      checkoutButton={<a />}
       getLocalization={
         getLocalization
       }

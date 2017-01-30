@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch : Function) : Object => ({
 export default(
   connect(mapStateToProps, mapDispatchToProps)(
     configure(Product, {
-      CheckoutButton: <CheckoutButton />,
+      checkoutButton: <CheckoutButton />,
       getLocalization: getDefaultLocalization('product'),
       generateProductKey,
     }),

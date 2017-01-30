@@ -81,7 +81,7 @@ const
   * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
   * Required.
   * @prop {Function<string>} onAddProduct - Callback to call when
-  * user want to add product in his cart
+  * user want to add product in his cart.
   * Example:
   * onAddProduct(
   *   'macbook-case',
@@ -95,7 +95,7 @@ const
   * generateProductKey('macbook-case', { colour: 'red'} ).
   */
   containerPropTypes = {
-    CheckoutButton: PropTypes.element.isRequired,
+    checkoutButton: PropTypes.element.isRequired,
     onAddProduct: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
     generateProductKey: PropTypes.func.isRequired,
@@ -304,7 +304,7 @@ export default class Product extends PureComponent {
       properties,
       iconAddProductClassName,
       afterPriceNode,
-      CheckoutButton,
+      checkoutButton,
       getLocalization,
     } = props;
 
@@ -345,7 +345,7 @@ export default class Product extends PureComponent {
           { getLocalization('price', localizationScope) }
         </p>
         { afterPriceNode }
-        <form className="m-t-1" onSubmit={addProductFormSubmit}>
+        <form className="mt-1" onSubmit={addProductFormSubmit}>
           {
             createPropertiesInputList(
               properties,
@@ -381,7 +381,7 @@ export default class Product extends PureComponent {
               getLocalization('addToCart', localizationScope)
             }
           </button>
-          { CheckoutButton }
+          { checkoutButton }
         </form>
       </div>
     );

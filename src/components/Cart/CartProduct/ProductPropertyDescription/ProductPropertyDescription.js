@@ -7,7 +7,7 @@
  * @license MIT
  *
  * @description
- * Component to display product's description in cart.
+ * Component to display product property's description in cart.
  */
 import React, { PureComponent, PropTypes } from 'react';
 

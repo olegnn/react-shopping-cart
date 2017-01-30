@@ -119,14 +119,14 @@ export default class App extends Component {
               EUR: 60,
               USD: 70,
             }}
-            CheckoutButton={
+            checkoutButton={
               checkoutButton
             }
 
             path="/shop/ipad-case/"
             imagePath="1-483x321.jpeg"
             afterPriceNode={
-              <div className="row justify-content-center">
+              <div className="row justify-content-center pb-3">
                 <div className="col-4 text-center">
                   <button
                     key={0}
@@ -161,7 +161,7 @@ export default class App extends Component {
             getLocalization={
               getCartLocalization
             }
-            CheckoutButton={
+            checkoutButton={
               checkoutButton
             }
           />

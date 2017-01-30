@@ -24,18 +24,23 @@ const productActions = {
         properties,
         productInfo,
       } : CartAddActionType,
-    ) : ProductsMapType => ({
-      [key]: {
-        id,
-        quantity:
-          quantity + (
-            !!product && product.quantity
-          ),
-        properties,
-        productInfo,
-      },
-      ...restOfProducts,
-    }),
+    ) : ProductsMapType => {
+      const newQuantity =
+        quantity + (
+          !!product && product.quantity
+        );
+      return {
+        [key]: {
+          id,
+          quantity:
+            +Number.isSafeInteger(newQuantity)
+            && newQuantity,
+          properties,
+          productInfo,
+        },
+        ...restOfProducts,
+      };
+    },
   [actionTypes.CART_UPDATE]:
     (
       products : ProductsMapType,
@@ -52,7 +57,7 @@ const productActions = {
     }),
   [actionTypes.CART_REMOVE]:
     (
-      { [key]: _, ...restOfProducts },
+      { [key]: _, ...restOfProducts } : ProductsMapType,
       { key } : CartRemoveActionType,
     ) : ProductsMapType => restOfProducts,
   [actionTypes.CART_EMPTY]:

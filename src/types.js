@@ -18,15 +18,20 @@
  declare function
   getLocalizationType(id : string, params? : Object) : string;
 
- declare function getLocalizationType(
-   localization : LocalizationObjectType,
-   language : string,
-   id : string,
-   params? : Object,
- ) : string;
+  /**
+  * @namespace PricesType
+  * @memberof Types
+  * @prop {number} currency - Pair (currency: price)
+  */
+declare type PricesType = { [currency : string] : number};
 
 /**
- * @type {number|string|Object} ProductPropertyOptionType
+ * @namespace ProductPropertyOptionType
+ * @description
+ * (also may be string or number)
+ * @prop {PricesType=} additionalCost
+ * @prop {Function=} onSelect
+ * @prop {number|string} value
  */
  declare type ProductPropertyOptionType = number | string | Object;
 
@@ -92,7 +97,7 @@
 /**
 * @namespace ProductsMapType
 * @memberof Types
-* @prop {ProductType} productKey - Pair (productKey: product)
+* @prop {ProductType} {productKey} - Pair (productKey: product)
 */
  declare type ProductsMapType = {
   [productKey: string] : ProductType,
