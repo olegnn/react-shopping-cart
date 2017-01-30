@@ -1,7 +1,7 @@
 /**
  * @flow
  * @module CartProduct
- * @extends React.Component
+ * @extends React.PureComponent
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
@@ -9,7 +9,7 @@
  * @description
  * React component to display product in cart.
  */
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
 
 import ProductPropertyDescription
@@ -44,7 +44,7 @@ const
     propertiesToShow: [],
   };
 
-export default class CartProduct extends Component {
+export default class CartProduct extends PureComponent {
 
   static propTypes = propTypes;
   static defaultProps = defaultProps;

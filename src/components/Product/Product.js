@@ -1,7 +1,7 @@
 /**
  * @flow
  * @module Product
- * @extends React.Component
+ * @extends React.PureComponent
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
@@ -9,7 +9,7 @@
  * @description
  * React component - Product form with price.
  */
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
 
 import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
@@ -112,7 +112,7 @@ const
     afterPriceNode: null,
   };
 
-export default class Product extends Component {
+export default class Product extends PureComponent {
 
   static propTypes = { ...propTypes, ...containerPropTypes };
   static defaultProps = defaultProps;

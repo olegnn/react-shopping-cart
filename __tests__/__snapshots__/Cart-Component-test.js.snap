@@ -16,7 +16,7 @@ exports[`Cart takes snapshot 1`] = `
       className="list-group">
       <span>
         <div
-          className="list-group-item list-group-item-action animated">
+          className="list-group-item list-group-item-action row animated">
           <a
             onClick={[Function bound handleClick]}
             style={Object {}}>
@@ -26,9 +26,9 @@ exports[`Cart takes snapshot 1`] = `
             </div>
           </a>
           <div
-            className="list-group-item-text row">
+            className="list-group-item-text col-12 row">
             <div
-              className="col-xs-12 col-sm-4 col-md-4 col-lg-4 m-b-1">
+              className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-3 m-b-1">
               <a
                 onClick={[Function bound handleClick]}
                 style={Object {}}>
@@ -38,7 +38,7 @@ exports[`Cart takes snapshot 1`] = `
               </a>
             </div>
             <div
-              className="col-xs-12 col-sm-4 col-md-4 col-lg-5">
+              className="col-xs-12 col-sm-4 col-md-4 col-lg-5 col-xl-7">
               <div
                 className="form-group row">
                 <label
@@ -93,7 +93,7 @@ exports[`Cart takes snapshot 1`] = `
               </div>
             </div>
             <div
-              className="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+              className="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2">
               <div
                 className="form-group row">
                 <div

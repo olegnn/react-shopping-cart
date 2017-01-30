@@ -1,7 +1,7 @@
 /**
  * @flow
  * @module ProductPropertyInput
- * @extends React.Component
+ * @extends React.PureComponent
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
@@ -10,7 +10,7 @@
  * React form for product property(options select only).
  *
  */
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
 const
   propTypes = {
@@ -42,7 +42,7 @@ const
     selectedOptionIndex: 0,
   };
 
-export default class ProductPropertyInput extends Component {
+export default class ProductPropertyInput extends PureComponent {
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 

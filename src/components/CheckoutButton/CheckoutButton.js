@@ -1,16 +1,16 @@
 /**
  * @flow
  * @module CheckoutButton
+ * @extends React.PureComponent
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
  *
  * @description
- * React stateless component.
  * Checkout button with grand total.
  *
  */
-import React, { PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
 import Transition from 'react-overlays/lib/Transition';
 
@@ -66,40 +66,46 @@ const
     },
   };
 
-export default function CheckoutButton (
-  {
-    grandTotal,
-    hidden,
-    checkoutURL,
-    currency,
-    iconCheckoutClassName,
-    transitionConfig,
-    getLocalization,
-  } : Object,
-) : React$Element<any> | false {
-  const localizationScope = {
-    currency,
-    total: grandTotal,
-    get localizedCurrency() {
-      return getLocalization(currency, localizationScope);
-    },
-  };
-  return !hidden && (
-    <Transition
-      in={!hidden}
-      {...transitionConfig}
-    >
-      <Link
-        to={checkoutURL}
-        className={`btn btn-primary btn-block${!grandTotal ? ' disabled' : ''}`}
+export default class CheckoutButton extends PureComponent {
+
+  render() {
+    const {
+      grandTotal,
+      hidden,
+      checkoutURL,
+      currency,
+      iconCheckoutClassName,
+      transitionConfig,
+      getLocalization,
+    } = this.props;
+
+    const localizationScope = {
+      currency,
+      total: grandTotal,
+      get localizedCurrency() {
+        return getLocalization(currency, localizationScope);
+      },
+    };
+
+    return !hidden && (
+      <Transition
+        in={!hidden}
+        {...transitionConfig}
       >
-        <i className={iconCheckoutClassName} />
-        {
-          getLocalization('checkoutTotal', localizationScope)
-        }
-      </Link>
-    </Transition>
-  );
+        <Link
+          to={checkoutURL}
+          className={
+            `btn btn-primary btn-block${!grandTotal ? ' disabled' : ''}`
+          }
+        >
+          <i className={iconCheckoutClassName} />
+          {
+            getLocalization('checkoutTotal', localizationScope)
+          }
+        </Link>
+      </Transition>
+    );
+  }
 }
 
 CheckoutButton.propTypes = { ...propTypes, ...containerPropTypes };
