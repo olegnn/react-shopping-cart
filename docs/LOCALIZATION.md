@@ -86,7 +86,7 @@ __Localization__ default ids and params bindings:
       currency,
       name,
       localizedName,
-      localizedCurrency
+      localizedCurrency,
     }_
     - productName
     - quantityLabel
@@ -115,8 +115,8 @@ __Localization__ default ids and params bindings:
       quantity,
       price,
       currency,
-      localizedName
-      localizedCurrency
+      localizedName,
+      localizedCurrency,
     }_
     - price
     - quantityLabel
@@ -126,8 +126,11 @@ __Localization__ default ids and params bindings:
     ___your product's currency___
   - _{
       name,
+      currency,
       localizedName,
+      localizedCurrency,
     }_
     - ___your product's name___
     - ___your product's property name___
-    - ___your product's property value (if string ofc)___
+    - _{(optional) cost}_
+      - ___your product's property value (if string ofc)___

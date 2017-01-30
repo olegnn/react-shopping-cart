@@ -1,5 +1,5 @@
 
-#React shopping cart _with localization and multiple currencies (!)_
+#React shopping cart with _localization_ and _multiple currencies_
 
 Shopping cart package provides several components:
 - __Cart__
@@ -10,6 +10,8 @@ which can be used separately or in union.
 By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate data.
 
 So, it's your choice to use Redux or not, but its reducers, actions and actionTypes are already included.
+
+Pay attention! All components are  [__Pure__](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)
 
 **Meta**
 

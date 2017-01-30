@@ -1,14 +1,15 @@
 /**
  * @flow
  * @module Cart
+ * @extends React.PureComponent
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
  *
  * @description
- * React stateless component which represents shopping cart.
+ * Component which represents shopping cart.
  */
-import React, { PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Transition from 'react-overlays/lib/Transition';
 
@@ -119,86 +120,86 @@ const
   };
 
 
-export default function Cart (
-  /*
-   * Look at the propTypes
-   */
-  {
-    showHeader,
-    products,
-    isCartEmpty,
-    iconTrashClassName,
-    currency,
-    cartTransition,
-    cartItemTransition,
-    onUpdateProduct,
-    onRemoveProduct,
-    getLocalization,
-    CheckoutButton,
-  } : Object) : React$Element<any> {
-  return (
-    <div className="row m-t-1">
-      <Transition
-        in={!isCartEmpty}
-        unmountOnExit
-        {...cartTransition}
-      >
-        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          { showHeader ? getLocalization('shoppingCartTitle') : null }
-          <div className="list-group">
-            <ReactCSSTransitionGroup
-              {...cartItemTransition}
-            >
-              {
-                Object
-                  .entries(products)
-                  .map((
-                    [productKey,
-                      {
-                        productInfo: {
-                          prices,
-                          path,
-                          name,
-                          imagePath,
-                          propertiesToShowInCart,
+export default class Cart extends PureComponent {
+  static propTypes = { ...propTypes, ...containerPropTypes };
+  static defaultProps = defaultProps;
+
+  render() {
+    const {
+      showHeader,
+      products,
+      isCartEmpty,
+      iconTrashClassName,
+      currency,
+      cartTransition,
+      cartItemTransition,
+      onUpdateProduct,
+      onRemoveProduct,
+      getLocalization,
+      CheckoutButton,
+    } = this.props;
+
+    return (
+      <div className="row m-t-1">
+        <Transition
+          in={!isCartEmpty}
+          unmountOnExit
+          {...cartTransition}
+        >
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            { showHeader ? getLocalization('shoppingCartTitle') : null }
+            <div className="list-group">
+              <ReactCSSTransitionGroup
+                {...cartItemTransition}
+              >
+                {
+                  Object
+                    .entries(products)
+                    .map((
+                      [productKey,
+                        {
+                          productInfo: {
+                            prices,
+                            path,
+                            name,
+                            imagePath,
+                            propertiesToShowInCart,
+                          },
+                          quantity,
+                          properties,
                         },
-                        quantity,
-                        properties,
-                      },
-                    ],
-                  ) => (
-                    <CartProduct
-                      key={productKey}
-                      productKey={productKey}
-                      quantity={quantity}
-                      properties={properties}
-                      price={prices[currency]}
-                      currency={currency}
-                      path={path}
-                      name={name}
-                      imagePath={imagePath}
-                      propertiesToShow={propertiesToShowInCart}
-                      iconTrashClassName={iconTrashClassName}
-                      onUpdateProduct={onUpdateProduct}
-                      onRemoveProduct={onRemoveProduct}
-                      getLocalization={getLocalization}
-                    />
-                  ),
-                )
-              }
-            </ReactCSSTransitionGroup>
-          </div>
-          <div className="row m-t-1">
-            <div className="col-xs-0 col-sm-2 col-md-2 col-lg-3 col-xl-3" />
-            <div className="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-6">
-              { CheckoutButton }
+                      ],
+                    ) => (
+                      <CartProduct
+                        key={productKey}
+                        productKey={productKey}
+                        quantity={quantity}
+                        properties={properties}
+                        price={prices[currency]}
+                        currency={currency}
+                        path={path}
+                        name={name}
+                        imagePath={imagePath}
+                        propertiesToShow={propertiesToShowInCart}
+                        iconTrashClassName={iconTrashClassName}
+                        onUpdateProduct={onUpdateProduct}
+                        onRemoveProduct={onRemoveProduct}
+                        getLocalization={getLocalization}
+                      />
+                    ),
+                  )
+                }
+              </ReactCSSTransitionGroup>
+            </div>
+            <div className="row m-t-1">
+              <div className="col-xs-0 col-sm-2 col-md-2 col-lg-3 col-xl-3" />
+              <div className="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-6">
+                { CheckoutButton }
+              </div>
             </div>
           </div>
-        </div>
-      </Transition>
-    </div>
-  );
+        </Transition>
+      </div>
+    );
+  }
 }
-
-Cart.propTypes = { ...propTypes, ...containerPropTypes };
-Cart.defaultProps = defaultProps;
