@@ -11,7 +11,7 @@ By default [__Redux__](https://github.com/reactjs/redux) is the framework to ope
 
 So, it's your choice to use Redux or not, but its reducers, actions and actionTypes are already included.
 
-Pay attention! All components are  [__Pure__](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)
+Pay attention! All components are  [__Pure__](https://facebook.github.io/react/docs/react-api.html#react.purecomponent).
 
 **Meta**
 
@@ -704,6 +704,7 @@ Redux cart data types file
 ##Development
 
 **Developer mode**
+
 Run [webpack-dev-server](https://github.com/webpack/webpack-dev-server) for example1
 ```shell
 npm run develop
