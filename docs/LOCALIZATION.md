@@ -8,6 +8,7 @@ __getLocalization__, __defaultLocalization__ and __getDefaultLocalization__ func
 and pass it as props to the cart's components
 - Don't do anything and see only default language in your cart :C
 
+Because all components are pure, in order to relocalize your components, you should pass __new getLocalization function__, not old with just new scope.
 The first one should be look like that if you're also using intl-messageformat
 
 ```javascript
@@ -94,14 +95,14 @@ __Localization__ default ids and params bindings:
     - ___your currency___
     - ___your product's name___
 
-  - _{name, value, localizedName, localizedValue}_
+  - _{name, value, localizedName, localizedValue,}_
     - productPropertyLabel
     - productPropertyValue
     - ___your product's property name___
     - ___your product's property value (if string ofc)___
 
 - __checkoutButton__
-  - _{currency, total, localizedCurrency}_
+  - _{currency, total, localizedCurrency,}_
     - checkoutTotal
     - ___your currency___
 

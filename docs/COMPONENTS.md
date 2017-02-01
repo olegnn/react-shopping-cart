@@ -25,7 +25,7 @@ Component which represents shopping cart.
       {
         style: animate(500),
         enteringClassName: 'fadeInUp',
-        exitingClassName: 'fadeOut',
+        exitedClassName: 'fadeOut',
         timeout: 500,
       }.
     Look at src/components/Cart/Cart.js for details
