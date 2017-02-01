@@ -1,6 +1,12 @@
 
 ##Development
 
+**Developer mode**
+Run [webpack-dev-server](https://github.com/webpack/webpack-dev-server) for example1
+```shell
+npm run develop
+```
+
 **Build**
 
 ```shell

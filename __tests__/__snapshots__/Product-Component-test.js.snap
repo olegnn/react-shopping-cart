@@ -54,6 +54,7 @@ exports[`Product takes snapshot 1`] = `
         className="icon-cart-plus" />
       Add to my cart :)
     </button>
+    <a />
   </form>
 </div>
 `;
