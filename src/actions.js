@@ -15,13 +15,13 @@ import * as actionTypes from './actionTypes';
  */
 export const addToCart = (
   key : string,
-  props : Object,
+  product : ProductType,
   productCurrency : string,
 ) : Object =>
   ({
     type: actionTypes.CART_ADD,
     key,
-    ...props,
+    product,
     productCurrency,
   });
 

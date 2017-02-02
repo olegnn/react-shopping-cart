@@ -16,27 +16,24 @@ const initialState = {};
 const productActions = {
   [actionTypes.CART_ADD]:
     (
-      { [key]: product, ...restOfProducts } : ProductsMapType,
+      {
+        [key]: cartProduct = { quantity: 0 },
+        ...restOfProducts
+      } : ProductsMapType,
       {
         key,
-        id,
-        quantity,
-        properties,
-        productInfo,
+        product,
       } : CartAddActionType,
     ) : ProductsMapType => {
       const newQuantity =
-        quantity + (
-          !!product && product.quantity
-        );
+        product.quantity +
+          cartProduct.quantity;
       return {
         [key]: {
-          id,
+          ...product,
           quantity:
             +Number.isSafeInteger(newQuantity)
             && newQuantity,
-          properties,
-          productInfo,
         },
         ...restOfProducts,
       };
