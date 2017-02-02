@@ -349,7 +349,10 @@ Because all components are pure, in order to relocalize your components, you sho
 The first one should be look like that if you're also using intl-messageformat
 
 ```javascript
+  import React from 'react';
+  import IntlMessageFormat from 'intl-messageformat';
   import { Cart } from 'react-shopping-cart';
+
 
   const localization = {
     en: {
@@ -368,6 +371,7 @@ The first one should be look like that if you're also using intl-messageformat
 ```
 Or you could use __getDefaultLocalization__ func from _cartLocalization_:
 ```javascript
+  import React from 'react';
   import { cartLocalization } from 'react-shopping-cart';
 
   const { getDefaultLocalization } = cartLocalization;
@@ -383,7 +387,8 @@ Or you could use __getDefaultLocalization__ func from _cartLocalization_:
 ```
 Example usage of __getLocalization__ func from _cartLocalization_:
 ```javascript
-  import { cartLocalization } from 'react-shopping-cart';
+  import React from 'react';
+  import { Cart, cartLocalization } from 'react-shopping-cart';
 
   const { getLocalization, defaultLocalization } = cartLocalization;
 
@@ -456,8 +461,8 @@ __Localization__ default ids and params bindings:
     - quantityLabel
     - propertyLabel
     - addToCart
-    ___your product's name___
-    ___your product's currency___
+    - ___your product's name___
+    - ___your product's currency___
   - _{
       name,
       currency,
