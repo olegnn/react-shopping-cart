@@ -81,18 +81,27 @@ const
   * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
   * Required.
   * @prop {Function<string>} onAddProduct - Callback to call when
-  * user want to add product in his cart.
+  * user wants to add product in his cart.
   * Example:
   * onAddProduct(
   *   'macbook-case',
-  *   { quantity: 30, properties: { colour: 'red' } },
+  *   {
+  *     quantity: 30,
+  *     properties: { colour: 'red' },
+  *     productInfo: {
+  *       prices: {
+  *        GBP: 70
+  *       },
+  *      ...etc
+  *     },
+  *   },
   *   'GBP'
   * );
   * Required.
   * @prop {getLocalizationType} getLocalization - Required.
   * @prop {generateProductKey} generateProductKey - Function which generates
   * product's key based on id and properties. Example:
-  * generateProductKey('macbook-case', { colour: 'red'} ).
+  * generateProductKey('macbook-case', { colour: 'red' } ).
   */
   containerPropTypes = {
     checkoutButton: PropTypes.element.isRequired,

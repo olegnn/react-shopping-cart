@@ -573,18 +573,27 @@ React component - Product form with price.
 -   `CheckoutButton` **ReactElement** Button in the bottom of product.
     Required.
 -   `onAddProduct` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Callback to call when
-    user want to add product in his cart.
+    user wants to add product in his cart.
     Example:
     onAddProduct(
       'macbook-case',
-      { quantity: 30, properties: { colour: 'red' } },
+      {
+        quantity: 30,
+        properties: { colour: 'red' },
+        productInfo: {
+          prices: {
+           GBP: 70
+          },
+         ...etc
+        },
+      },
       'GBP'
     );
     Required.
 -   `getLocalization` **getLocalizationType** Required.
 -   `generateProductKey` **generateProductKey** Function which generates
     product's key based on id and properties. Example:
-    generateProductKey('macbook-case', { colour: 'red'} ).
+    generateProductKey('macbook-case', { colour: 'red' } ).
 
 # CheckoutButton
 
