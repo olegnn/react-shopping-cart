@@ -24,7 +24,7 @@ const
    * @memberof Product
    *
    * @prop {string} name - Name to display. Required
-   * @prop {id} id - Product's id. Required
+   * @prop {string} id - Product's id. Required
    * @prop {string} path - Path to product. Required
    * @prop {Object.<string, number>} prices - Prices (currency-value). Required
    * @prop {string} imagePath - Path to main image. Required
