@@ -340,9 +340,7 @@ export default App;
 The default localization library is [intl-messageformat](https://github.com/yahoo/intl-messageformat).
 In order to localize your cart, you can chose one of the possible ways:
 - Create your own __getLocalization__ func and pass it as props to the cart's components
-- Create getLocalization func with bound localization using
-__getLocalization__, __defaultLocalization__ and __getDefaultLocalization__ funcs from _cartLocalization_ module
-and pass it as props to the cart's components
+- Create getLocalization function with bound localization using __defaultLocalization__ object and __getLocalization__,  __getDefaultLocalization__ functions from _cartLocalization_ module, pass it as props to the cart's components
 - Don't do anything and see only default language in your cart :C
 
 Because all components are pure, in order to relocalize your components, you should pass __new getLocalization function__, not old with just new scope.
@@ -372,7 +370,7 @@ The first one should be look like that if you're also using intl-messageformat
 Or you could use __getDefaultLocalization__ func from _cartLocalization_:
 ```javascript
   import React from 'react';
-  import { cartLocalization } from 'react-shopping-cart';
+  import { Cart, cartLocalization } from 'react-shopping-cart';
 
   const { getDefaultLocalization } = cartLocalization;
 

@@ -22,7 +22,11 @@ const mapStateToProps = (state : Object) : Object => ({
 });
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onAddProduct: (key : string, product : Object, productCurrency: string) =>
+  onAddProduct: (
+    key : string,
+    product : ProductType,
+    productCurrency: string,
+  ) =>
     void dispatch(addToCart(key, product, productCurrency)),
 });
 
