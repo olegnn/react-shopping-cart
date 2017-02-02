@@ -17,6 +17,6 @@ import currency from './cart/currency';
  * @module cartReducer
  * @description
  * Default state value is
- * { products: {}, currency: '' }
+ * { products: {}, currency: 'USD' }
  */
 export default combineReducers({ products, currency });
