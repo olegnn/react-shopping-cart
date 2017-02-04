@@ -14,14 +14,14 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import Transition from 'react-overlays/lib/Transition';
 
 import CartProduct from './CartProduct/CartProduct';
-import { animate } from '../../helpers';
+import { animate, DefaultLinkComponent } from '../../helpers';
 
 const
   /**
    * @static propTypes
    * @memberof Cart
    *
-   * @prop {bool} showHeader - Show or hide header 'Shopping cart'.
+   * @prop {boolean} showHeader - Show or hide header 'Shopping cart'.
    * Default is true
    * @prop {string} iconTrashClassName - ClassName for
    * trash icon on remove button.
@@ -46,13 +46,20 @@ const
    *     transitionEnterTimeout: 500,
    *     transitionLeaveTimeout: 500,
    *   }.
-   * Look at src/components/Cart/Cart.js for details
+   * Look at src/components/Cart/Cart.js for details.
+   * @prop {Function} linkComponent - React Component(statefull or not,
+   * as you wish), which represents a Link. It will receive props:
+   * to="%your product's page%".
+   * I'd recommend you to take a look at react-router's Link.
+   * Wrapped <a/> by default.
+   *
    */
   propTypes = {
     showHeader: PropTypes.bool,
     iconTrashClassName: PropTypes.string,
     cartTransition: PropTypes.object,
     cartItemTransition: PropTypes.object,
+    linkComponent: PropTypes.func,
   },
   /**
    * @static containerPropTypes
@@ -60,7 +67,7 @@ const
    *
    * @prop {Object.<string, ProductType>} products - Products map. Required.
    * @prop {string} currency - Current currency. Required.
-   * @prop {bool} isCartEmpty - Display cart or not. Required.
+   * @prop {boolean} isCartEmpty - Display cart or not. Required.
    * @prop {ReactElement} checkoutButton - Button in the bottom of cart.
    * Required.
    * @prop {onUpdateProductType} onUpdateProduct - Callback
@@ -118,6 +125,7 @@ const
       transitionEnterTimeout: 500,
       transitionLeaveTimeout: 500,
     },
+    linkComponent: DefaultLinkComponent,
   };
 
 
@@ -186,6 +194,7 @@ export default class Cart extends PureComponent {
                         onUpdateProduct={onUpdateProduct}
                         onRemoveProduct={onRemoveProduct}
                         getLocalization={getLocalization}
+                        linkComponent={DefaultLinkComponent}
                       />
                     ),
                   )

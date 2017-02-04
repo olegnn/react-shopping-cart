@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
 
 import React, { Component } from 'react';
+import { Router } from 'react-router';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import Product from '../../src/containers/Product';
@@ -129,8 +130,9 @@ export default class App extends Component {
               <div className="row justify-content-center pb-3">
                 <div className="col-4 text-center">
                   <button
+                    role="button"
                     key={0}
-                    className="btn btn-warning btn-block"
+                    className="btn btn-warning btn-block active"
                     onClick={() => changeCurrency('GBP')}
                   >
                     GBP
@@ -138,8 +140,9 @@ export default class App extends Component {
                 </div>
                 <div className="col-4 text-center">
                   <button
+                    role="button"
                     key={1}
-                    className="btn btn-warning btn-block"
+                    className="btn btn-warning btn-block active"
                     onClick={() => changeCurrency('EUR')}
                   >
                     EUR
@@ -147,8 +150,9 @@ export default class App extends Component {
                 </div>
                 <div className="col-4 text-center">
                   <button
+                    role="button"
                     key={2}
-                    className="btn btn-warning btn-block"
+                    className="btn btn-warning btn-block active"
                     onClick={() => changeCurrency('USD')}
                   >
                     USD

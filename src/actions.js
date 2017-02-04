@@ -12,7 +12,6 @@ import * as actionTypes from './actionTypes';
 
 /**
  * @memberof actions
- * @static
  */
 export const addToCart = (
   key : string,
@@ -28,7 +27,6 @@ export const addToCart = (
 
 /**
  * @memberof actions
- * @static
  */
 export const removeFromCart = (
   key : string,
@@ -40,7 +38,6 @@ export const removeFromCart = (
 
 /**
  * @memberof actions
- * @static
  */
 export const updateCart = (
   key : string,
@@ -54,7 +51,6 @@ export const updateCart = (
 
 /**
  * @memberof actions
- * @static
  */
 export const emptyCart = () : CartEmptyActionType =>
   ({

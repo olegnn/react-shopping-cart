@@ -11,10 +11,9 @@
  *
  */
 import React, { PureComponent, PropTypes } from 'react';
-import Link from 'react-router/lib/Link';
 import Transition from 'react-overlays/lib/Transition';
 
-import { animate } from '../../helpers';
+import { animate, DefaultLinkComponent } from '../../helpers';
 
 const
 /**
@@ -35,18 +34,26 @@ const
   *   timeout: 500,
   *   unmountOnExit: true,
   * }.
+  * @prop {Function} linkComponent - React Component(statefull or not,
+  * as you wish), which represents a Link. It will receive props:
+  * role="button",
+  * to="%your checkout%",
+  * className-"%bs4's className for button%".
+  * I'd recommend you to take a look at react-router's Link.
+  * Wrapped <a/> by default.
   */
   propTypes = {
     checkoutURL: PropTypes.string.isRequired,
     iconCheckoutClassName: PropTypes.string,
     transitionConfig: PropTypes.object,
+    linkComponent: PropTypes.func,
   },
 /**
   * @static containerPropTypes
   * @memberof CheckoutButton
   *
   * @prop {number} grandTotal - Amount of money to pay. Required.
-  * @prop {bool} hidden - Show or hide button. Required.
+  * @prop {boolean} hidden - Show or hide button. Required.
   * @prop {string} currency - Current cart currency. Required.
   * @prop {getLocalizationType} getLocalization - Required.
   */
@@ -65,6 +72,7 @@ const
       timeout: 500,
       unmountOnExit: true,
     },
+    linkComponent: DefaultLinkComponent,
   };
 
 export default class CheckoutButton extends PureComponent {
@@ -77,6 +85,7 @@ export default class CheckoutButton extends PureComponent {
       currency,
       iconCheckoutClassName,
       transitionConfig,
+      linkComponent: LinkComponent,
       getLocalization,
     } = this.props;
 
@@ -93,17 +102,18 @@ export default class CheckoutButton extends PureComponent {
         in={!hidden}
         {...transitionConfig}
       >
-        <Link
+        <LinkComponent
           to={checkoutURL}
           className={
-            `btn btn-primary btn-block${!grandTotal ? ' disabled' : ''}`
+            `btn btn-primary btn-block ${!grandTotal ? 'disabled' : 'active'}`
           }
+          role="button"
         >
           <i className={iconCheckoutClassName} />
           {
             getLocalization('checkoutTotal', localizationScope)
           }
-        </Link>
+        </LinkComponent>
       </Transition>
     );
   }
