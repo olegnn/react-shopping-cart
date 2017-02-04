@@ -33,11 +33,10 @@ declare function
 
 /**
  * @param {string} key - Product's key.
- * @param {Object} updatedProduct - Product's fields
- * with values to update.
+ * @param {PorductType} updatedProduct
  */
 declare function
-  onUpdateProductType(key : string, updatedProduct : Object): void;
+  onUpdateProductType(key : string, updatedProduct : ProductType): void;
 
 
 /**
@@ -47,7 +46,7 @@ declare function onRemoveProductType(key : string): void;
 
 /**
  * @param {string} id - Template id.
- * @param {Object=} [params={}] - Params.
+ * @param {Object} [params={}] - Params.
  * @return {string|ReactElement}
  */
 declare function
@@ -55,6 +54,7 @@ declare function
 
   /**
   * @namespace PricesType
+  * @description Pair (currency: price)
   * @memberof Types
   * @prop {number} currency - Pair (currency: price)
   */
@@ -131,6 +131,7 @@ declare type PricesType = { [currency : string] : number};
 
 /**
 * @namespace ProductsMapType
+* @description Pair (productKey: product)
 * @memberof Types
 * @prop {ProductType} {productKey} - Pair (productKey: product)
 */
