@@ -26,8 +26,8 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onUpdateProduct: (key : string, updateProperties : Object = {}) =>
-    void dispatch(updateCart(key, updateProperties)),
+  onUpdateProduct: (key : string, updatedProduct : ProductType) =>
+    void dispatch(updateCart(key, updatedProduct)),
   onRemoveProduct: (key : string) =>
     void dispatch(removeFromCart(key)),
 });

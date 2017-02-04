@@ -12,12 +12,13 @@ import * as actionTypes from './actionTypes';
 
 /**
  * @memberof actions
+ * @static
  */
 export const addToCart = (
   key : string,
   product : ProductType,
   productCurrency : string,
-) : Object =>
+) : CartAddActionType =>
   ({
     type: actionTypes.CART_ADD,
     key,
@@ -27,8 +28,11 @@ export const addToCart = (
 
 /**
  * @memberof actions
+ * @static
  */
-export const removeFromCart = (key : string) : Object =>
+export const removeFromCart = (
+  key : string,
+) : CartRemoveActionType =>
   ({
     type: actionTypes.CART_REMOVE,
     key,
@@ -36,18 +40,23 @@ export const removeFromCart = (key : string) : Object =>
 
 /**
  * @memberof actions
+ * @static
  */
-export const updateCart = (key : string, updateProperties : Object) : Object =>
+export const updateCart = (
+  key : string,
+  updatedProduct : ProductType,
+) : CartUpdateActionType =>
   ({
     type: actionTypes.CART_UPDATE,
     key,
-    updateProperties,
+    updatedProduct,
   });
 
 /**
  * @memberof actions
+ * @static
  */
-export const emptyCart = () : Object =>
+export const emptyCart = () : CartEmptyActionType =>
   ({
     type: actionTypes.CART_EMPTY,
   });
@@ -55,7 +64,9 @@ export const emptyCart = () : Object =>
 /**
  * @memberof actions
  */
-export const setCartCurrency = (currency: string) : Object =>
+export const setCartCurrency = (
+  currency: string,
+) : CartSetCurrencyActionType =>
   ({
     type: actionTypes.CART_SET_CURRENCY,
     currency,

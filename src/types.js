@@ -1,22 +1,57 @@
 /**
- * @flow
- * @module Types
- *
- * @author Oleg Nosov <olegnosov1@gmail.com>
- * @license MIT
- *
- * @description
- * Redux cart data types file
- *
+  * @flow
+  * @module Types
+  *
+  * @author Oleg Nosov <olegnosov1@gmail.com>
+  * @license MIT
+  *
+  * @description
+  * Redux cart data types file
+  *
+  */
+
+/**
+ * @param {string} id - Product's id.
+ * @param {Object} properties - Product's properties
+ * @return {string}
  */
+declare function
+  generateProductKeyType(
+    id : string,
+    properties : { [name : string] : string | number }
+  ): string;
 
- declare function
-  onUpdateProductType(key : string, updateProperties : Object): void;
+/**
+ * @param {string} key - Product's key.
+ * @param {ProductType} product - Product to add
+ * @param {string} currency - Current product's currency.
+ */
+declare function
+  onAddProductType(
+    key : string, product : PorductType, currency : string
+  ): void;
 
- declare function onRemoveProductType(key : string): void;
+/**
+ * @param {string} key - Product's key.
+ * @param {Object} updatedProduct - Product's fields
+ * with values to update.
+ */
+declare function
+  onUpdateProductType(key : string, updatedProduct : Object): void;
 
- declare function
-  getLocalizationType(id : string, params? : Object) : string;
+
+/**
+ * @param {string} key - Product's key.
+ */
+declare function onRemoveProductType(key : string): void;
+
+/**
+ * @param {string} id - Template id.
+ * @param {Object=} [params={}] - Params.
+ * @return {string|ReactElement}
+ */
+declare function
+  getLocalizationType(id : string, params? : Object) : string | ReactElement;
 
   /**
   * @namespace PricesType
@@ -115,7 +150,6 @@ declare type PricesType = { [currency : string] : number};
   currency: string,
 };
 
-
  declare type CartAddActionType = {
   type : 'cart/ADD',
   key : string,
@@ -132,7 +166,7 @@ declare type PricesType = { [currency : string] : number};
   type : 'cart/UPDATE',
   key : string,
   quantity: number,
-  updateProperties: Object,
+  updatedProduct: Object,
 };
 
  declare type CartRemoveActionType = {

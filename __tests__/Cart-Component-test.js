@@ -40,10 +40,10 @@ const createCart = ({ products }, renderFunc = mount) =>
     <Cart
       products={{ ...products }}
       onUpdateProduct={
-        (key, updateProperties) =>
+        (key, updatedProduct) =>
           // That's just a test. Don't do like this,
           // use immutable structures
-          void (products[key] = { ...products[key], ...updateProperties })
+          void (products[key] = { ...products[key], ...updatedProduct })
       }
       onRemoveProduct={
         key => void delete products[key]
