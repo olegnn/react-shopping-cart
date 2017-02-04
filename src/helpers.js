@@ -73,3 +73,9 @@ export const generateProductKey = (
     .reduce((acc : string, [propName, propValue]) =>
       `${acc}_${propName}-${propValue}`
     , `${id}/`);
+
+/**
+ * @memberof helpers
+ */
+export const DefaultLinkComponent = (props : Object) : React$Element =>
+  <a {...props} href={props.to} />;

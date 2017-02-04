@@ -394,7 +394,8 @@ export default class Product extends PureComponent {
           </div>
           <button
             type="submit"
-            className="btn btn-success btn-block"
+            className="btn btn-success btn-block active"
+            role="button"
             disabled={!quantity}
           >
             <i className={iconAddProductClassName} />

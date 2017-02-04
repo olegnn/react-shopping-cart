@@ -47,8 +47,9 @@ exports[`Product takes snapshot 1`] = `
       </div>
     </div>
     <button
-      className="btn btn-success btn-block"
+      className="btn btn-success btn-block active"
       disabled={false}
+      role="button"
       type="submit">
       <i
         className="icon-cart-plus" />

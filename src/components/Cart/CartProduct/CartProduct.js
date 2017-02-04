@@ -10,7 +10,6 @@
  * React component to display product in cart.
  */
 import React, { PureComponent, PropTypes } from 'react';
-import Link from 'react-router/lib/Link';
 
 import ProductPropertyDescription
   from './ProductPropertyDescription/ProductPropertyDescription';
@@ -39,6 +38,7 @@ const
     onRemoveProduct: PropTypes.func.isRequired,
     onUpdateProduct: PropTypes.func.isRequired,
     getLocalization: PropTypes.func.isRequired,
+    linkComponent: PropTypes.func,
   },
   defaultProps = {
     properties: {},
@@ -115,6 +115,7 @@ export default class CartProduct extends PureComponent {
       propertiesToShow,
       iconTrashClassName,
       getLocalization,
+      linkComponent: LinkComponent,
     } = this.props;
 
     const {
@@ -150,12 +151,12 @@ export default class CartProduct extends PureComponent {
         }
       >
         <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
-          <Link to={path}>
+          <LinkComponent to={path}>
             <div className="list-group-item-heading">
               { getLocalization('productName', localizationScope) }
             </div>
             <img className="img-fluid" src={imagePath} />
-          </Link>
+          </LinkComponent>
         </div>
         <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7">
           <div className="form-group row">
@@ -224,7 +225,8 @@ export default class CartProduct extends PureComponent {
           <div className="form-group row">
             <div className="col-md-12 text-xs-center">
               <button
-                className="btn btn-danger form-control"
+                className="btn btn-danger active form-control"
+                role="button"
                 onClick={handleRemoveProductClick}
               >
                 <i className={iconTrashClassName} />

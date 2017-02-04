@@ -1,7 +1,8 @@
 exports[`CheckoutButton takes snapshot 1`] = `
 <a
-  className="btn btn-primary btn-block"
-  onClick={[Function bound handleClick]}
+  className="btn btn-primary btn-block active"
+  href="/to/checkout/"
+  role="button"
   style={
     Object {
       "WebkitAnimationDuration": "0.5s",
@@ -9,7 +10,8 @@ exports[`CheckoutButton takes snapshot 1`] = `
       "animationDuration": "0.5s",
       "animationFillMode": "both"
     }
-  }>
+  }
+  to="/to/checkout/">
   <i
     className="icon-basket" />
   Checkout (Grand total £100)

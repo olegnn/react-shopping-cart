@@ -20,8 +20,8 @@ exports[`Cart takes snapshot 1`] = `
           <div
             className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
             <a
-              onClick={[Function bound handleClick]}
-              style={Object {}}>
+              href="/shop/ipad-case"
+              to="/shop/ipad-case">
               <div
                 className="list-group-item-heading">
                 iPad case
@@ -93,8 +93,9 @@ exports[`Cart takes snapshot 1`] = `
               <div
                 className="col-md-12 text-xs-center">
                 <button
-                  className="btn btn-danger form-control"
-                  onClick={[Function anonymous]}>
+                  className="btn btn-danger active form-control"
+                  onClick={[Function anonymous]}
+                  role="button">
                   <i
                     className="icon-trash" />
                   Remove
