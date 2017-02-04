@@ -22,10 +22,10 @@ const
   * @memberof CheckoutButton
   *
   * @prop {string} checkoutURL - Link to checkout page.
-  * Required
+  * Required.
   * @prop {string} iconCheckoutClassName - ClassName
   * for cart icon on checkout button.
-  * Default is 'icon-basket'
+  * Default is 'icon-basket'.
   * @prop {Object} transitionConfig - CheckoutButton's transition config
   * for react-overlays Transition.
   * Default is {
@@ -34,18 +34,19 @@ const
   *   exitingClassName: 'fadeOut',
   *   timeout: 500,
   *   unmountOnExit: true,
-  * }
+  * }.
   */
   propTypes = {
     checkoutURL: PropTypes.string.isRequired,
     iconCheckoutClassName: PropTypes.string,
+    transitionConfig: PropTypes.object,
   },
 /**
   * @static containerPropTypes
   * @memberof CheckoutButton
   *
   * @prop {number} grandTotal - Amount of money to pay. Required.
-  * @prop {boolean} hidden - Show or hide button. Required.
+  * @prop {bool} hidden - Show or hide button. Required.
   * @prop {string} currency - Current cart currency. Required.
   * @prop {getLocalizationType} getLocalization - Required.
   */

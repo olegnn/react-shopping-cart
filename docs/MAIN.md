@@ -309,7 +309,7 @@ class App extends Component {
             // Provide your own product's Object(Look at ProductsMapType)
           }
           onUpdateProduct={
-            (key, updateProperties) => void ':)'// Update something
+            (key, updatedProduct) => void ':)'// Update something
           }
           getLocalization={
             getCartLocalization

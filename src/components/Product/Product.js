@@ -23,19 +23,31 @@ const
    * @static propTypes
    * @memberof Product
    *
-   * @prop {string} name - Name to display. Required
-   * @prop {string} id - Product's id. Required
-   * @prop {string} path - Path to product. Required
-   * @prop {Object.<string, number>} prices - Prices (currency-value). Required
-   * @prop {string} imagePath - Path to main image. Required
-   * @prop {string} currency - Price currency. Required
+   * @prop {string} name - Name to display. Required.
+   * @prop {string} id - Product's id. Required.
+   * @prop {string} path - Path to product. Required.
+   * @prop {Object.<string, number>} prices - Prices (currency-value). Required.
+   * @prop {string} imagePath - Path to main image. Required.
+   * @prop {string} currency - Price currency. Required.
    * @prop {Object.<string, Array<(ProductPropertyOptionType)>>}
    * properties - Custom product properties. May be array of number, string or
    * shape({ additionalCost(optional), onSelect(optional), value(required)})
-   * Default is {}
+   * Default is {}.
+   * @prop {Array<string>} propertiesToShowInCart - Array of propery names to
+   * display in cart. Default is [].
+   * @prop {Object} scrollAnimationConfig - Config for animateScroll
+   * (from react-scroll) scrollTo function.
+   * Default is
+   *  {
+   *    duration: 750,
+   *    delay: 0,
+   *    smooth: true,
+   *  }.
    * @prop {string} iconAddProductClassName - ClassName for cart icon
    * on add to button.
-   * Default is 'icon-cart-plus'
+   * Default is 'icon-cart-plus'.
+   * @prop {ReactNode} afterPriceNode - Node to display after price element.
+   * Optional.
    */
   propTypes = {
     name: PropTypes.string.isRequired,
@@ -80,7 +92,7 @@ const
   * @memberof Product
   * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
   * Required.
-  * @prop {Function<string>} onAddProduct - Callback to call when
+  * @prop {onAddProductType} onAddProduct - Callback to call when
   * user wants to add product in his cart.
   * Example:
   * onAddProduct(
@@ -99,7 +111,7 @@ const
   * );
   * Required.
   * @prop {getLocalizationType} getLocalization - Required.
-  * @prop {generateProductKey} generateProductKey - Function which generates
+  * @prop {generateProductKeyType} generateProductKey - Function which generates
   * product's key based on id and properties. Example:
   * generateProductKey('macbook-case', { colour: 'red' } ).
   */

@@ -21,7 +21,7 @@ const
    * @static propTypes
    * @memberof Cart
    *
-   * @prop {boolean} showHeader - Show or hide header 'Shopping cart'.
+   * @prop {bool} showHeader - Show or hide header 'Shopping cart'.
    * Default is true
    * @prop {string} iconTrashClassName - ClassName for
    * trash icon on remove button.
@@ -59,17 +59,18 @@ const
    * @memberof Cart
    *
    * @prop {Object.<string, ProductType>} products - Products map. Required.
-   *
-   * @prop {ReactElement} CheckoutButton - Button in the bottom of cart.
+   * @prop {string} currency - Current currency. Required.
+   * @prop {bool} isCartEmpty - Display cart or not. Required.
+   * @prop {ReactElement} checkoutButton - Button in the bottom of cart.
    * Required.
-   * @prop {Function<string, Object>} onUpdateProduct - Callback
+   * @prop {onUpdateProductType} onUpdateProduct - Callback
    * function which will be called when product should be updated.
    * First arg is product's key in products, second - props to update.
    * For instance, it may be called like:
    * onUpdateProduct('macbook-case/_red', { quantity : 50 });
    * Required.
    *
-   * @prop {Function<string>} onRemoveProduct - Callback to call
+   * @prop {onRemoveProductType} onRemoveProduct - Callback to call
    * when need to remove product from products.
    * Accept product's key in products.
    * For example: onRemoveProduct('/shop/macbook-case/_red');
@@ -170,6 +171,7 @@ export default class Cart extends PureComponent {
                       ],
                     ) => (
                       <CartProduct
+                        product={products[productKey]}
                         key={productKey}
                         productKey={productKey}
                         quantity={quantity}

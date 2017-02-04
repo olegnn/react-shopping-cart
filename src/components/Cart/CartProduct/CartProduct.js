@@ -18,6 +18,7 @@ import { isNaturalNumber } from '../../../helpers';
 
 const
   propTypes = {
+    product: PropTypes.object.isRequired,
     productKey: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -87,13 +88,18 @@ export default class CartProduct extends PureComponent {
     { target: { value } } : { target : HTMLInputElement },
   ) => {
     const quantity = +value;
+    const {
+      onUpdateProduct,
+      productKey,
+      product,
+    } = this.props;
     /*
      * Check if quantity value is correct
      * and then update product
      */
     if (isNaturalNumber(quantity))
-      this.props.onUpdateProduct(
-        this.props.productKey, { quantity },
+      onUpdateProduct(
+        productKey, { ...product, quantity },
       );
   };
 

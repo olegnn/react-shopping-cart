@@ -43,14 +43,11 @@ const productActions = {
       products : ProductsMapType,
       {
         key,
-        updateProperties,
+        updatedProduct,
       } : CartUpdateActionType,
     ) : ProductsMapType => ({
       ...products,
-      [key]: {
-        ...products[key],
-        ...updateProperties,
-      },
+      [key]: updatedProduct,
     }),
   [actionTypes.CART_REMOVE]:
     (
