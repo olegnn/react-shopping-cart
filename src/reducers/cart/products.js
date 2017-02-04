@@ -10,6 +10,7 @@
  *
  */
 import * as actionTypes from '../../actionTypes';
+import { isNaturalNumber } from '../../helpers';
 
 const initialState = {};
 
@@ -32,7 +33,7 @@ const productActions = {
         [key]: {
           ...product,
           quantity:
-            +Number.isSafeInteger(newQuantity)
+            +isNaturalNumber(newQuantity)
             && newQuantity,
         },
         ...restOfProducts,
