@@ -1,3 +1,6 @@
+.DS_Store
 dist
 node_modules
 npm-debug.log
+examples/bundle.js
+examples/.DS_Store
