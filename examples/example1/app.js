@@ -28,7 +28,7 @@ const enProductLocalization = {
   green: 'Green',
   purple: 'Purple',
   yellow: 'Yellow',
-  ipadTabletCase: 'iPad / Tablet case',
+  macbookCase: 'Macbook case',
   GBP: '£',
   EUR: '€',
   USD: '$',
@@ -46,7 +46,7 @@ const frProductLocalization = {
   green: 'Vert',
   purple: 'Violet',
   yellow: 'Jaune',
-  ipadTabletCase: 'iPad / Étui pour tablette',
+  macbookCase: 'Étui pour macbook',
   GBP: '£',
   EUR: '€',
   USD: '$',
@@ -226,7 +226,7 @@ export default class App extends Component {
         <div className="col-4 text-center">
           <button
             role="button"
-            className="btn btn-warning btn-block active"
+            className="btn btn-warning btn-block active mb-3"
             onClick={() => changeCurrency('GBP')}
           >
             GBP
@@ -235,7 +235,7 @@ export default class App extends Component {
         <div className="col-4 text-center">
           <button
             role="button"
-            className="btn btn-warning btn-block active"
+            className="btn btn-warning btn-block active mb-3"
             onClick={() => changeCurrency('EUR')}
           >
             EUR
@@ -244,7 +244,7 @@ export default class App extends Component {
         <div className="col-4 text-center">
           <button
             role="button"
-            className="btn btn-warning btn-block active"
+            className="btn btn-warning btn-block active mb-3"
             onClick={() => changeCurrency('USD')}
           >
             USD
@@ -257,7 +257,7 @@ export default class App extends Component {
       <Provider store={store}>
         <div className="container">
           <Product
-            id="ipad-case"
+            id="macbook-case"
             getLocalization={
               getLocalization(
                 'product',
@@ -284,7 +284,7 @@ export default class App extends Component {
             propertiesToShowInCart={
               ['colour', 'additionalColour']
             }
-            name="ipadTabletCase"
+            name="macbookCase"
             prices={{
               GBP: 50,
               EUR: 60,
@@ -294,7 +294,7 @@ export default class App extends Component {
               checkoutButton
             }
 
-            path="/shop/ipad-case/"
+            path="/shop/macbook-case/"
             imagePath={imagePath}
             descriptionNode={
               descriptionNode

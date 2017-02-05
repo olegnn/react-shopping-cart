@@ -15,6 +15,13 @@ npm run build
 ```
 And then check dist folder
 
+**Build Example**
+
+```shell
+npm run build_example
+```
+And then check examples folder
+
 
 **Testing**
 
