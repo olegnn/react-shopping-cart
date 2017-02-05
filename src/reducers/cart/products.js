@@ -14,7 +14,7 @@ import { isNaturalNumber } from '../../helpers';
 
 const initialState = {};
 
-const productActions = {
+const handlers = {
   [actionTypes.CART_ADD]:
     (
       {
@@ -63,6 +63,6 @@ export default (
   state : ProductsMapType = initialState,
   action,
 ) =>
-  productActions[action.type]
-  ? productActions[action.type](state, action)
-  : state;
+  handlers[action.type]
+    ? handlers[action.type](state, action)
+    : state;

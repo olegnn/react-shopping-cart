@@ -13,7 +13,7 @@ import * as actionTypes from '../../actionTypes';
 
 const initialState = 'USD';
 
-const currencyActions = {
+const handlers = {
   [actionTypes.CART_SET_CURRENCY]:
     (
       _,
@@ -25,6 +25,6 @@ export default (
   state : string = initialState,
   action,
 ) =>
-  currencyActions[action.type]
-    ? currencyActions[action.type](state, action)
+  handlers[action.type]
+    ? handlers[action.type](state, action)
     : state;
