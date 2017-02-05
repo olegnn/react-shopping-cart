@@ -28,13 +28,14 @@ const
    * Default is 'icon-trash'
    * @prop {Object} cartTransition - Cart's config for Transition.
    * Default is
-   *   {
-   *     style: animate(500),
-   *     enteringClassName: 'fadeInUp',
-   *     exitedClassName: 'fadeOut',
-   *     timeout: 500,
-   *   }.
-   * Look at src/components/Cart/Cart.js for details
+   *  {
+   *    style: animate(500),
+   *    enteringClassName: 'fadeInUp',
+   *    exitingClassName: 'fadeOut',
+   *    exitedClassName: 'invisible',
+   *    timeout: 500,
+   *  }.
+   * Look at src/components/Cart/Cart.js for details.
    * @prop {Object} cartItemTransition - Cart item's config
    * for ReactCSSTransitionGroup.
    * Default is
@@ -114,7 +115,8 @@ const
     cartTransition: {
       style: animate(500),
       enteringClassName: 'fadeInUp',
-      exitedClassName: 'fadeOut',
+      exitingClassName: 'fadeOut',
+      exitedClassName: 'invisible',
       timeout: 500,
     },
     cartItemTransition: {

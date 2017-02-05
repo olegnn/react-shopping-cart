@@ -48,6 +48,8 @@ const
    * Default is 'icon-cart-plus'.
    * @prop {ReactNode} afterPriceNode - Node to display after price element.
    * Optional.
+   * @prop {ReactNode} descriptionNode - Node to display before price element.
+   * Optional.
    */
   propTypes = {
     name: PropTypes.string.isRequired,
@@ -86,6 +88,7 @@ const
     scrollAnimationConfig: PropTypes.object,
     iconAddProductClassName: PropTypes.string,
     afterPriceNode: PropTypes.node,
+    descriptionNode: PropTypes.node,
   },
   /**
   * @static containerPropTypes
@@ -131,6 +134,7 @@ const
       smooth: true,
     },
     afterPriceNode: null,
+    descriptionNode: null,
   };
 
 export default class Product extends PureComponent {
@@ -325,6 +329,7 @@ export default class Product extends PureComponent {
       properties,
       iconAddProductClassName,
       afterPriceNode,
+      descriptionNode,
       checkoutButton,
       getLocalization,
     } = props;
@@ -362,6 +367,7 @@ export default class Product extends PureComponent {
 
     return (
       <div>
+        { descriptionNode }
         <p>
           { getLocalization('price', localizationScope) }
         </p>
