@@ -104,7 +104,11 @@ export const getDefaultLocalization =
     (...args : Array<any>) =>
       getLocalization(
         {
-          ...defaultLocalization[language][componentName],
+          ...(
+            defaultLocalization[language]
+            ? defaultLocalization[language][componentName]
+            : {}
+          ),
           ...localization,
         },
         language,

@@ -22,7 +22,7 @@ Pay attention! All components are  [__Pure__](https://facebook.github.io/react/d
 
 Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.solarleague.org/shop/macbook-case/)
 
-[`Latest version demo(example1)`] (https://olegnn.github.io/)
+[`Latest version demo (example1)`] (https://olegnn.github.io/)
 
 **Usage**
 ```shell
@@ -559,13 +559,14 @@ Component which represents shopping cart.
     Default is 'icon-trash'
 -   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Cart's config for Transition.
     Default is
-      {
-        style: animate(500),
-        enteringClassName: 'fadeInUp',
-        exitedClassName: 'fadeOut',
-        timeout: 500,
-      }.
-    Look at src/components/Cart/Cart.js for details
+     {
+       style: animate(500),
+       enteringClassName: 'fadeInUp',
+       exitingClassName: 'fadeOut',
+       exitedClassName: 'invisible',
+       timeout: 500,
+     }.
+    Look at src/components/Cart/Cart.js for details.
 -   `cartItemTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Cart item's config
     for ReactCSSTransitionGroup.
     Default is
@@ -644,6 +645,8 @@ React component - Product form with price.
     on add to button.
     Default is 'icon-cart-plus'.
 -   `afterPriceNode` **ReactNode** Node to display after price element.
+    Optional.
+-   `descriptionNode` **ReactNode** Node to display before price element.
     Optional.
 
 ## containerPropTypes
