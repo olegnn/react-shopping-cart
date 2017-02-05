@@ -19,7 +19,6 @@
     "babel-runtime": "^6.11.6",
     "intl-messageformat": "^1.3.0",
     "react-overlays": "^0.6.6",
-    "react-router": "^2.6.1",
     "react-scroll": "^1.2.0",
     "reselect": "^2.5.4"
   },
@@ -83,6 +82,7 @@
     "flow": "flow",
     "lint": "./node_modules/.bin/eslint .",
     "doc": "./node_modules/gulp/bin/gulp.js doc",
+    "build_example": "./node_modules/webpack/bin/webpack.js --output-path './examples'",
     "develop": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js .",
     "prepublish": "npm run build && npm run doc && npm run test -- -u;"
   }

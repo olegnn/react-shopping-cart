@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
 
 import React, { Component } from 'react';
-import { Router } from 'react-router';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import Product from '../../src/containers/Product';
@@ -85,6 +84,8 @@ export default class App extends Component {
       />
     );
 
+    const imagePath = 'https://www.solarleague.org/'+
+                      'shop/macbook-case/1-483x321.jpeg';
     return (
       <Provider store={store}>
         <div className="container">
@@ -125,7 +126,7 @@ export default class App extends Component {
             }
 
             path="/shop/ipad-case/"
-            imagePath="1-483x321.jpeg"
+            imagePath={imagePath}
             afterPriceNode={
               <div className="row justify-content-center pb-3">
                 <div className="col-4 text-center">
@@ -175,11 +176,13 @@ export default class App extends Component {
   }
 }
 
-const mainDiv = document.createElement('div');
+window.onload = () => {
+  const mainDiv = document.createElement('div');
 
-document.body.appendChild(mainDiv);
+  document.body.appendChild(mainDiv);
 
-ReactDOM.render(
-  <App />,
-  mainDiv,
-);
+  ReactDOM.render(
+    <App />,
+    mainDiv,
+  );
+};

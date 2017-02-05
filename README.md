@@ -20,7 +20,9 @@ Pay attention! All components are  [__Pure__](https://facebook.github.io/react/d
 
 ##Demo
 
-Live demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.solarleague.org/shop/macbook-case/)
+Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.solarleague.org/shop/macbook-case/)
+
+[`Latest version demo(example1)`] (https://olegnn.github.io/)
 
 **Usage**
 ```shell
