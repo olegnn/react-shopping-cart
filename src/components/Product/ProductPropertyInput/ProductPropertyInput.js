@@ -43,59 +43,55 @@ const
   };
 
 export default class ProductPropertyInput extends PureComponent {
+
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 
-  static getOptionValue(
+  /*
+   * If option value is an object, we need to extract primitive value
+   */
+  static getOptionValue = (
     value : number | string | Object,
-  ) {
-    return typeof value === 'object'
+  ) : number | string =>
+    typeof value === 'object'
       ? ProductPropertyInput.getOptionValue(value.value)
       : value;
-  }
 
   /*
    * Generate select input options based on options values
    */
-  static generateOptionsSelectionList(
+  static generateOptionsSelectionList = (
     options : Array<ProductPropertyOptionType>,
     getLocalization : getLocalizationType,
     currency : string,
     localizationScope : Object = {},
-  ) : Array<React$Element<any>> {
-    const {
-      getOptionValue,
-    } = ProductPropertyInput;
-
-    return (
-      options
-        .map(getOptionValue)
-        .map(
-          (optionValue, index) =>
-            <option key={optionValue} value={optionValue}>
-              {
-                typeof optionValue === 'string'
-                ? getLocalization(
-                    optionValue,
-                  {
-                    ...localizationScope,
-                    ...(
-                      typeof options[index] === 'object'
-                      ? {
-                        cost: options[index].additionalCost
-                              && options[index].additionalCost[currency]
-                              || 0,
-                      }
-                      : {}
-                    ),
-                  },
-                )
-                : optionValue
-              }
-            </option>,
-        )
-    );
-  }
+  ) : Array<React$Element<any>> =>
+    options
+      .map(ProductPropertyInput.getOptionValue)
+      .map(
+        (optionValue, index) =>
+          <option key={optionValue} value={optionValue}>
+            {
+              typeof optionValue === 'string'
+              ? getLocalization(
+                  optionValue,
+                {
+                  ...localizationScope,
+                  ...(
+                    typeof options[index] === 'object'
+                    ? {
+                      cost: options[index].additionalCost
+                            && options[index].additionalCost[currency]
+                            || 0,
+                    }
+                    : {}
+                  ),
+                },
+              )
+              : optionValue
+            }
+          </option>,
+      );
 
   handleSelectInputValueChange = (
     { target: { value: optionValue } } : { target : HTMLInputElement, },

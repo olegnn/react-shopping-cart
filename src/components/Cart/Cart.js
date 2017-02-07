@@ -48,7 +48,7 @@ const
    *     transitionLeaveTimeout: 500,
    *   }.
    * Look at src/components/Cart/Cart.js for details.
-   * @prop {Function} linkComponent - React Component(statefull or not,
+   * @prop {Function} linkComponent - React Component(stateful or not,
    * as you wish), which represents a Link. It will receive props:
    * to="%your product's page%".
    * I'd recommend you to take a look at react-router's Link.
@@ -132,6 +132,7 @@ const
 
 
 export default class Cart extends PureComponent {
+
   static propTypes = { ...propTypes, ...containerPropTypes };
   static defaultProps = defaultProps;
 

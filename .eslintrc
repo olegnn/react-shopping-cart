@@ -71,7 +71,14 @@
     "no-else-return": [0],
     "no-nested-ternary": [0],
     "space-infix-ops": [0],
-    "max-len": [2, 80, 2],
+    "max-len": [
+      2,
+      {
+        "code": 80,
+        "tabWidth": 2,
+        "ignoreComments": true
+      }
+    ],
 
     "global-require": [1],
 
@@ -80,6 +87,7 @@
     "valid-jsdoc": [1],
     "arrow-parens": [0],
     "default-case": [1],
+
 
     "import/no-extraneous-dependencies": [0],
 
@@ -106,7 +114,8 @@
 
     "jsx-a11y/anchor-has-content": [0],
     "jsx-a11y/img-has-alt": [0],
-    "jsx-a11y/no-static-element-interactions": [1]
+    "jsx-a11y/no-static-element-interactions": [1],
+    "jsx-a11y/label-has-for": [0]
   },
   "settings": {
     "flowtype": {

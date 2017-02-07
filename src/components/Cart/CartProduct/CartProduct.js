@@ -223,7 +223,7 @@ export default class CartProduct extends PureComponent {
         </div>
         <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
           <div className="form-group row">
-            <div className="col-md-12 text-xs-center">
+            <div className="col-12 text-center">
               <button
                 className="btn btn-danger active form-control"
                 role="button"

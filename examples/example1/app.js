@@ -124,12 +124,16 @@ const additionalLocalization = {
   en: {
     macbookCase: 'Macbook case',
     caseForMacbookLovers: 'Case for macbook lovers',
+    selectCurrency: 'Select currency',
+    selectLanguage: 'Select language',
     english: 'English',
     french: 'French',
   },
   fr: {
     macbookCase: 'Étui pour Macbook',
     caseForMacbookLovers: 'Étui pour les amateurs de Macbook',
+    selectCurrency: 'Choisir la devise',
+    selectLanguage: 'Choisir la langue',
     english: 'Anglais',
     french: 'Français',
   },
@@ -139,6 +143,7 @@ export default class App extends Component {
 
   state = {
     lang: 'en',
+    currency: 'USD',
   };
 
   getLocalization = (componentName, lang = this.state.lang) =>
@@ -149,10 +154,14 @@ export default class App extends Component {
     );
 
   changeCurrency = currency =>
-    void store.dispatch(
+    void (store.dispatch(
       setCartCurrency(
         currency,
       ),
+    ), // Because this component isn't inside Provider
+       // Don't do like this
+       // I was drunk, sorry :C
+      this.setState({ currency })
     );
 
   changeLanguage = lang =>
@@ -160,16 +169,28 @@ export default class App extends Component {
       { lang },
     );
 
+  handleLanguageChange = (
+    { target: { value } },
+  ) => void this.changeLanguage(value);
+
+  handleCurrencyChange = (
+    { target: { value } },
+  ) => void this.changeCurrency(value);
+
+
   render() {
     const {
       getLocalization,
       changeCurrency,
       changeLanguage,
+      handleLanguageChange,
+      handleCurrencyChange,
       state,
     } = this;
 
     const {
       lang,
+      currency,
     } = state;
 
     const checkoutButton = (
@@ -204,53 +225,53 @@ export default class App extends Component {
     );
 
     const afterPriceNode = (
-      <div className="row justify-content-center">
-        <div className="col-6 text-center">
-          <button
-            role="button"
-            className="btn btn-success btn-block active mb-1"
-            onClick={() => changeLanguage('en')}
-          >
-            { additionalLocalization[lang].english }
-          </button>
-        </div>
-        <div className="col-6 text-center">
-          <button
-            role="button"
-            className="btn btn-success btn-block active mb-1"
-            onClick={() => changeLanguage('fr')}
-          >
-            { additionalLocalization[lang].french }
-          </button>
-        </div>
-        <div className="col-4 text-center">
-          <button
-            role="button"
-            className="btn btn-warning btn-block active mb-3"
-            onClick={() => changeCurrency('GBP')}
-          >
-            GBP
-          </button>
-        </div>
-        <div className="col-4 text-center">
-          <button
-            role="button"
-            className="btn btn-warning btn-block active mb-3"
-            onClick={() => changeCurrency('EUR')}
-          >
-            EUR
-          </button>
-        </div>
-        <div className="col-4 text-center">
-          <button
-            role="button"
-            className="btn btn-warning btn-block active mb-3"
-            onClick={() => changeCurrency('USD')}
-          >
-            USD
-          </button>
-        </div>
-      </div>
+      <form className="d-flex flex-row justify-content-around">
+        <fieldset className="form-group text-center">
+          <legend>{ additionalLocalization[lang].selectLanguage }</legend>
+          {
+            Object
+              .entries({ en: 'english', fr: 'french' })
+              .map(
+                ([short, full]) => (
+                  <div key={full} className="form-check">
+                    <label className="form-check-label">
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        onChange={handleLanguageChange}
+                        value={short}
+                        checked={lang === short}
+                      />
+                      { ` ${additionalLocalization[lang][full]}` }
+                    </label>
+                  </div>
+                ),
+            )
+          }
+        </fieldset>
+        <fieldset className="form-group text-center">
+          <legend>{ additionalLocalization[lang].selectCurrency }</legend>
+          {
+            ['GBP', 'EUR', 'USD']
+              .map(
+                name => (
+                  <div key={name} className="form-check">
+                    <label className="form-check-label">
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        onChange={handleCurrencyChange}
+                        value={name}
+                        checked={currency === name}
+                      />
+                      { ` ${name}` }
+                    </label>
+                  </div>
+                ),
+            )
+          }
+        </fieldset>
+      </form>
     );
 
     return (
