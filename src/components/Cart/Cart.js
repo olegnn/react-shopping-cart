@@ -205,8 +205,12 @@ export default class Cart extends PureComponent {
               </ReactCSSTransitionGroup>
             </div>
             <div className="row mt-1">
-              <div className="col-xs-0 col-sm-2 col-md-2 col-lg-3 col-xl-3" />
-              <div className="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-6">
+              <div
+                className={
+                  'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6' +
+                  'offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3'
+                }
+              >
                 { checkoutButton }
               </div>
             </div>
