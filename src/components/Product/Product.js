@@ -165,12 +165,12 @@ export default class Product extends PureComponent {
         />,
     );
 
-  static calculateAdditionalCost(
+  static calculateAdditionalCost = (
     properties : { [propName : string] : ProductPropertyOptionType },
     selectedPropertyIndexes : {[propName: string] : number},
     currency : string,
-  ) : number {
-    return Object.entries(properties).reduce(
+  ) : number =>
+    Object.entries(properties).reduce(
       (sum, [propertyName, propertyOptions]) => {
         const selectedOption
           = propertyOptions[selectedPropertyIndexes[propertyName]|0];
@@ -183,9 +183,8 @@ export default class Product extends PureComponent {
         );
       }
     , 0);
-  }
 
-  static generateCartProduct(
+  static generateCartProduct = (
     {
       properties,
       propertiesToShowInCart,
@@ -205,45 +204,43 @@ export default class Product extends PureComponent {
     },
     quantity,
     selectedPropertyIndexes : {[propName: string] : number},
-  ) : ProductType {
-    const { calculateAdditionalCost } = Product;
-    return {
-      id,
-      quantity,
-      properties:
+  ) : ProductType => ({
+    id,
+    quantity,
+    properties:
+      Object
+        .entries(properties)
+        .reduce((obj, [propName, options]) =>
+          ({
+            ...obj,
+            [propName]:
+              ProductPropertyInput
+                .getOptionValue(
+                  options[selectedPropertyIndexes[propName]|0],
+                ),
+          })
+        , {}),
+    productInfo: {
+      name,
+      prices:
         Object
-          .entries(properties)
-          .reduce((obj, [propName, options]) =>
-            ({
-              ...obj,
-              [propName]:
-                ProductPropertyInput
-                  .getOptionValue(
-                    options[selectedPropertyIndexes[propName]|0],
-                  ),
-            })
-          , {}),
-      productInfo: {
-        name,
-        prices:
-          Object
-            .entries(prices)
-            .reduce(
-              (acc, [currency, price]) => ({
-                ...acc,
-                [currency]: price + calculateAdditionalCost(
+          .entries(prices)
+          .reduce(
+            (acc, [currency, price]) => ({
+              ...acc,
+              [currency]: price +
+                Product.calculateAdditionalCost(
                   properties,
                   selectedPropertyIndexes,
                   currency,
                 ),
-              }), {},
-            ),
-        path,
-        imagePath,
-        propertiesToShowInCart,
-      },
-    };
-  }
+            }), {},
+          ),
+      path,
+      imagePath,
+      propertiesToShowInCart,
+    },
+  });
 
   state = {
     quantity: 1,

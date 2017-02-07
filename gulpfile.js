@@ -23,11 +23,11 @@ const concatDocs = () =>
      .pipe(gulp.dest('.'));
 
 gulp.task('doc', () => {
-  gulp.src(['./src/types.js','./src/components/**/*.js','./src/helpers.js'])
+  gulp.src(['./src/types.js','./src/components/**/*.js'])
     .pipe(
       exec(
         './node_modules/documentation/bin/documentation.js build -f=md ' +
-        '--shallow=true ./src/types.js ./src/components/**/*.js ./src/helpers.js -o ./docs/AUTO.md'
+        '--shallow=true ./src/types.js ./src/components/**/*.js -o ./docs/AUTO.md'
       , concatDocs
       )
     );

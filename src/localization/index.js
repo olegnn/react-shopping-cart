@@ -6,12 +6,15 @@
  * @license MIT
  *
  * @description
- * Default localization and API funcs
+ * Default localization and API functions
  *
  */
 import React from 'react';
 import IntlMessageFormat from 'intl-messageformat';
 
+/**
+ * @memberof localization
+ */
 export const defaultLocalization = {
   en: {
     cart: {

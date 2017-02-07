@@ -91,7 +91,7 @@ exports[`Cart takes snapshot 1`] = `
             <div
               className="form-group row">
               <div
-                className="col-md-12 text-xs-center">
+                className="col-12 text-center">
                 <button
                   className="btn btn-danger active form-control"
                   onClick={[Function anonymous]}

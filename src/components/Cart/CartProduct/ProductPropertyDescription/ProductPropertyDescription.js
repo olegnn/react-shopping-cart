@@ -27,6 +27,7 @@ const
   };
 
 export default class ProductPropertyDescription extends PureComponent {
+
   static propTypes = propTypes;
   static defaultProps = defaultProps;
 

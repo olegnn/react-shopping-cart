@@ -34,7 +34,7 @@ const
   *   timeout: 500,
   *   unmountOnExit: true,
   * }.
-  * @prop {Function} linkComponent - React Component(statefull or not,
+  * @prop {Function} linkComponent - React Component(stateful or not,
   * as you wish), which represents a Link. It will receive props:
   * role="button",
   * to="%your checkout%",

@@ -63,7 +63,7 @@ declare type PricesType = { [currency : string] : number};
 /**
  * @namespace ProductPropertyOptionType
  * @description
- * (also may be string or number)
+ * Also may be string or number, as Object used only in Product component for now
  * @prop {PricesType=} additionalCost
  * @prop {Function=} onSelect
  * @prop {number|string} value
@@ -97,7 +97,7 @@ declare type PricesType = { [currency : string] : number};
 * @memberof Types
 * @prop {string} id
 * @prop {number} quantity
-* @prop {Object.<string, ProductPropertyOptionType>} properties -
+* @prop {Object.<string, number | string>} properties -
 * Custom product properties.
 * In order to make prop visible in cart, add its name
 * to productPropsToShow array
@@ -124,7 +124,7 @@ declare type PricesType = { [currency : string] : number};
   id : string,
   quantity : number,
   properties : {
-    [propName : string] : ProductPropertyOptionType,
+    [propName : string] : number | string,
   },
   productInfo : ProductInfoType,
 };
