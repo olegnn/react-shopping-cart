@@ -395,18 +395,27 @@ export default class Product extends PureComponent {
               />
             </div>
           </div>
-          <button
-            type="submit"
-            className="btn btn-success btn-block active"
-            role="button"
-            disabled={!quantity}
-          >
-            <i className={iconAddProductClassName} />
-            {
-              getLocalization('addToCart', localizationScope)
-            }
-          </button>
-          { checkoutButton }
+          <div className="form-group row">
+            <div
+              className={
+                'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 ' +
+                'offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3'
+              }
+            >
+              <button
+                type="submit"
+                className="btn btn-success btn-block active"
+                role="button"
+                disabled={!quantity}
+              >
+                <i className={iconAddProductClassName} />
+                {
+                  getLocalization('addToCart', localizationScope)
+                }
+              </button>
+              { checkoutButton }
+            </div>
+          </div>
         </form>
       </div>
     );

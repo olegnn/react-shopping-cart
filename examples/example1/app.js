@@ -220,7 +220,7 @@ export default class App extends Component {
             additionalLocalization[lang].caseForMacbookLovers
           }
         </p>
-        <img src={imagePath} />
+        <img className="img-fluid" src={imagePath} />
       </div>
     );
 
