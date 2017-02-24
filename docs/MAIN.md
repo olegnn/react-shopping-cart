@@ -93,15 +93,63 @@ store.dispatch(
 
 
 class App extends Component {
+
+  state = {
+    product: {
+      name: 'iPadCase',
+      id: 'ipad-case',
+      path: '/shop/ipad-case/',
+      properties: {
+        colour: ['red', 'green', {
+          additionalCost: {
+            GBP: 1,
+            EUR: 2,
+            USD: 3.50,
+          },
+          value: 'yellow',
+        }],
+      },
+      propertiesToShowInCart: ['colour'],
+      prices: { GBP: 70, EUR: 80, USD: 90 },
+      currency: 'GBP',
+      imagePath: '1-483x321.jpeg',
+    },
+    getProductLocalization:
+      getDefaultLocalization(
+        'product',
+        'en',
+        {
+          ...iPadCaseLocalization,
+          ...iPadPropertiesWithAdditionalCostLocalization
+        }
+      ),
+    getCheckoutButtonLocalization:
+      getDefaultLocalization(
+        'checkoutButton',
+        'en',
+        iPadCaseLocalization,
+      ),
+    getCartLocalization:
+      getDefaultLocalization(
+        'cart',
+        'en',
+        iPadCaseLocalization
+      )
+  };
+
   render() {
+
+    const {
+      product,
+      getCheckoutButtonLocalization,
+      getProductLocalization,
+      getCartLocalization,
+    } = this.state;
+
     const checkoutButtonElement =
       <CheckoutButton
         getLocalization={
-          getDefaultLocalization(
-            'checkoutButton',
-            'en',
-            iPadCaseLocalization,
-          )
+          getCheckoutButtonLocalization
         }
         checkoutURL="/to/my/checkout"
       />;
@@ -109,42 +157,17 @@ class App extends Component {
       <Provider store={store}>
         <div className="container">
           <Product
-            name= "iPadCase"
-            id="ipad-case"
-            path="/shop/ipad-case/"
-            properties={{
-              colour: ['red', 'green', {
-                additionalCost: {
-                  GBP: 1,
-                  EUR: 2,
-                  USD: 3.50,
-                },
-                value: 'yellow',
-              }],
-            }}
-            propertiesToShowInCart={['colour']}
-            prices={{ GBP: 70, EUR: 80, USD: 90 }}
-            currency="GBP"
-            imagePath="1-483x321.jpeg"
+            {...product}
             checkoutButton={checkoutButtonElement}
             getLocalization={
-              getDefaultLocalization(
-                'product',
-                'en',
-                {
-                  ...iPadCaseLocalization,
-                  ...iPadPropertiesWithAdditionalCostLocalization
-                }
-              )}
+              getProductLocalization
+            }
+
           />
           <Cart
             checkoutButton={checkoutButtonElement}
             getLocalization={
-              getDefaultLocalization(
-                'cart',
-                'en',
-                iPadCaseLocalization
-              )
+              getCartLocalization
             }
           />
         </div>
@@ -199,32 +222,48 @@ const iPadPropertiesWithAdditionalCostLocalization = {
 class App extends Component {
 
   state = {
-    products: {}
-  };
-
-  getProductLocalization =
-    getDefaultLocalization(
-      'product',
-      'en',
-      {
-        ...iPadCaseLocalization,
-        ...iPadPropertiesWithAdditionalCostLocalization,
+    products: {},
+    product: {
+      name: 'iPadCase',
+      id: 'ipad-case',
+      path: '/shop/ipad-case/',
+      properties: {
+        colour: ['red', 'green', {
+          additionalCost: {
+            GBP: 1,
+            EUR: 2,
+            USD: 3.50,
+          },
+          value: 'yellow',
+        }],
       },
-    );
-
-  getCartLocalization =
-    getDefaultLocalization(
-      'cart',
-      'en',
-      iPadCaseLocalization,
-    );
-
-  getCheckoutButtonLocalization =
-    getDefaultLocalization(
-      'checkoutButton',
-      'en',
-      iPadCaseLocalization,
-    );
+      propertiesToShowInCart: ['colour'],
+      prices: { GBP: 70, EUR: 80, USD: 90 },
+      currency: 'GBP',
+      imagePath: '1-483x321.jpeg',
+    },
+    getProductLocalization:
+      getDefaultLocalization(
+        'product',
+        'en',
+        {
+          ...iPadCaseLocalization,
+          ...iPadPropertiesWithAdditionalCostLocalization
+        }
+      ),
+    getCheckoutButtonLocalization:
+      getDefaultLocalization(
+        'checkoutButton',
+        'en',
+        iPadCaseLocalization,
+      ),
+    getCartLocalization:
+      getDefaultLocalization(
+        'cart',
+        'en',
+        iPadCaseLocalization
+      )
+  };
 
   addProduct = (key, product, currency) =>
     void this.setState(
@@ -236,7 +275,6 @@ class App extends Component {
           }
         }
       ) => ({
-
         products: {
           ...restOfProducts,
           [key]: {
@@ -249,17 +287,30 @@ class App extends Component {
       })
     );
 
+  generateProductKey = (id, properties) =>
+    `${id}/${Object.entries(properties).join('_')}`;
+
+  updateProduct = (key, updatedProduct) => void console.log(':)');
+
+  removeProduct = key => void console.log(':C');
+
   render() {
+
+    const {
+      addProduct,
+      generateProductKey,
+      updateProduct,
+      removeProduct,
+      state,
+    } = this;
+
     const {
       getProductLocalization,
       getCheckoutButtonLocalization,
       getCartLocalization,
-      addProduct,
-    } = this;
-
-    const {
-      products
-    } = this.state;
+      products,
+      product,
+    } = state;
 
     const checkoutButtonElement =
       <CheckoutButtonComponent
@@ -272,33 +323,14 @@ class App extends Component {
     return (
       <div className="container">
         <ProductComponent
-          name= "iPadCase"
-          id="ipad-case"
-          path="/shop/ipad-case/"
-          properties={{
-            colour: ['red', 'green', {
-                additionalCost: {
-                  GBP: 1,
-                  EUR: 2,
-                  USD: 3.50,
-                },
-                value: 'yellow',
-              }],
-          }}
-          getLocalization={
-            getProductLocalization
-          }
-          propertiesToShowInCart={['colour']}
-          prices={{ GBP: 70, EUR: 80, USD: 90 }}
-          currency="GBP"
+          {...product}
           checkoutButton={checkoutButtonElement}
-          imagePath="ipad-case.jpeg"
           onAddProduct={
             addProduct
             // Help product to get into the cart
           }
           generateProductKey={
-            (id, properties) => `${id}/${Object.entries(properties).join('_')}`
+            generateProductKey
                     // create product key as you wish
           }
           getLocalization={getProductLocalization}
@@ -311,14 +343,16 @@ class App extends Component {
             // Provide your own product's Object(Look at ProductsMapType)
           }
           onUpdateProduct={
-            (key, updatedProduct) => void ':)'// Update something
+            updatedProduct
+            // Update something
           }
           getLocalization={
             getCartLocalization
           }
           currency="GBP"
           onRemoveProduct={
-            key => void ':#'// Remove something
+            removeProduct
+            // Remove something
           }
           checkoutButton={
             checkoutButtonElement
@@ -334,5 +368,4 @@ class App extends Component {
 }
 
 export default App;
-
 ```

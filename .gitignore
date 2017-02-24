@@ -2,5 +2,5 @@
 dist
 node_modules
 npm-debug.log
-examples/bundle.js
+examples/build
 examples/.DS_Store

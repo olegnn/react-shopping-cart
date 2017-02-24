@@ -144,14 +144,82 @@ export default class App extends Component {
   state = {
     lang: 'en',
     currency: 'USD',
-  };
+    product: {
+      properties: {
+        colour: ['red', 'green', {
+          additionalCost: {
+            GBP: 10,
+            EUR: 15,
+            USD: 20,
+          },
+          value: 'purple',
+        }],
+        additionalColour: ['red', 'green', {
+          additionalCost: {
+            GBP: 1,
+            EUR: 2,
+            USD: 3.50,
+          },
+          value: 'yellow',
+        }],
+      },
+      id: 'macbook-case',
+      propertiesToShowInCart:
+        ['colour', 'additionalColour'],
+      name: 'macbookCase',
+      prices: {
+        GBP: 50,
+        EUR: 60,
+        USD: 70,
+      },
+      imagePath: 'https://www.solarleague.org/'+
+                        'shop/macbook-case/1-483x321.jpeg',
+      path: '/shop/macbook-case/',
+    },
+    localizationGetters: {
+      en: {
+        product:
+          getDefaultLocalization(
+            'product',
+            'en',
+            localization.en.product,
+          ),
+        cart:
+          getDefaultLocalization(
+            'cart',
+            'en',
+            localization.en.cart,
+          ),
+        checkoutButton:
+          getDefaultLocalization(
+            'checkoutButton',
+            'en',
+            localization.en.checkoutButton,
+          ),
+      },
+      fr: {
+        product:
+          getDefaultLocalization(
+            'product',
+            'fr',
+            localization.fr.product,
+          ),
+        cart:
+          getDefaultLocalization(
+            'cart',
+            'fr',
+            localization.fr.cart,
+          ),
+        checkoutButton:
+          getDefaultLocalization(
+            'checkoutButton',
+            'fr',
+            localization.fr.checkoutButton,
+          ),
 
-  getLocalization = (componentName, lang = this.state.lang) =>
-    getDefaultLocalization(
-      componentName,
-      lang,
-      localization[lang][componentName],
-    );
+      },
+    },
+  };
 
   changeCurrency = currency =>
     void (store.dispatch(
@@ -180,9 +248,6 @@ export default class App extends Component {
 
   render() {
     const {
-      getLocalization,
-      changeCurrency,
-      changeLanguage,
       handleLanguageChange,
       handleCurrencyChange,
       state,
@@ -191,22 +256,18 @@ export default class App extends Component {
     const {
       lang,
       currency,
+      localizationGetters,
+      product,
     } = state;
 
     const checkoutButton = (
       <CheckoutButton
         getLocalization={
-          getLocalization(
-            'checkoutButton',
-          )
+          localizationGetters[lang].checkoutButton
         }
         checkoutURL="/to/checkout/"
       />
     );
-
-
-    const imagePath = 'https://www.solarleague.org/'+
-                      'shop/macbook-case/1-483x321.jpeg';
 
     const descriptionNode = (
       <div>
@@ -220,7 +281,7 @@ export default class App extends Component {
             additionalLocalization[lang].caseForMacbookLovers
           }
         </p>
-        <img className="img-fluid" src={imagePath} />
+        <img className="img-fluid" src={product.imagePath} />
       </div>
     );
 
@@ -278,45 +339,13 @@ export default class App extends Component {
       <Provider store={store}>
         <div className="container">
           <Product
-            id="macbook-case"
+            {...product}
             getLocalization={
-              getLocalization(
-                'product',
-              )
+              localizationGetters[lang].product
             }
-            properties={{
-              colour: ['red', 'green', {
-                additionalCost: {
-                  GBP: 10,
-                  EUR: 15,
-                  USD: 20,
-                },
-                value: 'purple',
-              }],
-              additionalColour: ['red', 'green', {
-                additionalCost: {
-                  GBP: 1,
-                  EUR: 2,
-                  USD: 3.50,
-                },
-                value: 'yellow',
-              }],
-            }}
-            propertiesToShowInCart={
-              ['colour', 'additionalColour']
-            }
-            name="macbookCase"
-            prices={{
-              GBP: 50,
-              EUR: 60,
-              USD: 70,
-            }}
             checkoutButton={
               checkoutButton
             }
-
-            path="/shop/macbook-case/"
-            imagePath={imagePath}
             descriptionNode={
               descriptionNode
             }
@@ -326,9 +355,7 @@ export default class App extends Component {
           />
           <Cart
             getLocalization={
-              getLocalization(
-                'cart',
-              )
+              localizationGetters[lang].cart
             }
             checkoutButton={
               checkoutButton

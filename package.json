@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -82,7 +82,7 @@
     "flow": "flow",
     "lint": "./node_modules/.bin/eslint .",
     "doc": "./node_modules/gulp/bin/gulp.js doc",
-    "build_example": "./node_modules/webpack/bin/webpack.js --output-path './examples'",
+    "build_example": "./node_modules/webpack/bin/webpack.js --output-path './examples/build'",
     "develop": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js .",
     "prepublish": "npm run build && npm run doc && npm run test -- -u;"
   }
