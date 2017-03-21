@@ -1,5 +1,5 @@
 
-#React shopping cart with _localization_ and _multiple currencies_
+# React shopping cart with _localization_ and _multiple currencies_
 
 Shopping cart package provides several components:
 - __Cart__
@@ -18,7 +18,7 @@ Pay attention! All components are  [__Pure__](https://facebook.github.io/react/d
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-##Demo
+## Demo
 
 Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.solarleague.org/shop/macbook-case/)
 
@@ -268,11 +268,12 @@ class App extends Component {
   addProduct = (key, product, currency) =>
     void this.setState(
       (
-        { products:
-          {
-            [key]: cartProduct = { quantity: 0 },
-            ...restOfProducts
-          }
+        {
+          products:
+            {
+              [key]: cartProduct = { quantity: 0 },
+              ...restOfProducts
+            }
         }
       ) => ({
         products: {
