@@ -11,7 +11,7 @@
  */
 import React, { PureComponent, PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
-import Transition from 'react-overlays/lib/Transition';
+import { Transition } from 'react-overlays';
 
 import CartProduct from './CartProduct/CartProduct';
 import { animate, DefaultLinkComponent } from '../../helpers';
@@ -149,10 +149,11 @@ export default class Cart extends PureComponent {
       onRemoveProduct,
       getLocalization,
       checkoutButton,
+      linkComponent,
     } = this.props;
 
     return (
-      <div className="row mt-1">
+      <div className="row my-1">
         <Transition
           in={!isCartEmpty}
           {...cartTransition}
@@ -197,14 +198,14 @@ export default class Cart extends PureComponent {
                         onUpdateProduct={onUpdateProduct}
                         onRemoveProduct={onRemoveProduct}
                         getLocalization={getLocalization}
-                        linkComponent={DefaultLinkComponent}
+                        linkComponent={linkComponent}
                       />
                     ),
                   )
                 }
               </ReactCSSTransitionGroup>
             </div>
-            <div className="row mt-1">
+            <div className="row my-1">
               <div
                 className={
                   'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6' +
