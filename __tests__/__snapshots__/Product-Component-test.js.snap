@@ -4,7 +4,7 @@ exports[`Product takes snapshot 1`] = `
     Price: £70
   </p>
   <form
-    className="mt-1"
+    className="my-1"
     onSubmit={[Function anonymous]}>
     <div
       className="form-group row">

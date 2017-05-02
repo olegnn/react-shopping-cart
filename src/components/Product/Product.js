@@ -10,7 +10,7 @@
  * React component - Product form with price.
  */
 import React, { PureComponent, PropTypes } from 'react';
-import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
+import { animateScroll } from 'react-scroll';
 
 import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
 import {
@@ -369,7 +369,7 @@ export default class Product extends PureComponent {
           { getLocalization('price', localizationScope) }
         </p>
         { afterPriceNode }
-        <form className="mt-1" onSubmit={addProductFormSubmit}>
+        <form className="my-1" onSubmit={addProductFormSubmit}>
           {
             createPropertiesInputList(
               properties,

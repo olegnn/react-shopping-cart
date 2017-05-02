@@ -8,3 +8,5 @@ node_modules
 __tests__
 webpack.config.js
 examples
+yarn-error.log
+yarn.lock
