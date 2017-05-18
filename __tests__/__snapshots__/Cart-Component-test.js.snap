@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Cart takes snapshot 1`] = `
 <div
-  className="row mt-1">
+  className="row my-1"
+>
   <div
     className="col-12"
     style={
@@ -8,96 +11,121 @@ exports[`Cart takes snapshot 1`] = `
         "WebkitAnimationDuration": "0.5s",
         "WebkitAnimationFillMode": "both",
         "animationDuration": "0.5s",
-        "animationFillMode": "both"
+        "animationFillMode": "both",
       }
-    }>
+    }
+  >
     My lovely shopping cart
     <div
-      className="list-group">
+      className="list-group"
+    >
       <span>
         <div
-          className="list-group-item list-group-item-action align-items-start animated">
+          className="list-group-item list-group-item-action align-items-start animated"
+        >
           <div
-            className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3"
+          >
             <a
               href="/shop/ipad-case"
-              to="/shop/ipad-case">
+            >
               <div
-                className="list-group-item-heading">
+                className="list-group-item-heading"
+              >
                 iPad case
               </div>
               <img
                 className="img-fluid"
-                src="ipad-case1-483x321.jpeg" />
+                src="ipad-case1-483x321.jpeg"
+              />
             </a>
           </div>
           <div
-            className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7">
+            className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7"
+          >
             <div
-              className="form-group row">
+              className="form-group row"
+            >
               <label
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="quantity">
+                htmlFor="quantity"
+              >
                 Quantity:
               </label>
               <div
-                className="col-xs-6 col-md-7 col-lg-8">
+                className="col-xs-6 col-md-7 col-lg-8"
+              >
                 <input
                   className="form-control"
-                  onChange={[Function anonymous]}
+                  onChange={[Function]}
                   type="number"
-                  value={1} />
+                  value={1}
+                />
               </div>
             </div>
             <div
-              className="form-group row">
+              className="form-group row"
+            >
               <label
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="colour">
-                Colour:
+                htmlFor="color"
+              >
+                Color:
               </label>
               <div
-                className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+                className="col-xs-6 col-md-7 col-lg-8"
+              >
                 Red
               </div>
             </div>
             <div
-              className="form-group row">
+              className="form-group row"
+            >
               <label
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="price">
+                htmlFor="price"
+              >
                 Price:
               </label>
               <div
-                className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+                className="col-xs-6 col-md-7 col-lg-8 col-form-label"
+              >
                 £70
               </div>
             </div>
             <div
-              className="form-group row">
+              className="form-group row"
+            >
               <label
                 className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="total">
+                htmlFor="total"
+              >
                 Total:
               </label>
               <div
-                className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+                className="col-xs-6 col-md-7 col-lg-8 col-form-label"
+              >
                 £70
               </div>
             </div>
           </div>
           <div
-            className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+            className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2"
+          >
             <div
-              className="form-group row">
+              className="form-group row"
+            >
               <div
-                className="col-12 text-center">
+                className="col-12 text-center"
+              >
                 <button
                   className="btn btn-danger active form-control"
-                  onClick={[Function anonymous]}
-                  role="button">
+                  onClick={[Function]}
+                  role="button"
+                >
                   <i
-                    className="icon-trash" />
+                    className="icon-trash"
+                  />
                   Remove
                 </button>
               </div>
@@ -107,9 +135,11 @@ exports[`Cart takes snapshot 1`] = `
       </span>
     </div>
     <div
-      className="row mt-1">
+      className="row my-1"
+    >
       <div
-        className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3">
+        className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3"
+      >
         <a />
       </div>
     </div>

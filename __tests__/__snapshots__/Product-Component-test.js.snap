@@ -1,62 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Product takes snapshot 1`] = `
 <div>
   <p>
     Price: £70
   </p>
   <form
-    className="mt-1"
-    onSubmit={[Function anonymous]}>
+    className="my-1"
+    onSubmit={[Function]}
+  >
     <div
-      className="form-group row">
+      className="form-group row"
+    >
       <label
         className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
-        htmlFor="colour">
-        Colour:
+        htmlFor="color"
+      >
+        Color:
       </label>
       <div
-        className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        className="col-xs-9 col-sm-9 col-md-9 col-lg-9"
+      >
         <select
           className="form-control"
-          onChange={[Function anonymous]}
-          value="red">
+          onChange={[Function]}
+          value="red"
+        >
           <option
-            value="red">
+            value="red"
+          >
             Red
           </option>
           <option
-            value="green">
+            value="green"
+          >
             Green
           </option>
         </select>
       </div>
     </div>
     <div
-      className="form-group row">
+      className="form-group row"
+    >
       <label
         className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
-        htmlFor="product-quantity">
+        htmlFor="product-quantity"
+      >
         Quantity:
       </label>
       <div
-        className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        className="col-xs-9 col-sm-9 col-md-9 col-lg-9"
+      >
         <input
           className="form-control"
-          onChange={[Function anonymous]}
+          onChange={[Function]}
           type="number"
-          value={1} />
+          value={1}
+        />
       </div>
     </div>
     <div
-      className="form-group row">
+      className="form-group row"
+    >
       <div
-        className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3">
+        className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3"
+      >
         <button
           className="btn btn-success btn-block active"
           disabled={false}
           role="button"
-          type="submit">
+          type="submit"
+        >
           <i
-            className="icon-cart-plus" />
+            className="icon-cart-plus"
+          />
           Add to my cart :)
         </button>
         <a />

@@ -9,151 +9,189 @@
  * @description
  * React component - Product form with price.
  */
-import React, { PureComponent, PropTypes } from 'react';
-import animateScroll from 'react-scroll/lib/mixins/animate-scroll';
+
+import React, { PureComponent } from 'react';
+
+import type {
+  Prices,
+  InputEvent,
+  ProductData,
+  AddProduct,
+  GetLocalization,
+  GenerateProductKey,
+} from '../../types';
+
+import type {
+  OnChange,
+  PropertyOptions,
+  OptionIndex,
+} from './ProductPropertyInput/ProductPropertyInput';
 
 import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
 import {
+  parseInteger,
+  scrollFunction,
   isNaturalNumber,
+  generateProductKey,
   getAbsoluteOffsetTop,
 } from '../../helpers';
 
-const
-  /**
-   * @static propTypes
-   * @memberof Product
-   *
-   * @prop {string} name - Name to display. Required.
-   * @prop {string} id - Product's id. Required.
-   * @prop {string} path - Path to product. Required.
-   * @prop {Object.<string, number>} prices - Prices (currency-value). Required.
-   * @prop {string} imagePath - Path to main image. Required.
-   * @prop {string} currency - Price currency. Required.
-   * @prop {Object.<string, Array<(ProductPropertyOptionType)>>}
-   * properties - Custom product properties. May be array of number, string or
-   * shape({ additionalCost(optional), onSelect(optional), value(required)})
-   * Default is {}.
-   * @prop {Array<string>} propertiesToShowInCart - Array of propery names to
-   * display in cart. Default is [].
-   * @prop {Object} scrollAnimationConfig - Config for animateScroll
-   * (from react-scroll) scrollTo function.
-   * Default is
-   *  {
-   *    duration: 750,
-   *    delay: 0,
-   *    smooth: true,
-   *  }.
-   * @prop {string} iconAddProductClassName - ClassName for cart icon
-   * on add to button.
-   * Default is 'icon-cart-plus'.
-   * @prop {ReactNode} afterPriceNode - Node to display after price element.
-   * Optional.
-   * @prop {ReactNode} descriptionNode - Node to display before price element.
-   * Optional.
+/**
+ * @typedef {Object.<string, PropertyOptions>} ProductPropertiesOptions
+ */
+export type ProductPropertiesOptions = {
+  [key: string]: PropertyOptions
+};
+
+/** @ */
+export type ScrollPosition = number | (currentTarget: Element) => number;
+
+/** @ */
+export type ScrollFunction = (
+  currentTarget: EventTarget,
+  scrollPosition: number | (currentTarget: Element) => number,
+  scrollAnimationConfig: Object,
+) => void;
+
+/**
+ * @memberof Product
+ * @typedef {Object} Props
+ * @prop {string} id - Product's id. Required.
+ * @prop {string} name - Name to display pattern. Required.
+ * @prop {string} path - Path to product. Required.
+ * @prop {Prices} prices - {currency: value}. Required
+ * @prop {string} imagePath - Path to main image.
+ * @prop {string} currency - Current price currency. Required.
+ * @prop {AddProduct} onAddProduct - Function to call when user wants to add product in his cart. Required.
+ * @prop {GenerateProductKey} generateProductKey - Required.
+ * @prop {GetLocalization} getLocalization - Required.
+ * @prop {?ProductPropertiesOptions} properties - Custom product properties. Each property option list consists of number,
+ * string or shape({ additionalCost(optional), onSelect(optional), value(required)})
+ * @prop {?Array<string>} propertiesToShowInCart - Array of propery names to display in cart.
+ * @prop {?Object} scrollAnimationConfig - Config for animateScroll (from react-scroll) scrollTo function.
+ * @prop {?ScrollPosition} scrollPosition - Position to scroll after product add. May be number or function returning number.
+ * @prop {?ScrollFunction} scrollFunction - Function which will be called when product has been added.
+ * @prop {?string} iconAddProductClassName - ClassName for cart icon on add to button.
+ * @prop {?ReactElement} checkoutButton
+ * @prop {?ReactNode} descriptionNode - Node to display before price element.
+ * @prop {?ReactNode} afterPriceNode - Node to display after price element.
+ *
+ */
+
+void null;
+
+export type Props = {|
+  /*
+   * Product's id.
    */
-  propTypes = {
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-    prices: PropTypes.objectOf(
-      PropTypes.number,
-    ).isRequired,
-    imagePath: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
-    properties: PropTypes.objectOf(
-      PropTypes.arrayOf(
-        PropTypes.oneOfType(
-          [
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.shape({
-              additionalCost: PropTypes.objectOf(
-                PropTypes.number,
-              ),
-              onSelect: PropTypes.func,
-              value: PropTypes.oneOfType(
-                [
-                  PropTypes.string,
-                  PropTypes.number,
-                ],
-              ).isRequired,
-            }),
-          ],
-        ),
-      ),
-    ),
-    propertiesToShowInCart: PropTypes.arrayOf(
-      PropTypes.string,
-    ),
-    scrollAnimationConfig: PropTypes.object,
-    iconAddProductClassName: PropTypes.string,
-    afterPriceNode: PropTypes.node,
-    descriptionNode: PropTypes.node,
-  },
-  /**
-  * @static containerPropTypes
-  * @memberof Product
-  * @prop {ReactElement} CheckoutButton - Button in the bottom of product.
-  * Required.
-  * @prop {onAddProductType} onAddProduct - Callback to call when
-  * user wants to add product in his cart.
-  * Example:
-  * onAddProduct(
-  *   'macbook-case',
-  *   {
-  *     quantity: 30,
-  *     properties: { colour: 'red' },
-  *     productInfo: {
-  *       prices: {
-  *        GBP: 70
-  *       },
-  *      ...etc
-  *     },
-  *   },
-  *   'GBP'
-  * );
-  * Required.
-  * @prop {getLocalizationType} getLocalization - Required.
-  * @prop {generateProductKeyType} generateProductKey - Function which generates
-  * product's key based on id and properties. Example:
-  * generateProductKey('macbook-case', { colour: 'red' } ).
-  */
-  containerPropTypes = {
-    checkoutButton: PropTypes.element.isRequired,
-    onAddProduct: PropTypes.func.isRequired,
-    getLocalization: PropTypes.func.isRequired,
-    generateProductKey: PropTypes.func.isRequired,
-  },
-  defaultProps = {
-    properties: {},
-    propertiesToShowInCart: [],
-    iconAddProductClassName: 'icon-cart-plus',
-    scrollAnimationConfig: {
-      duration: 750,
-      delay: 0,
-      smooth: true,
-    },
-    afterPriceNode: null,
-    descriptionNode: null,
-  };
+  id: string,
+  /*
+   * Name to display pattern.
+   */
+  name: string,
+  /*
+   * Path to product.
+   */
+  path: string,
+  /*
+   * Prices (currency-value).
+   */
+  prices: Prices,
+  /*
+   * Path to main image.
+   */
+  imagePath: string,
+  /*
+   * Current price currency.
+   */
+  currency: string,
+  /*
+   * Function to call when user wants to add product in his cart.
+   */
+  onAddProduct: AddProduct,
+  /*
+   * Function which generates product's key based on id and properties.
+   */
+  generateProductKey: GenerateProductKey,
+  getLocalization: GetLocalization,
+  /*
+   * Custom product properties. Each property option list consists of number,
+   * string or shape({ additionalCost(optional), onSelect(optional), value(required)})
+   */
+  properties: ProductPropertiesOptions,
+  /*
+   * Array of propery names to display in cart.
+   */
+  propertiesToShowInCart: Array<string>,
+  /*
+   * Config for animateScroll (from react-scroll) scrollTo function.
+   */
+  scrollAnimationConfig: Object,
+  /*
+   * Position to scroll after product add.
+   */
+  scrollPosition: ScrollPosition,
+  scrollFunction: ScrollFunction,
+  /*
+   *  ClassName for cart icon on add to button.
+   */
+  iconAddProductClassName: string,
+  checkoutButton: React$Element<*>,
+  /*
+   * Node to display before price element.
+   */
+  descriptionNode?: React$Element<*>,
+  /*
+   * Node to display after price element.
+   */
+  afterPriceNode?: React$Element<*>,
+|};
 
-export default class Product extends PureComponent {
+const scrollPosition: ScrollPosition =
+  ({ children, }) =>
+    getAbsoluteOffsetTop(
+      children[children.length - 2],
+    ) - 5;
 
-  static propTypes = { ...propTypes, ...containerPropTypes };
+const defaultProps = {
+  properties: {},
+  propertiesToShowInCart: [],
+  iconAddProductClassName: 'icon-cart-plus',
+  scrollAnimationConfig: {
+    duration: 750,
+    delay: 0,
+    smooth: true,
+  },
+  scrollPosition,
+  scrollFunction,
+  generateProductKey,
+  afterPriceNode: null,
+  descriptionNode: null,
+};
+
+export type State = {|
+  quantity: number,
+|} & OptionIndex;
+
+export default class
+  Product extends PureComponent<typeof defaultProps, Props, State> {
+
+  props: Props;
+
   static defaultProps = defaultProps;
 
+  static displayName = 'Product';
+
   static createPropertiesInputList = (
-    properties: {
-      [propertyName: string]: Array<ProductPropertyOptionType>
-    },
-    propertiesSelectedIndexes,
-    currency,
-    handlePropertyValueChange,
-    getLocalization,
-  ) : Array<React$Element<any>> =>
+    properties: ProductPropertiesOptions,
+    propertiesSelectedIndexes: OptionIndex,
+    currency: string,
+    handlePropertyValueChange: OnChange,
+    getLocalization: GetLocalization,
+  ): Array<React$Element<*>> =>
     Object
       .entries(properties)
-      .map(([name, options]) =>
+      .map(([ name, options, ]) =>
         <ProductPropertyInput
           key={name}
           name={name}
@@ -166,23 +204,25 @@ export default class Product extends PureComponent {
     );
 
   static calculateAdditionalCost = (
-    properties : { [propName : string] : ProductPropertyOptionType },
-    selectedPropertyIndexes : {[propName: string] : number},
-    currency : string,
-  ) : number =>
-    Object.entries(properties).reduce(
-      (sum, [propertyName, propertyOptions]) => {
-        const selectedOption
-          = propertyOptions[selectedPropertyIndexes[propertyName]|0];
-        return sum + (
-          typeof selectedOption === 'object'
-          && (
-            selectedOption.additionalCost
-            && selectedOption.additionalCost[currency]
-          ) || 0
-        );
-      }
-    , 0);
+    properties: ProductPropertiesOptions,
+    selectedPropertyIndexes: OptionIndex,
+    currency: string,
+  ): number =>
+    Object
+      .entries(properties)
+      .reduce(
+        (sum, [ propertyName, propertyOptions, ]) => {
+          const selectedOption
+            = propertyOptions[selectedPropertyIndexes[propertyName]||0];
+          return sum + (
+            typeof selectedOption === 'object'
+            && (
+              selectedOption.additionalCost
+              && selectedOption.additionalCost[currency]
+            ) || 0
+          );
+        }
+      , 0);
 
   static generateCartProduct = (
     {
@@ -193,24 +233,24 @@ export default class Product extends PureComponent {
       imagePath,
       path,
       id,
-    } : {
-      properties : { [propName : string] : ProductPropertyOptionType },
-      propertiesToShowInCart : Array<string>,
-      prices : { [currency : string] : number },
-      name : string,
-      imagePath : string,
-      path : string,
-      id : string,
+    }: {
+      properties: ProductPropertiesOptions,
+      propertiesToShowInCart: Array<string>,
+      prices: Prices,
+      name: string,
+      imagePath: string,
+      path: string,
+      id: string,
     },
     quantity,
-    selectedPropertyIndexes : {[propName: string] : number},
-  ) : ProductType => ({
+    selectedPropertyIndexes: OptionIndex,
+  ): ProductData => ({
     id,
     quantity,
     properties:
       Object
         .entries(properties)
-        .reduce((obj, [propName, options]) =>
+        .reduce((obj, [ propName, options, ]) =>
           ({
             ...obj,
             [propName]:
@@ -220,82 +260,62 @@ export default class Product extends PureComponent {
                 ),
           })
         , {}),
-    productInfo: {
-      name,
-      prices:
-        Object
-          .entries(prices)
-          .reduce(
-            (acc, [currency, price]) => ({
-              ...acc,
-              [currency]: price +
-                Product.calculateAdditionalCost(
-                  properties,
-                  selectedPropertyIndexes,
-                  currency,
-                ),
-            }), {},
-          ),
-      path,
-      imagePath,
-      propertiesToShowInCart,
-    },
+    name,
+    prices:
+      Object
+        .entries(prices)
+        .reduce(
+          (acc, [ currency, price, ]) => ({
+            ...acc,
+            [currency]: price +
+              Product.calculateAdditionalCost(
+                properties,
+                selectedPropertyIndexes,
+                currency,
+              ),
+          })
+        , {}),
+    path,
+    imagePath,
+    propertiesToShowInCart,
   });
 
-  state = {
+  state: State = {
     quantity: 1,
   };
 
-  componentWillUnmount() {
-    this.clearScrollTimeout();
-  }
-
-  // Explicit define property for flow
-  scrollTimeout = void 0;
-
-  clearScrollTimeout = () => {
-    if (typeof this.scrollTimeout !== 'undefined') {
-      clearTimeout(this.scrollTimeout);
-      delete this.scrollTimeout;
-    }
-  };
-
   handleQuantityValueChange = (
-    { target: { value } } : { target : HTMLInputElement, },
+    { currentTarget, }: InputEvent,
   ) => {
-    const quantity = +value;
+    const quantity = parseInteger(currentTarget.value);
     if (isNaturalNumber(quantity))
-      this.setState({ quantity });
+      this.setState({ quantity, });
   }
 
-  hanglePropertyValueChange = (
-    { value }: { value: { [propName: string]: ProductPropertyOptionType }},
+  hanglePropertyValueChange: OnChange = (
+    { value, },
   ) => void this.setState(value);
 
-  addProductFormSubmit = (event : Event) => {
-    const { props } = this;
+  addProductFormSubmit = (event: Event) => {
+    const { props, state, } = this;
     const {
       id,
-      path,
       currency,
-      scrollAnimationConfig,
       onAddProduct,
       generateProductKey,
+      scrollAnimationConfig,
+      scrollPosition,
+      scrollFunction,
     } = props;
-    const { quantity, ...selectedPropertyIndexes } = this.state;
-    const { generateCartProduct } = Product;
-    const { target: { children } } = event;
+    const { quantity, ...selectedPropertyIndexes } = state;
+    const { generateCartProduct, } = Product;
+    const { currentTarget, } = event;
+    /*
+     * Prevent form submission
+     */
     event.preventDefault();
 
     if (quantity) {
-      this.clearScrollTimeout();
-      this.scrollTimeout = setTimeout(() =>
-        void animateScroll.scrollTo(
-          getAbsoluteOffsetTop(
-            children[children.length - 2],
-          ) - 5, scrollAnimationConfig,
-        )
-      , 50);
       const product = generateCartProduct(
         props, quantity, selectedPropertyIndexes,
       );
@@ -307,6 +327,7 @@ export default class Product extends PureComponent {
          product,
          currency,
       );
+      scrollFunction(currentTarget, scrollPosition, scrollAnimationConfig);
     }
   }
 
@@ -369,7 +390,7 @@ export default class Product extends PureComponent {
           { getLocalization('price', localizationScope) }
         </p>
         { afterPriceNode }
-        <form className="mt-1" onSubmit={addProductFormSubmit}>
+        <form className="my-1" onSubmit={addProductFormSubmit}>
           {
             createPropertiesInputList(
               properties,

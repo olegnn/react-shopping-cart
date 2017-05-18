@@ -1,4 +1,14 @@
 {
-  "presets": ["react", "es2015", "stage-0"],
-  "plugins": ["add-module-exports", "transform-runtime", "babel-plugin-transform-es5-property-mutators", "transform-flow-strip-types"],
+  "presets": ["react", "es2015"],
+  "plugins": [
+    "babel-plugin-syntax-trailing-function-commas",
+    "flow-react-proptypes",
+    "transform-flow-strip-types",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "transform-runtime",
+    "babel-plugin-transform-es5-property-mutators",
+    "babel-plugin-transform-export-extensions",
+    "add-module-exports"
+  ]
 }

@@ -8,31 +8,45 @@
  * @description
  * Redux container for Cart
  */
+
+import type {
+  Dispatch,
+} from 'redux';
+
 import React from 'react';
 import { connect } from 'react-redux';
+
+import type {
+  CartState,
+  CartAction,
+  ProductData,
+} from '../types';
+
 import { updateCart, removeFromCart } from '../actions';
-import { Cart } from '../components';
+import Cart from '../components/Cart/Cart';
 import CheckoutButton from '../containers/CheckoutButton';
 import { configure } from '../helpers';
 import { getDefaultLocalization } from '../localization';
-import { isCartEmptySelector } from '../selectors';
+import {
+  productsSelector,
+  currencySelector,
+  isCartEmptySelector,
+} from '../selectors';
 
-const mapStateToProps = (
-  state,
-) : Object => ({
-  products: state.cart.products,
+const mapStateToProps = (state: CartState) => ({
+  products: productsSelector(state),
   isCartEmpty: isCartEmptySelector(state),
-  currency: state.cart.currency,
+  currency: currencySelector(state),
 });
 
-const mapDispatchToProps = (dispatch : Function) : Object => ({
-  onUpdateProduct: (key : string, updatedProduct : ProductType) =>
+const mapDispatchToProps = (dispatch: Dispatch<CartAction>) => ({
+  onUpdateProduct: (key: string, updatedProduct: ProductData) =>
     void dispatch(updateCart(key, updatedProduct)),
-  onRemoveProduct: (key : string) =>
+  onRemoveProduct: (key: string) =>
     void dispatch(removeFromCart(key)),
 });
 
-export default(
+export default (
   connect(mapStateToProps, mapDispatchToProps)(
     configure(Cart,
       {
