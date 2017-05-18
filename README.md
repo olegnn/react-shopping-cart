@@ -1,15 +1,15 @@
 
-# React shopping cart with _localization_ and _multiple currencies_
+# React shopping cart
 
 Shopping cart package provides several components:
-- __Cart__
-- __Product__
-- __CheckoutButton__
+- [__Cart__](#cart)
+- [__Product__](#product)
+- [__CheckoutButton__](#checkoutbutton)
 
 which can be used separately or in union.
-By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate data.
+By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate with data.
 
-So, it's your choice to use Redux or not, but its reducers, actions and actionTypes are already included.
+So, it's your choice to use Redux or not, but its reducers, actions and action types are already included.
 
 Pay attention! All components are  [__Pure__](https://facebook.github.io/react/docs/react-api.html#react.purecomponent).
 
@@ -26,13 +26,16 @@ Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.
 
 **Usage**
 ```shell
+yarn add react-shopping-cart
+```
+```shell
 npm i --save react-shopping-cart
 ```
 
 **Examples**
 
 
-In all cases you must include bootstrap_v4.css in your project
+In all cases you must include bootstrap version 4 (^alpha 0.6) in your project
 ```javascript
 import 'bootstrap/dist/css/bootstrap.css';
 ```
@@ -43,7 +46,7 @@ import 'animate.css/animate.min.css';
 
 __With Redux.__ After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
 ```javascript
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import {
@@ -64,7 +67,7 @@ const { getDefaultLocalization } = cartLocalization;
 // You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
-  colour: 'Colour',
+  color: 'Color',
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
@@ -92,7 +95,7 @@ store.dispatch(
 );
 
 
-class App extends Component {
+class App extends PureComponent {
 
   state = {
     product: {
@@ -100,7 +103,7 @@ class App extends Component {
       id: 'ipad-case',
       path: '/shop/ipad-case/',
       properties: {
-        colour: ['red', 'green', {
+        color: ['red', 'green', {
           additionalCost: {
             GBP: 1,
             EUR: 2,
@@ -109,7 +112,7 @@ class App extends Component {
           value: 'yellow',
         }],
       },
-      propertiesToShowInCart: ['colour'],
+      propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
       imagePath: '1-483x321.jpeg',
@@ -177,9 +180,10 @@ class App extends Component {
 }
 
 export default App;
+```
 
-
-// You also may import actions and actionTypes
+```javascript
+// You may also import actions and actionTypes
 
 import { cartActions, cartActionTypes } from 'react-shopping-cart';
 
@@ -188,7 +192,7 @@ import { cartActions, cartActionTypes } from 'react-shopping-cart';
 
 __Without redux__
 ```javascript
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   CartComponent,
   ProductComponent,
@@ -205,7 +209,7 @@ const { getDefaultLocalization } = cartLocalization;
 // You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
-  colour: 'Colour',
+  color: 'Color',
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
@@ -219,7 +223,7 @@ const iPadPropertiesWithAdditionalCostLocalization = {
   yellow: 'Yellow (+{cost}{localizedCurrency})',
 };
 
-class App extends Component {
+class App extends PureComponent {
 
   state = {
     products: {},
@@ -228,7 +232,7 @@ class App extends Component {
       id: 'ipad-case',
       path: '/shop/ipad-case/',
       properties: {
-        colour: ['red', 'green', {
+        color: ['red', 'green', {
           additionalCost: {
             GBP: 1,
             EUR: 2,
@@ -237,7 +241,7 @@ class App extends Component {
           value: 'yellow',
         }],
       },
-      propertiesToShowInCart: ['colour'],
+      propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
       imagePath: '1-483x321.jpeg',
@@ -341,10 +345,10 @@ class App extends Component {
         <CartComponent
           products={
             products
-            // Provide your own product's Object(Look at ProductsMapType)
+            // Provide your own product's Object(Look at Products)
           }
           onUpdateProduct={
-            updatedProduct
+            updateProduct
             // Update something
           }
           getLocalization={
@@ -375,18 +379,18 @@ export default App;
 
 The default localization library is [intl-messageformat](https://github.com/yahoo/intl-messageformat).
 In order to localize your cart, you can chose one of the possible ways:
-- Create your own __getLocalization__ func and pass it as props to the cart's components
-- Create getLocalization function with bound localization using __defaultLocalization__ object and __getLocalization__,  __getDefaultLocalization__ functions from _cartLocalization_ module, pass it as props to the cart's components
+- Create your own __getLocalization__ function and pass it as prop to the cart's components
+- Create getLocalization function with bound localization using __defaultLocalization__ object and __getLocalization__,  __getDefaultLocalization__ functions from _cartLocalization_ module, pass it as prop to the cart's components
 - Don't do anything and see only default language in your cart :C
 
-Because all components are pure, in order to relocalize your components, you should pass __new getLocalization function__, not old with just new scope.
-The first one should be look like that if you're also using intl-messageformat
+Generally, components require a function, which takes id and params(optional) and returns string, based on received arguments.
+
+The first one should look like that if you're also using intl-messageformat:
 
 ```javascript
   import React from 'react';
   import IntlMessageFormat from 'intl-messageformat';
   import { Cart } from 'react-shopping-cart';
-
 
   const localization = {
     en: {
@@ -396,14 +400,14 @@ The first one should be look like that if you're also using intl-messageformat
     },
   };
 
-  const getLocalization = (localization, language, id, params = {}) =>  
-    new IntlMessageFormat(localization[id], language).format(params);
+  const getLocalization = (localizationPart, language, id, params = {}) =>  
+    new IntlMessageFormat(localizationPart[id], language).format(params);
 
   <Cart
     getLocalization={(...args) => getLocalization(localization.en.cart, 'en', ...args)}
   />
 ```
-Or you could use __getDefaultLocalization__ func from _cartLocalization_:
+Or you could use __getDefaultLocalization__ function from _cartLocalization_:
 ```javascript
   import React from 'react';
   import { Cart, cartLocalization } from 'react-shopping-cart';
@@ -419,7 +423,7 @@ Or you could use __getDefaultLocalization__ func from _cartLocalization_:
     getLocalization={getDefaultLocalization('cart', 'en', localization)}
   />
 ```
-Example usage of __getLocalization__ func from _cartLocalization_:
+Example usage of __getLocalization__ function from _cartLocalization_:
 ```javascript
   import React from 'react';
   import { Cart, cartLocalization } from 'react-shopping-cart';
@@ -443,9 +447,7 @@ Example usage of __getLocalization__ func from _cartLocalization_:
     getLocalization={(...args) => getLocalization(mergedEnCartLocalization, 'en', ...args)}
   />
 ```
-Generally, getLocalization is just a function which accepts id and params(optional) and returns string,
-based on received arguments.
-For built-in getLocalization func you may write your translation for default statements as a string or object in format { component : Function | string, text : string, props? : object }
+For built-in getLocalization function you may write your translation for default statements as a string or object in format { component : Function | string, text : string, props? : object }. Because all components are pure, in order to relocalize your components, you should pass new getLocalization function, not old with changed scope.
 
 __Localization__ default ids and params bindings:
 - __cart:__
@@ -475,7 +477,7 @@ __Localization__ default ids and params bindings:
     - productPropertyLabel
     - productPropertyValue
     - ___your product's property name___
-    - ___your product's property value (if string ofc)___
+    - ___your product's property value (if string of course)___
 
 - __checkoutButton__
   - _{currency, total, localizedCurrency,}_
@@ -506,11 +508,64 @@ __Localization__ default ids and params bindings:
     - ___your product's name___
     - ___your product's property name___
     - _{(optional) cost}_
-      - ___your product's property value (if string ofc)___
+      - ___your product's property value (if string of course)___
 
 <!-- Generated by documentation.js. Update this documentation by updating the source code. -->
 
-# Cart
+### Table of Contents
+
+-   [Cart](#cart)
+    -   [Props](#props)
+-   [CartProduct](#cartproduct)
+    -   [Props](#props-1)
+-   [ProductPropertyDescription](#productpropertydescription)
+    -   [Props](#props-2)
+-   [CheckoutButton](#checkoutbutton)
+    -   [Props](#props-3)
+-   [helpers](#helpers)
+    -   [generateStyle](#generatestyle)
+    -   [animate](#animate)
+    -   [configure](#configure)
+    -   [isNaturalNumber](#isnaturalnumber)
+    -   [parseInteger](#parseinteger)
+    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
+    -   [DefaultLinkComponent](#defaultlinkcomponent)
+-   [generateProductKey](#generateproductkey)
+-   [Product](#product)
+    -   [Props](#props-4)
+-   [ProductPropertiesOptions](#productpropertiesoptions)
+-   [ScrollPosition](#scrollposition)
+-   [ScrollFunction](#scrollfunction)
+-   [ProductPropertyInput](#productpropertyinput)
+    -   [Props](#props-5)
+-   [OptionIndex](#optionindex)
+-   [OptionObject](#optionobject)
+-   [PropertyOption](#propertyoption)
+-   [PropertyOptions](#propertyoptions)
+-   [ProductPropertyOption](#productpropertyoption)
+-   [ProductProperties](#productproperties)
+-   [Prices](#prices)
+-   [ProductData](#productdata)
+-   [Products](#products)
+-   [GenerateProductKey](#generateproductkey-1)
+-   [AddProduct](#addproduct)
+-   [UpdateProduct](#updateproduct)
+-   [RemoveProduct](#removeproduct)
+-   [GetLocalization](#getlocalization)
+-   [CartAddAction](#cartaddaction)
+-   [CartUpdateAction](#cartupdateaction)
+-   [CartRemoveAction](#cartremoveaction)
+-   [CartEmptyAction](#cartemptyaction)
+-   [CartSetCurrencyAction](#cartsetcurrencyaction)
+-   [CartAction](#cartaction)
+-   [LocalizationPattern](#localizationpattern)
+-   [Localization](#localization)
+-   [MultiLocalization](#multilocalization)
+-   [CartState](#cartstate)
+-   [DefaultLinkComponentProps](#defaultlinkcomponentprops)
+-   [Link$Component](#linkcomponent)
+
+## Cart
 
 **Extends React.PureComponent**
 
@@ -521,137 +576,85 @@ Component which represents shopping cart.
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-## propTypes
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `showHeader` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide header 'Shopping cart'.
-    Default is true
--   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for
-    trash icon on remove button.
-    Default is 'icon-trash'
--   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Cart's config for Transition.
-    Default is
-     {
-       style: animate(500),
-       enteringClassName: 'fadeInUp',
-       exitingClassName: 'fadeOut',
-       exitedClassName: 'invisible',
-       timeout: 500,
-     }.
-    Look at src/components/Cart/Cart.js for details.
--   `cartItemTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Cart item's config
-    for ReactCSSTransitionGroup.
-    Default is
-      {
-        transitionName: {
-          enter: 'bounceInLeft',
-          leave: 'bounceOutRight',
-        },
-        transitionEnterTimeout: 500,
-        transitionLeaveTimeout: 500,
-      }.
-    Look at src/components/Cart/Cart.js for details.
--   `linkComponent` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** React Component(stateful or not,
-    as you wish), which represents a Link. It will receive props:
-    to="%your product's page%".
-    I'd recommend you to take a look at react-router's Link.
-    Wrapped <a/> by default.
-
-## containerPropTypes
-
-**Properties**
-
--   `products` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), ProductType>** Products map. Required.
+-   `products` **[Products](#products)** Required.
 -   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current currency. Required.
 -   `isCartEmpty` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Display cart or not. Required.
--   `checkoutButton` **ReactElement** Button in the bottom of cart.
-    Required.
--   `onUpdateProduct` **[onUpdateProductType](#onupdateproducttype)** Callback
-    function which will be called when product should be updated.
-    First arg is product's key in products, second - props to update.
-    For instance, it may be called like:
-    onUpdateProduct('macbook-case/\_red', { quantity : 50 });
-    Required.
--   `onRemoveProduct` **[onRemoveProductType](#onremoveproducttype)** Callback to call
-    when need to remove product from products.
-    Accept product's key in products.
-    For example: onRemoveProduct('/shop/macbook-case/\_red');
-    Required.
--   `getLocalization` **[getLocalizationType](#getlocalizationtype)** Required.
+-   `onUpdateProduct` **[UpdateProduct](#updateproduct)** Function which will be called when product should be updated.
+    First arg is product's key in products map, second - updated product. Required.
+-   `onRemoveProduct` **[RemoveProduct](#removeproduct)** Function to call when product should be removed from cart.
+    One argument - product's key. Required.
+-   `getLocalization` **[GetLocalization](#getlocalization)** Required.
+-   `hideHeader` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Hide cart's header. Default is false.
+-   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for trash icon on remove button.
+    Default is 'icon-trash'.
+-   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart's config for Transition.
+    Look at src/components/Cart/Cart.js for details.
+-   `cartItemTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart item's config for react-transition-group.
+    Look at src/components/Cart/Cart.js for details.
+-   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
+    I'd recommend you to take a look at react-router's Link.
 
-# Product
+## CartProduct
 
 **Extends React.PureComponent**
 
-React component - Product form with price.
+React component to display product in cart.
 
 **Meta**
 
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-## propTypes
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display. Required.
--   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's id. Required.
--   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required.
--   `prices` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** Prices (currency-value). Required.
--   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image. Required.
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Price currency. Required.
--   `properties` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;([ProductPropertyOptionType](#productpropertyoptiontype))>>** Custom product properties. May be array of number, string or
-    shape({ additionalCost(optional), onSelect(optional), value(required)})
-    Default is {}.
--   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** Array of propery names to
-    display in cart. Default is \[].
--   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Config for animateScroll
-    (from react-scroll) scrollTo function.
-    Default is
-     {
-       duration: 750,
-       delay: 0,
-       smooth: true,
-     }.
--   `iconAddProductClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName for cart icon
-    on add to button.
-    Default is 'icon-cart-plus'.
--   `afterPriceNode` **ReactNode** Node to display after price element.
-    Optional.
--   `descriptionNode` **ReactNode** Node to display before price element.
-    Optional.
+-   `product` **[ProductData](#productdata)** 
+-   `productKey` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `quantity` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `price` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `properties` **[ProductProperties](#productproperties)** 
+-   `propertiesToShow` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+-   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `onRemoveProduct` **[RemoveProduct](#removeproduct)** 
+-   `onUpdateProduct` **[UpdateProduct](#updateproduct)** 
+-   `getLocalization` **[GetLocalization](#getlocalization)** 
+-   `linkComponent` **[Link$Component](#linkcomponent)** 
 
-## containerPropTypes
+## ProductPropertyDescription
+
+**Extends React.PureComponent**
+
+Component to display product property's description in cart.
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `CheckoutButton` **ReactElement** Button in the bottom of product.
-    Required.
--   `onAddProduct` **[onAddProductType](#onaddproducttype)** Callback to call when
-    user wants to add product in his cart.
-    Example:
-    onAddProduct(
-      'macbook-case',
-      {
-        quantity: 30,
-        properties: { colour: 'red' },
-        productInfo: {
-          prices: {
-           GBP: 70
-          },
-         ...etc
-        },
-      },
-      'GBP'
-    );
-    Required.
--   `getLocalization` **[getLocalizationType](#getlocalizationtype)** Required.
--   `generateProductKey` **[generateProductKeyType](#generateproductkeytype)** Function which generates
-    product's key based on id and properties. Example:
-    generateProductKey('macbook-case', { colour: 'red' } ).
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `value` **[ProductPropertyOption](#productpropertyoption)** 
+-   `getLocalization` **[GetLocalization](#getlocalization)** 
 
-# CheckoutButton
+## CheckoutButton
 
 **Extends React.PureComponent**
 
@@ -662,79 +665,232 @@ Checkout button with grand total.
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-## propTypes
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page.
-    Required.
--   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** ClassName
-    for cart icon on checkout button.
-    Default is 'icon-basket'.
--   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** CheckoutButton's transition config
-    for react-overlays Transition.
-    Default is {
-      style: animate(500),
-      enteringClassName: 'fadeInUp',
-      exitingClassName: 'fadeOut',
-      timeout: 500,
-      unmountOnExit: true,
-    }.
--   `linkComponent` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** React Component(stateful or not,
-    as you wish), which represents a Link. It will receive props:
-    role="button",
-    to="%your checkout%",
-    className-"%bs4's className for button%".
-    I'd recommend you to take a look at react-router's Link.
-    Wrapped <a/> by default.
-
-## containerPropTypes
-
-**Properties**
-
--   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Amount of money to pay. Required.
+-   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Required.
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current currency. Required.
 -   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required.
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current cart currency. Required.
--   `getLocalization` **[getLocalizationType](#getlocalizationtype)** Required.
+-   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page. Required.
+-   `getLocalization` **[GetLocalization](#getlocalization)** Required.
+-   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on checkout button.
+-   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Transition's config for react-overlays Transition.
+-   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
+    I'd recommend you to take a look at react-router's Link.
 
-# Types
-
-Redux cart data types file
+## helpers
 
 **Meta**
 
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-## PricesType
+### generateStyle
 
-Pair (currency: price)
+**Parameters**
+
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.enabled`   (optional, default `true`)
+    -   `$0.duration`   (optional, default `1000`)
+    -   `$0.rest` **...any** 
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### animate
+
+**Parameters**
+
+-   `options` **(StyleConfig | [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### configure
+
+**Parameters**
+
+-   `Component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
+-   `configuration` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **ReactStatelessComponent** 
+
+### isNaturalNumber
+
+**Parameters**
+
+-   `num` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### parseInteger
+
+**Parameters**
+
+-   `num` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### getAbsoluteOffsetTop
+
+**Parameters**
+
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.offsetTop`  
+    -   `$0.offsetParent`  
+
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### DefaultLinkComponent
+
+**Parameters**
+
+-   `$0` **any** 
+    -   `$0.to`  
+    -   `$0.otherProps` **...any** 
+
+Returns **React$Element&lt;any>** 
+
+## generateProductKey
+
+**Parameters**
+
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `properties` **{}** 
+
+Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## Product
+
+**Extends React.PureComponent**
+
+React component - Product form with price.
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `currency` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Pair (currency: price)
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's id. Required.
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display pattern. Required.
+-   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required.
+-   `prices` **[Prices](#prices)** {currency: value}. Required
+-   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image.
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current price currency. Required.
+-   `onAddProduct` **[AddProduct](#addproduct)** Function to call when user wants to add product in his cart. Required.
+-   `generateProductKey` **[GenerateProductKey](#generateproductkey)** Required.
+-   `getLocalization` **[GetLocalization](#getlocalization)** Required.
+-   `properties` **[ProductPropertiesOptions](#productpropertiesoptions)?** Custom product properties. Each property option list consists of number,
+    string or shape({ additionalCost(optional), onSelect(optional), value(required)})
+-   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Array of propery names to display in cart.
+-   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Config for animateScroll (from react-scroll) scrollTo function.
+-   `scrollPosition` **[ScrollPosition](#scrollposition)?** Position to scroll after product add. May be number or function returning number.
+-   `scrollFunction` **[ScrollFunction](#scrollfunction)?** Function which will be called when product has been added.
+-   `iconAddProductClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on add to button.
+-   `checkoutButton` **ReactElement?** 
+-   `descriptionNode` **ReactNode?** Node to display before price element.
+-   `afterPriceNode` **ReactNode?** Node to display after price element.
 
-## ProductInfoType
+## ProductPropertiesOptions
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [PropertyOptions](#propertyoptions)>
+
+## ScrollPosition
+
+Type: ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
+
+## ScrollFunction
+
+Type: function (currentTarget: EventTarget, scrollPosition: ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)), scrollAnimationConfig: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): void
+
+## ProductPropertyInput
+
+**Extends React.PureComponent**
+
+React form for product property(options select only).
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Display name
--   `prices` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** Object contains { [currency]&#x3A; price } pairs
--   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image
--   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to product's page
--   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Array
-    of names of properties which need to be shown in cart
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `options` **[PropertyOptions](#propertyoptions)** 
+-   `selectedOptionIndex` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `onChange` **OnChange** 
+-   `getLocalization` **[GetLocalization](#getlocalization)** 
 
-## ProductType
+## OptionIndex
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>
+
+## OptionObject
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `onSelect` **function (option: [OptionObject](#optionobject)): void?** 
+-   `additionalCost` **[Prices](#prices)?** 
+-   `value` **[ProductPropertyOption](#productpropertyoption)** 
+
+## PropertyOption
+
+Type: ([ProductPropertyOption](#productpropertyoption) \| [OptionObject](#optionobject))
+
+## PropertyOptions
+
+Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PropertyOption](#propertyoption)>
+
+## 
+
+Shopping cart's data types
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+## ProductPropertyOption
+
+Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
+
+## ProductProperties
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))>
+
+## Prices
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>
+
+## ProductData
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
 -   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `quantity` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `properties` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))>** Custom product properties.
-    In order to make prop visible in cart, add its name
-    to productPropsToShow array
--   `productInfo` **ProductInfoType** 
+-   `properties` **[ProductProperties](#productproperties)** 
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `prices` **[Prices](#prices)** 
+-   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
 
 **Examples**
 
@@ -743,87 +899,136 @@ Pair (currency: price)
    id: 'macbook-case',
    quantity: 3,
    properties: {
-     colour: 'red'
+     color: 'red'
    },
-   productInfo: {
-     name: 'Macbook case',
-     prices: {
-      GBP: 50
-     },
-     path: '/shop/macbook-case/',
-     imagePath: '/shop/macbook-case/1-483x321.jpeg',
-     propertiesToShowInCart: ['colour']
-   }
+   name: 'macbookCase',
+   prices: {
+    GBP: 50
+   },
+   path: '/shop/macbook-case/',
+   imagePath: '/shop/macbook-case/1-483x321.jpeg',
+   propertiesToShowInCart: ['color']
  }
 ```
 
-## ProductsMapType
+## Products
 
-Pair (productKey: product)
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [ProductData](#productdata)>
 
-## CartType
+## GenerateProductKey
 
-**Properties**
+Type: function (id: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), properties: {}): [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
--   `total` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Grand total
--   `summary` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Readable stringified cart
--   `products` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), ProductType>** Products map
+## AddProduct
 
-# generateProductKeyType
+Type: function (key: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), product: [ProductData](#productdata), currency: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)): void
 
-**Parameters**
+## UpdateProduct
 
--   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's id.
--   `properties` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Product's properties
+Type: function (key: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), updatedProduct: [ProductData](#productdata)): void
 
-Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+## RemoveProduct
 
-# onAddProductType
+Type: function (key: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)): void
 
-**Parameters**
+## GetLocalization
 
--   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's key.
--   `product` **ProductType** Product to add
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current product's currency.
+Type: function (id: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), params: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | React$Element&lt;any>)
 
-# onUpdateProductType
+## CartAddAction
 
-**Parameters**
-
--   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's key.
--   `updatedProduct` **PorductType** 
-
-# onRemoveProductType
-
-**Parameters**
-
--   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's key.
-
-# getLocalizationType
-
-**Parameters**
-
--   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Template id.
--   `params` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Params. (optional, default `{}`)
-
-Returns **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | ReactElement)** 
-
-# ProductPropertyOptionType
-
-Also may be string or number, as Object used only in Product component for now
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
--   `additionalCost` **PricesType?** 
--   `onSelect` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)?** 
--   `value` **([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String))** 
+-   `type` **`"cart/ADD"`** 
+-   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `product` **[ProductData](#productdata)** 
+-   `productCurrency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## CartUpdateAction
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `type` **`"cart/UPDATE"`** 
+-   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `updatedProduct` **[ProductData](#productdata)** 
+
+## CartRemoveAction
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `type` **`"cart/REMOVE"`** 
+-   `key` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## CartEmptyAction
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `type` **`"cart/EMPTY"`** 
+
+## CartSetCurrencyAction
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `type` **`"cart/SET_CURRENCY"`** 
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## CartAction
+
+Type: ([CartAddAction](#cartaddaction) \| [CartUpdateAction](#cartupdateaction) \| [CartRemoveAction](#cartremoveaction) \| [CartEmptyAction](#cartemptyaction) \| [CartSetCurrencyAction](#cartsetcurrencyaction))
+
+## LocalizationPattern
+
+Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | {component: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | function (): React$Element&lt;any>), props: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?, text: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)})
+
+## Localization
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [LocalizationPattern](#localizationpattern)>
+
+## MultiLocalization
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Localization](#localization)>>
+
+## CartState
+
+Type: {cart: {currency: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), products: [Products](#products)}}
+
+**Properties**
+
+-   `cart` **{currency: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), products: [Products](#products)}** 
+-   `cart.currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `cart.products` **[Products](#products)** 
+
+## DefaultLinkComponentProps
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `to` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## Link$Component
+
+Type: function ([DefaultLinkComponentProps](#defaultlinkcomponentprops)): React$Element&lt;any>
 
 
-##Development
+## Development
 
 **Developer mode**
 
 Run [webpack-dev-server](https://github.com/webpack/webpack-dev-server) for example1
+```shell
+yarn run develop
+```
 ```shell
 npm run develop
 ```
@@ -831,12 +1036,18 @@ npm run develop
 **Build**
 
 ```shell
+yarn run build
+```
+```shell
 npm run build
 ```
 And then check dist folder
 
 **Build Example**
 
+```shell
+yarn run build_example
+```
 ```shell
 npm run build_example
 ```
@@ -847,12 +1058,18 @@ And then check examples folder
 
 [Jest](https://github.com/facebook/jest) is used for tests
 ```shell
+yarn run test
+```
+```shell
 npm run test
 ```
 
 **Linter**
 
 [ESLint](https://github.com/eslint/eslint) is used as linter
+```shell
+yarn run lint
+```
 ```shell
 npm run lint
 ```
@@ -861,12 +1078,18 @@ npm run lint
 
 Check types in project using [Flow](https://github.com/facebook/flow)
 ```shell
+yarn run flow
+```
+```shell
 npm run flow
 ```
 
 **Autodoc**
 
 Generate doc using [documentation js](https://github.com/documentationjs/documentation)
+```shell
+yarn run doc
+```
 ```shell
 npm run doc
 ```

@@ -1,12 +1,12 @@
 [ignore]
-.*/__tests__/.*
+.*__tests__.*
+.*node_modules/documentation.*
 
 [options]
 esproposal.class_instance_fields=enable
-module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=.
+module.name_mapper='^(types)$' -> '<PROJECT_ROOT>/src/types'
 esproposal.class_static_fields=enable
 unsafe.enable_getters_and_setters=true
 
 [libs]
-./src/types.js
+./src/object.flow

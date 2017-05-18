@@ -2,18 +2,18 @@
 
 The default localization library is [intl-messageformat](https://github.com/yahoo/intl-messageformat).
 In order to localize your cart, you can chose one of the possible ways:
-- Create your own __getLocalization__ func and pass it as props to the cart's components
-- Create getLocalization function with bound localization using __defaultLocalization__ object and __getLocalization__,  __getDefaultLocalization__ functions from _cartLocalization_ module, pass it as props to the cart's components
+- Create your own __getLocalization__ function and pass it as prop to the cart's components
+- Create getLocalization function with bound localization using __defaultLocalization__ object and __getLocalization__,  __getDefaultLocalization__ functions from _cartLocalization_ module, pass it as prop to the cart's components
 - Don't do anything and see only default language in your cart :C
 
-Because all components are pure, in order to relocalize your components, you should pass __new getLocalization function__, not old with just new scope.
-The first one should be look like that if you're also using intl-messageformat
+Generally, components require a function, which takes id and params(optional) and returns string, based on received arguments.
+
+The first one should look like that if you're also using intl-messageformat:
 
 ```javascript
   import React from 'react';
   import IntlMessageFormat from 'intl-messageformat';
   import { Cart } from 'react-shopping-cart';
-
 
   const localization = {
     en: {
@@ -23,14 +23,14 @@ The first one should be look like that if you're also using intl-messageformat
     },
   };
 
-  const getLocalization = (localization, language, id, params = {}) =>  
-    new IntlMessageFormat(localization[id], language).format(params);
+  const getLocalization = (localizationPart, language, id, params = {}) =>  
+    new IntlMessageFormat(localizationPart[id], language).format(params);
 
   <Cart
     getLocalization={(...args) => getLocalization(localization.en.cart, 'en', ...args)}
   />
 ```
-Or you could use __getDefaultLocalization__ func from _cartLocalization_:
+Or you could use __getDefaultLocalization__ function from _cartLocalization_:
 ```javascript
   import React from 'react';
   import { Cart, cartLocalization } from 'react-shopping-cart';
@@ -46,7 +46,7 @@ Or you could use __getDefaultLocalization__ func from _cartLocalization_:
     getLocalization={getDefaultLocalization('cart', 'en', localization)}
   />
 ```
-Example usage of __getLocalization__ func from _cartLocalization_:
+Example usage of __getLocalization__ function from _cartLocalization_:
 ```javascript
   import React from 'react';
   import { Cart, cartLocalization } from 'react-shopping-cart';
@@ -70,9 +70,7 @@ Example usage of __getLocalization__ func from _cartLocalization_:
     getLocalization={(...args) => getLocalization(mergedEnCartLocalization, 'en', ...args)}
   />
 ```
-Generally, getLocalization is just a function which accepts id and params(optional) and returns string,
-based on received arguments.
-For built-in getLocalization func you may write your translation for default statements as a string or object in format { component : Function | string, text : string, props? : object }
+For built-in getLocalization function you may write your translation for default statements as a string or object in format { component : Function | string, text : string, props? : object }. Because all components are pure, in order to relocalize your components, you should pass new getLocalization function, not old with changed scope.
 
 __Localization__ default ids and params bindings:
 - __cart:__
@@ -102,7 +100,7 @@ __Localization__ default ids and params bindings:
     - productPropertyLabel
     - productPropertyValue
     - ___your product's property name___
-    - ___your product's property value (if string ofc)___
+    - ___your product's property value (if string of course)___
 
 - __checkoutButton__
   - _{currency, total, localizedCurrency,}_
@@ -133,4 +131,4 @@ __Localization__ default ids and params bindings:
     - ___your product's name___
     - ___your product's property name___
     - _{(optional) cost}_
-      - ___your product's property value (if string ofc)___
+      - ___your product's property value (if string of course)___

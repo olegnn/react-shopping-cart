@@ -8,3 +8,4 @@ node_modules
 __tests__
 webpack.config.js
 examples
+flow-typed

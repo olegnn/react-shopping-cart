@@ -1,9 +1,12 @@
 
-##Development
+## Development
 
 **Developer mode**
 
 Run [webpack-dev-server](https://github.com/webpack/webpack-dev-server) for example1
+```shell
+yarn run develop
+```
 ```shell
 npm run develop
 ```
@@ -11,12 +14,18 @@ npm run develop
 **Build**
 
 ```shell
+yarn run build
+```
+```shell
 npm run build
 ```
 And then check dist folder
 
 **Build Example**
 
+```shell
+yarn run build_example
+```
 ```shell
 npm run build_example
 ```
@@ -27,12 +36,18 @@ And then check examples folder
 
 [Jest](https://github.com/facebook/jest) is used for tests
 ```shell
+yarn run test
+```
+```shell
 npm run test
 ```
 
 **Linter**
 
 [ESLint](https://github.com/eslint/eslint) is used as linter
+```shell
+yarn run lint
+```
 ```shell
 npm run lint
 ```
@@ -41,12 +56,18 @@ npm run lint
 
 Check types in project using [Flow](https://github.com/facebook/flow)
 ```shell
+yarn run flow
+```
+```shell
 npm run flow
 ```
 
 **Autodoc**
 
 Generate doc using [documentation js](https://github.com/documentationjs/documentation)
+```shell
+yarn run doc
+```
 ```shell
 npm run doc
 ```

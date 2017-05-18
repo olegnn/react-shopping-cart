@@ -10,72 +10,77 @@
  * Checkout button with grand total.
  *
  */
-import React, { PureComponent, PropTypes } from 'react';
-import Transition from 'react-overlays/lib/Transition';
+
+import React, { PureComponent } from 'react';
+import { Transition } from 'react-overlays';
+
+import type {
+  GetLocalization,
+  Link$Component,
+} from '../../types';
 
 import { animate, DefaultLinkComponent } from '../../helpers';
 
-const
 /**
-  * @static propTypes
-  * @memberof CheckoutButton
-  *
-  * @prop {string} checkoutURL - Link to checkout page.
-  * Required.
-  * @prop {string} iconCheckoutClassName - ClassName
-  * for cart icon on checkout button.
-  * Default is 'icon-basket'.
-  * @prop {Object} transitionConfig - CheckoutButton's transition config
-  * for react-overlays Transition.
-  * Default is {
-  *   style: animate(500),
-  *   enteringClassName: 'fadeInUp',
-  *   exitingClassName: 'fadeOut',
-  *   timeout: 500,
-  *   unmountOnExit: true,
-  * }.
-  * @prop {Function} linkComponent - React Component(stateful or not,
-  * as you wish), which represents a Link. It will receive props:
-  * role="button",
-  * to="%your checkout%",
-  * className-"%bs4's className for button%".
-  * I'd recommend you to take a look at react-router's Link.
-  * Wrapped <a/> by default.
-  */
-  propTypes = {
-    checkoutURL: PropTypes.string.isRequired,
-    iconCheckoutClassName: PropTypes.string,
-    transitionConfig: PropTypes.object,
-    linkComponent: PropTypes.func,
-  },
-/**
-  * @static containerPropTypes
-  * @memberof CheckoutButton
-  *
-  * @prop {number} grandTotal - Amount of money to pay. Required.
-  * @prop {boolean} hidden - Show or hide button. Required.
-  * @prop {string} currency - Current cart currency. Required.
-  * @prop {getLocalizationType} getLocalization - Required.
-  */
-  containerPropTypes = {
-    grandTotal: PropTypes.number.isRequired,
-    hidden: PropTypes.bool.isRequired,
-    currency: PropTypes.string.isRequired,
-    getLocalization: PropTypes.func.isRequired,
-  },
-  defaultProps = {
-    iconCheckoutClassName: 'icon-basket',
-    transitionConfig: {
-      style: animate(500),
-      enteringClassName: 'fadeInUp',
-      exitingClassName: 'fadeOut',
-      timeout: 500,
-      unmountOnExit: true,
-    },
-    linkComponent: DefaultLinkComponent,
-  };
+ * @memberof CheckoutButton
+ * @typedef {Object} Props
+ * @prop {number} grandTotal - Required.
+ * @prop {string} currency - Current currency. Required.
+ * @prop {boolean} hidden - Show or hide button. Required.
+ * @prop {string} checkoutURL - Link to checkout page. Required.
+ * @prop {GetLocalization} getLocalization - Required.
+ * @prop {?string} iconCheckoutClassName - ClassName for cart icon on checkout button.
+ * @prop {?Object} transitionConfig - Transition's config for react-overlays Transition.
+ * @prop {?Link$Component} linkComponent - React Component, will receive prop `to="%your product's page%"`.
+ * I'd recommend you to take a look at react-router's Link.
+ */
 
-export default class CheckoutButton extends PureComponent {
+void null;
+
+export type Props = {|
+  grandTotal: number,
+  currency: string,
+  hidden: boolean,
+  /*
+   * Link to checkout page.
+   */
+  checkoutURL: string,
+  getLocalization: GetLocalization,
+  /*
+   * ClassName for cart icon on checkout button.
+   */
+  iconCheckoutClassName: string,
+  /*
+   * Transition's config for react-overlays Transition.
+   */
+  transitionConfig: Object,
+  /*
+   * React Component, will receive prop `to="%your product's page%"`.
+   * I'd recommend you to take a look at react-router's Link.
+   */
+  linkComponent: Link$Component,
+|};
+
+const defaultProps = {
+  iconCheckoutClassName: 'icon-basket',
+  transitionConfig: {
+    style: animate(500),
+    enteringClassName: 'fadeInUp',
+    exitingClassName: 'fadeOut',
+    timeout: 500,
+    unmountOnExit: true,
+  },
+  linkComponent: DefaultLinkComponent,
+};
+
+export default class
+  CheckoutButton extends PureComponent<typeof defaultProps, Props, void> {
+
+  props: Props;
+
+  static defaultProps = defaultProps;
+
+  static displayName = 'CheckoutButton';
 
   render() {
     const {
@@ -97,27 +102,26 @@ export default class CheckoutButton extends PureComponent {
       },
     };
 
-    return !hidden && (
-      <Transition
-        in={!hidden}
-        {...transitionConfig}
+    return !hidden
+    ? <Transition
+      in={!hidden}
+      {...transitionConfig}
+    >
+      <LinkComponent
+        to={checkoutURL}
+        className={
+            `btn btn-primary btn-block ${
+              !grandTotal ? 'disabled' : 'active'
+            }`
+        }
+        role="button"
       >
-        <LinkComponent
-          to={checkoutURL}
-          className={
-            `btn btn-primary btn-block ${!grandTotal ? 'disabled' : 'active'}`
-          }
-          role="button"
-        >
-          <i className={iconCheckoutClassName} />
-          {
-            getLocalization('checkoutTotal', localizationScope)
-          }
-        </LinkComponent>
-      </Transition>
-    );
+        <i className={iconCheckoutClassName} />
+        {
+          getLocalization('checkoutTotal', localizationScope)
+        }
+      </LinkComponent>
+    </Transition>
+    : null;
   }
 }
-
-CheckoutButton.propTypes = { ...propTypes, ...containerPropTypes };
-CheckoutButton.defaultProps = defaultProps;

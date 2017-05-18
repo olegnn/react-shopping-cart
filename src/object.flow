@@ -1,0 +1,37 @@
+/**
+ * @flow
+ * Fixes for Object.entries and Object.values definitions
+ */
+declare class Object {
+    static (o: ?void): {[key: any]: any};
+    static (o: boolean): Boolean;
+    static (o: number): Number;
+    static (o: string): String;
+    static <T>(o: T): T;
+    static assign: Object$Assign;
+    static create(o: any, properties?: any): any; // compiler magic
+    static defineProperties(o: any, properties: any): any;
+    static defineProperty(o: any, p: any, attributes: any): any;
+    static entries<T>(object: {[key: string]: T}): Array<[string, T]>;
+    static freeze<T>(o: T): T;
+    static getOwnPropertyDescriptor(o: any, p: any): any;
+    static getOwnPropertyNames(o: any): Array<string>;
+    static getOwnPropertySymbols(o: any): Symbol[];
+    static getPrototypeOf: Object$GetPrototypeOf;
+    static is(a: any, b: any): boolean;
+    static isExtensible(o: any): boolean;
+    static isFrozen(o: any): boolean;
+    static isSealed(o: any): boolean;
+    static keys(o: any): Array<string>;
+    static preventExtensions(o: any): any;
+    static seal(o: any): any;
+    static setPrototypeOf(o: any, proto: ?Object): boolean;
+    static values<T>(object: {[key: string]: T}): Array<T>;
+    hasOwnProperty(prop: any): boolean;
+    isPrototypeOf(o: any): boolean;
+    propertyIsEnumerable(prop: any): boolean;
+    toLocaleString(): string;
+    toString(): string;
+    valueOf(): Object;
+    [key: any]: any;
+}

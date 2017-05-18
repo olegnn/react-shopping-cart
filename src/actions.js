@@ -8,16 +8,26 @@
  * @description
  * Redux action generators
  */
+
+import type {
+  ProductData,
+  CartAddAction,
+  CartUpdateAction,
+  CartRemoveAction,
+  CartSetCurrencyAction,
+  CartEmptyAction,
+} from './types';
+
 import * as actionTypes from './actionTypes';
 
 /**
  * @memberof actions
  */
 export const addToCart = (
-  key : string,
-  product : ProductType,
-  productCurrency : string,
-) : CartAddActionType =>
+  key: string,
+  product: ProductData,
+  productCurrency: string,
+): CartAddAction =>
   ({
     type: actionTypes.CART_ADD,
     key,
@@ -29,8 +39,8 @@ export const addToCart = (
  * @memberof actions
  */
 export const removeFromCart = (
-  key : string,
-) : CartRemoveActionType =>
+  key: string,
+): CartRemoveAction =>
   ({
     type: actionTypes.CART_REMOVE,
     key,
@@ -40,9 +50,9 @@ export const removeFromCart = (
  * @memberof actions
  */
 export const updateCart = (
-  key : string,
-  updatedProduct : ProductType,
-) : CartUpdateActionType =>
+  key: string,
+  updatedProduct: ProductData,
+): CartUpdateAction =>
   ({
     type: actionTypes.CART_UPDATE,
     key,
@@ -52,7 +62,7 @@ export const updateCart = (
 /**
  * @memberof actions
  */
-export const emptyCart = () : CartEmptyActionType =>
+export const emptyCart = (): CartEmptyAction =>
   ({
     type: actionTypes.CART_EMPTY,
   });
@@ -62,7 +72,7 @@ export const emptyCart = () : CartEmptyActionType =>
  */
 export const setCartCurrency = (
   currency: string,
-) : CartSetCurrencyActionType =>
+): CartSetCurrencyAction =>
   ({
     type: actionTypes.CART_SET_CURRENCY,
     currency,

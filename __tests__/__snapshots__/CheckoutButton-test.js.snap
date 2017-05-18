@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`CheckoutButton takes snapshot 1`] = `
 <a
   className="btn btn-primary btn-block active"
@@ -8,12 +10,13 @@ exports[`CheckoutButton takes snapshot 1`] = `
       "WebkitAnimationDuration": "0.5s",
       "WebkitAnimationFillMode": "both",
       "animationDuration": "0.5s",
-      "animationFillMode": "both"
+      "animationFillMode": "both",
     }
   }
-  to="/to/checkout/">
+>
   <i
-    className="icon-basket" />
+    className="icon-basket"
+  />
   Checkout (Grand total £100)
 </a>
 `;

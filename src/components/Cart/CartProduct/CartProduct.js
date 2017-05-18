@@ -9,64 +9,77 @@
  * @description
  * React component to display product in cart.
  */
-import React, { PureComponent, PropTypes } from 'react';
+
+import React, { Component } from 'react';
+
+import type {
+  InputEvent,
+  Link$Component,
+  ProductData,
+  ProductProperties,
+  UpdateProduct,
+  RemoveProduct,
+  GetLocalization,
+} from '../../../types';
 
 import ProductPropertyDescription
   from './ProductPropertyDescription/ProductPropertyDescription';
-import { isNaturalNumber } from '../../../helpers';
+import {
+  isNaturalNumber,
+  parseInteger,
+} from '../../../helpers';
 
-const
-  propTypes = {
-    product: PropTypes.object.isRequired,
-    productKey: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    currency: PropTypes.string.isRequired,
-    properties: PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]),
-    ),
-    propertiesToShow: PropTypes.arrayOf(
-      PropTypes.string,
-    ),
-    imagePath: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-    iconTrashClassName: PropTypes.string.isRequired,
-    onRemoveProduct: PropTypes.func.isRequired,
-    onUpdateProduct: PropTypes.func.isRequired,
-    getLocalization: PropTypes.func.isRequired,
-    linkComponent: PropTypes.func,
-  },
-  defaultProps = {
-    properties: {},
-    propertiesToShow: [],
-  };
+/**
+ * @memberof CartProduct
+ * @typedef {Object} Props
+ */
+export type Props = {
+  product: ProductData,
+  productKey: string,
+  quantity: number,
+  name: string,
+  price: number,
+  currency: string,
+  properties: ProductProperties,
+  propertiesToShow: Array<string>,
+  imagePath: string,
+  path: string,
+  iconTrashClassName: string,
+  onRemoveProduct: RemoveProduct,
+  onUpdateProduct: UpdateProduct,
+  getLocalization: GetLocalization,
+  linkComponent: Link$Component,
+};
 
-export default class CartProduct extends PureComponent {
+const defaultProps = {
+  properties: {},
+  propertiesToShow: [],
+};
 
-  static propTypes = propTypes;
+export default class
+  CartProduct extends Component<typeof defaultProps, Props, void> {
+
+  props: Props;
+
   static defaultProps = defaultProps;
+
+  static displayName = 'CartProduct';
 
   /*
    * Create form-group for each of properties which is in propertiesToShow
    * array
    */
   static generateProductDescription = (
-    properties : {
-      [propName : string]: number|string
-    },
+    properties: ProductProperties,
     propertiesToShow: Array<string>,
-    getLocalization: Function,
-  ) : Array<React$Element<any>> =>
+    getLocalization: GetLocalization,
+  ): Array<React$Element<*>> =>
     Object
       .entries(properties)
       .reduce(
-        (acc, [propName, propValue]) => [
+        (acc, [ propName, propValue, ]) => [
           ...acc, ...(
-          propertiesToShow.indexOf(propName) + 1
+          propertiesToShow.includes(propName)
           ? [
             <ProductPropertyDescription
               key={propName}
@@ -76,7 +89,7 @@ export default class CartProduct extends PureComponent {
             />,
           ]
           : []
-        )]
+        ), ]
     , []);
 
   handleRemoveProductClick = () =>
@@ -85,25 +98,28 @@ export default class CartProduct extends PureComponent {
     );
 
   handleQuantityValueChange = (
-    { target: { value } } : { target : HTMLInputElement },
+    { currentTarget, }: InputEvent,
   ) => {
-    const quantity = +value;
+    const quantity = parseInteger(currentTarget.value);
     const {
       onUpdateProduct,
       productKey,
       product,
+      quantity: currentQuantity,
     } = this.props;
-    /*
-     * Check if quantity value is correct
-     * and then update product
-     */
-    if (isNaturalNumber(quantity))
+    if (isNaturalNumber(quantity) && quantity !== currentQuantity)
       onUpdateProduct(
-        productKey, { ...product, quantity },
+        productKey, { ...product, quantity, },
       );
   };
 
   render() {
+    const {
+      handleQuantityValueChange,
+      handleRemoveProductClick,
+      props,
+    } = this;
+
     const {
       name,
       imagePath,
@@ -116,12 +132,7 @@ export default class CartProduct extends PureComponent {
       iconTrashClassName,
       getLocalization,
       linkComponent: LinkComponent,
-    } = this.props;
-
-    const {
-      handleQuantityValueChange,
-      handleRemoveProductClick,
-    } = this;
+    } = props;
 
     const {
       generateProductDescription,
@@ -230,7 +241,11 @@ export default class CartProduct extends PureComponent {
                 onClick={handleRemoveProductClick}
               >
                 <i className={iconTrashClassName} />
-                { getLocalization('remove', localizationScope) }
+                {
+                  getLocalization(
+                    'remove', localizationScope,
+                  )
+                }
               </button>
             </div>
           </div>
