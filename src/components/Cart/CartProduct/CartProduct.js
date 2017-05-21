@@ -42,7 +42,8 @@ export type Props = {
   currency: string,
   properties: ProductProperties,
   propertiesToShow: Array<string>,
-  imagePath: string,
+  imageSrc: string,
+  altImageSrc: string,
   path: string,
   iconTrashClassName: string,
   onRemoveProduct: RemoveProduct,
@@ -122,7 +123,8 @@ export default class
 
     const {
       name,
-      imagePath,
+      imageSrc,
+      altImageSrc,
       path,
       quantity,
       currency,
@@ -166,7 +168,7 @@ export default class
             <div className="list-group-item-heading">
               { getLocalization('productName', localizationScope) }
             </div>
-            <img className="img-fluid" src={imagePath} />
+            <img className="img-fluid" src={imageSrc} alt={altImageSrc} />
           </LinkComponent>
         </div>
         <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7">

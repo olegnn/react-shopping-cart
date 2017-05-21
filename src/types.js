@@ -38,7 +38,7 @@ export type Prices = { [currency: string]: number };
  *     GBP: 50
  *    },
  *    path: '/shop/macbook-case/',
- *    imagePath: '/shop/macbook-case/1-483x321.jpeg',
+ *    imageSrc: '/shop/macbook-case/1-483x321.jpeg',
  *    propertiesToShowInCart: ['color']
  *  }
  */
@@ -48,7 +48,7 @@ export type ProductData = {|
  properties: ProductProperties,
  name: string,
  prices: Prices,
- imagePath: string,
+ imageSrc: string,
  path: string,
  propertiesToShowInCart: Array<string>,
 |};

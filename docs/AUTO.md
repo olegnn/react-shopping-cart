@@ -4,6 +4,7 @@
 
 -   [Cart](#cart)
     -   [Props](#props)
+-   [altProductImageSrc](#altproductimagesrc)
 -   [CartProduct](#cartproduct)
     -   [Props](#props-1)
 -   [ProductPropertyDescription](#productpropertydescription)
@@ -29,6 +30,8 @@
     -   [parseInteger](#parseinteger)
     -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
     -   [DefaultLinkComponent](#defaultlinkcomponent)
+-   [StyleConfig](#styleconfig)
+-   [ReactStatelessComponent](#reactstatelesscomponent)
 -   [generateProductKey](#generateproductkey)
 -   [ProductPropertyOption](#productpropertyoption)
 -   [ProductProperties](#productproperties)
@@ -88,6 +91,10 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
     I'd recommend you to take a look at react-router's Link.
 
+## altProductImageSrc
+
+Alt image src for products
+
 ## CartProduct
 
 **Extends React.PureComponent**
@@ -113,7 +120,8 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `properties` **[ProductProperties](#productproperties)** 
 -   `propertiesToShow` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
--   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `altImageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `onRemoveProduct` **[RemoveProduct](#removeproduct)** 
@@ -190,7 +198,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display pattern. Required.
 -   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required.
 -   `prices` **[Prices](#prices)** {currency: value}. Required
--   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image.
+-   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image.
 -   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current price currency. Required.
 -   `onAddProduct` **[AddProduct](#addproduct)** Function to call when user wants to add product in his cart. Required.
 -   `generateProductKey` **[GenerateProductKey](#generateproductkey)** Required.
@@ -286,7 +294,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 **Parameters**
 
--   `options` **(StyleConfig | [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+-   `options` **([StyleConfig](#styleconfig) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -297,7 +305,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 -   `Component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 -   `configuration` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-Returns **ReactStatelessComponent** 
+Returns **[ReactStatelessComponent](#reactstatelesscomponent)** 
 
 ### isNaturalNumber
 
@@ -334,6 +342,19 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
     -   `$0.otherProps` **...any** 
 
 Returns **React$Element&lt;any>** 
+
+## StyleConfig
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `enabled` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
+-   `duration` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** 
+
+## ReactStatelessComponent
+
+Type: function (props: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
 
 ## generateProductKey
 
@@ -376,7 +397,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `properties` **[ProductProperties](#productproperties)** 
 -   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `prices` **[Prices](#prices)** 
--   `imagePath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
 
@@ -394,7 +415,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
     GBP: 50
    },
    path: '/shop/macbook-case/',
-   imagePath: '/shop/macbook-case/1-483x321.jpeg',
+   imageSrc: '/shop/macbook-case/1-483x321.jpeg',
    propertiesToShowInCart: ['color']
  }
 ```

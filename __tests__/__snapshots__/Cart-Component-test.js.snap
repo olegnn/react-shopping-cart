@@ -35,6 +35,7 @@ exports[`Cart takes snapshot 1`] = `
                 iPad case
               </div>
               <img
+                alt=""
                 className="img-fluid"
                 src="ipad-case1-483x321.jpeg"
               />

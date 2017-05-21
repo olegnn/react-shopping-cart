@@ -1,10 +1,10 @@
 
 # React shopping cart
 
-[![GitHub release](https://img.shields.io/github/release/olegnn/react-shopping-cart.svg)](https://github.com/olegnn/react-shopping-cart)
-[![npm](https://img.shields.io/npm/v/react-shopping-cart.svg)](https://github.com/olegnn/react-shopping-cart)
+[![npm](https://img.shields.io/npm/v/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
 [![Build Status](https://travis-ci.org/olegnn/react-shopping-cart.svg?branch=master)](https://travis-ci.org/olegnn/react-shopping-cart)
 [![npm](https://img.shields.io/npm/dm/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
+[![npm](https://img.shields.io/npm/dt/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
 [![dependencies](https://david-dm.org/olegnn/react-shopping-cart.svg)](https://david-dm.org/olegnn/react-shopping-cart)
 
 Shopping cart package provides several components:
@@ -121,7 +121,7 @@ class App extends PureComponent {
       propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
-      imagePath: '1-483x321.jpeg',
+      imageSrc: '1-483x321.jpeg',
     },
     getProductLocalization:
       getDefaultLocalization(
@@ -250,7 +250,7 @@ class App extends PureComponent {
       propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
-      imagePath: '1-483x321.jpeg',
+      imageSrc: '1-483x321.jpeg',
     },
     getProductLocalization:
       getDefaultLocalization(
