@@ -10,49 +10,75 @@
  * React form for product property(options select only).
  *
  */
-import React, { PureComponent, PropTypes } from 'react';
 
-const
-  propTypes = {
-    name: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.shape({
-          additionalCost: PropTypes.objectOf(
-            PropTypes.number,
-          ),
-          onSelect: PropTypes.func,
-          value: PropTypes.oneOfType(
-            [
-              PropTypes.string,
-              PropTypes.number,
-            ],
-          ).isRequired,
-        }),
-      ]),
-    ).isRequired,
-    selectedOptionIndex: PropTypes.number,
-    currency: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    getLocalization: PropTypes.func.isRequired,
-  },
-  defaultProps = {
-    selectedOptionIndex: 0,
-  };
+import React, { PureComponent } from 'react';
 
-export default class ProductPropertyInput extends PureComponent {
+import type {
+  GetLocalization,
+  InputEvent,
+  ProductPropertyOption,
+  Prices,
+} from '../../../types';
 
-  static propTypes = propTypes;
+/**
+ * @typedef {Object.<string, number>} OptionIndex
+ */
+export type OptionIndex = {
+  [propertyName: string]: number,
+};
+
+/**
+ * @typedef {Object} OptionObject
+ */
+export type OptionObject = {|
+  onSelect?: (option: OptionObject) => void,
+  additionalCost?: Prices,
+  value: ProductPropertyOption,
+|};
+
+/** @ */
+export type PropertyOption =
+  ProductPropertyOption | OptionObject;
+
+/** @ */
+export type PropertyOptions = Array<PropertyOption>;
+
+export type OnChange = (
+  obj: { value: OptionIndex }
+) => void;
+
+/**
+ * @memberof ProductPropertyInput
+ * @typedef {Object} Props
+ */
+export type Props = {|
+  name: string,
+  options: PropertyOptions,
+  selectedOptionIndex: number,
+  currency: string,
+  onChange: OnChange,
+  getLocalization: GetLocalization,
+|};
+
+const defaultProps = {
+  selectedOptionIndex: 0,
+};
+
+export default class
+  ProductPropertyInput extends PureComponent<typeof defaultProps, Props, void> {
+
+  props: Props;
+
   static defaultProps = defaultProps;
+
+  static displayName = 'ProductPropertyInput';
 
   /*
    * If option value is an object, we need to extract primitive value
    */
   static getOptionValue = (
-    value : number | string | Object,
-  ) : number | string =>
+    value: PropertyOption,
+  ): ProductPropertyOption =>
     typeof value === 'object'
       ? ProductPropertyInput.getOptionValue(value.value)
       : value;
@@ -61,11 +87,11 @@ export default class ProductPropertyInput extends PureComponent {
    * Generate select input options based on options values
    */
   static generateOptionsSelectionList = (
-    options : Array<ProductPropertyOptionType>,
-    getLocalization : getLocalizationType,
-    currency : string,
-    localizationScope : Object = {},
-  ) : Array<React$Element<any>> =>
+    options: PropertyOptions,
+    getLocalization: GetLocalization,
+    currency: string,
+    localizationScope: Object = {},
+  ): Array<React$Element<*>> =>
     options
       .map(ProductPropertyInput.getOptionValue)
       .map(
@@ -80,9 +106,10 @@ export default class ProductPropertyInput extends PureComponent {
                   ...(
                     typeof options[index] === 'object'
                     ? {
-                      cost: options[index].additionalCost
-                            && options[index].additionalCost[currency]
-                            || 0,
+                      cost:
+                        options[index].additionalCost
+                        && options[index].additionalCost[currency]
+                        || 0,
                     }
                     : {}
                   ),
@@ -94,8 +121,9 @@ export default class ProductPropertyInput extends PureComponent {
       );
 
   handleSelectInputValueChange = (
-    { target: { value: optionValue } } : { target : HTMLInputElement, },
+    { currentTarget, }: InputEvent,
   ) => {
+    const { value: optionValue, } = currentTarget;
     const {
       name,
       options,
@@ -113,11 +141,14 @@ export default class ProductPropertyInput extends PureComponent {
 
     const selectedOption = options[selectedOptionIndex];
 
-    if (typeof selectedOption.onSelect === 'function')
-      selectedOption.onSelect(selectedOption);
+    if (
+      selectedOption
+      && typeof selectedOption === 'object'
+      && typeof selectedOption.onSelect === 'function'
+    ) selectedOption.onSelect(selectedOption);
 
     onChange({
-      value: { [name]: selectedOptionIndex },
+      value: { [name]: selectedOptionIndex, },
     });
   };
 
@@ -164,7 +195,7 @@ export default class ProductPropertyInput extends PureComponent {
           <select
             onChange={handleSelectInputValueChange}
             className="form-control"
-            value={getOptionValue(options[selectedOptionIndex])}
+            value={getOptionValue(options[selectedOptionIndex|0])}
           >
             {
               generateOptionsSelectionList(

@@ -9,6 +9,14 @@
  * Products reducer for cart
  *
  */
+
+import type {
+  Products,
+  CartAddAction,
+  CartUpdateAction,
+  CartRemoveAction,
+} from '../../types';
+
 import * as actionTypes from '../../actionTypes';
 import { isNaturalNumber } from '../../helpers';
 
@@ -17,15 +25,16 @@ const initialState = {};
 const handlers = {
   [actionTypes.CART_ADD]:
     (
-      {
-        [key]: cartProduct = { quantity: 0 },
-        ...restOfProducts
-      } : ProductsMapType,
+      products: Products,
       {
         key,
         product,
-      } : CartAddActionType,
-    ) : ProductsMapType => {
+      }: CartAddAction,
+    ): Products => {
+      const {
+        [key]: cartProduct = { quantity: 0, },
+        ...restOfProducts
+      } = products;
       const newQuantity =
         product.quantity +
           cartProduct.quantity;
@@ -41,27 +50,38 @@ const handlers = {
     },
   [actionTypes.CART_UPDATE]:
     (
-      products : ProductsMapType,
+      products: Products,
       {
         key,
         updatedProduct,
-      } : CartUpdateActionType,
-    ) : ProductsMapType => ({
-      ...products,
-      [key]: updatedProduct,
-    }),
+      }: CartUpdateAction,
+    ): Products => {
+      const { [key]: _, ...restOfProducts } = products;
+      return {
+        [key]: updatedProduct,
+        ...restOfProducts,
+      };
+    },
   [actionTypes.CART_REMOVE]:
     (
-      { [key]: _, ...restOfProducts } : ProductsMapType,
-      { key } : CartRemoveActionType,
-    ) : ProductsMapType => restOfProducts,
+      products: Products,
+      { key, }: CartRemoveAction,
+    ): Products => {
+      const { [key]: _, ...restOfProducts } = products;
+      return restOfProducts;
+    },
   [actionTypes.CART_EMPTY]:
-    () : ProductsMapType => initialState,
+    (): Products => initialState,
 };
 
+Object.setPrototypeOf(handlers, null);
+
+/**
+ * @function
+ */
 export default (
-  state : ProductsMapType = initialState,
-  action,
+  state: Products = initialState,
+  action: Object,
 ) =>
   handlers[action.type]
     ? handlers[action.type](state, action)

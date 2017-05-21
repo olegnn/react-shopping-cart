@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - '7'
+
+cache:
+  yarn: true
+  
+env:
+  NODE_ENV: 'release'
+
+branches:
+  only:
+    - master
+
+before_install:
+  - npm i -g yarn
+
+install:
+  - yarn install

@@ -6,7 +6,10 @@ gulpfile.js
 npm-debug.log
 node_modules
 __tests__
-webpack.config.js
-examples
-yarn-error.log
+webpack.config.dev.js
+webpack.config.dist.js
 yarn.lock
+docs
+examples
+flow-typed
+.travis.yml

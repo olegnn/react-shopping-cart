@@ -9,6 +9,9 @@
  * Currency reducer for cart
  *
  */
+
+import type { CartSetCurrencyAction } from '../../types';
+
 import * as actionTypes from '../../actionTypes';
 
 const initialState = 'USD';
@@ -16,14 +19,19 @@ const initialState = 'USD';
 const handlers = {
   [actionTypes.CART_SET_CURRENCY]:
     (
-      _,
-      { currency } : CartSetCurrencyActionType,
-    ) : string => currency,
+      _: string,
+      { currency, }: CartSetCurrencyAction,
+    ): string => currency,
 };
 
+Object.setPrototypeOf(handlers, null);
+
+/**
+ * @function
+ */
 export default (
-  state : string = initialState,
-  action,
+  state?: string = initialState,
+  action: Object | CartSetCurrencyAction,
 ) =>
   handlers[action.type]
     ? handlers[action.type](state, action)
