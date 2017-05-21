@@ -9,19 +9,31 @@
  * Selectors for cart
  *
  */
+
 import { createSelector } from 'reselect';
 
-/**
- * @memberof selectors
- * @private
- */
-const productsSelector = ({ cart: { products } }) => products;
+import type {
+  Products,
+  CartState,
+} from '../types';
 
 /**
  * @memberof selectors
- * @private
  */
-const currencySelector = ({ cart: { currency } }) => currency;
+export const productsSelector = (
+  {
+    cart: { products }
+  } : CartState
+) : Products => products;
+
+/**
+ * @memberof selectors
+ */
+export const currencySelector = (
+  {
+    cart: { currency }
+  } : CartState
+) : string => currency;
 
 /**
  * @memberof selectors
@@ -31,15 +43,17 @@ const currencySelector = ({ cart: { currency } }) => currency;
 export const totalSelector = createSelector(
   productsSelector,
   currencySelector,
-  (products : ProductsMapType, currency : string) : number =>
+  (products : Products, currency : string) : number =>
     Object
       .values(products)
       .map(
         (
-          { quantity, productInfo: { prices: { [currency]: price } } },
+          { quantity, prices: { [currency]: price } },
         ) => quantity * price,
       )
-      .reduce((total : number, current : number) => total + current, 0),
+      .reduce(
+        (total : number, current : number) => total + current, 0
+      ),
 );
 
 /**
@@ -47,5 +61,8 @@ export const totalSelector = createSelector(
  */
 export const isCartEmptySelector = createSelector(
   productsSelector,
-  (products : ProductsMapType) : boolean => !Object.keys(products).length,
+  (products : Products) : boolean =>
+    !Object
+      .keys(products)
+      .length,
 );

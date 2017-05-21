@@ -1,15 +1,21 @@
 
-# React shopping cart with _localization_ and _multiple currencies_
+# React shopping cart
+
+[![GitHub release](https://img.shields.io/github/release/olegnn/react-shopping-cart.svg)](https://github.com/olegnn/react-shopping-cart)
+[![npm](https://img.shields.io/npm/v/react-shopping-cart.svg)](https://github.com/olegnn/react-shopping-cart)
+[![Build Status](https://travis-ci.org/olegnn/react-shopping-cart.svg?branch=master)](https://travis-ci.org/olegnn/react-shopping-cart)
+[![npm](https://img.shields.io/npm/dm/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
+[![dependencies](https://david-dm.org/olegnn/react-shopping-cart.svg)](https://david-dm.org/olegnn/react-shopping-cart)
 
 Shopping cart package provides several components:
-- __Cart__
-- __Product__
-- __CheckoutButton__
+- [__Cart__](#cart)
+- [__Product__](#product)
+- [__CheckoutButton__](#checkoutbutton)
 
 which can be used separately or in union.
-By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate data.
+By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate with data.
 
-So, it's your choice to use Redux or not, but its reducers, actions and actionTypes are already included.
+So, it's your choice to use Redux or not, but its reducers, actions and action types are already included.
 
 Pay attention! All components are  [__Pure__](https://facebook.github.io/react/docs/react-api.html#react.purecomponent).
 
@@ -26,13 +32,16 @@ Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.
 
 **Usage**
 ```shell
+yarn add react-shopping-cart
+```
+```shell
 npm i --save react-shopping-cart
 ```
 
 **Examples**
 
 
-In all cases you must include bootstrap_v4.css in your project
+In all cases you must include bootstrap version 4 (^alpha 0.6) in your project
 ```javascript
 import 'bootstrap/dist/css/bootstrap.css';
 ```
@@ -43,7 +52,7 @@ import 'animate.css/animate.min.css';
 
 __With Redux.__ After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
 ```javascript
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import {
@@ -64,7 +73,7 @@ const { getDefaultLocalization } = cartLocalization;
 // You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
-  colour: 'Colour',
+  color: 'Color',
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
@@ -92,7 +101,7 @@ store.dispatch(
 );
 
 
-class App extends Component {
+class App extends PureComponent {
 
   state = {
     product: {
@@ -100,7 +109,7 @@ class App extends Component {
       id: 'ipad-case',
       path: '/shop/ipad-case/',
       properties: {
-        colour: ['red', 'green', {
+        color: ['red', 'green', {
           additionalCost: {
             GBP: 1,
             EUR: 2,
@@ -109,7 +118,7 @@ class App extends Component {
           value: 'yellow',
         }],
       },
-      propertiesToShowInCart: ['colour'],
+      propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
       imagePath: '1-483x321.jpeg',
@@ -177,9 +186,10 @@ class App extends Component {
 }
 
 export default App;
+```
 
-
-// You also may import actions and actionTypes
+```javascript
+// You may also import actions and actionTypes
 
 import { cartActions, cartActionTypes } from 'react-shopping-cart';
 
@@ -188,7 +198,7 @@ import { cartActions, cartActionTypes } from 'react-shopping-cart';
 
 __Without redux__
 ```javascript
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   CartComponent,
   ProductComponent,
@@ -205,7 +215,7 @@ const { getDefaultLocalization } = cartLocalization;
 // You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
-  colour: 'Colour',
+  color: 'Color',
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
@@ -219,7 +229,7 @@ const iPadPropertiesWithAdditionalCostLocalization = {
   yellow: 'Yellow (+{cost}{localizedCurrency})',
 };
 
-class App extends Component {
+class App extends PureComponent {
 
   state = {
     products: {},
@@ -228,7 +238,7 @@ class App extends Component {
       id: 'ipad-case',
       path: '/shop/ipad-case/',
       properties: {
-        colour: ['red', 'green', {
+        color: ['red', 'green', {
           additionalCost: {
             GBP: 1,
             EUR: 2,
@@ -237,7 +247,7 @@ class App extends Component {
           value: 'yellow',
         }],
       },
-      propertiesToShowInCart: ['colour'],
+      propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
       imagePath: '1-483x321.jpeg',
@@ -341,10 +351,10 @@ class App extends Component {
         <CartComponent
           products={
             products
-            // Provide your own product's Object(Look at ProductsMapType)
+            // Provide your own product's Object(Look at Products)
           }
           onUpdateProduct={
-            updatedProduct
+            updateProduct
             // Update something
           }
           getLocalization={
