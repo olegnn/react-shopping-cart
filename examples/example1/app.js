@@ -1,8 +1,7 @@
-// App.js
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import Product from '../../src/containers/Product';
@@ -22,8 +21,8 @@ const enProductPropertiesWithAdditionalCostLocalization = {
 };
 
 const enProductLocalization = {
-  colour: 'Colour',
-  additionalColour: 'Additional colour',
+  primaryColor: 'Primary color',
+  secondaryColor: 'Secondary color',
   red: 'Red',
   green: 'Green',
   purple: 'Purple',
@@ -40,8 +39,8 @@ const frProductPropertiesWithAdditionalCostLocalization = {
 };
 
 const frProductLocalization = {
-  colour: 'Couleur',
-  additionalColour: 'Couleur supplémentaire',
+  primaryColor: 'Couleur primaire',
+  secondaryColor: 'Couleur supplémentaire',
   red: 'Rouge',
   green: 'Vert',
   purple: 'Violet',
@@ -139,33 +138,33 @@ const additionalLocalization = {
   },
 };
 
-export default class App extends Component {
+export default class App extends PureComponent {
 
   state = {
     lang: 'en',
     currency: 'USD',
     product: {
       properties: {
-        colour: ['red', 'green', {
+        primaryColor: [ 'red', 'green', {
           additionalCost: {
             GBP: 10,
             EUR: 15,
             USD: 20,
           },
           value: 'purple',
-        }],
-        additionalColour: ['red', 'green', {
+        }, ],
+        secondaryColor: [ 'red', 'green', {
           additionalCost: {
             GBP: 1,
             EUR: 2,
             USD: 3.50,
           },
           value: 'yellow',
-        }],
+        }, ],
       },
       id: 'macbook-case',
       propertiesToShowInCart:
-        ['colour', 'additionalColour'],
+        [ 'primaryColor', 'secondaryColor', ],
       name: 'macbookCase',
       prices: {
         GBP: 50,
@@ -229,20 +228,20 @@ export default class App extends Component {
     ), // Because this component isn't inside Provider
        // Don't do like this
        // I was drunk, sorry :C
-      this.setState({ currency })
+      this.setState({ currency, })
     );
 
   changeLanguage = lang =>
     void this.setState(
-      { lang },
+      { lang, },
     );
 
   handleLanguageChange = (
-    { target: { value } },
+    { currentTarget: { value, }, },
   ) => void this.changeLanguage(value);
 
   handleCurrencyChange = (
-    { target: { value } },
+    { currentTarget: { value, }, },
   ) => void this.changeCurrency(value);
 
 
@@ -291,9 +290,9 @@ export default class App extends Component {
           <legend>{ additionalLocalization[lang].selectLanguage }</legend>
           {
             Object
-              .entries({ en: 'english', fr: 'french' })
+              .entries({ en: 'english', fr: 'french', })
               .map(
-                ([short, full]) => (
+                ([ short, full, ]) => (
                   <div key={full} className="form-check">
                     <label className="form-check-label">
                       <input
@@ -313,7 +312,7 @@ export default class App extends Component {
         <fieldset className="form-group text-center">
           <legend>{ additionalLocalization[lang].selectCurrency }</legend>
           {
-            ['GBP', 'EUR', 'USD']
+            [ 'GBP', 'EUR', 'USD', ]
               .map(
                 name => (
                   <div key={name} className="form-check">

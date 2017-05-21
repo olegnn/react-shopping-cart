@@ -9,27 +9,35 @@
  * @description
  * Component to display product property's description in cart.
  */
-import React, { PureComponent, PropTypes } from 'react';
 
-const
-  propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType(
-      [
-        PropTypes.string,
-        PropTypes.number,
-      ],
-    ).isRequired,
-    getLocalization: PropTypes.func.isRequired,
-  },
-  defaultProps = {
+import React, { PureComponent } from 'react';
 
-  };
+import type {
+  GetLocalization,
+  ProductPropertyOption,
+} from '../../../../types';
 
-export default class ProductPropertyDescription extends PureComponent {
+/**
+ * @memberof ProductPropertyDescription
+ * @typedef {Object} Props
+ */
+export type Props = {
+  name: string,
+  value: ProductPropertyOption,
+  getLocalization: GetLocalization,
+};
 
-  static propTypes = propTypes;
+const defaultProps = {};
+
+export default class
+  ProductPropertyDescription extends
+    PureComponent<typeof defaultProps, Props, void> {
+
+  props: Props;
+
   static defaultProps = defaultProps;
+
+  static displayName = 'ProductPropertyDescription';
 
   render() {
     const {
@@ -50,6 +58,7 @@ export default class ProductPropertyDescription extends PureComponent {
              : value;
       },
     };
+
     return (
       <div className="form-group row">
         <label
@@ -62,7 +71,7 @@ export default class ProductPropertyDescription extends PureComponent {
             )
           }
         </label>
-        <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+        <div className="col-xs-6 col-md-7 col-lg-8">
           {
             getLocalization(
               'productPropertyValue', localizationScope,

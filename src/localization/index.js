@@ -9,13 +9,21 @@
  * Default localization and API functions
  *
  */
+
 import React from 'react';
 import IntlMessageFormat from 'intl-messageformat';
+
+import type {
+  Localization,
+  LocalizationPattern,
+  MultiLocalization,
+  GetLocalization,
+} from '../types';
 
 /**
  * @memberof localization
  */
-export const defaultLocalization = {
+export const defaultLocalization: MultiLocalization = {
   en: {
     cart: {
       shoppingCartTitle: {
@@ -28,7 +36,7 @@ export const defaultLocalization = {
       },
       quantityLabel: 'Quantity:',
       priceLabel: 'Price:',
-      priceValue: '{localizedCurrency}{price}',
+      priceValue: '{localizedCurrency}{price, number}',
       totalLabel: 'Total:',
       totalValue: '{localizedCurrency}{total, plural, ' +
                   '=0 {0}' +
@@ -59,17 +67,19 @@ export const defaultLocalization = {
  * @memberof localization
  */
 export const getLocalization = (
-  localization : LocalizationObjectType,
-  language : string,
-  id : string,
-  params : Object = {},
-) : string => {
-  const localizationPattern = localization[id];
+  localization: Localization,
+  language: string,
+  id: string,
+  params: Object = {},
+): string | React$Element<*> => {
+  const localizationPattern: LocalizationPattern = localization[id];
 
   if (typeof localizationPattern === 'undefined') {
-    console.error(
-      `Missing localization for ${id}, language: ${language}`,
-    );
+    if (!process || process && process.env && process.env.NODE_ENV !== 'production') {
+      console.error(
+        `Missing localization for ${id}, language: ${language}`,
+      );
+    }
     return id;
   } else if (
     typeof localizationPattern === 'object'
@@ -100,11 +110,11 @@ export const getLocalization = (
  */
 export const getDefaultLocalization =
   (
-    componentName : string,
-    language : string = 'en',
-    localization : Object = {},
-  ) =>
-    (...args : Array<any>) =>
+    componentName: string,
+    language: string = 'en',
+    localization: Localization = {},
+  ): GetLocalization =>
+    (...args: Array<any>) =>
       getLocalization(
         {
           ...(

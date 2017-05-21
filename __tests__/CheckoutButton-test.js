@@ -1,7 +1,7 @@
 /*
  * CheckoutButton tests for JEST
  *
- * Copyright © Oleg Nosov 2016
+ * Copyright © Oleg Nosov 2016-Present
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -10,7 +10,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import IntlMessageFormat from 'intl-messageformat';
-import { CheckoutButton } from '../src/components';
+import CheckoutButton
+  from '../src/components/CheckoutButton/CheckoutButton';
 
 const testCheckoutButtonLocalization = {
   checkoutTotal:

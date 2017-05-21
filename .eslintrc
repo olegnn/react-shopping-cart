@@ -3,61 +3,12 @@
   "env": {
     "browser": true
   },
-
   "plugins": [
     "flowtype"
   ],
   "rules": {
-    "flowtype/boolean-style": [
-      2,
-      "boolean"
-    ],
-    "flowtype/define-flow-type": 1,
-    "flowtype/delimiter-dangle": [
-      2,
-      "always"
-    ],
-    "flowtype/generic-spacing": [
-      2,
-      "never"
-    ],
-    "flowtype/no-weak-types": 0,
-    "flowtype/require-parameter-type": 0,
-    "flowtype/require-return-type": [
-      0,
-      "always",
-      {
-        "annotateUndefined": "never"
-      }
-    ],
-    "flowtype/require-valid-file-annotation": 2,
-    "flowtype/semi": [
-      2,
-      "always"
-    ],
-    "flowtype/space-after-type-colon": [
-      2,
-      "always"
-    ],
-    "flowtype/space-before-generic-bracket": [
-      2,
-      "never"
-    ],
-    "flowtype/space-before-type-colon": [
-      2,
-      "always"
-    ],
-    "flowtype/type-id-match": [
-      2,
-      "^([A-Z][a-z0-9]+)+Type$"
-    ],
-    "flowtype/union-intersection-spacing": [
-      2,
-      "always"
-    ],
-    "flowtype/use-flow-type": 1,
-    "flowtype/valid-syntax": 1,
-
+    "flowtype/space-before-type-colon": [2, "never"],
+    "flowtype/space-after-type-colon": [2, "always"],
     "indent": [2, 2, {"SwitchCase": 1}],
     "func-names": [0],
     "key-spacing": [2, {
@@ -84,16 +35,26 @@
 
     "curly": [1, "multi"],
     "one-var": [0],
-    "valid-jsdoc": [1],
+    "valid-jsdoc": [0],
     "arrow-parens": [0],
     "default-case": [1],
+    "comma-dangle": [2, {
+        "arrays": "always",
+        "objects": "always",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "always-multiline"
+    }],
+    "array-bracket-spacing": [2, "always"],
 
 
     "import/no-extraneous-dependencies": [0],
+    "import/no-duplicates": [2],
 
     "no-bitwise": [0],
     "no-confusing-arrow": [0],
     "no-console": [0],
+    "no-duplicate-imports": [0],
     "no-mixed-operators": [0],
     "no-param-reassign": ["error", { "props": false }],
     "no-unused-vars": [1],
@@ -111,6 +72,17 @@
     "react/jsx-no-bind": [2],
     "react/prefer-es6-class": [2],
     "react/prefer-stateless-function": [2],
+    "react/sort-comp": [2, {
+        order: [
+          'props',
+          'defaultProps',
+          'static-methods',
+          'lifecycle',
+          'everything-else',
+          'render'
+        ]
+      }
+    ],
 
     "jsx-a11y/anchor-has-content": [0],
     "jsx-a11y/img-has-alt": [0],
@@ -119,11 +91,18 @@
   },
   "settings": {
     "flowtype": {
-      "onlyFilesWithFlowAnnotation": true,
+      "onlyFilesWithFlowAnnotation": false,
     }
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
   "globals": {
-    "__PREFIX_LINKS__": true,
-  },
+    "Generator": true,
+    "React$Element": true,
+    "React$Component": true,
+    "React$Node": true,
+    "__PREFIX_LINKS__": true
+  }
 }

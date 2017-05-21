@@ -1,7 +1,7 @@
 /*
  * Product tests for JEST
  *
- * Copyright © Oleg Nosov 2016
+ * Copyright © Oleg Nosov 2016-Present
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
@@ -11,11 +11,11 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import IntlMessageFormat from 'intl-messageformat';
 import { mount } from 'enzyme';
-import { Product } from '../src/components';
+import Product from '../src/components/Product/Product';
 import { generateProductKey } from '../src/helpers';
 
 const testProductLocalization = {
-  colour: 'Colour',
+  color: 'Color',
   iPadCase: 'iPad case',
   red: 'Red',
   green: 'Green',
@@ -29,22 +29,17 @@ const testProductLocalization = {
 const getLocalization = (id, params = {}) =>
   new IntlMessageFormat(testProductLocalization[id], 'en').format(params);
 
-const createProduct = ({ cartState, props }, renderFunc = mount) =>
+const createProduct = ({ cartState, props, }, renderFunc = mount) =>
   renderFunc(
     <Product
       {...props}
       onAddProduct={
         (
           key,
-          {
-            id,
-            quantity,
-            productInfo,
-            properties,
-          },
+          product,
         ) => void (
           cartState[key] =
-            { quantity, id, productInfo, properties }
+            product
           )
       }
       checkoutButton={<a />}
@@ -63,10 +58,10 @@ describe('Product', () => {
     id: 'ipad-case',
     path: '/shop/ipad-case/',
     properties: {
-      colour: ['red', 'green'],
+      color: [ 'red', 'green', ],
     },
-    propertiesToShowInCart: ['colour'],
-    prices: { GBP: 70 },
+    propertiesToShowInCart: [ 'color', ],
+    prices: { GBP: 70, },
     currency: 'GBP',
     imagePath: '1-483x321.jpeg',
   };
@@ -76,11 +71,11 @@ describe('Product', () => {
     const cartState = {};
 
     // Current product is ipad case (see props above)
-    const renderedProduct = createProduct({ cartState, props: iPadCaseProps });
+    const renderedProduct = createProduct({ cartState, props: iPadCaseProps, });
 
     const productKey = generateProductKey(
       iPadCaseProps.id,
-      { colour: 'red' },
+      { color: 'red', },
     );
 
     const simulateAddProductEvent =
@@ -91,17 +86,27 @@ describe('Product', () => {
     // Our product is in cart already
     expect(cartState[productKey].quantity).toBe(1);
 
+    const quantityInput = renderedProduct.find('input');
+
     // Try to change quantity to -1
-    renderedProduct.find('input').simulate('change', { target: { value: -1 } });
+    quantityInput.node.value = -1;
 
+    renderedProduct.find('input').simulate(
+      'change',
+    );
 
-    expect(renderedProduct.state().quantity).toBe(1);
+    expect(renderedProduct.update().state().quantity).toBe(1);
+
+    const colorSelect =
+      renderedProduct
+        .find('select');
 
     // Now add green case in our cart
+    colorSelect.node.value = 'green';
 
     renderedProduct
       .find('select')
-      .simulate('change', { target: { value: 'green' } });
+      .simulate('change');
 
     simulateAddProductEvent();
 
@@ -111,7 +116,7 @@ describe('Product', () => {
 
   it('takes snapshot', () => {
     const renderedProduct = createProduct(
-      { props: iPadCaseProps },
+      { props: iPadCaseProps, },
       renderer.create,
     );
     expect(renderedProduct.toJSON()).toMatchSnapshot();

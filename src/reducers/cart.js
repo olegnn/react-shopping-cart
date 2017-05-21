@@ -9,14 +9,15 @@
  * Redux reducer to operate with cart
  *
  */
+
 import { combineReducers } from 'redux';
 import products from './cart/products';
 import currency from './cart/currency';
 
 /**
- * @module cartReducer
+ * @function
  * @description
  * Default state value is
  * { products: {}, currency: 'USD' }
  */
-export default combineReducers({ products, currency });
+export default combineReducers({ products, currency, });
