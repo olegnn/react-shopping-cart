@@ -43,6 +43,7 @@ export type PropertyOption =
 /** @ */
 export type PropertyOptions = Array<PropertyOption>;
 
+/** @ */
 export type OnChange = (
   obj: { value: OptionIndex }
 ) => void;
