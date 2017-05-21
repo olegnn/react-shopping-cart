@@ -14,12 +14,16 @@ import type {
   DefaultLinkComponentProps,
 } from './types';
 
-type StyleConfig = {
+/**
+ * @typedef {Object} StyleConfig
+ */
+export type StyleConfig = {
   enabled?: boolean,
   duration?: number,
 };
 
-type ReactStatelessComponent = (props: Object) => React$Element<*>;
+/** @ */
+export type ReactStatelessComponent = (props: Object) => React$Element<*>;
 
 /**
  * @memberof helpers

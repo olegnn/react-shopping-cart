@@ -171,7 +171,7 @@ export default class App extends PureComponent {
         EUR: 60,
         USD: 70,
       },
-      imagePath: 'https://www.solarleague.org/'+
+      imageSrc: 'https://www.solarleague.org/'+
                         'shop/macbook-case/1-483x321.jpeg',
       path: '/shop/macbook-case/',
     },
@@ -244,7 +244,6 @@ export default class App extends PureComponent {
     { currentTarget: { value, }, },
   ) => void this.changeCurrency(value);
 
-
   render() {
     const {
       handleLanguageChange,
@@ -280,7 +279,7 @@ export default class App extends PureComponent {
             additionalLocalization[lang].caseForMacbookLovers
           }
         </p>
-        <img className="img-fluid" src={product.imagePath} />
+        <img className="img-fluid" src={product.imageSrc} alt=":C" />
       </div>
     );
 

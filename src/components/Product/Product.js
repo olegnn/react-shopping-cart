@@ -60,7 +60,7 @@ export type ScrollFunction = (
  * @prop {string} name - Name to display pattern. Required.
  * @prop {string} path - Path to product. Required.
  * @prop {Prices} prices - {currency: value}. Required
- * @prop {string} imagePath - Path to main image.
+ * @prop {string} imageSrc - Path to main image.
  * @prop {string} currency - Current price currency. Required.
  * @prop {AddProduct} onAddProduct - Function to call when user wants to add product in his cart. Required.
  * @prop {GenerateProductKey} generateProductKey - Required.
@@ -100,7 +100,7 @@ export type Props = {|
   /*
    * Path to main image.
    */
-  imagePath: string,
+  imageSrc: string,
   /*
    * Current price currency.
    */
@@ -192,7 +192,7 @@ export default class
     Object
       .entries(properties)
       .map(([ name, options, ]) =>
-        <ProductPropertyInput
+        (<ProductPropertyInput
           key={name}
           name={name}
           options={options}
@@ -200,7 +200,7 @@ export default class
           currency={currency}
           onChange={handlePropertyValueChange}
           getLocalization={getLocalization}
-        />,
+        />),
     );
 
   static calculateAdditionalCost = (
@@ -230,7 +230,7 @@ export default class
       propertiesToShowInCart,
       prices,
       name,
-      imagePath,
+      imageSrc,
       path,
       id,
     }: {
@@ -238,7 +238,7 @@ export default class
       propertiesToShowInCart: Array<string>,
       prices: Prices,
       name: string,
-      imagePath: string,
+      imageSrc: string,
       path: string,
       id: string,
     },
@@ -276,7 +276,7 @@ export default class
           })
         , {}),
     path,
-    imagePath,
+    imageSrc,
     propertiesToShowInCart,
   });
 
@@ -425,8 +425,8 @@ export default class
             >
               <button
                 type="submit"
-                className="btn btn-success btn-block active"
                 role="button"
+                className="btn btn-success btn-block active"
                 disabled={!quantity}
               >
                 <i className={iconAddProductClassName} />

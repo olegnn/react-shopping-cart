@@ -95,7 +95,7 @@ export default class
     options
       .map(ProductPropertyInput.getOptionValue)
       .map(
-        (optionValue, index) =>
+        (optionValue, index) => (
           <option key={optionValue} value={optionValue}>
             {
               typeof optionValue === 'string'
@@ -117,7 +117,8 @@ export default class
               )
               : optionValue
             }
-          </option>,
+          </option>
+        ),
       );
 
   handleSelectInputValueChange = (

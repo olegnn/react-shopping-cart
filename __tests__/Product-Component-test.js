@@ -63,7 +63,7 @@ describe('Product', () => {
     propertiesToShowInCart: [ 'color', ],
     prices: { GBP: 70, },
     currency: 'GBP',
-    imagePath: '1-483x321.jpeg',
+    imageSrc: '1-483x321.jpeg',
   };
 
   it('adds products to cart', () => {

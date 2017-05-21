@@ -74,7 +74,7 @@ describe('Cart', () => {
     prices: {
       GBP: 70,
     },
-    imagePath: 'ipad-case1-483x321.jpeg',
+    imageSrc: 'ipad-case1-483x321.jpeg',
     propertiesToShowInCart: [ 'color', ],
     path: '/shop/ipad-case',
   };

@@ -85,6 +85,10 @@ export type Props = {|
    * ClassName for trash icon on remove button.
    */
   iconTrashClassName: string,
+  /**
+   * Alt image src for products
+   */
+  altProductImageSrc: string,
   /*
    * Cart's config for Transition.
    * Look at src/components/Cart/Cart.js for details.
@@ -106,6 +110,7 @@ const defaultProps = {
   checkoutButton: null,
   hideHeader: false,
   iconTrashClassName: 'icon-trash',
+  altProductImageSrc: '',
   cartTransition: {
     style: animate(500),
     enteringClassName: 'fadeInUp',
@@ -141,6 +146,7 @@ export default class Cart
       isCartEmpty,
       iconTrashClassName,
       currency,
+      altProductImageSrc,
       cartTransition,
       cartItemTransition,
       onUpdateProduct,
@@ -167,12 +173,12 @@ export default class Cart
                   .entries(products)
                   .map(
                     ([
-                      productKey : string,
+                      productKey: string,
                       {
                         prices,
                         path,
                         name,
-                        imagePath,
+                        imageSrc,
                         propertiesToShowInCart,
                         quantity,
                         properties,
@@ -188,7 +194,8 @@ export default class Cart
                         currency={currency}
                         path={path}
                         name={name}
-                        imagePath={imagePath}
+                        imageSrc={imageSrc}
+                        altImageSrc={altProductImageSrc}
                         propertiesToShow={propertiesToShowInCart}
                         iconTrashClassName={iconTrashClassName}
                         onUpdateProduct={onUpdateProduct}
