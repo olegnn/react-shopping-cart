@@ -7,7 +7,6 @@
 [![npm](https://img.shields.io/npm/dt/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
 [![peerDependencies Status](https://david-dm.org/olegnn/react-shopping-cart/peer-status.svg)](https://david-dm.org/olegnn/react-shopping-cart?type=peer)
 [![dependencies](https://david-dm.org/olegnn/react-shopping-cart.svg)](https://david-dm.org/olegnn/react-shopping-cart)
-
 [![devDependencies Status](https://david-dm.org/olegnn/react-shopping-cart/dev-status.svg)](https://david-dm.org/olegnn/react-shopping-cart?type=dev)
 
 Shopping cart package provides several components:
@@ -530,17 +529,6 @@ __Localization__ default ids and params bindings:
     -   [Props](#props-1)
 -   [ProductPropertyDescription](#productpropertydescription)
     -   [Props](#props-2)
--   [helpers](#helpers)
-    -   [generateStyle](#generatestyle)
-    -   [animate](#animate)
-    -   [configure](#configure)
-    -   [isNaturalNumber](#isnaturalnumber)
-    -   [parseInteger](#parseinteger)
-    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
-    -   [DefaultLinkComponent](#defaultlinkcomponent)
--   [StyleConfig](#styleconfig)
--   [ReactStatelessComponent](#reactstatelesscomponent)
--   [generateProductKey](#generateproductkey)
 -   [CheckoutButton](#checkoutbutton)
     -   [Props](#props-3)
 -   [Product](#product)
@@ -555,6 +543,17 @@ __Localization__ default ids and params bindings:
 -   [PropertyOption](#propertyoption)
 -   [PropertyOptions](#propertyoptions)
 -   [OnChange](#onchange)
+-   [helpers](#helpers)
+    -   [generateStyle](#generatestyle)
+    -   [animate](#animate)
+    -   [configure](#configure)
+    -   [isNaturalNumber](#isnaturalnumber)
+    -   [parseInteger](#parseinteger)
+    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
+    -   [DefaultLinkComponent](#defaultlinkcomponent)
+-   [StyleConfig](#styleconfig)
+-   [ReactStatelessComponent](#reactstatelesscomponent)
+-   [generateProductKey](#generateproductkey)
 -   [ProductPropertyOption](#productpropertyoption)
 -   [ProductProperties](#productproperties)
 -   [Prices](#prices)
@@ -671,99 +670,6 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `value` **[ProductPropertyOption](#productpropertyoption)** 
 -   `getLocalization` **[GetLocalization](#getlocalization)** 
-
-## helpers
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-### generateStyle
-
-**Parameters**
-
--   `$0` **any**  (optional, default `{}`)
-    -   `$0.enabled`   (optional, default `true`)
-    -   `$0.duration`   (optional, default `1000`)
-    -   `$0.rest` **...any** 
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### animate
-
-**Parameters**
-
--   `options` **([StyleConfig](#styleconfig) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### configure
-
-**Parameters**
-
--   `Component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
--   `configuration` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[ReactStatelessComponent](#reactstatelesscomponent)** 
-
-### isNaturalNumber
-
-**Parameters**
-
--   `num` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-### parseInteger
-
-**Parameters**
-
--   `num` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### getAbsoluteOffsetTop
-
-**Parameters**
-
--   `$0` **any**  (optional, default `{}`)
-    -   `$0.offsetTop`  
-    -   `$0.offsetParent`  
-
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### DefaultLinkComponent
-
-**Parameters**
-
--   `$0` **any** 
-    -   `$0.to`  
-    -   `$0.otherProps` **...any** 
-
-Returns **React$Element&lt;any>** 
-
-## StyleConfig
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `enabled` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `duration` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** 
-
-## ReactStatelessComponent
-
-Type: function (props: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
-
-## generateProductKey
-
-**Parameters**
-
--   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `properties` **{}** 
-
-Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## CheckoutButton
 
@@ -890,6 +796,99 @@ Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/
 ## OnChange
 
 Type: function (obj: {value: [OptionIndex](#optionindex)}): void
+
+## helpers
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### generateStyle
+
+**Parameters**
+
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.enabled`   (optional, default `true`)
+    -   `$0.duration`   (optional, default `1000`)
+    -   `$0.rest` **...any** 
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### animate
+
+**Parameters**
+
+-   `options` **([StyleConfig](#styleconfig) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+### configure
+
+**Parameters**
+
+-   `Component` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
+-   `configuration` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[ReactStatelessComponent](#reactstatelesscomponent)** 
+
+### isNaturalNumber
+
+**Parameters**
+
+-   `num` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### parseInteger
+
+**Parameters**
+
+-   `num` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### getAbsoluteOffsetTop
+
+**Parameters**
+
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.offsetTop`  
+    -   `$0.offsetParent`  
+
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### DefaultLinkComponent
+
+**Parameters**
+
+-   `$0` **any** 
+    -   `$0.to`  
+    -   `$0.otherProps` **...any** 
+
+Returns **React$Element&lt;any>** 
+
+## StyleConfig
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `enabled` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
+-   `duration` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** 
+
+## ReactStatelessComponent
+
+Type: function (props: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
+
+## generateProductKey
+
+**Parameters**
+
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `properties` **{}** 
+
+Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## 
 
