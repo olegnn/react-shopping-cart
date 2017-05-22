@@ -23,8 +23,8 @@ import type {
 export const productsSelector = (
   {
     cart: { products }
-  } : CartState
-) : Products => products;
+  }: CartState
+): Products => products;
 
 /**
  * @memberof selectors
@@ -32,8 +32,8 @@ export const productsSelector = (
 export const currencySelector = (
   {
     cart: { currency }
-  } : CartState
-) : string => currency;
+  }: CartState
+): string => currency;
 
 /**
  * @memberof selectors
@@ -43,7 +43,7 @@ export const currencySelector = (
 export const totalSelector = createSelector(
   productsSelector,
   currencySelector,
-  (products : Products, currency : string) : number =>
+  (products: Products, currency: string): number =>
     Object
       .values(products)
       .map(
@@ -52,7 +52,7 @@ export const totalSelector = createSelector(
         ) => quantity * price,
       )
       .reduce(
-        (total : number, current : number) => total + current, 0
+        (total: number, current: number) => total + current, 0
       ),
 );
 
@@ -61,7 +61,7 @@ export const totalSelector = createSelector(
  */
 export const isCartEmptySelector = createSelector(
   productsSelector,
-  (products : Products) : boolean =>
+  (products: Products): boolean =>
     !Object
       .keys(products)
       .length,

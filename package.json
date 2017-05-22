@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.5.3",
+  "version": "1.5.7",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "lint": "eslint .",
     "build_example": "NODE_ENV=production webpack --config webpack.config.dev --output-path './examples/build'",
     "develop": "webpack-dev-server --config webpack.config.dev.js",
-    "prepublish": "yarn build && yarn doc && yarn test -- -u;"
+    "prepublish": "yarn build && yarn doc"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
@@ -88,7 +88,7 @@
     "react-test-renderer": "^15.5.4",
     "redux": "^3.6.0",
     "sass-loader": "^6.0.5",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.0",
     "uglifyjs-webpack-plugin": "^0.4.3",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"

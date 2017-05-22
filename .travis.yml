@@ -5,7 +5,7 @@ node_js:
 
 cache:
   yarn: true
-  
+
 env:
   NODE_ENV: 'release'
 
@@ -18,3 +18,6 @@ before_install:
 
 install:
   - yarn install
+
+script:
+  - yarn test

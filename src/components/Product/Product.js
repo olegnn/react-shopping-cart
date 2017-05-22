@@ -242,7 +242,7 @@ export default class
       path: string,
       id: string,
     },
-    quantity,
+    quantity: number,
     selectedPropertyIndexes: OptionIndex,
   ): ProductData => ({
     id,
@@ -288,8 +288,10 @@ export default class
     { currentTarget, }: InputEvent,
   ) => {
     const quantity = parseInteger(currentTarget.value);
-    if (isNaturalNumber(quantity))
+    if (isNaturalNumber(quantity)) {
+      currentTarget.value = String(quantity);
       this.setState({ quantity, });
+    } else currentTarget.value = '';
   }
 
   hanglePropertyValueChange: OnChange = (

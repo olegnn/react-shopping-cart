@@ -10,7 +10,7 @@
  * React component to display product in cart.
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import type {
   InputEvent,
@@ -58,7 +58,7 @@ const defaultProps = {
 };
 
 export default class
-  CartProduct extends Component<typeof defaultProps, Props, void> {
+  CartProduct extends PureComponent<typeof defaultProps, Props, void> {
 
   props: Props;
 
@@ -102,13 +102,16 @@ export default class
     { currentTarget, }: InputEvent,
   ) => {
     const quantity = parseInteger(currentTarget.value);
+    const natural = isNaturalNumber(quantity);
     const {
       onUpdateProduct,
       productKey,
       product,
       quantity: currentQuantity,
     } = this.props;
-    if (isNaturalNumber(quantity) && quantity !== currentQuantity)
+    if (natural) currentTarget.value = String(quantity);
+    else currentTarget.value = '';
+    if (natural && quantity !== currentQuantity)
       onUpdateProduct(
         productKey, { ...product, quantity, },
       );
