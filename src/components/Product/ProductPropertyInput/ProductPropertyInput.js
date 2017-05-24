@@ -48,10 +48,6 @@ export type OnChange = (
   obj: { value: OptionIndex }
 ) => void;
 
-/**
- * @memberof ProductPropertyInput
- * @typedef {Object} Props
- */
 export type Props = {|
   name: string,
   options: PropertyOptions,

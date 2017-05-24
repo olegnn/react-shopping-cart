@@ -17,10 +17,6 @@ import type {
   ProductPropertyOption,
 } from '../../../../types';
 
-/**
- * @memberof ProductPropertyDescription
- * @typedef {Object} Props
- */
 export type Props = {
   name: string,
   value: ProductPropertyOption,

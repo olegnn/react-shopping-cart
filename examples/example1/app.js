@@ -63,7 +63,7 @@ const frDefaultLocalization = {
     },
     quantityLabel: 'Quantité:',
     priceLabel: 'Prix:',
-    priceValue: '{localizedCurrency}{price}',
+    priceValue: '{localizedCurrency}{price, number}',
     totalLabel: 'Total:',
     totalValue: '{localizedCurrency}{total, plural, ' +
                 '=0 {0}' +

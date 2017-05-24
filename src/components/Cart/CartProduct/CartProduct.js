@@ -29,10 +29,6 @@ import {
   parseInteger,
 } from '../../../helpers';
 
-/**
- * @memberof CartProduct
- * @typedef {Object} Props
- */
 export type Props = {
   product: ProductData,
   productKey: string,
