@@ -11,6 +11,7 @@ import React from 'react';
 import { animateScroll } from 'react-scroll';
 
 import type {
+  GenerateProductKey,
   DefaultLinkComponentProps,
 } from './types';
 
@@ -96,16 +97,13 @@ export const getAbsoluteOffsetTop = (
     && getAbsoluteOffsetTop(offsetParent)
   );
 
-/**
- * @memberof helpers
+/*
  * key in format id/_property1-valueOfProperty1 etc
  */
-export const generateProductKey = (
-  id: string,
-  properties: {
-    [propertyName: string]: string | number,
-  },
-): string =>
+export const generateProductKey: GenerateProductKey = (
+  id,
+  properties,
+) =>
   Object
     .entries(properties)
     .reduce((acc: string, [ propName, propValue, ]) =>

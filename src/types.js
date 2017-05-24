@@ -64,7 +64,7 @@ export type Products = {
 export type GenerateProductKey =
   (
     id: string,
-    properties: { [name: string]: string | number }
+    properties: ProductProperties,
   ) => string;
 
 /** @ */
@@ -175,7 +175,9 @@ type ElementEventTemplate<E> = {
 
 export type InputEvent = ElementEventTemplate<HTMLInputElement>;
 
-/** @ */
+/**
+ * @typedef {Object} CartState
+ */
 export type CartState = {
   cart: { currency: string, products: Products }
 };

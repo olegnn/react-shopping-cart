@@ -37,8 +37,10 @@ import { animate, DefaultLinkComponent } from '../../helpers';
  * One argument - product's key. Required.
  * @prop {GetLocalization} getLocalization - Required.
  * @prop {?boolean} hideHeader - Hide cart's header. Default is false.
+ * @prop {?ReactElement} checkoutButton - Button to display in the bottom of cart. Default is null.
  * @prop {?string} iconTrashClassName - ClassName for trash icon on remove button.
  * Default is 'icon-trash'.
+ * @prop {?string} altProductImageSrc - Alt image src for products. Default is ''.
  * @prop {?Object} cartTransition - Cart's config for Transition.
  * Look at src/components/Cart/Cart.js for details.
  * @prop {?Object} cartItemTransition - Cart item's config for react-transition-group.
@@ -74,18 +76,18 @@ export type Props = {|
   onRemoveProduct: RemoveProduct,
   getLocalization: GetLocalization,
   /*
-   * Button to display in the bottom of cart.
-   */
-  checkoutButton: React$Element<*>,
-  /*
    * Hide cart's header.
    */
   hideHeader: boolean,
   /*
+   * Button to display in the bottom of cart.
+   */
+  checkoutButton: React$Element<*>,
+  /*
    * ClassName for trash icon on remove button.
    */
   iconTrashClassName: string,
-  /**
+  /*
    * Alt image src for products
    */
   altProductImageSrc: string,

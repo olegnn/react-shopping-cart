@@ -60,7 +60,7 @@ export type ScrollFunction = (
  * @prop {string} name - Name to display pattern. Required.
  * @prop {string} path - Path to product. Required.
  * @prop {Prices} prices - {currency: value}. Required
- * @prop {string} imageSrc - Path to main image.
+ * @prop {string} imageSrc - Path to main image. Required.
  * @prop {string} currency - Current price currency. Required.
  * @prop {AddProduct} onAddProduct - Function to call when user wants to add product in his cart. Required.
  * @prop {GenerateProductKey} generateProductKey - Required.

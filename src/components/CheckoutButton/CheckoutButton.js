@@ -29,7 +29,7 @@ import { animate, DefaultLinkComponent } from '../../helpers';
  * @prop {boolean} hidden - Show or hide button. Required.
  * @prop {string} checkoutURL - Link to checkout page. Required.
  * @prop {GetLocalization} getLocalization - Required.
- * @prop {?string} iconCheckoutClassName - ClassName for cart icon on checkout button.
+ * @prop {?string} iconCheckoutClassName - ClassName for cart icon on checkout button. Default is 'icon-basket'.
  * @prop {?Object} transitionConfig - Transition's config for react-overlays Transition.
  * @prop {?Link$Component} linkComponent - React Component, will receive prop `to="%your product's page%"`.
  * I'd recommend you to take a look at react-router's Link.

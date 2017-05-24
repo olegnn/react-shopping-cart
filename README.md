@@ -4,7 +4,6 @@
 [![npm](https://img.shields.io/npm/v/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
 [![Build Status](https://travis-ci.org/olegnn/react-shopping-cart.svg?branch=master)](https://travis-ci.org/olegnn/react-shopping-cart)
 [![npm](https://img.shields.io/npm/dm/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
-[![npm](https://img.shields.io/npm/dt/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
 [![peerDependencies Status](https://david-dm.org/olegnn/react-shopping-cart/peer-status.svg)](https://david-dm.org/olegnn/react-shopping-cart?type=peer)
 [![dependencies](https://david-dm.org/olegnn/react-shopping-cart.svg)](https://david-dm.org/olegnn/react-shopping-cart)
 [![devDependencies Status](https://david-dm.org/olegnn/react-shopping-cart/dev-status.svg)](https://david-dm.org/olegnn/react-shopping-cart?type=dev)
@@ -524,20 +523,16 @@ __Localization__ default ids and params bindings:
 
 -   [Cart](#cart)
     -   [Props](#props)
--   [altProductImageSrc](#altproductimagesrc)
 -   [CartProduct](#cartproduct)
-    -   [Props](#props-1)
 -   [ProductPropertyDescription](#productpropertydescription)
-    -   [Props](#props-2)
 -   [CheckoutButton](#checkoutbutton)
-    -   [Props](#props-3)
+    -   [Props](#props-1)
 -   [Product](#product)
-    -   [Props](#props-4)
+    -   [Props](#props-2)
 -   [ProductPropertiesOptions](#productpropertiesoptions)
 -   [ScrollPosition](#scrollposition)
 -   [ScrollFunction](#scrollfunction)
 -   [ProductPropertyInput](#productpropertyinput)
-    -   [Props](#props-5)
 -   [OptionIndex](#optionindex)
 -   [OptionObject](#optionobject)
 -   [PropertyOption](#propertyoption)
@@ -553,13 +548,12 @@ __Localization__ default ids and params bindings:
     -   [DefaultLinkComponent](#defaultlinkcomponent)
 -   [StyleConfig](#styleconfig)
 -   [ReactStatelessComponent](#reactstatelesscomponent)
--   [generateProductKey](#generateproductkey)
 -   [ProductPropertyOption](#productpropertyoption)
 -   [ProductProperties](#productproperties)
 -   [Prices](#prices)
 -   [ProductData](#productdata)
 -   [Products](#products)
--   [GenerateProductKey](#generateproductkey-1)
+-   [GenerateProductKey](#generateproductkey)
 -   [AddProduct](#addproduct)
 -   [UpdateProduct](#updateproduct)
 -   [RemoveProduct](#removeproduct)
@@ -603,18 +597,16 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
     One argument - product's key. Required.
 -   `getLocalization` **[GetLocalization](#getlocalization)** Required.
 -   `hideHeader` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Hide cart's header. Default is false.
+-   `checkoutButton` **ReactElement?** Button to display in the bottom of cart. Default is null.
 -   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for trash icon on remove button.
     Default is 'icon-trash'.
+-   `altProductImageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** Alt image src for products. Default is ''.
 -   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart's config for Transition.
     Look at src/components/Cart/Cart.js for details.
 -   `cartItemTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart item's config for react-transition-group.
     Look at src/components/Cart/Cart.js for details.
 -   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
     I'd recommend you to take a look at react-router's Link.
-
-## altProductImageSrc
-
-Alt image src for products
 
 ## CartProduct
 
@@ -627,29 +619,6 @@ React component to display product in cart.
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-### Props
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `product` **[ProductData](#productdata)** 
--   `productKey` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `quantity` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `price` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `properties` **[ProductProperties](#productproperties)** 
--   `propertiesToShow` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
--   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `altImageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `onRemoveProduct` **[RemoveProduct](#removeproduct)** 
--   `onUpdateProduct` **[UpdateProduct](#updateproduct)** 
--   `getLocalization` **[GetLocalization](#getlocalization)** 
--   `linkComponent` **[Link$Component](#linkcomponent)** 
-
 ## ProductPropertyDescription
 
 **Extends React.PureComponent**
@@ -660,16 +629,6 @@ Component to display product property's description in cart.
 
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
-
-### Props
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `value` **[ProductPropertyOption](#productpropertyoption)** 
--   `getLocalization` **[GetLocalization](#getlocalization)** 
 
 ## CheckoutButton
 
@@ -693,7 +652,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required.
 -   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page. Required.
 -   `getLocalization` **[GetLocalization](#getlocalization)** Required.
--   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on checkout button.
+-   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on checkout button. Default is 'icon-basket'.
 -   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Transition's config for react-overlays Transition.
 -   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
     I'd recommend you to take a look at react-router's Link.
@@ -719,7 +678,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display pattern. Required.
 -   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required.
 -   `prices` **[Prices](#prices)** {currency: value}. Required
--   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image.
+-   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image. Required.
 -   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current price currency. Required.
 -   `onAddProduct` **[AddProduct](#addproduct)** Function to call when user wants to add product in his cart. Required.
 -   `generateProductKey` **[GenerateProductKey](#generateproductkey)** Required.
@@ -757,19 +716,6 @@ React form for product property(options select only).
 
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
-
-### Props
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `options` **[PropertyOptions](#propertyoptions)** 
--   `selectedOptionIndex` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `onChange` **[OnChange](#onchange)** 
--   `getLocalization` **[GetLocalization](#getlocalization)** 
 
 ## OptionIndex
 
@@ -881,15 +827,6 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 Type: function (props: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
 
-## generateProductKey
-
-**Parameters**
-
--   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `properties` **{}** 
-
-Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ## 
 
 Shopping cart's data types
@@ -951,7 +888,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 ## GenerateProductKey
 
-Type: function (id: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), properties: {}): [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+Type: function (id: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), properties: [ProductProperties](#productproperties)): [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 
 ## AddProduct
 
@@ -1034,7 +971,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 ## CartState
 
-Type: {cart: {currency: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), products: [Products](#products)}}
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 **Properties**
 
