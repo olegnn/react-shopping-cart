@@ -29,7 +29,7 @@ import {
   parseInteger,
 } from '../../../helpers';
 
-export type Props = {
+export type Props = {|
   product: ProductData,
   productKey: string,
   quantity: number,
@@ -46,7 +46,7 @@ export type Props = {
   onUpdateProduct: UpdateProduct,
   getLocalization: GetLocalization,
   linkComponent: Link$Component,
-};
+|};
 
 const defaultProps = {
   properties: {},
@@ -74,19 +74,22 @@ export default class
     Object
       .entries(properties)
       .reduce(
-        (acc, [ propName, propValue, ]) => [
-          ...acc, ...(
-          propertiesToShow.includes(propName)
-          ? [
-            <ProductPropertyDescription
-              key={propName}
-              name={propName}
-              value={propValue}
-              getLocalization={getLocalization}
-            />,
+        (acc, [ propName, propValue, ]) =>
+          [
+            ...acc,
+            ...(
+            propertiesToShow.includes(propName)
+            ? [
+              <ProductPropertyDescription
+                key={propName}
+                name={propName}
+                value={propValue}
+                getLocalization={getLocalization}
+              />,
+            ]
+            : []
+          ),
           ]
-          : []
-        ), ]
     , []);
 
   handleRemoveProductClick = () =>
@@ -105,8 +108,10 @@ export default class
       product,
       quantity: currentQuantity,
     } = this.props;
+
     if (natural) currentTarget.value = String(quantity);
     else currentTarget.value = '';
+
     if (natural && quantity !== currentQuantity)
       onUpdateProduct(
         productKey, { ...product, quantity, },

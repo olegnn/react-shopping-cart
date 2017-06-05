@@ -96,21 +96,22 @@ export default class
           <option key={optionValue} value={optionValue}>
             {
               typeof optionValue === 'string'
-              ? getLocalization(
+              ?
+                getLocalization(
                   optionValue,
-                {
-                  ...localizationScope,
-                  ...(
-                    typeof options[index] === 'object'
-                    ? {
-                      cost:
-                        options[index].additionalCost
-                        && options[index].additionalCost[currency]
-                        || 0,
-                    }
-                    : {}
-                  ),
-                },
+                  {
+                    ...localizationScope,
+                    ...(
+                      typeof options[index] === 'object'
+                      ? {
+                        cost:
+                          options[index].additionalCost
+                          && options[index].additionalCost[currency]
+                          || 0,
+                      }
+                      : {}
+                    ),
+                  },
               )
               : optionValue
             }
