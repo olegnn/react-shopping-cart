@@ -17,11 +17,11 @@ import type {
   ProductPropertyOption,
 } from '../../../../types';
 
-export type Props = {
+export type Props = {|
   name: string,
   value: ProductPropertyOption,
   getLocalization: GetLocalization,
-};
+|};
 
 const defaultProps = {};
 

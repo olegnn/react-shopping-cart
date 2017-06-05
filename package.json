@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "url": "https://github.com/olegnn/react-shopping-cart.git"
   },
   "main": "./dist/index.js",
-  "module": "./src/index.js",
+  "module": "./dist/index.js",
   "scripts": {
     "build": "NODE_ENV=release webpack --config webpack.config.dist",
     "doc": "gulp doc",
