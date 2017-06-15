@@ -56,11 +56,9 @@ const handlers = {
         updatedProduct,
       }: CartUpdateAction,
     ): Products => {
-      const { [key]: _, ...restOfProducts } = products;
-      return {
-        [key]: updatedProduct,
-        ...restOfProducts,
-      };
+      const { ...clonedProducts } = products;
+      clonedProducts[key] = updatedProduct;
+      return clonedProducts;
     },
   [actionTypes.CART_REMOVE]:
     (
@@ -68,7 +66,13 @@ const handlers = {
       { key, }: CartRemoveAction,
     ): Products => {
       const { [key]: _, ...restOfProducts } = products;
-      return restOfProducts;
+      return (
+        Object
+          .keys(restOfProducts)
+          .length
+            ? restOfProducts
+            : initialState
+      );
     },
   [actionTypes.CART_EMPTY]:
     (): Products => initialState,
@@ -80,9 +84,9 @@ Object.setPrototypeOf(handlers, null);
  * @function
  */
 export default (
-  state: Products = initialState,
+  state?: Products = initialState,
   action: Object,
-) =>
+): Products =>
   handlers[action.type]
     ? handlers[action.type](state, action)
     : state;

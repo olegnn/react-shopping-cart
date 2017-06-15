@@ -1,14 +1,56 @@
 {
-  "presets": ["react", "es2015"],
-  "plugins": [
-    "babel-plugin-syntax-trailing-function-commas",
-    "flow-react-proptypes",
-    "transform-flow-strip-types",
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    "transform-runtime",
-    "babel-plugin-transform-es5-property-mutators",
-    "babel-plugin-transform-export-extensions",
-    "add-module-exports"
-  ]
+  "env": {
+    "production": {
+      "presets": ["react", "es2015"],
+      "plugins": [
+        "babel-plugin-syntax-trailing-function-commas",
+        "transform-flow-strip-types",
+        "transform-object-rest-spread",
+        "transform-class-properties",
+        "transform-runtime",
+        "babel-plugin-transform-es5-property-mutators",
+        "transform-react-remove-prop-types",
+        "babel-plugin-transform-export-extensions",
+        "add-module-exports"
+      ]
+    },
+    "development": {
+      "presets": ["react", "es2015"],
+      "plugins": [
+        "babel-plugin-syntax-trailing-function-commas",
+        "flow-react-proptypes",
+        "transform-flow-strip-types",
+        "transform-object-rest-spread",
+        "transform-class-properties",
+        "transform-runtime",
+        "add-module-exports"
+      ]
+    },
+    "test": {
+      "presets": ["react", "es2015"],
+      "plugins": [
+        "babel-plugin-syntax-trailing-function-commas",
+        "flow-react-proptypes",
+        "transform-flow-strip-types",
+        "transform-object-rest-spread",
+        "transform-class-properties",
+        "transform-runtime",
+        "add-module-exports"
+      ]
+    },
+    "release": {
+      "presets": ["react", "es2015"],
+      "plugins": [
+        "babel-plugin-syntax-trailing-function-commas",
+        "flow-react-proptypes",
+        "transform-flow-strip-types",
+        "transform-object-rest-spread",
+        "transform-class-properties",
+        "transform-runtime",
+        "babel-plugin-transform-es5-property-mutators",
+        "babel-plugin-transform-export-extensions",
+        "add-module-exports"
+      ]
+    }
+  }
 }

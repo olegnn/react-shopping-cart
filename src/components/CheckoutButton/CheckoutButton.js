@@ -103,25 +103,27 @@ export default class
     };
 
     return !hidden
-    ? <Transition
-      in={!hidden}
-      {...transitionConfig}
-    >
-      <LinkComponent
-        to={checkoutURL}
-        className={
-            `btn btn-primary btn-block ${
-              !grandTotal ? 'disabled' : 'active'
-            }`
-        }
-        role="button"
-      >
-        <i className={iconCheckoutClassName} />
-        {
-          getLocalization('checkoutTotal', localizationScope)
-        }
-      </LinkComponent>
-    </Transition>
-    : null;
+      ? (
+        <Transition
+          in={!hidden}
+          {...transitionConfig}
+        >
+          <LinkComponent
+            to={checkoutURL}
+            className={
+                `btn btn-primary btn-block ${
+                  !grandTotal ? 'disabled' : 'active'
+                }`
+            }
+            role="button"
+          >
+            <i className={iconCheckoutClassName} />
+            {
+              getLocalization('checkoutTotal', localizationScope)
+            }
+          </LinkComponent>
+        </Transition>
+      )
+      : null;
   }
 }

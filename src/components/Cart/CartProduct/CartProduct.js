@@ -200,17 +200,16 @@ export default class
             )
           }
           <div className="form-group row">
-            <label
-              htmlFor="price"
-              className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+            <div
+              className="col-xs-6 col-md-5 col-lg-4"
             >
               {
                 getLocalization(
                   'priceLabel', localizationScope,
                 )
               }
-            </label>
-            <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+            </div>
+            <div className="col-xs-6 col-md-7 col-lg-8">
               {
                 getLocalization(
                   'priceValue', localizationScope,
@@ -219,17 +218,16 @@ export default class
             </div>
           </div>
           <div className="form-group row">
-            <label
-              htmlFor="total"
-              className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+            <div
+              className="col-xs-6 col-md-5 col-lg-4"
             >
               {
                 getLocalization(
                   'totalLabel', localizationScope,
                 )
               }
-            </label>
-            <div className="col-xs-6 col-md-7 col-lg-8 col-form-label">
+            </div>
+            <div className="col-xs-6 col-md-7 col-lg-8">
               {
                 getLocalization(
                   'totalValue', localizationScope,
@@ -244,6 +242,7 @@ export default class
               <button
                 className="btn btn-danger active form-control"
                 role="button"
+                type="button"
                 onClick={handleRemoveProductClick}
               >
                 <i className={iconTrashClassName} />

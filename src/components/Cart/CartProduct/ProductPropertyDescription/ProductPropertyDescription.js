@@ -57,16 +57,15 @@ export default class
 
     return (
       <div className="form-group row">
-        <label
-          htmlFor={name}
-          className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+        <div
+          className="col-xs-6 col-md-5 col-lg-4"
         >
           {
             getLocalization(
               'productPropertyLabel', localizationScope,
             )
           }
-        </label>
+        </div>
         <div className="col-xs-6 col-md-7 col-lg-8">
           {
             getLocalization(

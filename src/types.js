@@ -99,44 +99,44 @@ export type GetLocalization =
 /**
  * @typedef {Object} CartAddAction
  */
-export type CartAddAction = {
+export type CartAddAction = {|
   type: 'cart/ADD',
   key: string,
   product: ProductData,
   productCurrency: string,
-};
+|};
 
 /**
  * @typedef {Object} CartUpdateAction
  */
-export type CartUpdateAction = {
+export type CartUpdateAction = {|
   type: 'cart/UPDATE',
   key: string,
   updatedProduct: ProductData,
-};
+|};
 
 /**
  * @typedef {Object} CartRemoveAction
  */
-export type CartRemoveAction = {
+export type CartRemoveAction = {|
   type: 'cart/REMOVE',
   key: string,
-};
+|};
 
 /**
  * @typedef {Object} CartEmptyAction
  */
-export type CartEmptyAction = {
+export type CartEmptyAction = {|
   type: 'cart/EMPTY',
-};
+|};
 
 /**
  * @typedef {Object} CartSetCurrencyAction
  */
-export type CartSetCurrencyAction = {
+export type CartSetCurrencyAction = {|
   type: 'cart/SET_CURRENCY',
   currency: string,
-};
+|};
 
 /** @ */
 export type CartAction =
