@@ -31,8 +31,8 @@ Object.setPrototypeOf(handlers, null);
  */
 export default (
   state?: string = initialState,
-  action: Object | CartSetCurrencyAction,
-) =>
+  action: Object,
+): string =>
   handlers[action.type]
     ? handlers[action.type](state, action)
     : state;

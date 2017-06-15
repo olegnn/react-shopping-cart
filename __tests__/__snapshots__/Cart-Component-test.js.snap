@@ -67,12 +67,11 @@ exports[`Cart takes snapshot 1`] = `
             <div
               className="form-group row"
             >
-              <label
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="color"
+              <div
+                className="col-xs-6 col-md-5 col-lg-4"
               >
                 Color:
-              </label>
+              </div>
               <div
                 className="col-xs-6 col-md-7 col-lg-8"
               >
@@ -82,14 +81,13 @@ exports[`Cart takes snapshot 1`] = `
             <div
               className="form-group row"
             >
-              <label
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="price"
+              <div
+                className="col-xs-6 col-md-5 col-lg-4"
               >
                 Price:
-              </label>
+              </div>
               <div
-                className="col-xs-6 col-md-7 col-lg-8 col-form-label"
+                className="col-xs-6 col-md-7 col-lg-8"
               >
                 £70
               </div>
@@ -97,14 +95,13 @@ exports[`Cart takes snapshot 1`] = `
             <div
               className="form-group row"
             >
-              <label
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="total"
+              <div
+                className="col-xs-6 col-md-5 col-lg-4"
               >
                 Total:
-              </label>
+              </div>
               <div
-                className="col-xs-6 col-md-7 col-lg-8 col-form-label"
+                className="col-xs-6 col-md-7 col-lg-8"
               >
                 £70
               </div>
@@ -123,6 +120,7 @@ exports[`Cart takes snapshot 1`] = `
                   className="btn btn-danger active form-control"
                   onClick={[Function]}
                   role="button"
+                  type="button"
                 >
                   <i
                     className="icon-trash"
