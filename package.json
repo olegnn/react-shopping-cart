@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -17,7 +17,7 @@
   "main": "./index.js",
   "module": "./index.js",
   "scripts": {
-    "build": "NODE_ENV=release webpack --config webpack.config.release & NODE_ENV=production webpack --config webpack.config.dist",
+    "build": "NODE_ENV=release webpack --config webpack.config.dist & NODE_ENV=production webpack --config webpack.config.prod",
     "doc": "gulp doc",
     "test": "jest .",
     "flow": "flow",

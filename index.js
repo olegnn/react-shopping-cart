@@ -1,4 +1,4 @@
 module.exports =
-  process.env.NODE_ENV === 'development'
-  ? require('./dist/release')
+  process.env.NODE_ENV === 'production'
+  ? require('./dist/production')
   : require('./dist');

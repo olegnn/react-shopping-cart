@@ -33,7 +33,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'release.js',
+    filename: 'production.js',
     library: 'react-shopping-cart',
     libraryTarget: 'umd',
   },
