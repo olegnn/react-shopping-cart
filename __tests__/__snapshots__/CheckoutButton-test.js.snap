@@ -2,7 +2,7 @@
 
 exports[`CheckoutButton takes snapshot 1`] = `
 <a
-  className="btn btn-primary btn-block active"
+  className="btn btn-primary btn-block"
   href="/to/checkout/"
   role="button"
   style={
@@ -15,8 +15,10 @@ exports[`CheckoutButton takes snapshot 1`] = `
   }
 >
   <i
-    className="icon-basket"
+    className="fa fa-shopping-cart mx-1"
   />
-  Checkout (Grand total £100)
+  <span>
+    Checkout (Grand total £100)
+  </span>
 </a>
 `;

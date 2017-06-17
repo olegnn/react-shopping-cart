@@ -2,10 +2,10 @@
 
 exports[`Cart takes snapshot 1`] = `
 <div
-  className="row my-1"
+  className="my-1"
 >
   <div
-    className="col-12"
+    className="w-100"
     style={
       Object {
         "WebkitAnimationDuration": "0.5s",
@@ -70,11 +70,14 @@ exports[`Cart takes snapshot 1`] = `
               <div
                 className="col-xs-6 col-md-5 col-lg-4"
               >
-                Color:
+                 
+                Color
+                :
               </div>
               <div
                 className="col-xs-6 col-md-7 col-lg-8"
               >
+                 
                 Red
               </div>
             </div>
@@ -84,11 +87,14 @@ exports[`Cart takes snapshot 1`] = `
               <div
                 className="col-xs-6 col-md-5 col-lg-4"
               >
+                 
                 Price:
+                
               </div>
               <div
                 className="col-xs-6 col-md-7 col-lg-8"
               >
+                 
                 £70
               </div>
             </div>
@@ -98,11 +104,14 @@ exports[`Cart takes snapshot 1`] = `
               <div
                 className="col-xs-6 col-md-5 col-lg-4"
               >
+                 
                 Total:
+                
               </div>
               <div
                 className="col-xs-6 col-md-7 col-lg-8"
               >
+                 
                 £70
               </div>
             </div>
@@ -117,15 +126,17 @@ exports[`Cart takes snapshot 1`] = `
                 className="col-12 text-center"
               >
                 <button
-                  className="btn btn-danger active form-control"
+                  className="btn btn-danger form-control"
                   onClick={[Function]}
                   role="button"
                   type="button"
                 >
                   <i
-                    className="icon-trash"
+                    className="fa fa-trash mx-1"
                   />
-                  Remove
+                  <span>
+                    Remove
+                  </span>
                 </button>
               </div>
             </div>

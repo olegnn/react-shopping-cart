@@ -26,6 +26,10 @@ module.exports = {
           'css-loader',
         ],
       },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: 'file-loader?name=public/fonts/[name].[ext]',
+      },
     ],
   },
   entry: [

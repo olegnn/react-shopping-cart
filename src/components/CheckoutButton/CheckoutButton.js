@@ -13,6 +13,7 @@
 
 import React, { PureComponent } from 'react';
 import { Transition } from 'react-overlays';
+import classNames from 'classnames';
 
 import type {
   GetLocalization,
@@ -29,7 +30,7 @@ import { animate, DefaultLinkComponent } from '../../helpers';
  * @prop {boolean} hidden - Show or hide button. Required.
  * @prop {string} checkoutURL - Link to checkout page. Required.
  * @prop {GetLocalization} getLocalization - Required.
- * @prop {?string} iconCheckoutClassName - ClassName for cart icon on checkout button. Default is 'icon-basket'.
+ * @prop {?string} iconCheckoutClassName - ClassName for cart icon on checkout button. Default is 'fa fa-shopping-cart mx-1'.
  * @prop {?Object} transitionConfig - Transition's config for react-overlays Transition.
  * @prop {?Link$Component} linkComponent - React Component, will receive prop `to="%your product's page%"`.
  * I'd recommend you to take a look at react-router's Link.
@@ -62,7 +63,7 @@ export type Props = {|
 |};
 
 const defaultProps = {
-  iconCheckoutClassName: 'icon-basket',
+  iconCheckoutClassName: 'fa fa-shopping-cart mx-1',
   transitionConfig: {
     style: animate(500),
     enteringClassName: 'fadeInUp',
@@ -111,16 +112,19 @@ export default class
           <LinkComponent
             to={checkoutURL}
             className={
-                `btn btn-primary btn-block ${
-                  !grandTotal ? 'disabled' : 'active'
-                }`
+              classNames(
+                'btn', 'btn-primary', 'btn-block',
+                {
+                  disabled: !grandTotal,
+                },
+              )
             }
             role="button"
           >
             <i className={iconCheckoutClassName} />
-            {
-              getLocalization('checkoutTotal', localizationScope)
-            }
+            <span>
+              { getLocalization('checkoutTotal', localizationScope) }
+            </span>
           </LinkComponent>
         </Transition>
       )

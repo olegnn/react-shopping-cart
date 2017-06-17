@@ -71,7 +71,7 @@ export type ScrollFunction = (
  * @prop {?Object} scrollAnimationConfig - Config for animateScroll (from react-scroll) scrollTo function.
  * @prop {?ScrollPosition} scrollPosition - Position to scroll after product add. May be number or function returning number.
  * @prop {?ScrollFunction} scrollFunction - Function which will be called when product has been added.
- * @prop {?string} iconAddProductClassName - ClassName for cart icon on add to button.
+ * @prop {?string} iconAddProductClassName - ClassName for cart icon on add to button. Default is 'fa fa-cart-plus mx-1'.
  * @prop {?ReactElement} checkoutButton
  * @prop {?ReactNode} descriptionNode - Node to display before price element.
  * @prop {?ReactNode} afterPriceNode - Node to display after price element.
@@ -156,7 +156,7 @@ const scrollPosition: ScrollPosition =
 const defaultProps = {
   properties: {},
   propertiesToShowInCart: [],
-  iconAddProductClassName: 'icon-cart-plus',
+  iconAddProductClassName: 'fa fa-cart-plus mx-1',
   scrollAnimationConfig: {
     duration: 750,
     delay: 0,
@@ -291,7 +291,8 @@ export default class
     if (isNaturalNumber(quantity)) {
       currentTarget.value = String(quantity);
       this.setState({ quantity, });
-    } else currentTarget.value = '';
+    } else
+      currentTarget.value = '';
   }
 
   hanglePropertyValueChange: OnChange = (
@@ -428,7 +429,7 @@ export default class
               <button
                 type="submit"
                 role="button"
-                className="btn btn-success btn-block active"
+                className="btn btn-success btn-block"
                 disabled={!quantity}
               >
                 <i className={iconAddProductClassName} />
