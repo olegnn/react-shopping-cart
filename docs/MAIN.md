@@ -50,6 +50,10 @@ And if you want to see animation, also include animate.css
 ```javascript
 import 'animate.css/animate.min.css';
 ```
+Also want some icons?
+```javascript
+import 'font-awesome/css/font-awesome.min.css';
+```
 
 __With Redux.__ After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
 ```javascript
@@ -68,6 +72,7 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 const { getDefaultLocalization } = cartLocalization;
 
@@ -210,6 +215,7 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 const { getDefaultLocalization } = cartLocalization;
 

@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
@@ -7,9 +8,7 @@ import { Provider } from 'react-redux';
 import Product from '../../src/containers/Product';
 import Cart from '../../src/containers/Cart';
 import CheckoutButton from '../../src/containers/CheckoutButton';
-import {
-  setCartCurrency,
-} from '../../src/actions';
+import { setCartCurrency } from '../../src/actions';
 import {
   getDefaultLocalization,
 } from '../../src/localization';

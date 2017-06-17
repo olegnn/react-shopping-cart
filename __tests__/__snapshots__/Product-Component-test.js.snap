@@ -66,13 +66,13 @@ exports[`Product takes snapshot 1`] = `
         className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3"
       >
         <button
-          className="btn btn-success btn-block active"
+          className="btn btn-success btn-block"
           disabled={false}
           role="button"
           type="submit"
         >
           <i
-            className="icon-cart-plus"
+            className="fa fa-cart-plus mx-1"
           />
           Add to my cart :)
         </button>

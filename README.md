@@ -50,6 +50,10 @@ And if you want to see animation, also include animate.css
 ```javascript
 import 'animate.css/animate.min.css';
 ```
+Also want some icons?
+```javascript
+import 'font-awesome/css/font-awesome.min.css';
+```
 
 __With Redux.__ After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
 ```javascript
@@ -68,6 +72,7 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 const { getDefaultLocalization } = cartLocalization;
 
@@ -210,6 +215,7 @@ import {
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 const { getDefaultLocalization } = cartLocalization;
 
@@ -524,17 +530,7 @@ __Localization__ default ids and params bindings:
 -   [Cart](#cart)
     -   [Props](#props)
 -   [CartProduct](#cartproduct)
--   [ProductPropertyDescription](#productpropertydescription)
--   [helpers](#helpers)
-    -   [generateStyle](#generatestyle)
-    -   [animate](#animate)
-    -   [configure](#configure)
-    -   [isNaturalNumber](#isnaturalnumber)
-    -   [parseInteger](#parseinteger)
-    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
-    -   [DefaultLinkComponent](#defaultlinkcomponent)
--   [StyleConfig](#styleconfig)
--   [ReactStatelessComponent](#reactstatelesscomponent)
+-   [ProductPropertyValue](#productpropertyvalue)
 -   [CheckoutButton](#checkoutbutton)
     -   [Props](#props-1)
 -   [Product](#product)
@@ -548,6 +544,16 @@ __Localization__ default ids and params bindings:
 -   [PropertyOption](#propertyoption)
 -   [PropertyOptions](#propertyoptions)
 -   [OnChange](#onchange)
+-   [helpers](#helpers)
+    -   [generateStyle](#generatestyle)
+    -   [animate](#animate)
+    -   [configure](#configure)
+    -   [isNaturalNumber](#isnaturalnumber)
+    -   [parseInteger](#parseinteger)
+    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
+    -   [DefaultLinkComponent](#defaultlinkcomponent)
+-   [StyleConfig](#styleconfig)
+-   [ReactStatelessComponent](#reactstatelesscomponent)
 -   [ProductPropertyOption](#productpropertyoption)
 -   [ProductProperties](#productproperties)
 -   [Prices](#prices)
@@ -599,7 +605,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `hideHeader` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Hide cart's header. Default is false.
 -   `checkoutButton` **ReactElement?** Button to display in the bottom of cart. Default is null.
 -   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for trash icon on remove button.
-    Default is 'icon-trash'.
+    Default is 'fa fa-trash mx-1'.
 -   `altProductImageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** Alt image src for products. Default is ''.
 -   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart's config for Transition.
     Look at src/components/Cart/Cart.js for details.
@@ -619,16 +625,129 @@ React component to display product in cart.
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-## ProductPropertyDescription
+## ProductPropertyValue
 
 **Extends React.PureComponent**
 
-Component to display product property's description in cart.
+React component to display product's property value in cart.
 
 **Meta**
 
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
+
+## CheckoutButton
+
+**Extends React.PureComponent**
+
+Checkout button with grand total.
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Required.
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current currency. Required.
+-   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required.
+-   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page. Required.
+-   `getLocalization` **[GetLocalization](#getlocalization)** Required.
+-   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on checkout button. Default is 'fa fa-shopping-cart mx-1'.
+-   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Transition's config for react-overlays Transition.
+-   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
+    I'd recommend you to take a look at react-router's Link.
+
+## Product
+
+**Extends React.PureComponent**
+
+React component - Product form with price.
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### Props
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's id. Required.
+-   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display pattern. Required.
+-   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required.
+-   `prices` **[Prices](#prices)** {currency: value}. Required
+-   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image. Required.
+-   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current price currency. Required.
+-   `onAddProduct` **[AddProduct](#addproduct)** Function to call when user wants to add product in his cart. Required.
+-   `generateProductKey` **[GenerateProductKey](#generateproductkey)** Required.
+-   `getLocalization` **[GetLocalization](#getlocalization)** Required.
+-   `properties` **[ProductPropertiesOptions](#productpropertiesoptions)?** Custom product properties. Each property option list consists of number,
+    string or shape({ additionalCost(optional), onSelect(optional), value(required)})
+-   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Array of propery names to display in cart.
+-   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Config for animateScroll (from react-scroll) scrollTo function.
+-   `scrollPosition` **[ScrollPosition](#scrollposition)?** Position to scroll after product add. May be number or function returning number.
+-   `scrollFunction` **[ScrollFunction](#scrollfunction)?** Function which will be called when product has been added.
+-   `iconAddProductClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on add to button. Default is 'fa fa-cart-plus mx-1'.
+-   `checkoutButton` **ReactElement?** 
+-   `descriptionNode` **ReactNode?** Node to display before price element.
+-   `afterPriceNode` **ReactNode?** Node to display after price element.
+
+## ProductPropertiesOptions
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [PropertyOptions](#propertyoptions)>
+
+## ScrollPosition
+
+Type: ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
+
+## ScrollFunction
+
+Type: function (currentTarget: EventTarget, scrollPosition: ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)), scrollAnimationConfig: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): void
+
+## ProductPropertyInput
+
+**Extends React.PureComponent**
+
+React form for product property(options select only).
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+## OptionIndex
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>
+
+## OptionObject
+
+Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+**Properties**
+
+-   `onSelect` **function (option: [OptionObject](#optionobject)): void?** 
+-   `additionalCost` **[Prices](#prices)?** 
+-   `value` **[ProductPropertyOption](#productpropertyoption)** 
+
+## PropertyOption
+
+Type: ([ProductPropertyOption](#productpropertyoption) \| [OptionObject](#optionobject))
+
+## PropertyOptions
+
+Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PropertyOption](#propertyoption)>
+
+## OnChange
+
+Type: function (obj: {value: [OptionIndex](#optionindex)}): void
 
 ## helpers
 
@@ -713,119 +832,6 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 ## ReactStatelessComponent
 
 Type: function (props: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
-
-## CheckoutButton
-
-**Extends React.PureComponent**
-
-Checkout button with grand total.
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-### Props
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `grandTotal` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Required.
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current currency. Required.
--   `hidden` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Show or hide button. Required.
--   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page. Required.
--   `getLocalization` **[GetLocalization](#getlocalization)** Required.
--   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on checkout button. Default is 'icon-basket'.
--   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Transition's config for react-overlays Transition.
--   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
-    I'd recommend you to take a look at react-router's Link.
-
-## Product
-
-**Extends React.PureComponent**
-
-React component - Product form with price.
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-### Props
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Product's id. Required.
--   `name` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Name to display pattern. Required.
--   `path` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to product. Required.
--   `prices` **[Prices](#prices)** {currency: value}. Required
--   `imageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path to main image. Required.
--   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current price currency. Required.
--   `onAddProduct` **[AddProduct](#addproduct)** Function to call when user wants to add product in his cart. Required.
--   `generateProductKey` **[GenerateProductKey](#generateproductkey)** Required.
--   `getLocalization` **[GetLocalization](#getlocalization)** Required.
--   `properties` **[ProductPropertiesOptions](#productpropertiesoptions)?** Custom product properties. Each property option list consists of number,
-    string or shape({ additionalCost(optional), onSelect(optional), value(required)})
--   `propertiesToShowInCart` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>?** Array of propery names to display in cart.
--   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Config for animateScroll (from react-scroll) scrollTo function.
--   `scrollPosition` **[ScrollPosition](#scrollposition)?** Position to scroll after product add. May be number or function returning number.
--   `scrollFunction` **[ScrollFunction](#scrollfunction)?** Function which will be called when product has been added.
--   `iconAddProductClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on add to button.
--   `checkoutButton` **ReactElement?** 
--   `descriptionNode` **ReactNode?** Node to display before price element.
--   `afterPriceNode` **ReactNode?** Node to display after price element.
-
-## ProductPropertiesOptions
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [PropertyOptions](#propertyoptions)>
-
-## ScrollPosition
-
-Type: ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))
-
-## ScrollFunction
-
-Type: function (currentTarget: EventTarget, scrollPosition: ([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)), scrollAnimationConfig: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): void
-
-## ProductPropertyInput
-
-**Extends React.PureComponent**
-
-React form for product property(options select only).
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-## OptionIndex
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>
-
-## OptionObject
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `onSelect` **function (option: [OptionObject](#optionobject)): void?** 
--   `additionalCost` **[Prices](#prices)?** 
--   `value` **[ProductPropertyOption](#productpropertyoption)** 
-
-## PropertyOption
-
-Type: ([ProductPropertyOption](#productpropertyoption) \| [OptionObject](#optionobject))
-
-## PropertyOptions
-
-Type: [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[PropertyOption](#propertyoption)>
-
-## OnChange
-
-Type: function (obj: {value: [OptionIndex](#optionindex)}): void
 
 ## 
 

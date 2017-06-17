@@ -11,6 +11,7 @@
  */
 
 import React, { PureComponent } from 'react';
+import classNames from 'classnames';
 
 import type {
   InputEvent,
@@ -22,8 +23,8 @@ import type {
   GetLocalization,
 } from '../../../types';
 
-import ProductPropertyDescription
-  from './ProductPropertyDescription/ProductPropertyDescription';
+import ProductPropertyLabel
+  from './ProductPropertyLabel/ProductPropertyLabel';
 import {
   isNaturalNumber,
   parseInteger,
@@ -74,22 +75,42 @@ export default class
     Object
       .entries(properties)
       .reduce(
-        (acc, [ propName, propValue, ]) =>
-          [
+        (acc, [ name, value, ]) => {
+          const localizationScope = {
+            name,
+            value,
+            get localizedName() {
+              return getLocalization(name, localizationScope);
+            },
+            get localizedValue() {
+              return typeof value === 'string'
+                   ? getLocalization(value, localizationScope)
+                   : value;
+            },
+          };
+
+          const {
+            localizedName,
+            localizedValue,
+          } = localizationScope;
+
+          return [
             ...acc,
             ...(
-            propertiesToShow.includes(propName)
-            ? [
-              <ProductPropertyDescription
-                key={propName}
-                name={propName}
-                value={propValue}
-                getLocalization={getLocalization}
-              />,
-            ]
-            : []
-          ),
-          ]
+              propertiesToShow.includes(name)
+              ? [
+                <ProductPropertyLabel
+                  colon
+                  key={name}
+                  name={localizedName}
+                  value={localizedValue}
+                />,
+              ]
+              : []
+            ),
+          ];
+        }
+
     , []);
 
   handleRemoveProductClick = () =>
@@ -163,11 +184,19 @@ export default class
     return (
       <div
         className={
-          'list-group-item list-group-item-action ' +
-          'align-items-start animated'
+          classNames(
+            'list-group-item', 'list-group-item-action',
+            'align-items-start', 'animated',
+          )
         }
       >
-        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+        <div className={
+          classNames(
+            'col-xs-12', 'col-sm-12', 'col-md-4',
+            'col-lg-4', 'col-xl-3',
+          )
+        }
+        >
           <LinkComponent to={path}>
             <div className="list-group-item-heading">
               { getLocalization('productName', localizationScope) }
@@ -175,7 +204,13 @@ export default class
             <img className="img-fluid" src={imageSrc} alt={altImageSrc} />
           </LinkComponent>
         </div>
-        <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7">
+        <div className={
+          classNames(
+              'col-xs-12', 'col-sm-12', 'col-md-5',
+              'col-lg-5', 'col-xl-7',
+            )
+          }
+        >
           <div className="form-group row">
             <label
               htmlFor="quantity"
@@ -199,58 +234,44 @@ export default class
               getLocalization,
             )
           }
-          <div className="form-group row">
-            <div
-              className="col-xs-6 col-md-5 col-lg-4"
-            >
-              {
-                getLocalization(
-                  'priceLabel', localizationScope,
-                )
-              }
-            </div>
-            <div className="col-xs-6 col-md-7 col-lg-8">
-              {
-                getLocalization(
-                  'priceValue', localizationScope,
-                )
-              }
-            </div>
-          </div>
-          <div className="form-group row">
-            <div
-              className="col-xs-6 col-md-5 col-lg-4"
-            >
-              {
-                getLocalization(
-                  'totalLabel', localizationScope,
-                )
-              }
-            </div>
-            <div className="col-xs-6 col-md-7 col-lg-8">
-              {
-                getLocalization(
-                  'totalValue', localizationScope,
-                )
-              }
-            </div>
-          </div>
+          <ProductPropertyLabel
+            name={
+              getLocalization(
+                'priceLabel', localizationScope,
+              )
+            }
+            value={
+              getLocalization(
+                'priceValue', localizationScope,
+              )
+            }
+          />
+          <ProductPropertyLabel
+            name={
+              getLocalization(
+                'totalLabel', localizationScope,
+              )
+            }
+            value={
+              getLocalization(
+                'totalValue', localizationScope,
+              )
+            }
+          />
         </div>
         <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
           <div className="form-group row">
             <div className="col-12 text-center">
               <button
-                className="btn btn-danger active form-control"
+                className="btn btn-danger form-control"
                 role="button"
                 type="button"
                 onClick={handleRemoveProductClick}
               >
                 <i className={iconTrashClassName} />
-                {
-                  getLocalization(
-                    'remove', localizationScope,
-                  )
-                }
+                <span>
+                  { getLocalization('remove', localizationScope) }
+                </span>
               </button>
             </div>
           </div>
