@@ -27,6 +27,7 @@
     -   [parseInteger](#parseinteger)
     -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
     -   [DefaultLinkComponent](#defaultlinkcomponent)
+    -   [fixInputValueStartingWithZero](#fixinputvaluestartingwithzero)
     -   [scrollFunction](#scrollfunction-1)
 -   [StyleConfig](#styleconfig)
 -   [ReactStatelessComponent](#reactstatelesscomponent)
@@ -293,6 +294,13 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
     -   `$0.otherProps` **...any** 
 
 Returns **React$Element&lt;any>** 
+
+### fixInputValueStartingWithZero
+
+**Parameters**
+
+-   `target` **[HTMLInputElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)** 
+-   `quantity` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### scrollFunction
 
