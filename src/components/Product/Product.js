@@ -34,6 +34,7 @@ import {
   isNaturalNumber,
   generateProductKey,
   getAbsoluteOffsetTop,
+  fixInputValueStartingWithZero,
 } from '../../helpers';
 
 /**
@@ -289,10 +290,9 @@ export default class
   ) => {
     const quantity = parseInteger(currentTarget.value);
     if (isNaturalNumber(quantity)) {
-      currentTarget.value = String(quantity);
+      fixInputValueStartingWithZero(currentTarget, quantity);
       this.setState({ quantity, });
-    } else
-      currentTarget.value = '';
+    }
   }
 
   hanglePropertyValueChange: OnChange = (

@@ -121,6 +121,16 @@ export const DefaultLinkComponent = (
 /**
  * @memberof helpers
  */
+export const fixInputValueStartingWithZero = (
+  target: HTMLInputElement, quantity: number,
+) => {
+  if (/^0+\d+$/.test(target.value))
+    target.value = String(quantity);
+};
+
+/**
+ * @memberof helpers
+ */
 export const scrollFunction = (
   target: EventTarget,
   scrollPosition: number | (currentTarget: Element) => number,

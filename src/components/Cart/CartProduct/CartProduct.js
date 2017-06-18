@@ -26,6 +26,7 @@ import type {
 import ProductPropertyLabel
   from './ProductPropertyLabel/ProductPropertyLabel';
 import {
+  fixInputValueStartingWithZero,
   isNaturalNumber,
   parseInteger,
 } from '../../../helpers';
@@ -130,13 +131,13 @@ export default class
       quantity: currentQuantity,
     } = this.props;
 
-    if (natural) currentTarget.value = String(quantity);
-    else currentTarget.value = '';
-
-    if (natural && quantity !== currentQuantity)
-      onUpdateProduct(
-        productKey, { ...product, quantity, },
-      );
+    if (natural) {
+      fixInputValueStartingWithZero(currentTarget, quantity);
+      if (quantity !== currentQuantity)
+        onUpdateProduct(
+          productKey, { ...product, quantity, },
+        );
+    }
   };
 
   render() {
