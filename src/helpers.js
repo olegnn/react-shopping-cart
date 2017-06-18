@@ -118,6 +118,9 @@ export const DefaultLinkComponent = (
 ): React$Element<*> =>
   <a {...otherProps} href={to} />;
 
+/**
+ * @memberof helpers
+ */
 export const scrollFunction = (
   target: EventTarget,
   scrollPosition: number | (currentTarget: Element) => number,
