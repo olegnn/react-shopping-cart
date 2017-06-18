@@ -5,7 +5,7 @@
 -   [Cart](#cart)
     -   [Props](#props)
 -   [CartProduct](#cartproduct)
--   [ProductPropertyValue](#productpropertyvalue)
+-   [ProductPropertyLabel](#productpropertylabel)
 -   [CheckoutButton](#checkoutbutton)
     -   [Props](#props-1)
 -   [Product](#product)
@@ -27,6 +27,7 @@
     -   [parseInteger](#parseinteger)
     -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
     -   [DefaultLinkComponent](#defaultlinkcomponent)
+    -   [scrollFunction](#scrollfunction-1)
 -   [StyleConfig](#styleconfig)
 -   [ReactStatelessComponent](#reactstatelesscomponent)
 -   [ProductPropertyOption](#productpropertyoption)
@@ -100,9 +101,7 @@ React component to display product in cart.
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-## ProductPropertyValue
-
-**Extends React.PureComponent**
+## ProductPropertyLabel
 
 React component to display product's property value in cart.
 
@@ -294,6 +293,14 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
     -   `$0.otherProps` **...any** 
 
 Returns **React$Element&lt;any>** 
+
+### scrollFunction
+
+**Parameters**
+
+-   `target` **EventTarget** 
+-   `scrollPosition` **([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+-   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ## StyleConfig
 
