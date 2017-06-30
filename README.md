@@ -1019,10 +1019,10 @@ Type: function ([DefaultLinkComponentProps](#defaultlinkcomponentprops)): React$
 
 Run [webpack-dev-server](https://github.com/webpack/webpack-dev-server) for example1
 ```shell
-yarn develop
+yarn start
 ```
 ```shell
-npm run develop
+npm run start
 ```
 
 **Build**

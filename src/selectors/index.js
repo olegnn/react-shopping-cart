@@ -46,14 +46,12 @@ export const totalSelector = createSelector(
   (products: Products, currency: string): number =>
     Object
       .values(products)
-      .map(
-        (
-          { quantity, prices: { [currency]: price } },
-        ) => quantity * price,
-      )
       .reduce(
-        (total: number, current: number) => total + current, 0
-      ),
+        (
+          total: number,
+          { quantity, prices: { [currency]: price } },
+        ): number => total + quantity * price
+      , 0)
 );
 
 /**

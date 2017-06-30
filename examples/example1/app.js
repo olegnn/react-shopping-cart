@@ -220,11 +220,13 @@ export default class App extends PureComponent {
   };
 
   changeCurrency = currency =>
-    void (store.dispatch(
-      setCartCurrency(
-        currency,
+    void (
+      store.dispatch(
+        setCartCurrency(
+          currency,
+        ),
       ),
-    ), // Because this component isn't inside Provider
+       // Because that component isn't inside Provider
        // Don't do like this
        // I was drunk, sorry :C
       this.setState({ currency, })
@@ -334,7 +336,7 @@ export default class App extends PureComponent {
 
     return (
       <Provider store={store}>
-        <div className="container">
+        <div className="container my-1">
           <Product
             {...product}
             getLocalization={
