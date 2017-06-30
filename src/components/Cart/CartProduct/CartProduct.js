@@ -90,21 +90,19 @@ export default class
             },
           };
 
-          const {
-            localizedName,
-            localizedValue,
-          } = localizationScope;
-
           return [
             ...acc,
             ...(
               propertiesToShow.includes(name)
               ? [
                 <ProductPropertyLabel
-                  colon
                   key={name}
-                  name={localizedName}
-                  value={localizedValue}
+                  name={
+                    getLocalization('productPropertyLabel', localizationScope)
+                  }
+                  value={
+                    getLocalization('productPropertyValue', localizationScope)
+                  }
                 />,
               ]
               : []
@@ -207,10 +205,10 @@ export default class
         </div>
         <div className={
           classNames(
-              'col-xs-12', 'col-sm-12', 'col-md-5',
-              'col-lg-5', 'col-xl-7',
-            )
-          }
+            'col-xs-12', 'col-sm-12', 'col-md-5',
+            'col-lg-5', 'col-xl-7',
+          )
+        }
         >
           <div className="form-group row">
             <label

@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "flow": "flow",
     "lint": "eslint .",
     "build_example": "NODE_ENV=production webpack --config webpack.config.example_prod",
-    "develop": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
+    "start": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
     "prepublish": "yarn build && yarn doc"
   },
   "dependencies": {
@@ -67,16 +67,16 @@
     "css-loader": "^0.28.2",
     "documentation": "^4.0.0-rc.1",
     "enzyme": "^2.8.2",
-    "eslint": "^3.19.0",
+    "eslint": "^4.1.1",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-flowtype": "^2.33.0",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsdoc": "^3.1.0",
-    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "file-loader": "^0.11.2",
-    "flow-bin": "^0.48.0",
+    "flow-bin": "^0.49.1",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
@@ -94,7 +94,7 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "^2.6.0",
+    "webpack": "^3.0.0",
     "webpack-dev-server": "^2.4.5"
   },
   "jest": {

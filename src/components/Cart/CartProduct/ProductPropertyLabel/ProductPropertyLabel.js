@@ -15,18 +15,17 @@ import classNames from 'classnames';
 export type Props = {|
   name: string | React$Element<*>,
   value: string | number | React$Element<*>,
-  colon: boolean,
 |};
 
 export default (
-  { name, value, colon = false, }: Props,
+  { name, value, }: Props,
 ): React$Element<*> => (
   <div className="form-group row">
     <div
       className={
         classNames('col-xs-6', 'col-md-5', 'col-lg-4')
       }
-    > { name }{ colon ? ':': '' }
+    > { name }
     </div>
     <div
       className={
