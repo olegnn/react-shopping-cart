@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "lint": "eslint .",
     "build_example": "NODE_ENV=production webpack --config webpack.config.example_prod",
     "start": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
-    "prepublish": "yarn build && yarn doc"
+    "prepublish": "yarn build & yarn doc"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",

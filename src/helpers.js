@@ -66,7 +66,9 @@ export const configure = (
   const Configured: ReactStatelessComponent =
     props =>
       <Component {...configuration} {...props} />;
-  Configured.displayName = 'Configured';
+  Configured.displayName = `Configured(${
+    Component.name || Component.displayName
+  })`;
   return Configured;
 };
 
