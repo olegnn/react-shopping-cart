@@ -1,6 +1,7 @@
 /**
  * @flow
  * @module ProductPropertyLabel
+ * @extends React.PureComponent
  *
  * @author Oleg Nosov <olegnosov1@gmail.com>
  * @license MIT
@@ -9,7 +10,7 @@
  * React component to display product's property value in cart.
  */
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 
 export type Props = {|
@@ -17,21 +18,34 @@ export type Props = {|
   value: string | number | React$Element<*>,
 |};
 
-export default (
-  { name, value, }: Props,
-): React$Element<*> => (
-  <div className="form-group row">
-    <div
-      className={
-        classNames('col-xs-6', 'col-md-5', 'col-lg-4')
-      }
-    > { name }
-    </div>
-    <div
-      className={
-        classNames('col-xs-6', 'col-md-7', 'col-lg-8')
-      }
-    > { value }
-    </div>
-  </div>
-);
+const defaultProps = {};
+
+export default class ProductPropertyLabel
+  extends PureComponent<typeof defaultProps, Props, void> {
+
+  props: Props;
+
+  static defaultProps = defaultProps;
+
+  static displayName = 'ProductPropertyLabel';
+
+  render() {
+    const { name, value, } = this.props;
+    return (
+      <div className="form-group row">
+        <div
+          className={
+            classNames('col-xs-6', 'col-md-5', 'col-lg-4')
+          }
+        > { name }
+        </div>
+        <div
+          className={
+            classNames('col-xs-6', 'col-md-7', 'col-lg-8')
+          }
+        > { value }
+        </div>
+      </div>
+    );
+  }
+}
