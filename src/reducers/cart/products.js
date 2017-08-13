@@ -24,58 +24,58 @@ const initialState = {};
 
 const handlers = {
   [actionTypes.CART_ADD]:
-    (
-      products: Products,
-      {
-        key,
-        product,
+  (
+    products: Products,
+    {
+      key,
+      product,
       }: CartAddAction,
-    ): Products => {
-      const {
-        [key]: cartProduct = { quantity: 0, },
-        ...restOfProducts
-      } = products;
-      const newQuantity =
+  ): Products => {
+    const {
+      [key]: cartProduct = { quantity: 0, },
+      ...restOfProducts
+    } = products;
+    const newQuantity =
         product.quantity +
           cartProduct.quantity;
-      return {
-        [key]: {
-          ...product,
-          quantity:
+    return {
+      [key]: {
+        ...product,
+        quantity:
             +isNaturalNumber(newQuantity)
             && newQuantity,
-        },
-        ...restOfProducts,
-      };
-    },
+      },
+      ...restOfProducts,
+    };
+  },
   [actionTypes.CART_UPDATE]:
-    (
-      products: Products,
-      {
-        key,
-        updatedProduct,
+  (
+    products: Products,
+    {
+      key,
+      updatedProduct,
       }: CartUpdateAction,
-    ): Products => {
-      const { ...clonedProducts } = products;
-      clonedProducts[key] = updatedProduct;
-      return clonedProducts;
-    },
+  ): Products => {
+    const { ...clonedProducts } = products;
+    clonedProducts[key] = updatedProduct;
+    return clonedProducts;
+  },
   [actionTypes.CART_REMOVE]:
-    (
-      products: Products,
-      { key, }: CartRemoveAction,
-    ): Products => {
-      const { [key]: _, ...restOfProducts } = products;
-      return (
-        Object
-          .keys(restOfProducts)
-          .length
-            ? restOfProducts
-            : initialState
-      );
-    },
+  (
+    products: Products,
+    { key, }: CartRemoveAction,
+  ): Products => {
+    const { [key]: _, ...restOfProducts } = products;
+    return (
+      Object
+        .keys(restOfProducts)
+        .length
+        ? restOfProducts
+        : initialState
+    );
+  },
   [actionTypes.CART_EMPTY]:
-    (): Products => initialState,
+  (): Products => initialState,
 };
 
 Object.setPrototypeOf(handlers, null);

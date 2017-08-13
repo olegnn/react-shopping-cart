@@ -2,153 +2,137 @@
 
 exports[`Cart takes snapshot 1`] = `
 <div
-  className="my-1"
+  className="my-1 w-100 list-group animated"
 >
-  <div
-    className="w-100"
-    style={
-      Object {
-        "WebkitAnimationDuration": "0.5s",
-        "WebkitAnimationFillMode": "both",
-        "animationDuration": "0.5s",
-        "animationFillMode": "both",
-      }
-    }
-  >
-    My lovely shopping cart
+  My lovely shopping cart
+  <div>
     <div
-      className="list-group"
-    >
-      <span>
-        <div
-          className="list-group-item list-group-item-action align-items-start animated"
-        >
-          <div
-            className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3"
-          >
-            <a
-              href="/shop/ipad-case"
-            >
-              <div
-                className="list-group-item-heading"
-              >
-                iPad case
-              </div>
-              <img
-                alt=""
-                className="img-fluid"
-                src="ipad-case1-483x321.jpeg"
-              />
-            </a>
-          </div>
-          <div
-            className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7"
-          >
-            <div
-              className="form-group row"
-            >
-              <label
-                className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-                htmlFor="quantity"
-              >
-                Quantity:
-              </label>
-              <div
-                className="col-xs-6 col-md-7 col-lg-8"
-              >
-                <input
-                  className="form-control"
-                  onChange={[Function]}
-                  type="number"
-                  value={1}
-                />
-              </div>
-            </div>
-            <div
-              className="form-group row"
-            >
-              <div
-                className="col-xs-6 col-md-5 col-lg-4"
-              >
-                 
-                Color:
-              </div>
-              <div
-                className="col-xs-6 col-md-7 col-lg-8"
-              >
-                 
-                Red
-              </div>
-            </div>
-            <div
-              className="form-group row"
-            >
-              <div
-                className="col-xs-6 col-md-5 col-lg-4"
-              >
-                 
-                Price:
-              </div>
-              <div
-                className="col-xs-6 col-md-7 col-lg-8"
-              >
-                 
-                £70
-              </div>
-            </div>
-            <div
-              className="form-group row"
-            >
-              <div
-                className="col-xs-6 col-md-5 col-lg-4"
-              >
-                 
-                Total:
-              </div>
-              <div
-                className="col-xs-6 col-md-7 col-lg-8"
-              >
-                 
-                £70
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2"
-          >
-            <div
-              className="form-group row"
-            >
-              <div
-                className="col-12 text-center"
-              >
-                <button
-                  className="btn btn-danger form-control"
-                  onClick={[Function]}
-                  role="button"
-                  type="button"
-                >
-                  <i
-                    className="fa fa-trash mx-1"
-                  />
-                  <span>
-                    Remove
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </span>
-    </div>
-    <div
-      className="row my-1"
+      className="list-group-item list-group-item-action align-items-start animated"
     >
       <div
-        className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3"
+        className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3"
       >
-        <a />
+        <a
+          href="/shop/ipad-case"
+        >
+          <div
+            className="list-group-item-heading"
+          >
+            iPad case
+          </div>
+          <img
+            alt=""
+            className="img-fluid"
+            src="ipad-case1-483x321.jpeg"
+          />
+        </a>
       </div>
+      <div
+        className="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-7"
+      >
+        <div
+          className="form-group row"
+        >
+          <label
+            className="col-xs-6 col-md-5 col-lg-4 col-form-label"
+            htmlFor="quantity"
+          >
+            Quantity:
+          </label>
+          <div
+            className="col-xs-6 col-md-7 col-lg-8"
+          >
+            <input
+              className="form-control"
+              onChange={[Function]}
+              type="number"
+              value={1}
+            />
+          </div>
+        </div>
+        <div
+          className="form-group row"
+        >
+          <div
+            className="col-xs-6 col-md-5 col-lg-4"
+          >
+             
+            Color:
+          </div>
+          <div
+            className="col-xs-6 col-md-7 col-lg-8"
+          >
+             
+            Red
+          </div>
+        </div>
+        <div
+          className="form-group row"
+        >
+          <div
+            className="col-xs-6 col-md-5 col-lg-4"
+          >
+             
+            Price:
+          </div>
+          <div
+            className="col-xs-6 col-md-7 col-lg-8"
+          >
+             
+            £70
+          </div>
+        </div>
+        <div
+          className="form-group row"
+        >
+          <div
+            className="col-xs-6 col-md-5 col-lg-4"
+          >
+             
+            Total:
+          </div>
+          <div
+            className="col-xs-6 col-md-7 col-lg-8"
+          >
+             
+            £70
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2"
+      >
+        <div
+          className="form-group row"
+        >
+          <div
+            className="col-12 text-center"
+          >
+            <button
+              className="btn btn-danger form-control"
+              onClick={[Function]}
+              role="button"
+              type="button"
+            >
+              <i
+                className="fa fa-trash mx-1"
+              />
+              <span>
+                Remove
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="row my-1"
+  >
+    <div
+      className="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3"
+    >
+      <a />
     </div>
   </div>
 </div>

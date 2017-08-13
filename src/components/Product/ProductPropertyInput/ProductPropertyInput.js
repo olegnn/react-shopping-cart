@@ -61,9 +61,8 @@ const defaultProps = {
   selectedOptionIndex: 0,
 };
 
-export default class
-  ProductPropertyInput extends PureComponent<typeof defaultProps, Props, void> {
-
+export default class ProductPropertyInput
+  extends PureComponent<typeof defaultProps, Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -96,24 +95,24 @@ export default class
           <option key={optionValue} value={optionValue}>
             {
               typeof optionValue === 'string'
-              ?
+                ?
                 getLocalization(
                   optionValue,
                   {
                     ...localizationScope,
                     ...(
                       typeof options[index] === 'object'
-                      ? {
-                        cost:
+                        ? {
+                          cost:
                           options[index].additionalCost
                           && options[index].additionalCost[currency]
                           || 0,
-                      }
-                      : {}
+                        }
+                        : {}
                     ),
                   },
-              )
-              : optionValue
+                )
+                : optionValue
             }
           </option>
         ),

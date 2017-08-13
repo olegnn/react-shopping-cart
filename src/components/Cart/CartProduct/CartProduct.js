@@ -55,9 +55,8 @@ const defaultProps = {
   propertiesToShow: [],
 };
 
-export default class
-  CartProduct extends PureComponent<typeof defaultProps, Props, void> {
-
+export default class CartProduct
+  extends PureComponent<typeof defaultProps, Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -85,8 +84,8 @@ export default class
             },
             get localizedValue() {
               return typeof value === 'string'
-                   ? getLocalization(value, localizationScope)
-                   : value;
+                ? getLocalization(value, localizationScope)
+                : value;
             },
           };
 
@@ -94,27 +93,27 @@ export default class
             ...acc,
             ...(
               propertiesToShow.includes(name)
-              ? [
-                <ProductPropertyLabel
-                  key={name}
-                  name={
-                    getLocalization('productPropertyLabel', localizationScope)
-                  }
-                  value={
-                    getLocalization('productPropertyValue', localizationScope)
-                  }
-                />,
-              ]
-              : []
+                ? [
+                  <ProductPropertyLabel
+                    key={name}
+                    name={
+                      getLocalization('productPropertyLabel', localizationScope)
+                    }
+                    value={
+                      getLocalization('productPropertyValue', localizationScope)
+                    }
+                  />,
+                ]
+                : []
             ),
           ];
         }
 
-    , []);
+        , []);
 
   handleRemoveProductClick = () =>
     void this.props.onRemoveProduct(
-        this.props.productKey,
+      this.props.productKey,
     );
 
   handleQuantityValueChange = (

@@ -12,7 +12,7 @@
  */
 
 import React, { PureComponent } from 'react';
-import { Transition } from 'react-overlays';
+import CSSTransition from 'react-transition-group/CSSTransition';
 import classNames from 'classnames';
 
 import type {
@@ -20,7 +20,7 @@ import type {
   Link$Component,
 } from '../../types';
 
-import { animate, DefaultLinkComponent } from '../../helpers';
+import { DefaultLinkComponent } from '../../helpers';
 
 /**
  * @memberof CheckoutButton
@@ -31,11 +31,10 @@ import { animate, DefaultLinkComponent } from '../../helpers';
  * @prop {string} checkoutURL - Link to checkout page. Required.
  * @prop {GetLocalization} getLocalization - Required.
  * @prop {?string} iconCheckoutClassName - ClassName for cart icon on checkout button. Default is 'fa fa-shopping-cart mx-1'.
- * @prop {?Object} transitionConfig - Transition's config for react-overlays Transition.
+ * @prop {?Object} buttonCSSTransition - Transition's config for react-transition-group/CSSTransition.
  * @prop {?Link$Component} linkComponent - React Component, will receive prop `to="%your product's page%"`.
  * I'd recommend you to take a look at react-router's Link.
  */
-
 void null;
 
 export type Props = {|
@@ -52,9 +51,9 @@ export type Props = {|
    */
   iconCheckoutClassName: string,
   /*
-   * Transition's config for react-overlays Transition.
+   * Transition's config for react-transition-group/CSSTransition.
    */
-  transitionConfig: Object,
+  buttonCSSTransition: Object,
   /*
    * React Component, will receive prop `to="%your product's page%"`.
    * I'd recommend you to take a look at react-router's Link.
@@ -64,19 +63,25 @@ export type Props = {|
 
 const defaultProps = {
   iconCheckoutClassName: 'fa fa-shopping-cart mx-1',
-  transitionConfig: {
-    style: animate(500),
-    enteringClassName: 'fadeInUp',
-    exitingClassName: 'fadeOut',
-    timeout: 500,
+  buttonCSSTransition: {
+    classNames: {
+      enter: 'fadeInUp',
+      exit: 'fadeOut',
+    },
+    enter: true,
+    exit: true,
+    timeout: {
+      enter: 0,
+      exit: 5e2,
+    },
+    mountOnEnter: true,
     unmountOnExit: true,
   },
   linkComponent: DefaultLinkComponent,
 };
 
-export default class
-  CheckoutButton extends PureComponent<typeof defaultProps, Props, void> {
-
+export default class CheckoutButton
+  extends PureComponent<typeof defaultProps, Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -90,7 +95,7 @@ export default class
       checkoutURL,
       currency,
       iconCheckoutClassName,
-      transitionConfig,
+      buttonCSSTransition,
       linkComponent: LinkComponent,
       getLocalization,
     } = this.props;
@@ -103,31 +108,30 @@ export default class
       },
     };
 
-    return !hidden
-      ? (
-        <Transition
-          in={!hidden}
-          {...transitionConfig}
+    return (
+      <CSSTransition
+        in={!hidden}
+        {...buttonCSSTransition}
+      >
+        <LinkComponent
+          to={checkoutURL}
+          className={
+            classNames(
+              'btn', 'btn-primary', 'btn-block',
+              'animated',
+              {
+                disabled: !grandTotal,
+              },
+            )
+          }
+          role="button"
         >
-          <LinkComponent
-            to={checkoutURL}
-            className={
-              classNames(
-                'btn', 'btn-primary', 'btn-block',
-                {
-                  disabled: !grandTotal,
-                },
-              )
-            }
-            role="button"
-          >
-            <i className={iconCheckoutClassName} />
-            <span>
-              { getLocalization('checkoutTotal', localizationScope) }
-            </span>
-          </LinkComponent>
-        </Transition>
-      )
-      : null;
+          <i className={iconCheckoutClassName} />
+          <span>
+            { getLocalization('checkoutTotal', localizationScope) }
+          </span>
+        </LinkComponent>
+      </CSSTransition>
+    );
   }
 }
