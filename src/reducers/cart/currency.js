@@ -18,10 +18,10 @@ const initialState = 'USD';
 
 const handlers = {
   [actionTypes.CART_SET_CURRENCY]:
-    (
-      _: string,
-      { currency, }: CartSetCurrencyAction,
-    ): string => currency,
+  (
+    _: string,
+    { currency, }: CartSetCurrencyAction,
+  ): string => currency,
 };
 
 Object.setPrototypeOf(handlers, null);

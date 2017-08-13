@@ -20,8 +20,6 @@
 -   [PropertyOptions](#propertyoptions)
 -   [OnChange](#onchange)
 -   [helpers](#helpers)
-    -   [generateStyle](#generatestyle)
-    -   [animate](#animate)
     -   [configure](#configure)
     -   [isNaturalNumber](#isnaturalnumber)
     -   [parseInteger](#parseinteger)
@@ -29,7 +27,6 @@
     -   [DefaultLinkComponent](#defaultlinkcomponent)
     -   [fixInputValueStartingWithZero](#fixinputvaluestartingwithzero)
     -   [scrollFunction](#scrollfunction-1)
--   [StyleConfig](#styleconfig)
 -   [ReactStatelessComponent](#reactstatelesscomponent)
 -   [ProductPropertyOption](#productpropertyoption)
 -   [ProductProperties](#productproperties)
@@ -71,7 +68,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 
 **Properties**
 
--   `products` **[Products](#products)** Required.
+-   `products` **[Products](#products)** Products map. Required.
 -   `currency` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Current currency. Required.
 -   `isCartEmpty` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Display cart or not. Required.
 -   `onUpdateProduct` **[UpdateProduct](#updateproduct)** Function which will be called when product should be updated.
@@ -84,9 +81,9 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `iconTrashClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for trash icon on remove button.
     Default is 'fa fa-trash mx-1'.
 -   `altProductImageSrc` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** Alt image src for products. Default is ''.
--   `cartTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart's config for Transition.
+-   `cartCSSTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart's config for react-transition-group/CSSTransition.
     Look at src/components/Cart/Cart.js for details.
--   `cartItemTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart item's config for react-transition-group.
+-   `cartItemCSSTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Cart item's config for react-transition-group/CSSTransition.
     Look at src/components/Cart/Cart.js for details.
 -   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
     I'd recommend you to take a look at react-router's Link.
@@ -136,7 +133,7 @@ Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference
 -   `checkoutURL` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Link to checkout page. Required.
 -   `getLocalization` **[GetLocalization](#getlocalization)** Required.
 -   `iconCheckoutClassName` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)?** ClassName for cart icon on checkout button. Default is 'fa fa-shopping-cart mx-1'.
--   `transitionConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Transition's config for react-overlays Transition.
+-   `buttonCSSTransition` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Transition's config for react-transition-group/CSSTransition.
 -   `linkComponent` **[Link$Component](#linkcomponent)?** React Component, will receive prop `to="%your product's page%"`.
     I'd recommend you to take a look at react-router's Link.
 
@@ -233,25 +230,6 @@ Type: function (obj: {value: [OptionIndex](#optionindex)}): void
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
 
-### generateStyle
-
-**Parameters**
-
--   `$0` **any**  (optional, default `{}`)
-    -   `$0.enabled`   (optional, default `true`)
-    -   `$0.duration`   (optional, default `1000`)
-    -   `$0.rest` **...any** 
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### animate
-
-**Parameters**
-
--   `options` **([StyleConfig](#styleconfig) \| [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
 ### configure
 
 **Parameters**
@@ -311,15 +289,6 @@ Returns **React$Element&lt;any>**
 -   `target` **EventTarget** 
 -   `scrollPosition` **([number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/en-US/docs/Web/API/Element)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 -   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## StyleConfig
-
-Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-**Properties**
-
--   `enabled` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `duration` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** 
 
 ## ReactStatelessComponent
 

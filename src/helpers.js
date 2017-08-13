@@ -15,46 +15,8 @@ import type {
   DefaultLinkComponentProps,
 } from './types';
 
-/**
- * @typedef {Object} StyleConfig
- */
-export type StyleConfig = {
-  enabled?: boolean,
-  duration?: number,
-};
-
 /** @ */
 export type ReactStatelessComponent = (props: Object) => React$Element<*>;
-
-/**
- * @memberof helpers
- */
-export const generateStyle = (
-  {
-    enabled = true,
-    duration = 1000,
-    ...rest
-  }: StyleConfig = {},
-): Object =>
-  enabled
-    ? {
-      WebkitAnimationDuration: `${duration / 1000}s`,
-      animationDuration: `${duration / 1000}s`,
-      WebkitAnimationFillMode: 'both',
-      animationFillMode: 'both',
-      ...rest,
-    }
-    : {};
-
-/**
- * @memberof helpers
- */
-export const animate = (options: StyleConfig | number): Object =>
-  generateStyle(
-    typeof options === 'object'
-    ? options
-    : { duration: options, },
-  );
 
 /**
  * @memberof helpers
@@ -108,9 +70,11 @@ export const generateProductKey: GenerateProductKey = (
 ) =>
   Object
     .entries(properties)
-    .reduce((acc: string, [ propName, propValue, ]) =>
-      `${acc}_${propName}-${String(propValue)}`
-    , `${id}/`);
+    .reduce(
+      (acc: string, [ propName, propValue, ]) =>
+        `${acc}_${propName}-${String(propValue)}`
+      , `${id}/`,
+    );
 
 /**
  * @memberof helpers
@@ -141,8 +105,8 @@ export const scrollFunction = (
   target instanceof Element
   && animateScroll.scrollTo(
     typeof scrollPosition === 'function'
-    ? scrollPosition(target)
-    : scrollPosition,
+      ? scrollPosition(target)
+      : scrollPosition,
     scrollAnimationConfig,
   )
 );

@@ -78,7 +78,6 @@ export type ScrollFunction = (
  * @prop {?ReactNode} afterPriceNode - Node to display after price element.
  *
  */
-
 void null;
 
 export type Props = {|
@@ -174,9 +173,8 @@ export type State = {|
   quantity: number,
 |} & OptionIndex;
 
-export default class
-  Product extends PureComponent<typeof defaultProps, Props, State> {
-
+export default class Product
+  extends PureComponent<typeof defaultProps, Props, State> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -202,7 +200,7 @@ export default class
           onChange={handlePropertyValueChange}
           getLocalization={getLocalization}
         />),
-    );
+      );
 
   static calculateAdditionalCost = (
     properties: ProductPropertiesOptions,
@@ -223,7 +221,7 @@ export default class
             ) || 0
           );
         }
-      , 0);
+        , 0);
 
   static generateCartProduct = (
     {
@@ -234,7 +232,7 @@ export default class
       imageSrc,
       path,
       id,
-    }: {
+      }: {
       properties: ProductPropertiesOptions,
       propertiesToShowInCart: Array<string>,
       prices: Prices,
@@ -255,12 +253,12 @@ export default class
           ({
             ...obj,
             [propName]:
-              ProductPropertyInput
-                .getOptionValue(
-                  options[selectedPropertyIndexes[propName]|0],
-                ),
+            ProductPropertyInput
+              .getOptionValue(
+                options[selectedPropertyIndexes[propName]|0],
+              ),
           })
-        , {}),
+          , {}),
     name,
     prices:
       Object
@@ -275,7 +273,7 @@ export default class
                 currency,
               ),
           })
-        , {}),
+          , {}),
     path,
     imageSrc,
     propertiesToShowInCart,
@@ -323,12 +321,12 @@ export default class
         props, quantity, selectedPropertyIndexes,
       );
       onAddProduct(
-         generateProductKey(
-           id,
-           product.properties,
-         ),
-         product,
-         currency,
+        generateProductKey(
+          id,
+          product.properties,
+        ),
+        product,
+        currency,
       );
       scrollFunction(currentTarget, scrollPosition, scrollAnimationConfig);
     }

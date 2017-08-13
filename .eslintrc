@@ -9,7 +9,7 @@
   "rules": {
     "flowtype/space-before-type-colon": [2, "never"],
     "flowtype/space-after-type-colon": [2, "always"],
-    "indent": [2, 2, {"SwitchCase": 1}],
+
     "func-names": [0],
     "key-spacing": [2, {
       "beforeColon": false,
@@ -83,7 +83,7 @@
         ]
       }
     ],
-
+    "jsx-a11y/href-no-hash": [0],
     "jsx-a11y/anchor-has-content": [0],
     "jsx-a11y/no-redundant-roles": [0],
     "jsx-a11y/img-has-alt": [0],

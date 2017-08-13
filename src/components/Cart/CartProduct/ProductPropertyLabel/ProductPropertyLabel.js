@@ -22,7 +22,6 @@ const defaultProps = {};
 
 export default class ProductPropertyLabel
   extends PureComponent<typeof defaultProps, Props, void> {
-
   props: Props;
 
   static defaultProps = defaultProps;

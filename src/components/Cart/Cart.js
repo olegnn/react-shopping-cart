@@ -11,8 +11,8 @@
  */
 
 import React, { PureComponent } from 'react';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { Transition } from 'react-overlays';
+import CSSTransition from 'react-transition-group/CSSTransition';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 import classNames from 'classnames';
 
 import type {
@@ -24,12 +24,12 @@ import type {
 } from '../../types';
 
 import CartProduct from './CartProduct/CartProduct';
-import { animate, DefaultLinkComponent } from '../../helpers';
+import { DefaultLinkComponent } from '../../helpers';
 
 /**
  * @memberof Cart
  * @typedef {Object} Props
- * @prop {Products} products - Required.
+ * @prop {Products} products - Products map. Required.
  * @prop {string} currency - Current currency. Required.
  * @prop {boolean} isCartEmpty Display cart or not. Required.
  * @prop {UpdateProduct} onUpdateProduct - Function which will be called when product should be updated.
@@ -42,14 +42,13 @@ import { animate, DefaultLinkComponent } from '../../helpers';
  * @prop {?string} iconTrashClassName - ClassName for trash icon on remove button.
  * Default is 'fa fa-trash mx-1'.
  * @prop {?string} altProductImageSrc - Alt image src for products. Default is ''.
- * @prop {?Object} cartTransition - Cart's config for Transition.
+ * @prop {?Object} cartCSSTransition - Cart's config for react-transition-group/CSSTransition.
  * Look at src/components/Cart/Cart.js for details.
- * @prop {?Object} cartItemTransition - Cart item's config for react-transition-group.
+ * @prop {?Object} cartItemCSSTransition - Cart item's config for react-transition-group/CSSTransition.
  * Look at src/components/Cart/Cart.js for details.
  * @prop {?Link$Component} linkComponent - React Component, will receive prop `to="%your product's page%"`.
  * I'd recommend you to take a look at react-router's Link.
  */
-
 void null;
 
 export type Props = {|
@@ -93,15 +92,15 @@ export type Props = {|
    */
   altProductImageSrc: string,
   /*
-   * Cart's config for Transition.
+   * Cart's config for react-transition-group/CSSTransition.
    * Look at src/components/Cart/Cart.js for details.
    */
-  cartTransition: Object,
+  cartCSSTransition: Object,
   /*
-   * Cart item's config for react-transition-group.
+   * Cart item's config for react-transition-group/CSSTransition.
    * Look at src/components/Cart/Cart.js for details.
    */
-  cartItemTransition: Object,
+  cartItemCSSTransition: Object,
   /*
    * React Component, will receive prop `to="%your product's page%"`.
    * I'd recommend you to take a look at react-router's Link.
@@ -114,20 +113,28 @@ const defaultProps = {
   hideHeader: false,
   iconTrashClassName: 'fa fa-trash mx-1',
   altProductImageSrc: '',
-  cartTransition: {
-    style: animate(500),
-    enteringClassName: 'fadeInUp',
-    exitingClassName: 'fadeOut',
-    exitedClassName: 'invisible',
-    timeout: 0,
-  },
-  cartItemTransition: {
-    transitionName: {
-      enter: 'bounceInLeft',
-      leave: 'bounceOutRight',
+  cartCSSTransition: {
+    classNames: {
+      enter: 'zoomIn',
+      exit: 'fadeOut',
     },
-    transitionEnterTimeout: 500,
-    transitionLeaveTimeout: 500,
+    mountOnEnter: true,
+    unmountOnExit: true,
+    enter: true,
+    exit: true,
+    timeout: {
+      enter: 1e3,
+      exit: 5e2,
+    },
+  },
+  cartItemCSSTransition: {
+    classNames: {
+      enter: 'bounceInLeft',
+      exit: 'bounceOutRight',
+    },
+    enter: true,
+    exit: true,
+    timeout: 5e2,
   },
   linkComponent: DefaultLinkComponent,
 };
@@ -135,7 +142,6 @@ const defaultProps = {
 
 export default class Cart
   extends PureComponent<typeof defaultProps, Props, void> {
-
   props: Props;
 
   static defaultProps = defaultProps;
@@ -150,8 +156,8 @@ export default class Cart
       iconTrashClassName,
       currency,
       altProductImageSrc,
-      cartTransition,
-      cartItemTransition,
+      cartCSSTransition,
+      cartItemCSSTransition,
       onUpdateProduct,
       onRemoveProduct,
       getLocalization,
@@ -159,74 +165,73 @@ export default class Cart
       linkComponent,
     } = this.props;
 
+
     return (
-      <div className="my-1">
-        <Transition
-          in={!isCartEmpty}
-          {...cartTransition}
-        >
-          <div className="w-100">
-            { !hideHeader ? getLocalization('shoppingCartTitle') : null }
-            <div className="list-group">
-              <CSSTransitionGroup
-                {...cartItemTransition}
-              >
-                {
-                  Object
-                    .entries(products)
-                    .map(
-                      ([
-                        productKey: string,
-                        {
-                          prices,
-                          path,
-                          name,
-                          imageSrc,
-                          propertiesToShowInCart,
-                          quantity,
-                          properties,
-                        },
-                      ]) => (
-                        <CartProduct
-                          product={products[productKey]}
-                          key={productKey}
-                          productKey={productKey}
-                          quantity={quantity}
-                          properties={properties}
-                          price={prices[currency]}
-                          currency={currency}
-                          path={path}
-                          name={name}
-                          imageSrc={imageSrc}
-                          altImageSrc={altProductImageSrc}
-                          propertiesToShow={propertiesToShowInCart}
-                          iconTrashClassName={iconTrashClassName}
-                          onUpdateProduct={onUpdateProduct}
-                          onRemoveProduct={onRemoveProduct}
-                          getLocalization={getLocalization}
-                          linkComponent={linkComponent}
-                        />
-                      ),
-                    )
-                }
-              </CSSTransitionGroup>
-            </div>
-            <div className="row my-1">
-              <div
-                className={
-                  classNames(
-                    'col-xs-12', 'col-sm-12', 'col-md-8', 'col-lg-6',
-                    'col-xl-6', 'offset-xs-0', 'offset-sm-0', 'offset-md-2',
-                    'offset-lg-3', 'offset-xl-3',
-                  )
-                }
-              >
-                { checkoutButton }
-              </div>
+      <CSSTransition
+        in={!isCartEmpty}
+        {...cartCSSTransition}
+      >
+        <div className="my-1 w-100 list-group animated">
+          { !hideHeader ? getLocalization('shoppingCartTitle') : null }
+          <TransitionGroup>
+            {
+              Object
+                .entries(products)
+                .map(
+                  ([
+                    productKey: string,
+                    {
+                      prices,
+                      path,
+                      name,
+                      imageSrc,
+                      propertiesToShowInCart,
+                      quantity,
+                      properties,
+                    },
+                  ]) => (
+                    <CSSTransition
+                      {...cartItemCSSTransition}
+                      key={productKey}
+                    >
+                      <CartProduct
+                        product={products[productKey]}
+                        productKey={productKey}
+                        quantity={quantity}
+                        properties={properties}
+                        price={prices[currency]}
+                        currency={currency}
+                        path={path}
+                        name={name}
+                        imageSrc={imageSrc}
+                        altImageSrc={altProductImageSrc}
+                        propertiesToShow={propertiesToShowInCart}
+                        iconTrashClassName={iconTrashClassName}
+                        onUpdateProduct={onUpdateProduct}
+                        onRemoveProduct={onRemoveProduct}
+                        getLocalization={getLocalization}
+                        linkComponent={linkComponent}
+                      />
+                    </CSSTransition>
+                  ),
+                )
+            }
+          </TransitionGroup>
+          <div className="row my-1">
+            <div
+              className={
+                classNames(
+                  'col-xs-12', 'col-sm-12', 'col-md-8', 'col-lg-6',
+                  'col-xl-6', 'offset-xs-0', 'offset-sm-0', 'offset-md-2',
+                  'offset-lg-3', 'offset-xl-3',
+                )
+              }
+            >
+              { checkoutButton }
             </div>
           </div>
-        </Transition>
-      </div>
+        </div>
+      </CSSTransition>
     );
   }
 }

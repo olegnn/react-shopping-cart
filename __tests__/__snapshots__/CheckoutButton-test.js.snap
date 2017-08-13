@@ -2,17 +2,9 @@
 
 exports[`CheckoutButton takes snapshot 1`] = `
 <a
-  className="btn btn-primary btn-block"
+  className="btn btn-primary btn-block animated"
   href="/to/checkout/"
   role="button"
-  style={
-    Object {
-      "WebkitAnimationDuration": "0.5s",
-      "WebkitAnimationFillMode": "both",
-      "animationDuration": "0.5s",
-      "animationFillMode": "both",
-    }
-  }
 >
   <i
     className="fa fa-shopping-cart mx-1"
