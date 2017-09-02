@@ -36,24 +36,20 @@ export const defaultLocalization: MultiLocalization = {
       },
       quantityLabel: 'Quantity:',
       priceLabel: 'Price:',
-      priceValue: '{localizedCurrency}{price, number}',
+      priceValue: '{price, number, CUR}',
       totalLabel: 'Total:',
-      totalValue: '{localizedCurrency}{total, plural, ' +
-                  '=0 {0}' +
-                  'other {#}}',
+      totalValue: '{total, number, CUR}',
       remove: 'Remove',
       productPropertyLabel: '{localizedName}:',
       productPropertyValue: '{localizedValue}',
     },
     checkoutButton: {
       checkoutTotal:
-        'Checkout (Grand total {localizedCurrency}{total, plural, ' +
-        '=0 {0}' +
-        'other {#}})',
+        'Checkout (Grand total {total, number, CUR})',
     },
     product: {
       price: {
-        text: 'Price: {localizedCurrency}{price}',
+        text: 'Price: {price, number, CUR}',
         component: 'strong',
       },
       quantityLabel: 'Quantity:',
@@ -63,6 +59,22 @@ export const defaultLocalization: MultiLocalization = {
   },
 };
 
+const createMessage = (pattern: string, language: string, params: Object): string =>
+  params.currency != null
+    ? new IntlMessageFormat(
+        pattern, language, {
+            number: {
+              CUR: {
+                  style   : 'currency',
+                  currency: params.currency,
+              }
+          }
+        }
+      ).format(params)
+    : new IntlMessageFormat(
+        pattern, language
+      ).format(params);
+
 /**
  * @memberof localization
  */
@@ -70,11 +82,12 @@ export const getLocalization = (
   localization: Localization,
   language: string,
   id: string,
-  params: Object = {},
+  params: ?Object,
 ): string | React$Element<*> => {
   const localizationPattern: LocalizationPattern = localization[id];
+  const nonEmptyParams = params || {};
 
-  if (typeof localizationPattern === 'undefined') {
+  if (localizationPattern == null) {
     if (!process || process && process.env && process.env.NODE_ENV !== 'production') {
       console.error(
         `Missing localization for ${id}, language: ${language}`,
@@ -91,15 +104,11 @@ export const getLocalization = (
       React.createElement(
         localizationPattern.component,
         localizationPattern.props || {},
-        new IntlMessageFormat(
-          localizationPattern.text, language,
-        ).format(params),
+        createMessage(localizationPattern.text, language, nonEmptyParams),
       )
   );
   else if (typeof localizationPattern === 'string')
-    return (
-      new IntlMessageFormat(localizationPattern, language).format(params)
-    );
+    return createMessage(localizationPattern, language, nonEmptyParams);
   else throw new Error(
     `Localization pattern error for ${id}, language: ${language}`,
   );
