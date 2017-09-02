@@ -134,7 +134,10 @@ const defaultProps = {
     },
     enter: true,
     exit: true,
-    timeout: 5e2,
+    timeout: {
+      enter: 1e3,
+      exit: 5e2,
+    },
   },
   linkComponent: DefaultLinkComponent,
 };
@@ -222,8 +225,7 @@ export default class Cart
               className={
                 classNames(
                   'col-xs-12', 'col-sm-12', 'col-md-8', 'col-lg-6',
-                  'col-xl-6', 'offset-xs-0', 'offset-sm-0', 'offset-md-2',
-                  'offset-lg-3', 'offset-xl-3',
+                  'col-xl-6', 'm-auto',
                 )
               }
             >

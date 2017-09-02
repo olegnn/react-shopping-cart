@@ -15,8 +15,8 @@ import {
 import store from './store';
 
 const enProductPropertiesWithAdditionalCostLocalization = {
-  purple: 'Purple (+{cost}{localizedCurrency})',
-  yellow: 'Yellow (+{cost}{localizedCurrency})',
+  purple: 'Purple (+{cost, number, CUR})',
+  yellow: 'Yellow (+{cost, number, CUR})',
 };
 
 const enProductLocalization = {
@@ -27,14 +27,11 @@ const enProductLocalization = {
   purple: 'Purple',
   yellow: 'Yellow',
   macbookCase: 'Macbook case',
-  GBP: '£',
-  EUR: '€',
-  USD: '$',
 };
 
 const frProductPropertiesWithAdditionalCostLocalization = {
-  purple: 'Violet (+{cost}{localizedCurrency})',
-  yellow: 'Jaune (+{cost}{localizedCurrency})',
+  purple: 'Violet (+{cost, number, CUR})',
+  yellow: 'Jaune (+{cost, number, CUR})',
 };
 
 const frProductLocalization = {
@@ -45,9 +42,6 @@ const frProductLocalization = {
   purple: 'Violet',
   yellow: 'Jaune',
   macbookCase: 'Étui pour macbook',
-  GBP: '£',
-  EUR: '€',
-  USD: '$',
 };
 
 const frDefaultLocalization = {
@@ -62,24 +56,20 @@ const frDefaultLocalization = {
     },
     quantityLabel: 'Quantité:',
     priceLabel: 'Prix:',
-    priceValue: '{localizedCurrency}{price, number}',
+    priceValue: '{price, number, CUR}',
     totalLabel: 'Total:',
-    totalValue: '{localizedCurrency}{total, plural, ' +
-                '=0 {0}' +
-                'other {#}}',
+    totalValue: '{total, number, CUR}',
     remove: 'Supprimer',
     productPropertyLabel: '{localizedName}:',
     productPropertyValue: '{localizedValue}',
   },
   checkoutButton: {
     checkoutTotal:
-      'Checkout (Somme finale {localizedCurrency}{total, plural, ' +
-      '=0 {0}' +
-      'other {#}})',
+      'Checkout (Somme finale {total, number, CUR})',
   },
   product: {
     price: {
-      text: 'Prix: {localizedCurrency}{price}',
+      text: 'Prix: {price, number, CUR}',
       component: 'strong',
     },
     quantityLabel: 'Quantité:',
@@ -138,7 +128,6 @@ const additionalLocalization = {
 };
 
 export default class App extends PureComponent {
-
   state = {
     lang: 'en',
     currency: 'USD',
@@ -226,9 +215,9 @@ export default class App extends PureComponent {
           currency,
         ),
       ),
-       // Because that component isn't inside Provider
-       // Don't do like this
-       // I was drunk, sorry :C
+    // Because that component isn't inside Provider
+    // Don't do like this
+    // I was drunk, sorry :C
       this.setState({ currency, })
     );
 
@@ -306,7 +295,7 @@ export default class App extends PureComponent {
                     </label>
                   </div>
                 ),
-            )
+              )
           }
         </fieldset>
         <fieldset className="form-group text-center">
@@ -328,7 +317,7 @@ export default class App extends PureComponent {
                     </label>
                   </div>
                 ),
-            )
+              )
           }
         </fieldset>
       </form>

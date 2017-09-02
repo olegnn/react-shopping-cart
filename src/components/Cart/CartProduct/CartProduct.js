@@ -108,7 +108,6 @@ export default class CartProduct
             ),
           ];
         }
-
         , []);
 
   handleRemoveProductClick = () =>
@@ -188,89 +187,91 @@ export default class CartProduct
           )
         }
       >
-        <div className={
-          classNames(
-            'col-xs-12', 'col-sm-12', 'col-md-4',
-            'col-lg-4', 'col-xl-3',
-          )
-        }
-        >
-          <LinkComponent to={path}>
-            <div className="list-group-item-heading">
-              { getLocalization('productName', localizationScope) }
-            </div>
-            <img className="img-fluid" src={imageSrc} alt={altImageSrc} />
-          </LinkComponent>
-        </div>
-        <div className={
-          classNames(
-            'col-xs-12', 'col-sm-12', 'col-md-5',
-            'col-lg-5', 'col-xl-7',
-          )
-        }
-        >
-          <div className="form-group row">
-            <label
-              htmlFor="quantity"
-              className="col-xs-6 col-md-5 col-lg-4 col-form-label"
-            >
-              { getLocalization('quantityLabel', localizationScope) }
-            </label>
-            <div className="col-xs-6 col-md-7 col-lg-8">
-              <input
-                type="number"
-                className="form-control"
-                value={quantity}
-                onChange={handleQuantityValueChange}
-              />
-            </div>
-          </div>
-          {
-            generateProductDescription(
-              properties,
-              propertiesToShow,
-              getLocalization,
+        <div className="row align-items-start">
+          <div className={
+            classNames(
+              'col-12', 'col-sm-12', 'col-md-4',
+              'col-lg-4', 'col-xl-3', 'my-1',
             )
           }
-          <ProductPropertyLabel
-            name={
-              getLocalization(
-                'priceLabel', localizationScope,
-              )
-            }
-            value={
-              getLocalization(
-                'priceValue', localizationScope,
-              )
-            }
-          />
-          <ProductPropertyLabel
-            name={
-              getLocalization(
-                'totalLabel', localizationScope,
-              )
-            }
-            value={
-              getLocalization(
-                'totalValue', localizationScope,
-              )
-            }
-          />
-        </div>
-        <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
-          <div className="form-group row">
-            <div className="col-12 text-center">
-              <button
-                className="btn btn-danger form-control"
-                role="button"
-                type="button"
-                onClick={handleRemoveProductClick}
+          >
+            <LinkComponent to={path}>
+              <div className="list-group-item-heading">
+                { getLocalization('productName', localizationScope) }
+              </div>
+              <img className="img-fluid" src={imageSrc} alt={altImageSrc} />
+            </LinkComponent>
+          </div>
+          <div className={
+            classNames(
+              'col-12', 'col-sm-12', 'col-md-5',
+              'col-lg-5', 'col-xl-7',
+            )
+          }
+          >
+            <div className="form-group row">
+              <label
+                htmlFor="quantity"
+                className="col-6 col-md-5 col-lg-4 col-form-label"
               >
-                <i className={iconTrashClassName} />
-                <span>
-                  { getLocalization('remove', localizationScope) }
-                </span>
-              </button>
+                { getLocalization('quantityLabel', localizationScope) }
+              </label>
+              <div className="col-6 col-md-7 col-lg-8">
+                <input
+                  type="number"
+                  className="form-control"
+                  value={quantity}
+                  onChange={handleQuantityValueChange}
+                />
+              </div>
+            </div>
+            {
+              generateProductDescription(
+                properties,
+                propertiesToShow,
+                getLocalization,
+              )
+            }
+            <ProductPropertyLabel
+              name={
+                getLocalization(
+                  'priceLabel', localizationScope,
+                )
+              }
+              value={
+                getLocalization(
+                  'priceValue', localizationScope,
+                )
+              }
+            />
+            <ProductPropertyLabel
+              name={
+                getLocalization(
+                  'totalLabel', localizationScope,
+                )
+              }
+              value={
+                getLocalization(
+                  'totalValue', localizationScope,
+                )
+              }
+            />
+          </div>
+          <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+            <div className="form-group row">
+              <div className="col-12 text-center">
+                <button
+                  className="btn btn-danger form-control"
+                  role="button"
+                  type="button"
+                  onClick={handleRemoveProductClick}
+                >
+                  <i className={iconTrashClassName} />
+                  <span>
+                    { getLocalization('remove', localizationScope) }
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -158,7 +158,7 @@ const defaultProps = {
   propertiesToShowInCart: [],
   iconAddProductClassName: 'fa fa-cart-plus mx-1',
   scrollAnimationConfig: {
-    duration: 750,
+    duration: 1250,
     delay: 0,
     smooth: true,
   },
@@ -232,7 +232,7 @@ export default class Product
       imageSrc,
       path,
       id,
-      }: {
+    }: {
       properties: ProductPropertiesOptions,
       propertiesToShowInCart: Array<string>,
       prices: Prices,
@@ -421,7 +421,7 @@ export default class Product
             <div
               className={
                 'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 ' +
-                'offset-xs-0 offset-sm-0 offset-md-2 offset-lg-3 offset-xl-3'
+                'm-auto'
               }
             >
               <button
