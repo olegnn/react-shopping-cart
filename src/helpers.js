@@ -49,6 +49,17 @@ export const parseInteger = (num: string): number => {
   else return NaN;
 };
 
+/* eslint-disable no-redeclare */
+declare function IsObject(value: Object): true;
+declare function IsObject(value: any): false;
+/* eslint-enable no-redeclare */
+
+/**
+ * @memberof helpers
+ */
+export const isObject: IsObject =
+  (value: mixed): boolean => !!value && typeof value === 'object';
+
 /**
  * @memberof helpers
  */

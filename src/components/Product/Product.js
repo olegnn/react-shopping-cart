@@ -29,6 +29,7 @@ import type {
 
 import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
 import {
+  isObject,
   parseInteger,
   scrollFunction,
   isNaturalNumber,
@@ -140,11 +141,11 @@ export type Props = {|
   /*
    * Node to display before price element.
    */
-  descriptionNode?: React$Element<*>,
+  descriptionNode: ?React$Element<*>,
   /*
    * Node to display after price element.
    */
-  afterPriceNode?: React$Element<*>,
+  afterPriceNode: ?React$Element<*>,
 |};
 
 const scrollPosition: ScrollPosition =
@@ -174,7 +175,7 @@ export type State = {|
 |} & OptionIndex;
 
 export default class Product
-  extends PureComponent<typeof defaultProps, Props, State> {
+  extends PureComponent<Props, State> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -214,9 +215,9 @@ export default class Product
           const selectedOption
             = propertyOptions[selectedPropertyIndexes[propertyName]||0];
           return sum + (
-            typeof selectedOption === 'object'
+            isObject(selectedOption)
             && (
-              selectedOption.additionalCost
+              isObject(selectedOption.additionalCost)
               && selectedOption.additionalCost[currency]
             ) || 0
           );

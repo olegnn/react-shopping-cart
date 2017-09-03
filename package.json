@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -33,27 +33,19 @@
     "react-overlays": "^0.8.0",
     "react-scroll": "^1.5.4",
     "react-transition-group": "^2.2.0",
-    "reselect": "^3.0.1"
-  },
-  "peerDependencies": {
+    "reselect": "^3.0.1",
     "animate.css": "^3.5.2",
     "bootstrap": "^4.0.0-alpha.6",
     "font-awesome": "^4.7.0",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2"
   },
-  "devDependencies": {
-    "animate.css": "^3.5.2",
-    "bootstrap": "^4.0.0-alpha.6",
-    "font-awesome": "^4.7.0",
-    "prop-types": "^15.5.10",
+  "peerDependencies": {
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
@@ -88,6 +80,8 @@
     "gulp-exec": "^2.1.3",
     "jest-cli": "^20.0.4",
     "node-sass": "^4.5.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-addons-test-utils": "^15.6.0",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-test-renderer": "^15.6.1",

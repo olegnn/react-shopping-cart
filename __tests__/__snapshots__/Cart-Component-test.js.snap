@@ -7,7 +7,7 @@ exports[`Cart takes snapshot 1`] = `
   My lovely shopping cart
   <div>
     <div
-      className="list-group-item list-group-item-action animated"
+      className="list-group-item list-group-item-action align-items-start animated"
     >
       <div
         className="row align-items-start"

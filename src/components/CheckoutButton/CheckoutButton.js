@@ -81,7 +81,7 @@ const defaultProps = {
 };
 
 export default class CheckoutButton
-  extends PureComponent<typeof defaultProps, Props, void> {
+  extends PureComponent<Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;

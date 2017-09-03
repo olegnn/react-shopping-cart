@@ -12,6 +12,7 @@
  */
 
 import React, { PureComponent } from 'react';
+import { isObject } from '../../../helpers';
 
 import type {
   GetLocalization,
@@ -62,7 +63,7 @@ const defaultProps = {
 };
 
 export default class ProductPropertyInput
-  extends PureComponent<typeof defaultProps, Props, void> {
+  extends PureComponent<Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -75,7 +76,7 @@ export default class ProductPropertyInput
   static getOptionValue = (
     value: PropertyOption,
   ): ProductPropertyOption =>
-    typeof value === 'object'
+    isObject(value)
       ? ProductPropertyInput.getOptionValue(value.value)
       : value;
 
@@ -101,12 +102,12 @@ export default class ProductPropertyInput
                   {
                     ...localizationScope,
                     ...(
-                      typeof options[index] === 'object'
+                      isObject(options[index])
                         ? {
                           cost:
-                          options[index].additionalCost
-                          && options[index].additionalCost[currency]
-                          || 0,
+                            isObject(options[index].additionalCost)
+                            && options[index].additionalCost[currency]
+                            || 0,
                         }
                         : {}
                     ),
@@ -140,8 +141,7 @@ export default class ProductPropertyInput
     const selectedOption = options[selectedOptionIndex];
 
     if (
-      selectedOption
-      && typeof selectedOption === 'object'
+      isObject(selectedOption)
       && typeof selectedOption.onSelect === 'function'
     ) selectedOption.onSelect(selectedOption);
 
