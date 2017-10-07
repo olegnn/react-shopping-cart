@@ -96,9 +96,7 @@ export type GetLocalization =
     params?: Object
   ) => string | React$Element<*>;
 
-/**
- * @typedef {Object} CartAddAction
- */
+/** @ */
 export type CartAddAction = {|
   type: 'cart/ADD',
   key: string,
@@ -106,33 +104,25 @@ export type CartAddAction = {|
   productCurrency: string,
 |};
 
-/**
- * @typedef {Object} CartUpdateAction
- */
+/** @ */
 export type CartUpdateAction = {|
   type: 'cart/UPDATE',
   key: string,
   updatedProduct: ProductData,
 |};
 
-/**
- * @typedef {Object} CartRemoveAction
- */
+/** @ */
 export type CartRemoveAction = {|
   type: 'cart/REMOVE',
   key: string,
 |};
 
-/**
- * @typedef {Object} CartEmptyAction
- */
+/** @ */
 export type CartEmptyAction = {|
   type: 'cart/EMPTY',
 |};
 
-/**
- * @typedef {Object} CartSetCurrencyAction
- */
+/** @ */
 export type CartSetCurrencyAction = {|
   type: 'cart/SET_CURRENCY',
   currency: string,
@@ -175,16 +165,12 @@ type ElementEventTemplate<E> = {
 
 export type InputEvent = ElementEventTemplate<HTMLInputElement>;
 
-/**
- * @typedef {Object} CartState
- */
+/** @ */
 export type CartState = {
   cart: { currency: string, products: Products }
 };
 
-/**
- * @typedef {Object} DefaultLinkComponentProps
- */
+/** @ */
 export type DefaultLinkComponentProps = {
   to: string,
 };

@@ -58,7 +58,7 @@ declare function IsObject(value: any): false;
  * @memberof helpers
  */
 export const isObject: IsObject =
-  (value: mixed): boolean => !!value && typeof value === 'object';
+  (value: mixed): boolean => value != null && typeof value === 'object';
 
 /**
  * @memberof helpers

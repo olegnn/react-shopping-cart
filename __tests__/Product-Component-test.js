@@ -10,9 +10,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import IntlMessageFormat from 'intl-messageformat';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Product from '../src/components/Product/Product';
 import { generateProductKey } from '../src/helpers';
+
+Enzyme.configure({ adapter: new Adapter(), });
 
 const testProductLocalization = {
   color: 'Color',
@@ -30,26 +33,23 @@ const getLocalization = (id, params = {}) =>
   new IntlMessageFormat(testProductLocalization[id], 'en').format(params);
 
 const createProduct = ({ cartState, props, }, renderFunc = mount) =>
-  renderFunc(
-    <Product
-      {...props}
-      onAddProduct={
-        (
+  renderFunc(<Product
+    {...props}
+    onAddProduct={
+      (
           key,
           product,
-        ) => void (
-          cartState[key] =
-            product
-          )
+      ) => {
+          cartState[key] = product;
       }
-      checkoutButton={<a />}
-      getLocalization={
+    }
+    checkoutButton={<a />}
+    getLocalization={
         getLocalization
       }
-      currency="GBP"
-      generateProductKey={generateProductKey}
-    />,
-  );
+    currency="GBP"
+    generateProductKey={generateProductKey}
+  />);
 
 
 describe('Product', () => {
@@ -89,11 +89,9 @@ describe('Product', () => {
     const quantityInput = renderedProduct.find('input');
 
     // Try to change quantity to -1
-    quantityInput.node.value = -1;
+    quantityInput.instance().value = -1;
 
-    renderedProduct.find('input').simulate(
-      'change',
-    );
+    renderedProduct.find('input').simulate('change');
 
     expect(renderedProduct.update().state().quantity).toBe(1);
 
@@ -102,7 +100,7 @@ describe('Product', () => {
         .find('select');
 
     // Now add green case in our cart
-    colorSelect.node.value = 'green';
+    colorSelect.instance().value = 'green';
 
     renderedProduct
       .find('select')

@@ -49,16 +49,16 @@ export type Props = {|
   /*
    * ClassName for cart icon on checkout button.
    */
-  iconCheckoutClassName: string,
+  iconCheckoutClassName?: string,
   /*
    * Transition's config for react-transition-group/CSSTransition.
    */
-  buttonCSSTransition: Object,
+  buttonCSSTransition?: Object,
   /*
    * React Component, will receive prop `to="%your product's page%"`.
    * I'd recommend you to take a look at react-router's Link.
    */
-  linkComponent: Link$Component,
+  linkComponent?: Link$Component,
 |};
 
 const defaultProps = {

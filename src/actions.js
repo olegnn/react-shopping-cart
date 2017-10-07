@@ -27,24 +27,20 @@ export const addToCart = (
   key: string,
   product: ProductData,
   productCurrency: string,
-): CartAddAction =>
-  ({
-    type: actionTypes.CART_ADD,
-    key,
-    product,
-    productCurrency,
-  });
+): CartAddAction => ({
+  type: actionTypes.CART_ADD,
+  key,
+  product,
+  productCurrency,
+});
 
 /**
  * @memberof actions
  */
-export const removeFromCart = (
-  key: string,
-): CartRemoveAction =>
-  ({
-    type: actionTypes.CART_REMOVE,
-    key,
-  });
+export const removeFromCart = (key: string): CartRemoveAction => ({
+  type: actionTypes.CART_REMOVE,
+  key,
+});
 
 /**
  * @memberof actions
@@ -52,28 +48,23 @@ export const removeFromCart = (
 export const updateCart = (
   key: string,
   updatedProduct: ProductData,
-): CartUpdateAction =>
-  ({
-    type: actionTypes.CART_UPDATE,
-    key,
-    updatedProduct,
-  });
+): CartUpdateAction => ({
+  type: actionTypes.CART_UPDATE,
+  key,
+  updatedProduct,
+});
 
 /**
  * @memberof actions
  */
-export const emptyCart = (): CartEmptyAction =>
-  ({
-    type: actionTypes.CART_EMPTY,
-  });
+export const emptyCart = (): CartEmptyAction => ({
+  type: actionTypes.CART_EMPTY,
+});
 
 /**
  * @memberof actions
  */
-export const setCartCurrency = (
-  currency: string,
-): CartSetCurrencyAction =>
-  ({
-    type: actionTypes.CART_SET_CURRENCY,
-    currency,
-  });
+export const setCartCurrency = (currency: string): CartSetCurrencyAction => ({
+  type: actionTypes.CART_SET_CURRENCY,
+  currency,
+});

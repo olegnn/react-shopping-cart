@@ -110,49 +110,47 @@ export type Props = {|
    * Function to call when user wants to add product in his cart.
    */
   onAddProduct: AddProduct,
+  getLocalization: GetLocalization,
   /*
    * Function which generates product's key based on id and properties.
    */
-  generateProductKey: GenerateProductKey,
-  getLocalization: GetLocalization,
+  generateProductKey?: GenerateProductKey,
   /*
    * Custom product properties. Each property option list consists of number,
    * string or shape({ additionalCost(optional), onSelect(optional), value(required)})
    */
-  properties: ProductPropertiesOptions,
+  properties?: ProductPropertiesOptions,
   /*
    * Array of propery names to display in cart.
    */
-  propertiesToShowInCart: Array<string>,
+  propertiesToShowInCart?: Array<string>,
   /*
    * Config for animateScroll (from react-scroll) scrollTo function.
    */
-  scrollAnimationConfig: Object,
+  scrollAnimationConfig?: Object,
   /*
    * Position to scroll after product add.
    */
-  scrollPosition: ScrollPosition,
-  scrollFunction: ScrollFunction,
+  scrollPosition?: ScrollPosition,
+  scrollFunction?: ScrollFunction,
   /*
    *  ClassName for cart icon on add to button.
    */
-  iconAddProductClassName: string,
-  checkoutButton: React$Element<*>,
+  iconAddProductClassName?: string,
+  checkoutButton?: React$Element<*>,
   /*
    * Node to display before price element.
    */
-  descriptionNode: ?React$Element<*>,
+  descriptionNode?: React$Element<*>,
   /*
    * Node to display after price element.
    */
-  afterPriceNode: ?React$Element<*>,
+  afterPriceNode?: React$Element<*>,
 |};
 
 const scrollPosition: ScrollPosition =
   ({ children, }) =>
-    getAbsoluteOffsetTop(
-      children[children.length - 2],
-    ) - 5;
+    getAbsoluteOffsetTop(children[children.length - 2]) - 5;
 
 const defaultProps = {
   properties: {},
@@ -166,6 +164,7 @@ const defaultProps = {
   scrollPosition,
   scrollFunction,
   generateProductKey,
+  checkoutButton: null,
   afterPriceNode: null,
   descriptionNode: null,
 };
@@ -200,8 +199,7 @@ export default class Product
           currency={currency}
           onChange={handlePropertyValueChange}
           getLocalization={getLocalization}
-        />),
-      );
+        />));
 
   static calculateAdditionalCost = (
     properties: ProductPropertiesOptions,
@@ -222,7 +220,8 @@ export default class Product
             ) || 0
           );
         }
-        , 0);
+        , 0,
+      );
 
   static generateCartProduct = (
     {
@@ -250,16 +249,16 @@ export default class Product
     properties:
       Object
         .entries(properties)
-        .reduce((obj, [ propName, options, ]) =>
-          ({
-            ...obj,
-            [propName]:
+        .reduce(
+          (obj, [ propName, options, ]) =>
+            ({
+              ...obj,
+              [propName]:
             ProductPropertyInput
-              .getOptionValue(
-                options[selectedPropertyIndexes[propName]|0],
-              ),
-          })
-          , {}),
+              .getOptionValue(options[selectedPropertyIndexes[propName]|0]),
+            })
+          , {},
+        ),
     name,
     prices:
       Object
@@ -274,7 +273,8 @@ export default class Product
                 currency,
               ),
           })
-          , {}),
+          , {},
+        ),
     path,
     imageSrc,
     propertiesToShowInCart,
@@ -284,9 +284,7 @@ export default class Product
     quantity: 1,
   };
 
-  handleQuantityValueChange = (
-    { currentTarget, }: InputEvent,
-  ) => {
+  handleQuantityValueChange = ({ currentTarget, }: InputEvent) => {
     const quantity = parseInteger(currentTarget.value);
     if (isNaturalNumber(quantity)) {
       fixInputValueStartingWithZero(currentTarget, quantity);
@@ -294,9 +292,8 @@ export default class Product
     }
   }
 
-  hanglePropertyValueChange: OnChange = (
-    { value, },
-  ) => void this.setState(value);
+  hanglePropertyValueChange: OnChange =
+    ({ value, }) => void this.setState(value);
 
   addProductFormSubmit = (event: Event) => {
     const { props, state, } = this;
@@ -318,9 +315,8 @@ export default class Product
     event.preventDefault();
 
     if (quantity) {
-      const product = generateCartProduct(
-        props, quantity, selectedPropertyIndexes,
-      );
+      const product =
+        generateCartProduct(props, quantity, selectedPropertyIndexes);
       onAddProduct(
         generateProductKey(
           id,

@@ -38,21 +38,18 @@ export type OptionObject = {|
 |};
 
 /** @ */
-export type PropertyOption =
-  ProductPropertyOption | OptionObject;
+export type PropertyOption = ProductPropertyOption | OptionObject;
 
 /** @ */
 export type PropertyOptions = Array<PropertyOption>;
 
 /** @ */
-export type OnChange = (
-  obj: { value: OptionIndex }
-) => void;
+export type OnChange = (obj: { value: OptionIndex }) => void;
 
 export type Props = {|
   name: string,
   options: PropertyOptions,
-  selectedOptionIndex: number,
+  selectedOptionIndex?: number,
   currency: string,
   onChange: OnChange,
   getLocalization: GetLocalization,
@@ -62,8 +59,7 @@ const defaultProps = {
   selectedOptionIndex: 0,
 };
 
-export default class ProductPropertyInput
-  extends PureComponent<Props, void> {
+export default class ProductPropertyInput extends PureComponent<Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
@@ -73,12 +69,8 @@ export default class ProductPropertyInput
   /*
    * If option value is an object, we need to extract primitive value
    */
-  static getOptionValue = (
-    value: PropertyOption,
-  ): ProductPropertyOption =>
-    isObject(value)
-      ? ProductPropertyInput.getOptionValue(value.value)
-      : value;
+  static getOptionValue = (value: PropertyOption): ProductPropertyOption =>
+    isObject(value) ? ProductPropertyInput.getOptionValue(value.value) : value;
 
   /*
    * Generate select input options based on options values
@@ -91,59 +83,41 @@ export default class ProductPropertyInput
   ): Array<React$Element<*>> =>
     options
       .map(ProductPropertyInput.getOptionValue)
-      .map(
-        (optionValue, index) => (
-          <option key={optionValue} value={optionValue}>
-            {
-              typeof optionValue === 'string'
-                ?
-                getLocalization(
-                  optionValue,
-                  {
-                    ...localizationScope,
-                    ...(
-                      isObject(options[index])
-                        ? {
-                          cost:
-                            isObject(options[index].additionalCost)
-                            && options[index].additionalCost[currency]
-                            || 0,
-                        }
-                        : {}
-                    ),
-                  },
-                )
-                : optionValue
-            }
-          </option>
-        ),
-      );
+      .map((optionValue, index) => (
+        <option key={optionValue} value={optionValue}>
+          {typeof optionValue === 'string'
+            ? getLocalization(optionValue, {
+                ...localizationScope,
+                ...(isObject(options[index])
+                  ? {
+                      cost:
+                        (isObject(options[index].additionalCost) &&
+                          options[index].additionalCost[currency]) ||
+                        0,
+                    }
+                  : {}),
+              })
+            : optionValue}
+        </option>
+      ));
 
-  handleSelectInputValueChange = (
-    { currentTarget, }: InputEvent,
-  ) => {
+  handleSelectInputValueChange = ({ currentTarget, }: InputEvent) => {
     const { value: optionValue, } = currentTarget;
-    const {
-      name,
-      options,
-      onChange,
-    } = this.props;
+    const { name, options, onChange, } = this.props;
 
-    const {
-      getOptionValue,
-    } = ProductPropertyInput;
+    const { getOptionValue, } = ProductPropertyInput;
 
-    const selectedOptionIndex =
-      options
-        .map(getOptionValue)
-        .indexOf(optionValue);
+    const selectedOptionIndex = options
+      .map(getOptionValue)
+      .indexOf(optionValue);
 
     const selectedOption = options[selectedOptionIndex];
 
     if (
-      isObject(selectedOption)
-      && typeof selectedOption.onSelect === 'function'
-    ) selectedOption.onSelect(selectedOption);
+      isObject(selectedOption) &&
+      typeof selectedOption.onSelect === 'function'
+    )
+      selectedOption.onSelect(selectedOption);
 
     onChange({
       value: { [name]: selectedOptionIndex, },
@@ -159,9 +133,7 @@ export default class ProductPropertyInput
       getLocalization,
     } = this.props;
 
-    const {
-      handleSelectInputValueChange,
-    } = this;
+    const { handleSelectInputValueChange, } = this;
 
     const {
       generateOptionsSelectionList,
@@ -171,9 +143,6 @@ export default class ProductPropertyInput
     const localizationScope = {
       name,
       currency,
-      get localizedCurrency() {
-        return getLocalization(currency, localizationScope);
-      },
       get localizedName() {
         return getLocalization(name, localizationScope);
       },
@@ -185,19 +154,20 @@ export default class ProductPropertyInput
           htmlFor={name}
           className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
         >
-          {
-            getLocalization('propertyLabel', localizationScope)
-          }
+          {getLocalization('propertyLabel', localizationScope)}
         </label>
         <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
           <select
             onChange={handleSelectInputValueChange}
             className="form-control"
-            value={getOptionValue(options[selectedOptionIndex|0])}
+            value={getOptionValue(options[selectedOptionIndex | 0])}
           >
             {
               generateOptionsSelectionList(
-                options, getLocalization, currency, localizationScope,
+                options,
+                getLocalization,
+                currency,
+                localizationScope,
               )
             }
           </select>
