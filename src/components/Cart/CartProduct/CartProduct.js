@@ -38,8 +38,8 @@ export type Props = {|
   name: string,
   price: number,
   currency: string,
-  properties: ProductProperties,
-  propertiesToShow: Array<string>,
+  properties?: ProductProperties,
+  propertiesToShow?: Array<string>,
   imageSrc: string,
   altImageSrc: string,
   path: string,
@@ -108,16 +108,13 @@ export default class CartProduct
             ),
           ];
         }
-        , []);
+        , [],
+      );
 
   handleRemoveProductClick = () =>
-    void this.props.onRemoveProduct(
-      this.props.productKey,
-    );
+    void this.props.onRemoveProduct(this.props.productKey);
 
-  handleQuantityValueChange = (
-    { currentTarget, }: InputEvent,
-  ) => {
+  handleQuantityValueChange = ({ currentTarget, }: InputEvent) => {
     const quantity = parseInteger(currentTarget.value);
     const natural = isNaturalNumber(quantity);
     const {
@@ -130,9 +127,7 @@ export default class CartProduct
     if (natural) {
       fixInputValueStartingWithZero(currentTarget, quantity);
       if (quantity !== currentQuantity)
-        onUpdateProduct(
-          productKey, { ...product, quantity, },
-        );
+        onUpdateProduct(productKey, { ...product, quantity, });
     }
   };
 
@@ -234,26 +229,18 @@ export default class CartProduct
             }
             <ProductPropertyLabel
               name={
-                getLocalization(
-                  'priceLabel', localizationScope,
-                )
+                getLocalization('priceLabel', localizationScope)
               }
               value={
-                getLocalization(
-                  'priceValue', localizationScope,
-                )
+                getLocalization('priceValue', localizationScope)
               }
             />
             <ProductPropertyLabel
               name={
-                getLocalization(
-                  'totalLabel', localizationScope,
-                )
+                getLocalization('totalLabel', localizationScope)
               }
               value={
-                getLocalization(
-                  'totalValue', localizationScope,
-                )
+                getLocalization('totalValue', localizationScope)
               }
             />
           </div>

@@ -10,8 +10,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import IntlMessageFormat from 'intl-messageformat';
-import { mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import Cart from '../src/components/Cart/Cart';
+
+Enzyme.configure({ adapter: new Adapter(), });
 
 const testCartLocalization = {
   color: 'Color',
@@ -36,31 +39,30 @@ const getLocalization = (id, params = {}) =>
   new IntlMessageFormat(testCartLocalization[id], 'en').format(params);
 
 const createCart = ({ products, }, renderFunc = mount) =>
-  renderFunc(
-    <Cart
-      products={{ ...products, }}
-      onUpdateProduct={
-        (key, updatedProduct) =>
+  renderFunc(<Cart
+    products={{ ...products, }}
+    onUpdateProduct={
+      (key, updatedProduct) => {
           // That's just a test. Don't do like this,
           // use immutable structures
-        void (products[key] = { ...products[key], ...updatedProduct, })
+        products[key] = { ...products[key], ...updatedProduct, };
       }
-      onRemoveProduct={
+    }
+    onRemoveProduct={
         key => void delete products[key]
         // Don't mutate given objects, create new
-      }
-      checkoutButton={
-        <a />
-      }
-      isCartEmpty={
+    }
+    checkoutButton={
+      <a />
+    }
+    isCartEmpty={
         false
       }
-      getLocalization={
+    getLocalization={
         getLocalization
       }
-      currency="GBP"
-    />,
-  );
+    currency="GBP"
+  />);
 
 
 describe('Cart', () => {
@@ -88,20 +90,16 @@ describe('Cart', () => {
     const quantityInput = renderedCart.find('input');
 
     // Change iPad case quantity to 10
-    quantityInput.node.value = 10;
+    quantityInput.instance().value = 10;
 
-    renderedCart.find('input').simulate(
-      'change',
-    );
+    renderedCart.find('input').simulate('change');
 
     // Now must have 10 cases in cart
     expect(products['ipad-case_red'].quantity).toBe(10);
 
-    quantityInput.node.value = -1;
+    quantityInput.instance().value = -1;
 
-    renderedCart.find('input').simulate(
-      'change',
-    );
+    renderedCart.find('input').simulate('change');
 
     // Expect 10 iPad cases in cart
     expect(products['ipad-case_red'].quantity).toBe(10);

@@ -20,7 +20,7 @@ import type {
 import * as actionTypes from '../../actionTypes';
 import { isNaturalNumber } from '../../helpers';
 
-const initialState = {};
+const initialState: Products = {};
 
 const handlers = {
   [actionTypes.CART_ADD]:
@@ -29,7 +29,7 @@ const handlers = {
     {
       key,
       product,
-      }: CartAddAction,
+    }: CartAddAction,
   ): Products => {
     const {
       [key]: cartProduct = { quantity: 0, },
@@ -54,7 +54,7 @@ const handlers = {
     {
       key,
       updatedProduct,
-      }: CartUpdateAction,
+    }: CartUpdateAction,
   ): Products => {
     const { ...clonedProducts } = products;
     clonedProducts[key] = updatedProduct;

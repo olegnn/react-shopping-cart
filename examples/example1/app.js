@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/font-awesome.css';
 
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
@@ -210,11 +210,7 @@ export default class App extends PureComponent {
 
   changeCurrency = currency =>
     void (
-      store.dispatch(
-        setCartCurrency(
-          currency,
-        ),
-      ),
+      store.dispatch(setCartCurrency(currency)),
     // Because that component isn't inside Provider
     // Don't do like this
     // I was drunk, sorry :C
@@ -222,17 +218,11 @@ export default class App extends PureComponent {
     );
 
   changeLanguage = lang =>
-    void this.setState(
-      { lang, },
-    );
+    void this.setState({ lang, });
 
-  handleLanguageChange = (
-    { currentTarget: { value, }, },
-  ) => void this.changeLanguage(value);
+  handleLanguageChange = ({ currentTarget: { value, }, }) => void this.changeLanguage(value);
 
-  handleCurrencyChange = (
-    { currentTarget: { value, }, },
-  ) => void this.changeCurrency(value);
+  handleCurrencyChange = ({ currentTarget: { value, }, }) => void this.changeCurrency(value);
 
   render() {
     const {
@@ -280,44 +270,40 @@ export default class App extends PureComponent {
           {
             Object
               .entries({ en: 'english', fr: 'french', })
-              .map(
-                ([ short, full, ]) => (
-                  <div key={full} className="form-check">
-                    <label className="form-check-label">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        onChange={handleLanguageChange}
-                        value={short}
-                        checked={lang === short}
-                      />
-                      { ` ${additionalLocalization[lang][full]}` }
-                    </label>
-                  </div>
-                ),
-              )
+              .map(([ short, full, ]) => (
+                <div key={full} className="form-check">
+                  <label className="form-check-label">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      onChange={handleLanguageChange}
+                      value={short}
+                      checked={lang === short}
+                    />
+                    { ` ${additionalLocalization[lang][full]}` }
+                  </label>
+                </div>
+                ))
           }
         </fieldset>
         <fieldset className="form-group text-center">
           <legend>{ additionalLocalization[lang].selectCurrency }</legend>
           {
             [ 'GBP', 'EUR', 'USD', ]
-              .map(
-                name => (
-                  <div key={name} className="form-check">
-                    <label className="form-check-label">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        onChange={handleCurrencyChange}
-                        value={name}
-                        checked={currency === name}
-                      />
-                      { ` ${name}` }
-                    </label>
-                  </div>
-                ),
-              )
+              .map(name => (
+                <div key={name} className="form-check">
+                  <label className="form-check-label">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      onChange={handleCurrencyChange}
+                      value={name}
+                      checked={currency === name}
+                    />
+                    { ` ${name}` }
+                  </label>
+                </div>
+                ))
           }
         </fieldset>
       </form>

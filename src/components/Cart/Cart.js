@@ -78,34 +78,34 @@ export type Props = {|
   /*
    * Hide cart's header.
    */
-  hideHeader: boolean,
+  hideHeader?: boolean,
   /*
    * Button to display in the bottom of cart.
    */
-  checkoutButton: React$Element<*>,
+  checkoutButton?: React$Element<*>,
   /*
    * ClassName for trash icon on remove button.
    */
-  iconTrashClassName: string,
+  iconTrashClassName?: string,
   /*
    * Alt image src for products
    */
-  altProductImageSrc: string,
+  altProductImageSrc?: string,
   /*
    * Cart's config for react-transition-group/CSSTransition.
    * Look at src/components/Cart/Cart.js for details.
    */
-  cartCSSTransition: Object,
+  cartCSSTransition?: Object,
   /*
    * Cart item's config for react-transition-group/CSSTransition.
    * Look at src/components/Cart/Cart.js for details.
    */
-  cartItemCSSTransition: Object,
+  cartItemCSSTransition?: Object,
   /*
    * React Component, will receive prop `to="%your product's page%"`.
    * I'd recommend you to take a look at react-router's Link.
    */
-  linkComponent: Link$Component,
+  linkComponent?: Link$Component,
 |};
 
 const defaultProps = {
@@ -180,8 +180,7 @@ export default class Cart
             {
               Object
                 .entries(products)
-                .map(
-                  ([
+                .map(([
                     productKey: string,
                     {
                       prices,
@@ -216,8 +215,7 @@ export default class Cart
                         linkComponent={linkComponent}
                       />
                     </CSSTransition>
-                  ),
-                )
+                  ))
             }
           </TransitionGroup>
           <div className="row my-1">
