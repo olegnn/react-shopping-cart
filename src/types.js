@@ -25,7 +25,6 @@ export type ProductProperties = { [key: string]: ProductPropertyOption };
 export type Prices = { [currency: string]: number };
 
 /**
- * @typedef {Object} ProductData
  * @example
  *  {
  *    id: 'macbook-case',
@@ -43,58 +42,47 @@ export type Prices = { [currency: string]: number };
  *  }
  */
 export type ProductData = {|
- id: string,
- quantity: number,
- properties: ProductProperties,
- name: string,
- prices: Prices,
- imageSrc: string,
- path: string,
- propertiesToShowInCart: Array<string>,
+  id: string,
+  quantity: number,
+  properties: ProductProperties,
+  name: string,
+  prices: Prices,
+  imageSrc: string,
+  path: string,
+  propertiesToShowInCart: Array<string>,
 |};
 
 /**
  * @typedef {Object.<string, ProductData>} Products
  */
 export type Products = {
- [productKey: string]: ProductData,
+  [productKey: string]: ProductData,
 };
 
 /** @ */
-export type GenerateProductKey =
-  (
-    id: string,
-    properties: ProductProperties,
-  ) => string;
+export type GenerateProductKey = (
+  id: string,
+  properties: ProductProperties,
+) => string;
 
 /** @ */
-export type AddProduct =
-  (
-    key: string,
-    product: ProductData,
-    currency: string
-  ) => void;
+export type AddProduct = (
+  key: string,
+  product: ProductData,
+  currency: string,
+) => void;
 
 /** @ */
-export type UpdateProduct =
-  (
-    key: string,
-    updatedProduct: ProductData
-  ) => void;
-
+export type UpdateProduct = (key: string, updatedProduct: ProductData) => void;
 
 /** @ */
-export type RemoveProduct =
-  (
-    key: string,
-  ) => void;
+export type RemoveProduct = (key: string) => void;
 
 /** @ */
-export type GetLocalization =
-  (
-    id: string,
-    params?: Object
-  ) => string | React$Element<*>;
+export type GetLocalization = (
+  id: string,
+  params?: Object,
+) => string | React$Element<*>;
 
 /** @ */
 export type CartAddAction = {|
@@ -130,18 +118,20 @@ export type CartSetCurrencyAction = {|
 
 /** @ */
 export type CartAction =
-  CartAddAction
+  | CartAddAction
   | CartUpdateAction
   | CartRemoveAction
   | CartEmptyAction
   | CartSetCurrencyAction;
 
 /** @ */
-export type LocalizationPattern = string | {
-  component: string | () => React$Element<*>,
-  props?: Object,
-  text: string,
-};
+export type LocalizationPattern =
+  | string
+  | {
+      component: string | (() => React$Element<*>),
+      props?: Object,
+      text: string,
+    };
 
 /**
  * @typedef {Object.<string, LocalizationPattern>} Localization
@@ -155,19 +145,19 @@ export type Localization = {
  */
 export type MultiLocalization = {
   [languageName: string]: {
-    [componentName: string ]: Localization
+    [componentName: string]: Localization,
   },
 };
 
 type ElementEventTemplate<E> = {
-  currentTarget: E
+  currentTarget: E,
 } & Event;
 
 export type InputEvent = ElementEventTemplate<HTMLInputElement>;
 
 /** @ */
 export type CartState = {
-  cart: { currency: string, products: Products }
+  cart: { currency: string, products: Products },
 };
 
 /** @ */
@@ -176,4 +166,4 @@ export type DefaultLinkComponentProps = {
 };
 
 /** @ */
-export type Link$Component = (DefaultLinkComponentProps)=> React$Element<*>;
+export type Link$Component = DefaultLinkComponentProps => React$Element<*>;
