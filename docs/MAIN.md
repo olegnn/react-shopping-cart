@@ -1,4 +1,3 @@
-
 # React shopping cart
 
 [![npm](https://img.shields.io/npm/v/react-shopping-cart.svg)](https://www.npmjs.com/package/react-shopping-cart)
@@ -9,53 +8,61 @@
 [![devDependencies Status](https://david-dm.org/olegnn/react-shopping-cart/dev-status.svg)](https://david-dm.org/olegnn/react-shopping-cart?type=dev)
 
 Shopping cart package provides several components:
-- [__Cart__](#cart)
-- [__Product__](#product)
-- [__CheckoutButton__](#checkoutbutton)
+
+- [**Cart**](#cart)
+- [**Product**](#product)
+- [**CheckoutButton**](#checkoutbutton)
 
 which can be used separately or in union.
-By default [__Redux__](https://github.com/reactjs/redux) is the framework to operate with data.
+By default [**Redux**](https://github.com/reactjs/redux) is the framework to operate with data.
 
 So, it's your choice to use Redux or not, but its reducers, actions and action types are already included.
 
-Pay attention! All components are  [__Pure__](https://facebook.github.io/react/docs/react-api.html#react.purecomponent).
+Pay attention! All components are [**Pure**](https://facebook.github.io/react/docs/react-api.html#react.purecomponent).
 
 **Meta**
 
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
+- **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+- **license**: MIT
 
 ## Demo
 
 Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.solarleague.org/shop/macbook-case/)
 
-[`Latest version demo (example1)`](https://olegnn.github.io/)
+[`Latest version demo (example1)`](https://olegnn.github.io/react-shopping-cart)
 
 **Usage**
+
 ```shell
 yarn add react-shopping-cart
 ```
+
 ```shell
 npm i --save react-shopping-cart
 ```
 
 **Examples**
 
-
 In all cases you must include bootstrap version 4 (^alpha 0.6) in your project
+
 ```javascript
 import 'bootstrap/dist/css/bootstrap.css';
 ```
+
 And if you want to see animation, also include animate.css
+
 ```javascript
 import 'animate.css/animate.min.css';
 ```
+
 Also want some icons?
+
 ```javascript
 import 'font-awesome/css/font-awesome.min.css';
 ```
 
-__With Redux.__ After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
+**With Redux.** After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
+
 ```javascript
 import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
@@ -68,7 +75,6 @@ import {
   cartReducer,
   setCartCurrency,
 } from 'react-shopping-cart';
-
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
@@ -94,66 +100,56 @@ const iPadPropertiesWithAdditionalCostLocalization = {
 };
 
 const store = createStore(
-  combineReducers(
-    {
-      cart: cartReducer,
-      // Your own reducers, sir
-    }
-  )
+  combineReducers({
+    cart: cartReducer,
+    // Your own reducers, sir
+  }),
 );
 
-store.dispatch(
-  setCartCurrency('USD'),
-);
-
+store.dispatch(setCartCurrency('USD'));
 
 class App extends PureComponent {
-
   state = {
     product: {
       name: 'iPadCase',
       id: 'ipad-case',
       path: '/shop/ipad-case/',
       properties: {
-        color: ['red', 'green', {
-          additionalCost: {
-            GBP: 1,
-            EUR: 2,
-            USD: 3.50,
+        color: [
+          'red',
+          'green',
+          {
+            additionalCost: {
+              GBP: 1,
+              EUR: 2,
+              USD: 3.5,
+            },
+            value: 'yellow',
           },
-          value: 'yellow',
-        }],
+        ],
       },
       propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
       imageSrc: '1-483x321.jpeg',
     },
-    getProductLocalization:
-      getDefaultLocalization(
-        'product',
-        'en',
-        {
-          ...iPadCaseLocalization,
-          ...iPadPropertiesWithAdditionalCostLocalization
-        }
-      ),
-    getCheckoutButtonLocalization:
-      getDefaultLocalization(
-        'checkoutButton',
-        'en',
-        iPadCaseLocalization,
-      ),
-    getCartLocalization:
-      getDefaultLocalization(
-        'cart',
-        'en',
-        iPadCaseLocalization
-      )
+    getProductLocalization: getDefaultLocalization('product', 'en', {
+      ...iPadCaseLocalization,
+      ...iPadPropertiesWithAdditionalCostLocalization,
+    }),
+    getCheckoutButtonLocalization: getDefaultLocalization(
+      'checkoutButton',
+      'en',
+      iPadCaseLocalization,
+    ),
+    getCartLocalization: getDefaultLocalization(
+      'cart',
+      'en',
+      iPadCaseLocalization,
+    ),
   };
 
   render() {
-
     const {
       product,
       getCheckoutButtonLocalization,
@@ -161,29 +157,23 @@ class App extends PureComponent {
       getCartLocalization,
     } = this.state;
 
-    const checkoutButtonElement =
+    const checkoutButtonElement = (
       <CheckoutButton
-        getLocalization={
-          getCheckoutButtonLocalization
-        }
+        getLocalization={getCheckoutButtonLocalization}
         checkoutURL="/to/my/checkout"
-      />;
+      />
+    );
     return (
       <Provider store={store}>
         <div className="container">
           <Product
             {...product}
             checkoutButton={checkoutButtonElement}
-            getLocalization={
-              getProductLocalization
-            }
-
+            getLocalization={getProductLocalization}
           />
           <Cart
             checkoutButton={checkoutButtonElement}
-            getLocalization={
-              getCartLocalization
-            }
+            getLocalization={getCartLocalization}
           />
         </div>
       </Provider>
@@ -202,7 +192,8 @@ import { cartActions, cartActionTypes } from 'react-shopping-cart';
 // And do some cool things with them
 ```
 
-__Without redux__
+**Without redux**
+
 ```javascript
 import React, { PureComponent } from 'react';
 import {
@@ -211,7 +202,6 @@ import {
   CheckoutButtonComponent,
   cartLocalization,
 } from 'react-shopping-cart';
-
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css/animate.min.css';
@@ -237,7 +227,6 @@ const iPadPropertiesWithAdditionalCostLocalization = {
 };
 
 class App extends PureComponent {
-
   state = {
     products: {},
     product: {
@@ -245,64 +234,53 @@ class App extends PureComponent {
       id: 'ipad-case',
       path: '/shop/ipad-case/',
       properties: {
-        color: ['red', 'green', {
-          additionalCost: {
-            GBP: 1,
-            EUR: 2,
-            USD: 3.50,
+        color: [
+          'red',
+          'green',
+          {
+            additionalCost: {
+              GBP: 1,
+              EUR: 2,
+              USD: 3.5,
+            },
+            value: 'yellow',
           },
-          value: 'yellow',
-        }],
+        ],
       },
       propertiesToShowInCart: ['color'],
       prices: { GBP: 70, EUR: 80, USD: 90 },
       currency: 'GBP',
       imageSrc: '1-483x321.jpeg',
     },
-    getProductLocalization:
-      getDefaultLocalization(
-        'product',
-        'en',
-        {
-          ...iPadCaseLocalization,
-          ...iPadPropertiesWithAdditionalCostLocalization
-        }
-      ),
-    getCheckoutButtonLocalization:
-      getDefaultLocalization(
-        'checkoutButton',
-        'en',
-        iPadCaseLocalization,
-      ),
-    getCartLocalization:
-      getDefaultLocalization(
-        'cart',
-        'en',
-        iPadCaseLocalization
-      )
+    getProductLocalization: getDefaultLocalization('product', 'en', {
+      ...iPadCaseLocalization,
+      ...iPadPropertiesWithAdditionalCostLocalization,
+    }),
+    getCheckoutButtonLocalization: getDefaultLocalization(
+      'checkoutButton',
+      'en',
+      iPadCaseLocalization,
+    ),
+    getCartLocalization: getDefaultLocalization(
+      'cart',
+      'en',
+      iPadCaseLocalization,
+    ),
   };
 
   addProduct = (key, product, currency) =>
     void this.setState(
-      (
-        {
-          products:
-            {
-              [key]: cartProduct = { quantity: 0 },
-              ...restOfProducts
-            }
-        }
-      ) => ({
+      ({
+        products: { [key]: cartProduct = { quantity: 0 }, ...restOfProducts },
+      }) => ({
         products: {
           ...restOfProducts,
           [key]: {
             ...product,
-            quantity:
-              product.quantity +
-              cartProduct.quantity,
-          }
-        }
-      })
+            quantity: product.quantity + cartProduct.quantity,
+          },
+        },
+      }),
     );
 
   generateProductKey = (id, properties) =>
@@ -313,7 +291,6 @@ class App extends PureComponent {
   removeProduct = key => void console.log(':C');
 
   render() {
-
     const {
       addProduct,
       generateProductKey,
@@ -330,14 +307,15 @@ class App extends PureComponent {
       product,
     } = state;
 
-    const checkoutButtonElement =
+    const checkoutButtonElement = (
       <CheckoutButtonComponent
         grandTotal={500}
         hidden={false}
         checkoutURL="/to/my/checkout"
         currency="GBP"
         getLocalization={getCheckoutButtonLocalization}
-      />;
+      />
+    );
     return (
       <div className="container">
         <ProductComponent
@@ -349,11 +327,10 @@ class App extends PureComponent {
           }
           generateProductKey={
             generateProductKey
-                    // create product key as you wish
+            // create product key as you wish
           }
           getLocalization={getProductLocalization}
         />
-
 
         <CartComponent
           products={
@@ -364,20 +341,14 @@ class App extends PureComponent {
             updateProduct
             // Update something
           }
-          getLocalization={
-            getCartLocalization
-          }
+          getLocalization={getCartLocalization}
           currency="GBP"
           onRemoveProduct={
             removeProduct
             // Remove something
           }
-          checkoutButton={
-            checkoutButtonElement
-          }
-          isCartEmpty={
-            false
-          }
+          checkoutButton={checkoutButtonElement}
+          isCartEmpty={false}
           getLocalization={getCartLocalization}
         />
       </div>
