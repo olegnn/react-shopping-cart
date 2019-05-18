@@ -10,7 +10,6 @@ webpack.config.dev.js
 webpack.config.dist.js
 webpack.config.prod.js
 webpack.config.example_prod.js
-yarn.lock
 docs
 examples
 flow-typed
