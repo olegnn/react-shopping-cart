@@ -27,8 +27,6 @@ Pay attention! All components are [**Pure**](https://facebook.github.io/react/do
 
 ## Demo
 
-Production demo: [`https://www.solarleague.org/shop/macbook-case/`](https://www.solarleague.org/shop/macbook-case/)
-
 [`Latest version demo (example1)`](https://olegnn.github.io/react-shopping-cart)
 
 **Usage**
@@ -46,107 +44,107 @@ npm i --save react-shopping-cart
 In all cases you must include bootstrap version 4 (^alpha 0.6) in your project
 
 ```javascript
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 ```
 
 And if you want to see animation, also include animate.css
 
 ```javascript
-import 'animate.css/animate.min.css';
+import "animate.css/animate.min.css";
 ```
 
 Also want some icons?
 
 ```javascript
-import 'font-awesome/css/font-awesome.min.css';
+import "font-awesome/css/font-awesome.min.css";
 ```
 
 **With Redux.** After store initialization you must dispatch setCartCurrency action or 'USD' will be used as cart's currency.
 
 ```javascript
-import React, { PureComponent } from 'react';
-import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import React, { PureComponent } from "react";
+import { Provider } from "react-redux";
+import { createStore, combineReducers } from "redux";
 import {
   Cart,
   Product,
   CheckoutButton,
   cartLocalization,
   cartReducer,
-  setCartCurrency,
-} from 'react-shopping-cart';
+  setCartCurrency
+} from "react-shopping-cart";
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'animate.css/animate.min.css';
-import 'font-awesome/css/font-awesome.min.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "animate.css/animate.min.css";
+import "font-awesome/css/font-awesome.min.css";
 
 const { getDefaultLocalization } = cartLocalization;
 
 // You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
-  color: 'Color',
-  iPadCase: 'iPad case',
-  red: 'Red',
-  green: 'Green',
-  yellow: 'Yellow',
-  GBP: '£',
-  EUR: '€',
-  USD: '$',
+  color: "Color",
+  iPadCase: "iPad case",
+  red: "Red",
+  green: "Green",
+  yellow: "Yellow",
+  GBP: "£",
+  EUR: "€",
+  USD: "$"
 };
 
 const iPadPropertiesWithAdditionalCostLocalization = {
-  yellow: 'Yellow (+{cost}{localizedCurrency})',
+  yellow: "Yellow (+{cost}{localizedCurrency})"
 };
 
 const store = createStore(
   combineReducers({
-    cart: cartReducer,
+    cart: cartReducer
     // Your own reducers, sir
-  }),
+  })
 );
 
-store.dispatch(setCartCurrency('USD'));
+store.dispatch(setCartCurrency("USD"));
 
 class App extends PureComponent {
   state = {
     product: {
-      name: 'iPadCase',
-      id: 'ipad-case',
-      path: '/shop/ipad-case/',
+      name: "iPadCase",
+      id: "ipad-case",
+      path: "/shop/ipad-case/",
       properties: {
         color: [
-          'red',
-          'green',
+          "red",
+          "green",
           {
             additionalCost: {
               GBP: 1,
               EUR: 2,
-              USD: 3.5,
+              USD: 3.5
             },
-            value: 'yellow',
-          },
-        ],
+            value: "yellow"
+          }
+        ]
       },
-      propertiesToShowInCart: ['color'],
+      propertiesToShowInCart: ["color"],
       prices: { GBP: 70, EUR: 80, USD: 90 },
-      currency: 'GBP',
-      imageSrc: '1-483x321.jpeg',
+      currency: "GBP",
+      imageSrc: "1-483x321.jpeg"
     },
-    getProductLocalization: getDefaultLocalization('product', 'en', {
+    getProductLocalization: getDefaultLocalization("product", "en", {
       ...iPadCaseLocalization,
-      ...iPadPropertiesWithAdditionalCostLocalization,
+      ...iPadPropertiesWithAdditionalCostLocalization
     }),
     getCheckoutButtonLocalization: getDefaultLocalization(
-      'checkoutButton',
-      'en',
-      iPadCaseLocalization,
+      "checkoutButton",
+      "en",
+      iPadCaseLocalization
     ),
     getCartLocalization: getDefaultLocalization(
-      'cart',
-      'en',
-      iPadCaseLocalization,
-    ),
+      "cart",
+      "en",
+      iPadCaseLocalization
+    )
   };
 
   render() {
@@ -154,7 +152,7 @@ class App extends PureComponent {
       product,
       getCheckoutButtonLocalization,
       getProductLocalization,
-      getCartLocalization,
+      getCartLocalization
     } = this.state;
 
     const checkoutButtonElement = (
@@ -187,7 +185,7 @@ export default App;
 ```javascript
 // You may also import actions and actionTypes
 
-import { cartActions, cartActionTypes } from 'react-shopping-cart';
+import { cartActions, cartActionTypes } from "react-shopping-cart";
 
 // And do some cool things with them
 ```
@@ -195,100 +193,100 @@ import { cartActions, cartActionTypes } from 'react-shopping-cart';
 **Without redux**
 
 ```javascript
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   CartComponent,
   ProductComponent,
   CheckoutButtonComponent,
-  cartLocalization,
-} from 'react-shopping-cart';
+  cartLocalization
+} from "react-shopping-cart";
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'animate.css/animate.min.css';
-import 'font-awesome/css/font-awesome.min.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "animate.css/animate.min.css";
+import "font-awesome/css/font-awesome.min.css";
 
 const { getDefaultLocalization } = cartLocalization;
 
 // You may take localization object from wherever you want, that's just an example
 // For more information, see localization section
 const iPadCaseLocalization = {
-  color: 'Color',
-  iPadCase: 'iPad case',
-  red: 'Red',
-  green: 'Green',
-  yellow: 'Yellow',
-  GBP: '£',
-  EUR: '€',
-  USD: '$',
+  color: "Color",
+  iPadCase: "iPad case",
+  red: "Red",
+  green: "Green",
+  yellow: "Yellow",
+  GBP: "£",
+  EUR: "€",
+  USD: "$"
 };
 
 const iPadPropertiesWithAdditionalCostLocalization = {
-  yellow: 'Yellow (+{cost}{localizedCurrency})',
+  yellow: "Yellow (+{cost}{localizedCurrency})"
 };
 
 class App extends PureComponent {
   state = {
     products: {},
     product: {
-      name: 'iPadCase',
-      id: 'ipad-case',
-      path: '/shop/ipad-case/',
+      name: "iPadCase",
+      id: "ipad-case",
+      path: "/shop/ipad-case/",
       properties: {
         color: [
-          'red',
-          'green',
+          "red",
+          "green",
           {
             additionalCost: {
               GBP: 1,
               EUR: 2,
-              USD: 3.5,
+              USD: 3.5
             },
-            value: 'yellow',
-          },
-        ],
+            value: "yellow"
+          }
+        ]
       },
-      propertiesToShowInCart: ['color'],
+      propertiesToShowInCart: ["color"],
       prices: { GBP: 70, EUR: 80, USD: 90 },
-      currency: 'GBP',
-      imageSrc: '1-483x321.jpeg',
+      currency: "GBP",
+      imageSrc: "1-483x321.jpeg"
     },
-    getProductLocalization: getDefaultLocalization('product', 'en', {
+    getProductLocalization: getDefaultLocalization("product", "en", {
       ...iPadCaseLocalization,
-      ...iPadPropertiesWithAdditionalCostLocalization,
+      ...iPadPropertiesWithAdditionalCostLocalization
     }),
     getCheckoutButtonLocalization: getDefaultLocalization(
-      'checkoutButton',
-      'en',
-      iPadCaseLocalization,
+      "checkoutButton",
+      "en",
+      iPadCaseLocalization
     ),
     getCartLocalization: getDefaultLocalization(
-      'cart',
-      'en',
-      iPadCaseLocalization,
-    ),
+      "cart",
+      "en",
+      iPadCaseLocalization
+    )
   };
 
   addProduct = (key, product, currency) =>
     void this.setState(
       ({
-        products: { [key]: cartProduct = { quantity: 0 }, ...restOfProducts },
+        products: { [key]: cartProduct = { quantity: 0 }, ...restOfProducts }
       }) => ({
         products: {
           ...restOfProducts,
           [key]: {
             ...product,
-            quantity: product.quantity + cartProduct.quantity,
-          },
-        },
-      }),
+            quantity: product.quantity + cartProduct.quantity
+          }
+        }
+      })
     );
 
   generateProductKey = (id, properties) =>
-    `${id}/${Object.entries(properties).join('_')}`;
+    `${id}/${Object.entries(properties).join("_")}`;
 
-  updateProduct = (key, updatedProduct) => void console.log(':)');
+  updateProduct = (key, updatedProduct) => void console.log(":)");
 
-  removeProduct = key => void console.log(':C');
+  removeProduct = key => void console.log(":C");
 
   render() {
     const {
@@ -296,7 +294,7 @@ class App extends PureComponent {
       generateProductKey,
       updateProduct,
       removeProduct,
-      state,
+      state
     } = this;
 
     const {
@@ -304,7 +302,7 @@ class App extends PureComponent {
       getCheckoutButtonLocalization,
       getCartLocalization,
       products,
-      product,
+      product
     } = state;
 
     const checkoutButtonElement = (
