@@ -159,9 +159,8 @@ export default class App extends PureComponent {
         EUR: 60,
         USD: 70,
       },
-      imageSrc: 'https://www.solarleague.org/'+
-                        'shop/macbook-case/1-483x321.jpeg',
-      path: '/shop/macbook-case/',
+      imageSrc: 'public/macbook-case-photo.jpeg',
+      path: '',
     },
     localizationGetters: {
       en: {
