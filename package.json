@@ -24,7 +24,8 @@
     "lint": "eslint .",
     "build_example": "NODE_ENV=production webpack --config webpack.config.example_prod",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
-    "prepublish": "(yarn build & yarn doc) && echo Done"
+    "prepublish": "npm run snyk-protect && (yarn build & yarn doc) && echo Done",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "animate.css": "3.5.2",
@@ -40,7 +41,8 @@
     "react-scroll": "1.5.4",
     "react-transition-group": "2.2.0",
     "redux": "3.7.2",
-    "reselect": "3.0.1"
+    "reselect": "3.0.1",
+    "snyk": "^1.316.1"
   },
   "peerDependencies": {
     "react": "16.0.0",
@@ -97,5 +99,6 @@
     "globals": {
       "NODE_ENV": "release"
     }
-  }
+  },
+  "snyk": true
 }
