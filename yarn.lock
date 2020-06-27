@@ -1965,13 +1965,6 @@ babel-preset-jest@^26.1.0:
     babel-plugin-jest-hoist "^26.1.0"
     babel-preset-current-node-syntax "^0.1.2"
 
-babel-runtime@^6.26.0:
-  version "6.26.0"
-  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
-  dependencies:
-    core-js "^2.4.0"
-    regenerator-runtime "^0.11.0"
-
 babelify@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/babelify/-/babelify-10.0.0.tgz#fe73b1a22583f06680d8d072e25a1e0d1d1d7fb5"
@@ -2781,10 +2774,6 @@ core-js-compat@^3.6.2:
 core-js-pure@^3.0.0:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.6.5.tgz#c79e75f5e38dbc85a662d91eea52b8256d53b813"
-
-core-js@^2.4.0:
-  version "2.6.11"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
 
 core-js@^3.1.4:
   version "3.6.5"
@@ -7967,10 +7956,6 @@ regenerate-unicode-properties@^8.2.0:
 regenerate@^1.4.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.1.tgz#cad92ad8e6b591773485fbe05a485caf4f457e6f"
-
-regenerator-runtime@^0.11.0:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
 
 regenerator-runtime@^0.13.4:
   version "0.13.5"

@@ -233,7 +233,7 @@ class App extends PureComponent {
 
     const afterPriceNode = (
       <form className="d-flex flex-row justify-content-around">
-        <fieldset className="form-group text-center">
+        <fieldset className="form-group">
           <legend>{additionalLocalization[lang].selectLanguage}</legend>
           {Object.entries({ en: "english", fr: "french" }).map(
             ([short, full]) => (
@@ -252,7 +252,7 @@ class App extends PureComponent {
             ),
           )}
         </fieldset>
-        <fieldset className="form-group text-center">
+        <fieldset className="form-group">
           <legend>{additionalLocalization[lang].selectCurrency}</legend>
           {["GBP", "EUR", "USD"].map((name) => (
             <div key={name} className="form-check">
