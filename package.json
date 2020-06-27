@@ -25,7 +25,8 @@
     "lint": "prettier-eslint --write $PWD\"/app/**/*.js\" $PWD\"/__tests__/**/*.js\" $PWD\"/examples/example1/*.js\"",
     "build_example": "NODE_ENV=production webpack --config webpack.config.example_prod",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
-    "prepublish": "yarn build && yarn doc"
+    "prepublish": "npm run snyk-protect && yarn build && yarn doc",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "animate.css": "^4.1.0",
@@ -41,7 +42,8 @@
     "react-scroll": "^1.7.16",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "snyk": "^1.349.0"
   },
   "peerDependencies": {
     "react": "^16.0.0",
@@ -102,5 +104,6 @@
     "globals": {
       "NODE_ENV": "release"
     }
-  }
+  },
+  "snyk": true
 }
