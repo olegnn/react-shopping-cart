@@ -128,7 +128,7 @@ export type CartAction =
 export type LocalizationPattern =
   | string
   | {
-      component: string | (() => React$Element<*>),
+      component: string | React$ComponentType<*>,
       props?: Object,
       text: string,
     };

@@ -114,38 +114,38 @@ export type Props = {|
   /*
    * Function which generates product's key based on id and properties.
    */
-  generateProductKey?: GenerateProductKey,
+  generateProductKey: GenerateProductKey,
   /*
    * Custom product properties. Each property option list consists of number,
    * string or shape({ additionalCost(optional), onSelect(optional), value(required)})
    */
-  properties?: ProductPropertiesOptions,
+  properties: ProductPropertiesOptions,
   /*
    * Array of propery names to display in cart.
    */
-  propertiesToShowInCart?: Array<string>,
+  propertiesToShowInCart: Array<string>,
   /*
    * Config for animateScroll (from react-scroll) scrollTo function.
    */
-  scrollAnimationConfig?: Object,
+  scrollAnimationConfig: Object,
   /*
    * Position to scroll after product add.
    */
-  scrollPosition?: ScrollPosition,
-  scrollFunction?: ScrollFunction,
+  scrollPosition: ScrollPosition,
+  scrollFunction: ScrollFunction,
   /*
    *  ClassName for cart icon on add to button.
    */
-  iconAddProductClassName?: string,
-  checkoutButton?: React$Element<*>,
+  iconAddProductClassName: string,
+  checkoutButton: React$Element<*>,
   /*
    * Node to display before price element.
    */
-  descriptionNode?: React$Element<*>,
+  descriptionNode: React$Element<*>,
   /*
    * Node to display after price element.
    */
-  afterPriceNode?: React$Element<*>,
+  afterPriceNode: React$Element<*>,
 |};
 
 const scrollPosition: ScrollPosition =

@@ -30,6 +30,7 @@ export default class ProductPropertyLabel
 
   render() {
     const { name, value, } = this.props;
+    
     return (
       <div className="form-group row">
         <div

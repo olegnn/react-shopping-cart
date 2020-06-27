@@ -49,7 +49,7 @@ export type OnChange = (obj: { value: OptionIndex }) => void;
 export type Props = {|
   name: string,
   options: PropertyOptions,
-  selectedOptionIndex?: number,
+  selectedOptionIndex: number,
   currency: string,
   onChange: OnChange,
   getLocalization: GetLocalization,
