@@ -1,7 +1,0 @@
-dist
-gulpfile.js
-index.js
-flow-typed
-node_modules
-.git
-examples/build
