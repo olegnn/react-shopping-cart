@@ -148,9 +148,7 @@ export type Props = {|
   afterPriceNode: React$Element<*>,
 |};
 
-const scrollPosition: ScrollPosition =
-  ({ children, }) =>
-    getAbsoluteOffsetTop(children[children.length - 2]) - 5;
+const scrollPosition: ScrollPosition = ({ children, }) => getAbsoluteOffsetTop(children[children.length - 2]) - 5;
 
 const defaultProps = {
   properties: {},
@@ -187,41 +185,39 @@ export default class Product
     currency: string,
     handlePropertyValueChange: OnChange,
     getLocalization: GetLocalization,
-  ): Array<React$Element<*>> =>
-    Object
-      .entries(properties)
-      .map(([ name, options, ]) =>
-        (<ProductPropertyInput
-          key={name}
-          name={name}
-          options={options}
-          selectedOptionIndex={propertiesSelectedIndexes[name]}
-          currency={currency}
-          onChange={handlePropertyValueChange}
-          getLocalization={getLocalization}
-        />));
+  ): Array<React$Element<*>> => Object
+    .entries(properties)
+    .map(([ name, options, ]) => (
+      <ProductPropertyInput
+        key={name}
+        name={name}
+        options={options}
+        selectedOptionIndex={propertiesSelectedIndexes[name]}
+        currency={currency}
+        onChange={handlePropertyValueChange}
+        getLocalization={getLocalization}
+      />
+    ));
 
   static calculateAdditionalCost = (
     properties: ProductPropertiesOptions,
     selectedPropertyIndexes: OptionIndex,
     currency: string,
-  ): number =>
-    Object
-      .entries(properties)
-      .reduce(
-        (sum, [ propertyName, propertyOptions, ]) => {
-          const selectedOption
-            = propertyOptions[selectedPropertyIndexes[propertyName]||0];
-          return sum + (
-            isObject(selectedOption)
+  ): number => Object
+    .entries(properties)
+    .reduce(
+      (sum, [ propertyName, propertyOptions, ]) => {
+        const selectedOption = propertyOptions[selectedPropertyIndexes[propertyName]||0];
+        return sum + (
+          isObject(selectedOption)
             && (
               isObject(selectedOption.additionalCost)
               && selectedOption.additionalCost[currency]
             ) || 0
-          );
-        }
-        , 0,
-      );
+        );
+      },
+      0,
+    );
 
   static generateCartProduct = (
     {
@@ -250,14 +246,13 @@ export default class Product
       Object
         .entries(properties)
         .reduce(
-          (obj, [ propName, options, ]) =>
-            ({
-              ...obj,
-              [propName]:
+          (obj, [ propName, options, ]) => ({
+            ...obj,
+            [propName]:
             ProductPropertyInput
               .getOptionValue(options[selectedPropertyIndexes[propName]|0]),
-            })
-          , {},
+          }),
+          {},
         ),
     name,
     prices:
@@ -266,14 +261,14 @@ export default class Product
         .reduce(
           (acc, [ currency, price, ]) => ({
             ...acc,
-            [currency]: price +
-              Product.calculateAdditionalCost(
+            [currency]: price
+              + Product.calculateAdditionalCost(
                 properties,
                 selectedPropertyIndexes,
                 currency,
               ),
-          })
-          , {},
+          }),
+          {},
         ),
     path,
     imageSrc,
@@ -315,8 +310,7 @@ export default class Product
     event.preventDefault();
 
     if (quantity) {
-      const product =
-        generateCartProduct(props, quantity, selectedPropertyIndexes);
+      const product = generateCartProduct(props, quantity, selectedPropertyIndexes);
       onAddProduct(
         generateProductKey(
           id,
@@ -360,8 +354,7 @@ export default class Product
       calculateAdditionalCost,
     } = Product;
 
-    const price =
-      prices[currency]
+    const price = prices[currency]
       + calculateAdditionalCost(
         properties,
         selectedPropertyIndexes,
@@ -417,8 +410,8 @@ export default class Product
           <div className="form-group row">
             <div
               className={
-                'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 ' +
-                'm-auto'
+                'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 '
+                + 'm-auto'
               }
             >
               <button

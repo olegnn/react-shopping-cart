@@ -26,44 +26,41 @@ const testCartLocalization = {
   priceLabel: 'Price:',
   priceValue: '{localizedCurrency}{price}',
   totalLabel: 'Total:',
-  totalValue: '{localizedCurrency}{total, plural, ' +
-              '=0 {0}' +
-              'other {#}}',
+  totalValue: '{localizedCurrency}{total, plural, '
+              + '=0 {0}'
+              + 'other {#}}',
   remove: 'Remove',
   productPropertyLabel: '{localizedName}:',
   productPropertyValue: '{localizedValue}',
   GBP: '£',
 };
 
-const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(testCartLocalization[id], 'en').format(params);
+const getLocalization = (id, params = {}) => new IntlMessageFormat(testCartLocalization[id], 'en').format(params);
 
-const createCart = ({ products, }, renderFunc = mount) =>
-  renderFunc(<Cart
-    products={{ ...products, }}
-    onUpdateProduct={
+const createCart = ({ products, }, renderFunc = mount) => renderFunc(<Cart
+  products={{ ...products, }}
+  onUpdateProduct={
       (key, updatedProduct) => {
-          // That's just a test. Don't do like this,
-          // use immutable structures
+        // That's just a test. Don't do like this,
+        // use immutable structures
         products[key] = { ...products[key], ...updatedProduct, };
       }
     }
-    onRemoveProduct={
+  onRemoveProduct={
         key => void delete products[key]
         // Don't mutate given objects, create new
     }
-    checkoutButton={
-      <a />
+  checkoutButton={
+    <a />
     }
-    isCartEmpty={
+  isCartEmpty={
         false
       }
-    getLocalization={
+  getLocalization={
         getLocalization
       }
-    currency="GBP"
-  />);
-
+  currency="GBP"
+/>);
 
 describe('Cart', () => {
   const iPadCaseInCart = {

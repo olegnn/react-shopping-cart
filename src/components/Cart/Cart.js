@@ -142,7 +142,6 @@ const defaultProps = {
   linkComponent: DefaultLinkComponent,
 };
 
-
 export default class Cart
   extends PureComponent<Props, void> {
   props: Props;
@@ -168,7 +167,6 @@ export default class Cart
       linkComponent,
     } = this.props;
 
-
     return (
       <CSSTransition
         in={!isCartEmpty}
@@ -181,41 +179,41 @@ export default class Cart
               Object
                 .entries(products)
                 .map(([
-                    productKey: string,
-                    {
-                      prices,
-                      path,
-                      name,
-                      imageSrc,
-                      propertiesToShowInCart,
-                      quantity,
-                      properties,
-                    },
-                  ]) => (
-                    <CSSTransition
-                      {...cartItemCSSTransition}
-                      key={productKey}
-                    >
-                      <CartProduct
-                        product={products[productKey]}
-                        productKey={productKey}
-                        quantity={quantity}
-                        properties={properties}
-                        price={prices[currency]}
-                        currency={currency}
-                        path={path}
-                        name={name}
-                        imageSrc={imageSrc}
-                        altImageSrc={altProductImageSrc}
-                        propertiesToShow={propertiesToShowInCart}
-                        iconTrashClassName={iconTrashClassName}
-                        onUpdateProduct={onUpdateProduct}
-                        onRemoveProduct={onRemoveProduct}
-                        getLocalization={getLocalization}
-                        linkComponent={linkComponent}
-                      />
-                    </CSSTransition>
-                  ))
+                  productKey: string,
+                  {
+                    prices,
+                    path,
+                    name,
+                    imageSrc,
+                    propertiesToShowInCart,
+                    quantity,
+                    properties,
+                  },
+                ]) => (
+                  <CSSTransition
+                    {...cartItemCSSTransition}
+                    key={productKey}
+                  >
+                    <CartProduct
+                      product={products[productKey]}
+                      productKey={productKey}
+                      quantity={quantity}
+                      properties={properties}
+                      price={prices[currency]}
+                      currency={currency}
+                      path={path}
+                      name={name}
+                      imageSrc={imageSrc}
+                      altImageSrc={altProductImageSrc}
+                      propertiesToShow={propertiesToShowInCart}
+                      iconTrashClassName={iconTrashClassName}
+                      onUpdateProduct={onUpdateProduct}
+                      onRemoveProduct={onRemoveProduct}
+                      getLocalization={getLocalization}
+                      linkComponent={linkComponent}
+                    />
+                  </CSSTransition>
+                ))
             }
           </TransitionGroup>
           <div className="row my-1">

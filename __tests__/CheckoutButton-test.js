@@ -15,16 +15,15 @@ import CheckoutButton
 
 const testCheckoutButtonLocalization = {
   checkoutTotal:
-    'Checkout (Grand total {localizedCurrency}{total, plural, ' +
-    '=0 {0}' +
-    'other {#}})',
+    'Checkout (Grand total {localizedCurrency}{total, plural, '
+    + '=0 {0}'
+    + 'other {#}})',
   GBP: '£',
 };
 
-const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(
-    testCheckoutButtonLocalization[id], 'en',
-  ).format(params);
+const getLocalization = (id, params = {}) => new IntlMessageFormat(
+  testCheckoutButtonLocalization[id], 'en',
+).format(params);
 
 describe('CheckoutButton', () => {
   it('takes snapshot', () => {

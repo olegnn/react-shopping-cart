@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   module: {
-    mode: 'development',
     rules: [
       {
         test: /\.js$/,
@@ -23,30 +23,30 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          { loader: 'style-loader', },
-          { loader: 'css-loader', },
-        ],
+        use: [ { loader: 'style-loader', }, { loader: 'css-loader', }, ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: 'file-loader?name=public/fonts/[name].[ext]',
       },
+      {
+        test: /\.jpeg$/,
+        use: 'file-loader?name=public/[name].jpeg',
+      },
     ],
   },
   entry: [
     path.resolve(__dirname, 'examples/example1/app.js'),
+    path.resolve(__dirname, 'examples/example1/macbook-case-photo.jpeg'),
   ],
   output: {
-    path: path.resolve(__dirname, 'examples/build'),
+    path: path.resolve(__dirname, 'examples/example1/build'),
     filename: 'bundle.js',
   },
   devServer: {
     open: true, // to open the local server in browser
     index: path.resolve(__dirname, 'examples/example1/app.js'),
-    contentBase: path.resolve(__dirname, 'examples/build'),
+    contentBase: path.resolve(__dirname, 'examples/example1/build'),
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [ new webpack.HotModuleReplacementPlugin(), ],
 };

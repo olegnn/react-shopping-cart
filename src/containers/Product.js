@@ -23,7 +23,7 @@ import type {
 } from '../types';
 
 import Product from '../components/Product/Product';
-import CheckoutButton from '../containers/CheckoutButton';
+import CheckoutButton from './CheckoutButton';
 import { addToCart } from '../actions';
 import { currencySelector } from '../selectors';
 import { configure } from '../helpers';

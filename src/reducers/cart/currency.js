@@ -32,7 +32,6 @@ Object.setPrototypeOf(handlers, null);
 export default (
   state?: string = initialState,
   action: Object,
-): string =>
-  handlers[action.type]
-    ? handlers[action.type](state, action)
-    : state;
+): string => handlers[action.type]
+  ? handlers[action.type](state, action)
+  : state;

@@ -29,28 +29,25 @@ const testProductLocalization = {
   addToCart: 'Add to my cart :)',
 };
 
-const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(testProductLocalization[id], 'en').format(params);
+const getLocalization = (id, params = {}) => new IntlMessageFormat(testProductLocalization[id], 'en').format(params);
 
-const createProduct = ({ cartState, props, }, renderFunc = mount) =>
-  renderFunc(<Product
-    {...props}
-    onAddProduct={
+const createProduct = ({ cartState, props, }, renderFunc = mount) => renderFunc(<Product
+  {...props}
+  onAddProduct={
       (
-          key,
-          product,
+        key,
+        product,
       ) => {
-          cartState[key] = product;
+        cartState[key] = product;
       }
     }
-    checkoutButton={<a />}
-    getLocalization={
+  checkoutButton={<a />}
+  getLocalization={
         getLocalization
       }
-    currency="GBP"
-    generateProductKey={generateProductKey}
-  />);
-
+  currency="GBP"
+  generateProductKey={generateProductKey}
+/>);
 
 describe('Product', () => {
   const iPadCaseProps = {
@@ -78,8 +75,7 @@ describe('Product', () => {
       { color: 'red', },
     );
 
-    const simulateAddProductEvent =
-      () => renderedProduct.find('form').simulate('submit');
+    const simulateAddProductEvent = () => renderedProduct.find('form').simulate('submit');
 
     simulateAddProductEvent();
 
@@ -95,9 +91,8 @@ describe('Product', () => {
 
     expect(renderedProduct.update().state().quantity).toBe(1);
 
-    const colorSelect =
-      renderedProduct
-        .find('select');
+    const colorSelect = renderedProduct
+      .find('select');
 
     // Now add green case in our cart
     colorSelect.instance().value = 'green';

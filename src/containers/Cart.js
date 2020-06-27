@@ -24,7 +24,7 @@ import type {
 
 import { updateCart, removeFromCart } from '../actions';
 import Cart from '../components/Cart/Cart';
-import CheckoutButton from '../containers/CheckoutButton';
+import CheckoutButton from './CheckoutButton';
 import { configure } from '../helpers';
 import { getDefaultLocalization } from '../localization';
 import {
@@ -40,10 +40,8 @@ const mapStateToProps = (state: CartState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<CartAction>) => ({
-  onUpdateProduct: (key: string, updatedProduct: ProductData) =>
-    void dispatch(updateCart(key, updatedProduct)),
-  onRemoveProduct: (key: string) =>
-    void dispatch(removeFromCart(key)),
+  onUpdateProduct: (key: string, updatedProduct: ProductData) => void dispatch(updateCart(key, updatedProduct)),
+  onRemoveProduct: (key: string) => void dispatch(removeFromCart(key)),
 });
 
 export default (
@@ -52,7 +50,6 @@ export default (
       {
         checkoutButton: <CheckoutButton />,
         getLocalization: getDefaultLocalization('cart'),
-      },
-    ),
+      }),
   )
 );

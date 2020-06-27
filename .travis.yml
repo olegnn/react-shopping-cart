@@ -20,4 +20,4 @@ install:
   - yarn install
 
 script:
-  - yarn test && yarn build & yarn build_example
+  - yarn test && yarn build && yarn build_example

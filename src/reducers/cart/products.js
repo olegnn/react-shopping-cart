@@ -35,9 +35,8 @@ const handlers = {
       [key]: cartProduct = { quantity: 0, },
       ...restOfProducts
     } = products;
-    const newQuantity =
-        product.quantity +
-          cartProduct.quantity;
+    const newQuantity = product.quantity
+          + cartProduct.quantity;
     return {
       [key]: {
         ...product,
@@ -86,7 +85,6 @@ Object.setPrototypeOf(handlers, null);
 export default (
   state?: Products = initialState,
   action: Object,
-): Products =>
-  handlers[action.type]
-    ? handlers[action.type](state, action)
-    : state;
+): Products => handlers[action.type]
+  ? handlers[action.type](state, action)
+  : state;

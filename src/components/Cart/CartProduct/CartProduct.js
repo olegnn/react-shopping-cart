@@ -71,48 +71,46 @@ export default class CartProduct
     properties: ProductProperties,
     propertiesToShow: Array<string>,
     getLocalization: GetLocalization,
-  ): Array<React$Element<*>> =>
-    Object
-      .entries(properties)
-      .reduce(
-        (acc, [ name, value, ]) => {
-          const localizationScope = {
-            name,
-            value,
-            get localizedName() {
-              return getLocalization(name, localizationScope);
-            },
-            get localizedValue() {
-              return typeof value === 'string'
-                ? getLocalization(value, localizationScope)
-                : value;
-            },
-          };
+  ): Array<React$Element<*>> => Object
+    .entries(properties)
+    .reduce(
+      (acc, [ name, value, ]) => {
+        const localizationScope = {
+          name,
+          value,
+          get localizedName() {
+            return getLocalization(name, localizationScope);
+          },
+          get localizedValue() {
+            return typeof value === 'string'
+              ? getLocalization(value, localizationScope)
+              : value;
+          },
+        };
 
-          return [
-            ...acc,
-            ...(
-              propertiesToShow.includes(name)
-                ? [
-                  <ProductPropertyLabel
-                    key={name}
-                    name={
+        return [
+          ...acc,
+          ...(
+            propertiesToShow.includes(name)
+              ? [
+                <ProductPropertyLabel
+                  key={name}
+                  name={
                       getLocalization('productPropertyLabel', localizationScope)
                     }
-                    value={
+                  value={
                       getLocalization('productPropertyValue', localizationScope)
                     }
-                  />,
-                ]
-                : []
-            ),
-          ];
-        }
-        , [],
-      );
+                />,
+              ]
+              : []
+          ),
+        ];
+      },
+      [],
+    );
 
-  handleRemoveProductClick = () =>
-    void this.props.onRemoveProduct(this.props.productKey);
+  handleRemoveProductClick = () => void this.props.onRemoveProduct(this.props.productKey);
 
   handleQuantityValueChange = ({ currentTarget, }: InputEvent) => {
     const quantity = parseInteger(currentTarget.value);
@@ -126,8 +124,7 @@ export default class CartProduct
 
     if (natural) {
       fixInputValueStartingWithZero(currentTarget, quantity);
-      if (quantity !== currentQuantity)
-        onUpdateProduct(productKey, { ...product, quantity, });
+      if (quantity !== currentQuantity) onUpdateProduct(productKey, { ...product, quantity, });
     }
   };
 

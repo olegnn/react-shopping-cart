@@ -69,7 +69,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
   /*
    * If option value is an object, we need to extract primitive value
    */
-  static getOptionValue = (value: PropertyOption): ProductPropertyOption =>
+  static getOptionValue = (value: PropertyOption): ProductPropertyOption => 
     isObject(value) ? ProductPropertyInput.getOptionValue(value.value) : value;
 
   /*
@@ -80,26 +80,25 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
     getLocalization: GetLocalization,
     currency: string,
     localizationScope: Object = {},
-  ): Array<React$Element<*>> =>
-    options
-      .map(ProductPropertyInput.getOptionValue)
-      .map((optionValue, index) => (
-        <option key={optionValue} value={optionValue}>
-          {typeof optionValue === 'string'
-            ? getLocalization(optionValue, {
-                ...localizationScope,
-                ...(isObject(options[index])
-                  ? {
-                      cost:
-                        (isObject(options[index].additionalCost) &&
-                          options[index].additionalCost[currency]) ||
-                        0,
-                    }
-                  : {}),
-              })
-            : optionValue}
-        </option>
-      ));
+  ): Array<React$Element<*>> => options
+    .map(ProductPropertyInput.getOptionValue)
+    .map((optionValue, index) => (
+      <option key={optionValue} value={optionValue}>
+        {typeof optionValue === 'string'
+          ? getLocalization(optionValue, {
+            ...localizationScope,
+            ...(isObject(options[index])
+              ? {
+                cost:
+                        (isObject(options[index].additionalCost)
+                          && options[index].additionalCost[currency])
+                        || 0,
+              }
+              : {}),
+          })
+          : optionValue}
+      </option>
+    ));
 
   handleSelectInputValueChange = ({ currentTarget, }: InputEvent) => {
     const { value: optionValue, } = currentTarget;
@@ -114,10 +113,9 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
     const selectedOption = options[selectedOptionIndex];
 
     if (
-      isObject(selectedOption) &&
-      typeof selectedOption.onSelect === 'function'
-    )
-      selectedOption.onSelect(selectedOption);
+      isObject(selectedOption)
+      && typeof selectedOption.onSelect === 'function'
+    ) selectedOption.onSelect(selectedOption);
 
     onChange({
       value: { [name]: selectedOptionIndex, },
