@@ -11,15 +11,15 @@
  *
  */
 
-import React, { PureComponent } from 'react';
-import { isObject } from '../../../helpers';
+import React, { PureComponent } from "react";
+import { isObject } from "../../../helpers";
 
 import type {
   GetLocalization,
   InputEvent,
   ProductPropertyOption,
   Prices,
-} from '../../../types';
+} from "../../../types";
 
 /**
  * @typedef {Object.<string, number>} OptionIndex
@@ -49,7 +49,7 @@ export type OnChange = (obj: { value: OptionIndex }) => void;
 export type Props = {|
   name: string,
   options: PropertyOptions,
-  selectedOptionIndex?: number,
+  selectedOptionIndex: number,
   currency: string,
   onChange: OnChange,
   getLocalization: GetLocalization,
@@ -64,7 +64,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
 
   static defaultProps = defaultProps;
 
-  static displayName = 'ProductPropertyInput';
+  static displayName = "ProductPropertyInput";
 
   /*
    * If option value is an object, we need to extract primitive value
@@ -85,7 +85,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
       .map(ProductPropertyInput.getOptionValue)
       .map((optionValue, index) => (
         <option key={optionValue} value={optionValue}>
-          {typeof optionValue === 'string'
+          {typeof optionValue === "string"
             ? getLocalization(optionValue, {
                 ...localizationScope,
                 ...(isObject(options[index])
@@ -115,7 +115,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
 
     if (
       isObject(selectedOption) &&
-      typeof selectedOption.onSelect === 'function'
+      typeof selectedOption.onSelect === "function"
     )
       selectedOption.onSelect(selectedOption);
 
@@ -154,7 +154,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
           htmlFor={name}
           className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
         >
-          {getLocalization('propertyLabel', localizationScope)}
+          {getLocalization("propertyLabel", localizationScope)}
         </label>
         <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
           <select
@@ -162,14 +162,12 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
             className="form-control"
             value={getOptionValue(options[selectedOptionIndex | 0])}
           >
-            {
-              generateOptionsSelectionList(
-                options,
-                getLocalization,
-                currency,
-                localizationScope,
-              )
-            }
+            {generateOptionsSelectionList(
+              options,
+              getLocalization,
+              currency,
+              localizationScope,
+            )}
           </select>
         </div>
       </div>

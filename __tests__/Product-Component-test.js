@@ -7,104 +7,91 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import IntlMessageFormat from 'intl-messageformat';
-import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Product from '../src/components/Product/Product';
-import { generateProductKey } from '../src/helpers';
+import React from "react";
+import renderer from "react-test-renderer";
+import IntlMessageFormat from "intl-messageformat";
+import Enzyme, { mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import Product from "../src/components/Product/Product";
+import { generateProductKey } from "../src/helpers";
 
-Enzyme.configure({ adapter: new Adapter(), });
+Enzyme.configure({ adapter: new Adapter() });
 
 const testProductLocalization = {
-  color: 'Color',
-  iPadCase: 'iPad case',
-  red: 'Red',
-  green: 'Green',
-  price: 'Price: {localizedCurrency}{price}',
-  GBP: '£',
-  quantityLabel: 'Quantity:',
-  propertyLabel: '{localizedName}:',
-  addToCart: 'Add to my cart :)',
+  color: "Color",
+  iPadCase: "iPad case",
+  red: "Red",
+  green: "Green",
+  price: "Price: {localizedCurrency}{price}",
+  GBP: "£",
+  quantityLabel: "Quantity:",
+  propertyLabel: "{localizedName}:",
+  addToCart: "Add to my cart :)",
 };
 
 const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(testProductLocalization[id], 'en').format(params);
+  new IntlMessageFormat(testProductLocalization[id], "en").format(params);
 
-const createProduct = ({ cartState, props, }, renderFunc = mount) =>
-  renderFunc(<Product
-    {...props}
-    onAddProduct={
-      (
-          key,
-          product,
-      ) => {
-          cartState[key] = product;
-      }
-    }
-    checkoutButton={<a />}
-    getLocalization={
-        getLocalization
-      }
-    currency="GBP"
-    generateProductKey={generateProductKey}
-  />);
+const createProduct = ({ cartState, props }, renderFunc = mount) =>
+  renderFunc(
+    <Product
+      {...props}
+      onAddProduct={(key, product) => {
+        cartState[key] = product;
+      }}
+      checkoutButton={<a />}
+      getLocalization={getLocalization}
+      currency="GBP"
+      generateProductKey={generateProductKey}
+    />,
+  );
 
-
-describe('Product', () => {
+describe("Product", () => {
   const iPadCaseProps = {
-    name: 'ipadCase',
-    id: 'ipad-case',
-    path: '/shop/ipad-case/',
+    name: "ipadCase",
+    id: "ipad-case",
+    path: "/shop/ipad-case/",
     properties: {
-      color: [ 'red', 'green', ],
+      color: ["red", "green"],
     },
-    propertiesToShowInCart: [ 'color', ],
-    prices: { GBP: 70, },
-    currency: 'GBP',
-    imageSrc: '1-483x321.jpeg',
+    propertiesToShowInCart: ["color"],
+    prices: { GBP: 70 },
+    currency: "GBP",
+    imageSrc: "1-483x321.jpeg",
   };
 
-  it('adds products to cart', () => {
+  it("adds products to cart", () => {
     // Create empty cart
     const cartState = {};
 
     // Current product is ipad case (see props above)
-    const renderedProduct = createProduct({ cartState, props: iPadCaseProps, });
+    const renderedProduct = createProduct({ cartState, props: iPadCaseProps });
 
-    const productKey = generateProductKey(
-      iPadCaseProps.id,
-      { color: 'red', },
-    );
+    const productKey = generateProductKey(iPadCaseProps.id, { color: "red" });
 
-    const simulateAddProductEvent =
-      () => renderedProduct.find('form').simulate('submit');
+    const simulateAddProductEvent = () =>
+      renderedProduct.find("form").simulate("submit");
 
     simulateAddProductEvent();
 
     // Our product is in cart already
     expect(cartState[productKey].quantity).toBe(1);
 
-    const quantityInput = renderedProduct.find('input');
+    const quantityInput = renderedProduct.find("input");
 
     // Try to change quantity to -1
     quantityInput.instance().value = -1;
 
-    renderedProduct.find('input').simulate('change');
+    renderedProduct.find("input").simulate("change");
 
     expect(renderedProduct.update().state().quantity).toBe(1);
 
-    const colorSelect =
-      renderedProduct
-        .find('select');
+    const colorSelect = renderedProduct.find("select");
 
     // Now add green case in our cart
-    colorSelect.instance().value = 'green';
+    colorSelect.instance().value = "green";
 
-    renderedProduct
-      .find('select')
-      .simulate('change');
+    renderedProduct.find("select").simulate("change");
 
     simulateAddProductEvent();
 
@@ -112,9 +99,9 @@ describe('Product', () => {
     expect(Object.keys(cartState).length).toBe(2);
   });
 
-  it('takes snapshot', () => {
+  it("takes snapshot", () => {
     const renderedProduct = createProduct(
-      { props: iPadCaseProps, },
+      { props: iPadCaseProps },
       renderer.create,
     );
     expect(renderedProduct.toJSON()).toMatchSnapshot();

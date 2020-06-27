@@ -11,16 +11,13 @@
  *
  */
 
-import React, { PureComponent } from 'react';
-import CSSTransition from 'react-transition-group/CSSTransition';
-import classNames from 'classnames';
+import React, { PureComponent } from "react";
+import CSSTransition from "react-transition-group/CSSTransition";
+import classNames from "classnames";
 
-import type {
-  GetLocalization,
-  Link$Component,
-} from '../../types';
+import type { GetLocalization, Link$Component } from "../../types";
 
-import { DefaultLinkComponent } from '../../helpers';
+import { DefaultLinkComponent } from "../../helpers";
 
 /**
  * @memberof CheckoutButton
@@ -49,24 +46,24 @@ export type Props = {|
   /*
    * ClassName for cart icon on checkout button.
    */
-  iconCheckoutClassName?: string,
+  iconCheckoutClassName: string,
   /*
    * Transition's config for react-transition-group/CSSTransition.
    */
-  buttonCSSTransition?: Object,
+  buttonCSSTransition: Object,
   /*
    * React Component, will receive prop `to="%your product's page%"`.
    * I'd recommend you to take a look at react-router's Link.
    */
-  linkComponent?: Link$Component,
+  linkComponent: Link$Component,
 |};
 
 const defaultProps = {
-  iconCheckoutClassName: 'fa fa-shopping-cart mx-1',
+  iconCheckoutClassName: "fa fa-shopping-cart mx-1",
   buttonCSSTransition: {
     classNames: {
-      enter: 'fadeInUp',
-      exit: 'fadeOut',
+      enter: "animate__fadeInUp",
+      exit: "animate__fadeOut",
     },
     enter: true,
     exit: true,
@@ -80,13 +77,12 @@ const defaultProps = {
   linkComponent: DefaultLinkComponent,
 };
 
-export default class CheckoutButton
-  extends PureComponent<Props, void> {
+export default class CheckoutButton extends PureComponent<Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
 
-  static displayName = 'CheckoutButton';
+  static displayName = "CheckoutButton";
 
   render() {
     const {
@@ -109,27 +105,16 @@ export default class CheckoutButton
     };
 
     return (
-      <CSSTransition
-        in={!hidden}
-        {...buttonCSSTransition}
-      >
+      <CSSTransition in={!hidden} {...buttonCSSTransition}>
         <LinkComponent
           to={checkoutURL}
-          className={
-            classNames(
-              'btn', 'btn-primary', 'btn-block',
-              'animated',
-              {
-                disabled: !grandTotal,
-              },
-            )
-          }
+          className={classNames("btn", "btn-primary", "btn-block", "animate__animated", {
+            disabled: !grandTotal,
+          })}
           role="button"
         >
           <i className={iconCheckoutClassName} />
-          <span>
-            { getLocalization('checkoutTotal', localizationScope) }
-          </span>
+          <span>{getLocalization("checkoutTotal", localizationScope)}</span>
         </LinkComponent>
       </CSSTransition>
     );

@@ -10,9 +10,9 @@
  *
  */
 
-import { combineReducers } from 'redux';
-import products from './cart/products';
-import currency from './cart/currency';
+import { combineReducers } from "redux";
+import products from "./cart/products";
+import currency from "./cart/currency";
 
 /**
  * @function

@@ -10,8 +10,8 @@
  * React component to display product in cart.
  */
 
-import React, { PureComponent } from 'react';
-import classNames from 'classnames';
+import React, { PureComponent } from "react";
+import classNames from "classnames";
 
 import type {
   InputEvent,
@@ -21,15 +21,14 @@ import type {
   UpdateProduct,
   RemoveProduct,
   GetLocalization,
-} from '../../../types';
+} from "../../../types";
 
-import ProductPropertyLabel
-  from './ProductPropertyLabel/ProductPropertyLabel';
+import ProductPropertyLabel from "./ProductPropertyLabel/ProductPropertyLabel";
 import {
   fixInputValueStartingWithZero,
   isNaturalNumber,
   parseInteger,
-} from '../../../helpers';
+} from "../../../helpers";
 
 export type Props = {|
   product: ProductData,
@@ -38,8 +37,8 @@ export type Props = {|
   name: string,
   price: number,
   currency: string,
-  properties?: ProductProperties,
-  propertiesToShow?: Array<string>,
+  properties: ProductProperties,
+  propertiesToShow: Array<string>,
   imageSrc: string,
   altImageSrc: string,
   path: string,
@@ -55,13 +54,12 @@ const defaultProps = {
   propertiesToShow: [],
 };
 
-export default class CartProduct
-  extends PureComponent<Props, void> {
+export default class CartProduct extends PureComponent<Props, void> {
   props: Props;
 
   static defaultProps = defaultProps;
 
-  static displayName = 'CartProduct';
+  static displayName = "CartProduct";
 
   /*
    * Create form-group for each of properties which is in propertiesToShow
@@ -72,44 +70,39 @@ export default class CartProduct
     propertiesToShow: Array<string>,
     getLocalization: GetLocalization,
   ): Array<React$Element<*>> =>
-    Object
-      .entries(properties)
-      .reduce(
-        (acc, [ name, value, ]) => {
-          const localizationScope = {
-            name,
-            value,
-            get localizedName() {
-              return getLocalization(name, localizationScope);
-            },
-            get localizedValue() {
-              return typeof value === 'string'
-                ? getLocalization(value, localizationScope)
-                : value;
-            },
-          };
+    Object.entries(properties).reduce((acc, [ name, value,]) => {
+      const localizationScope = {
+        name,
+        value,
+        get localizedName() {
+          return getLocalization(name, localizationScope);
+        },
+        get localizedValue() {
+          return typeof value === "string"
+            ? getLocalization(value, localizationScope)
+            : value;
+        },
+      };
 
-          return [
-            ...acc,
-            ...(
-              propertiesToShow.includes(name)
-                ? [
-                  <ProductPropertyLabel
-                    key={name}
-                    name={
-                      getLocalization('productPropertyLabel', localizationScope)
-                    }
-                    value={
-                      getLocalization('productPropertyValue', localizationScope)
-                    }
-                  />,
-                ]
-                : []
-            ),
-          ];
-        }
-        , [],
-      );
+      return [
+        ...acc,
+        ...(propertiesToShow.includes(name)
+          ? [
+              <ProductPropertyLabel
+              key={name}
+              name={getLocalization(
+                  "productPropertyLabel",
+                  localizationScope,
+                )}
+              value={getLocalization(
+                  "productPropertyValue",
+                  localizationScope,
+                )}
+            />,
+            ]
+          : []),
+      ];
+    }, []);
 
   handleRemoveProductClick = () =>
     void this.props.onRemoveProduct(this.props.productKey);
@@ -132,11 +125,7 @@ export default class CartProduct
   };
 
   render() {
-    const {
-      handleQuantityValueChange,
-      handleRemoveProductClick,
-      props,
-    } = this;
+    const { handleQuantityValueChange, handleRemoveProductClick, props, } = this;
 
     const {
       name,
@@ -153,9 +142,7 @@ export default class CartProduct
       linkComponent: LinkComponent,
     } = props;
 
-    const {
-      generateProductDescription,
-    } = CartProduct;
+    const { generateProductDescription, } = CartProduct;
 
     const total = price * quantity;
 
@@ -175,41 +162,46 @@ export default class CartProduct
 
     return (
       <div
-        className={
-          classNames(
-            'list-group-item', 'list-group-item-action',
-            'align-items-start', 'animated',
-          )
-        }
+        className={classNames(
+          "list-group-item",
+          "list-group-item-action",
+          "align-items-start",
+          "animate__animated",
+        )}
       >
         <div className="row align-items-start">
-          <div className={
-            classNames(
-              'col-12', 'col-sm-12', 'col-md-4',
-              'col-lg-4', 'col-xl-3', 'my-1',
-            )
-          }
+          <div
+            className={classNames(
+              "col-12",
+              "col-sm-12",
+              "col-md-4",
+              "col-lg-4",
+              "col-xl-3",
+              "my-1",
+            )}
           >
             <LinkComponent to={path}>
               <div className="list-group-item-heading">
-                { getLocalization('productName', localizationScope) }
+                {getLocalization("productName", localizationScope)}
               </div>
               <img className="img-fluid" src={imageSrc} alt={altImageSrc} />
             </LinkComponent>
           </div>
-          <div className={
-            classNames(
-              'col-12', 'col-sm-12', 'col-md-5',
-              'col-lg-5', 'col-xl-7',
-            )
-          }
+          <div
+            className={classNames(
+              "col-12",
+              "col-sm-12",
+              "col-md-5",
+              "col-lg-5",
+              "col-xl-7",
+            )}
           >
             <div className="form-group row">
               <label
                 htmlFor="quantity"
                 className="col-6 col-md-5 col-lg-4 col-form-label"
               >
-                { getLocalization('quantityLabel', localizationScope) }
+                {getLocalization("quantityLabel", localizationScope)}
               </label>
               <div className="col-6 col-md-7 col-lg-8">
                 <input
@@ -220,28 +212,18 @@ export default class CartProduct
                 />
               </div>
             </div>
-            {
-              generateProductDescription(
-                properties,
-                propertiesToShow,
-                getLocalization,
-              )
-            }
+            {generateProductDescription(
+              properties,
+              propertiesToShow,
+              getLocalization,
+            )}
             <ProductPropertyLabel
-              name={
-                getLocalization('priceLabel', localizationScope)
-              }
-              value={
-                getLocalization('priceValue', localizationScope)
-              }
+              name={getLocalization("priceLabel", localizationScope)}
+              value={getLocalization("priceValue", localizationScope)}
             />
             <ProductPropertyLabel
-              name={
-                getLocalization('totalLabel', localizationScope)
-              }
-              value={
-                getLocalization('totalValue', localizationScope)
-              }
+              name={getLocalization("totalLabel", localizationScope)}
+              value={getLocalization("totalValue", localizationScope)}
             />
           </div>
           <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
@@ -254,9 +236,7 @@ export default class CartProduct
                   onClick={handleRemoveProductClick}
                 >
                   <i className={iconTrashClassName} />
-                  <span>
-                    { getLocalization('remove', localizationScope) }
-                  </span>
+                  <span>{getLocalization("remove", localizationScope)}</span>
                 </button>
               </div>
             </div>

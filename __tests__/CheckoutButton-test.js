@@ -7,32 +7,29 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import IntlMessageFormat from 'intl-messageformat';
-import CheckoutButton
-  from '../src/components/CheckoutButton/CheckoutButton';
+import React from "react";
+import renderer from "react-test-renderer";
+import IntlMessageFormat from "intl-messageformat";
+import CheckoutButton from "../src/components/CheckoutButton/CheckoutButton";
 
 const testCheckoutButtonLocalization = {
   checkoutTotal:
-    'Checkout (Grand total {localizedCurrency}{total, plural, ' +
-    '=0 {0}' +
-    'other {#}})',
-  GBP: '£',
+    "Checkout (Grand total {localizedCurrency}{total, plural, " +
+    "=0 {0}" +
+    "other {#}})",
+  GBP: "£",
 };
 
 const getLocalization = (id, params = {}) =>
-  new IntlMessageFormat(
-    testCheckoutButtonLocalization[id], 'en',
-  ).format(params);
+  new IntlMessageFormat(testCheckoutButtonLocalization[id], "en").format(
+    params,
+  );
 
-describe('CheckoutButton', () => {
-  it('takes snapshot', () => {
+describe("CheckoutButton", () => {
+  it("takes snapshot", () => {
     const renderedCheckoutButton = renderer.create(
       <CheckoutButton
-        getLocalization={
-          getLocalization
-        }
+        getLocalization={getLocalization}
         grandTotal={100}
         hidden={false}
         checkoutURL="/to/checkout/"

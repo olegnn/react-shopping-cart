@@ -62,14 +62,14 @@ export type Products = {
 /** @ */
 export type GenerateProductKey = (
   id: string,
-  properties: ProductProperties,
+  properties: ProductProperties
 ) => string;
 
 /** @ */
 export type AddProduct = (
   key: string,
   product: ProductData,
-  currency: string,
+  currency: string
 ) => void;
 
 /** @ */
@@ -81,12 +81,12 @@ export type RemoveProduct = (key: string) => void;
 /** @ */
 export type GetLocalization = (
   id: string,
-  params?: Object,
+  params?: Object
 ) => string | React$Element<*>;
 
 /** @ */
 export type CartAddAction = {|
-  type: 'cart/ADD',
+  type: "cart/ADD",
   key: string,
   product: ProductData,
   productCurrency: string,
@@ -94,25 +94,25 @@ export type CartAddAction = {|
 
 /** @ */
 export type CartUpdateAction = {|
-  type: 'cart/UPDATE',
+  type: "cart/UPDATE",
   key: string,
   updatedProduct: ProductData,
 |};
 
 /** @ */
 export type CartRemoveAction = {|
-  type: 'cart/REMOVE',
+  type: "cart/REMOVE",
   key: string,
 |};
 
 /** @ */
 export type CartEmptyAction = {|
-  type: 'cart/EMPTY',
+  type: "cart/EMPTY",
 |};
 
 /** @ */
 export type CartSetCurrencyAction = {|
-  type: 'cart/SET_CURRENCY',
+  type: "cart/SET_CURRENCY",
   currency: string,
 |};
 
@@ -128,7 +128,7 @@ export type CartAction =
 export type LocalizationPattern =
   | string
   | {
-      component: string | (() => React$Element<*>),
+      component: string | React$ComponentType<*>,
       props?: Object,
       text: string,
     };
@@ -166,4 +166,4 @@ export type DefaultLinkComponentProps = {
 };
 
 /** @ */
-export type Link$Component = DefaultLinkComponentProps => React$Element<*>;
+export type Link$Component = (DefaultLinkComponentProps) => React$Element<*>;

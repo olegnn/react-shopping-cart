@@ -1,20 +1,24 @@
 {
   "parser": "babel-eslint",
+  "plugins": ["prettier"],
+  "extends": ["airbnb", "plugin:flowtype/recommended", "plugin:prettier/recommended"],
   "env": {
     "browser": true
   },
-  "plugins": [
-    "flowtype"
-  ],
   "rules": {
+    "prettier/prettier": [2],
+
     "flowtype/space-before-type-colon": [2, "never"],
     "flowtype/space-after-type-colon": [2, "always"],
 
     "func-names": [0],
-    "key-spacing": [2, {
-      "beforeColon": false,
-      "afterColon": true,
-    }],
+    "key-spacing": [
+      2,
+      {
+        "beforeColon": false,
+        "afterColon": true
+      }
+    ],
     "semi": [2, "always"],
     "no-extra-semi": [2],
     "space-before-function-paren": [0],
@@ -38,15 +42,17 @@
     "valid-jsdoc": [0],
     "arrow-parens": [0],
     "default-case": [1],
-    "comma-dangle": [2, {
+    "comma-dangle": [
+      2,
+      {
         "arrays": "always",
         "objects": "always",
         "imports": "always-multiline",
         "exports": "always-multiline",
         "functions": "always-multiline"
-    }],
+      }
+    ],
     "array-bracket-spacing": [2, "always"],
-
 
     "import/no-extraneous-dependencies": [0],
     "import/no-duplicates": [2],
@@ -56,7 +62,7 @@
     "no-console": [0],
     "no-duplicate-imports": [0],
     "no-mixed-operators": [0],
-    "no-param-reassign": ["error", { "props": false }],
+    "no-param-reassign": [2, { "props": false }],
     "no-unused-vars": [1],
     "no-unused-expressions": [0],
     "no-unsafe-negation": [0],
@@ -65,6 +71,13 @@
     "no-shadow": [0],
     "no-use-before-define": [1],
 
+    "react/default-props-match-prop-types": [
+      2,
+      {
+        "allowRequiredDefaults": true
+      }
+    ],
+    "react/require-default-props": [0],
     "react/prop-types": [1],
     "react/jsx-curly-spacing": [2, "never"],
     "react/jsx-equals-spacing": [2, "never"],
@@ -72,17 +85,22 @@
     "react/jsx-no-bind": [2],
     "react/prefer-es6-class": [2],
     "react/prefer-stateless-function": [2],
-    "react/sort-comp": [2, {
-        order: [
-          'props',
-          'defaultProps',
-          'static-methods',
-          'lifecycle',
-          'everything-else',
-          'render'
+    "react/sort-comp": [
+      2,
+      {
+        "order": [
+          "props",
+          "defaultProps",
+          "static-variables",
+          "static-methods",
+          "lifecycle",
+          "everything-else",
+          "render"
         ]
       }
     ],
+    "react/jsx-props-no-spreading": [0],
+    "react/static-property-placement": [0],
     "jsx-a11y/href-no-hash": [0],
     "jsx-a11y/anchor-has-content": [0],
     "jsx-a11y/no-redundant-roles": [0],
@@ -92,13 +110,9 @@
   },
   "settings": {
     "flowtype": {
-      "onlyFilesWithFlowAnnotation": false,
+      "onlyFilesWithFlowAnnotation": false
     }
   },
-  "extends": [
-    "airbnb",
-    "plugin:flowtype/recommended"
-  ],
   "globals": {
     "Generator": true,
     "React$Element": true,

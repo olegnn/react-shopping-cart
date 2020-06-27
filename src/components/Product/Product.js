@@ -10,7 +10,7 @@
  * React component - Product form with price.
  */
 
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
 import type {
   Prices,
@@ -19,15 +19,15 @@ import type {
   AddProduct,
   GetLocalization,
   GenerateProductKey,
-} from '../../types';
+} from "../../types";
 
 import type {
   OnChange,
   PropertyOptions,
   OptionIndex,
-} from './ProductPropertyInput/ProductPropertyInput';
+} from "./ProductPropertyInput/ProductPropertyInput";
 
-import ProductPropertyInput from './ProductPropertyInput/ProductPropertyInput';
+import ProductPropertyInput from "./ProductPropertyInput/ProductPropertyInput";
 import {
   isObject,
   parseInteger,
@@ -36,23 +36,23 @@ import {
   generateProductKey,
   getAbsoluteOffsetTop,
   fixInputValueStartingWithZero,
-} from '../../helpers';
+} from "../../helpers";
 
 /**
  * @typedef {Object.<string, PropertyOptions>} ProductPropertiesOptions
  */
 export type ProductPropertiesOptions = {
-  [key: string]: PropertyOptions
+  [key: string]: PropertyOptions,
 };
 
 /** @ */
-export type ScrollPosition = number | (currentTarget: Element) => number;
+export type ScrollPosition = number | ((currentTarget: Element) => number);
 
 /** @ */
 export type ScrollFunction = (
   currentTarget: EventTarget,
-  scrollPosition: number | (currentTarget: Element) => number,
-  scrollAnimationConfig: Object,
+  scrollPosition: number | ((currentTarget: Element) => number),
+  scrollAnimationConfig: Object
 ) => void;
 
 /**
@@ -114,48 +114,47 @@ export type Props = {|
   /*
    * Function which generates product's key based on id and properties.
    */
-  generateProductKey?: GenerateProductKey,
+  generateProductKey: GenerateProductKey,
   /*
    * Custom product properties. Each property option list consists of number,
    * string or shape({ additionalCost(optional), onSelect(optional), value(required)})
    */
-  properties?: ProductPropertiesOptions,
+  properties: ProductPropertiesOptions,
   /*
    * Array of propery names to display in cart.
    */
-  propertiesToShowInCart?: Array<string>,
+  propertiesToShowInCart: Array<string>,
   /*
    * Config for animateScroll (from react-scroll) scrollTo function.
    */
-  scrollAnimationConfig?: Object,
+  scrollAnimationConfig: Object,
   /*
    * Position to scroll after product add.
    */
-  scrollPosition?: ScrollPosition,
-  scrollFunction?: ScrollFunction,
+  scrollPosition: ScrollPosition,
+  scrollFunction: ScrollFunction,
   /*
    *  ClassName for cart icon on add to button.
    */
-  iconAddProductClassName?: string,
-  checkoutButton?: React$Element<*>,
+  iconAddProductClassName: string,
+  checkoutButton: ?React$Element<*>,
   /*
    * Node to display before price element.
    */
-  descriptionNode?: React$Element<*>,
+  descriptionNode: ?React$Element<*>,
   /*
    * Node to display after price element.
    */
-  afterPriceNode?: React$Element<*>,
+  afterPriceNode: ?React$Element<*>,
 |};
 
-const scrollPosition: ScrollPosition =
-  ({ children, }) =>
-    getAbsoluteOffsetTop(children[children.length - 2]) - 5;
+const scrollPosition: ScrollPosition = ({ children, }) =>
+  getAbsoluteOffsetTop(children[children.length - 2]) - 5;
 
 const defaultProps = {
   properties: {},
   propertiesToShowInCart: [],
-  iconAddProductClassName: 'fa fa-cart-plus mx-1',
+  iconAddProductClassName: "fa fa-cart-plus mx-1",
   scrollAnimationConfig: {
     duration: 1250,
     delay: 0,
@@ -173,13 +172,12 @@ export type State = {|
   quantity: number,
 |} & OptionIndex;
 
-export default class Product
-  extends PureComponent<Props, State> {
+export default class Product extends PureComponent<Props, State> {
   props: Props;
 
   static defaultProps = defaultProps;
 
-  static displayName = 'Product';
+  static displayName = "Product";
 
   static createPropertiesInputList = (
     properties: ProductPropertiesOptions,
@@ -188,40 +186,37 @@ export default class Product
     handlePropertyValueChange: OnChange,
     getLocalization: GetLocalization,
   ): Array<React$Element<*>> =>
-    Object
-      .entries(properties)
-      .map(([ name, options, ]) =>
-        (<ProductPropertyInput
-          key={name}
-          name={name}
-          options={options}
-          selectedOptionIndex={propertiesSelectedIndexes[name]}
-          currency={currency}
-          onChange={handlePropertyValueChange}
-          getLocalization={getLocalization}
-        />));
+    Object.entries(properties).map(([ name, options ]) => (
+      <ProductPropertyInput
+        key={name}
+        name={name}
+        options={options}
+        selectedOptionIndex={propertiesSelectedIndexes[name]}
+        currency={currency}
+        onChange={handlePropertyValueChange}
+        getLocalization={getLocalization}
+      />
+    ));
 
   static calculateAdditionalCost = (
     properties: ProductPropertiesOptions,
     selectedPropertyIndexes: OptionIndex,
     currency: string,
   ): number =>
-    Object
-      .entries(properties)
-      .reduce(
-        (sum, [ propertyName, propertyOptions, ]) => {
-          const selectedOption
-            = propertyOptions[selectedPropertyIndexes[propertyName]||0];
-          return sum + (
-            isObject(selectedOption)
-            && (
-              isObject(selectedOption.additionalCost)
-              && selectedOption.additionalCost[currency]
-            ) || 0
-          );
-        }
-        , 0,
-      );
+    Object.entries(properties).reduce(
+      (sum, [ propertyName, propertyOptions,]) => {
+        const selectedOption =
+          propertyOptions[selectedPropertyIndexes[propertyName] || 0];
+        return (
+          sum +
+          ((isObject(selectedOption) &&
+            isObject(selectedOption.additionalCost) &&
+            selectedOption.additionalCost[currency]) ||
+            0)
+        );
+      },
+      0,
+    );
 
   static generateCartProduct = (
     {
@@ -246,35 +241,29 @@ export default class Product
   ): ProductData => ({
     id,
     quantity,
-    properties:
-      Object
-        .entries(properties)
-        .reduce(
-          (obj, [ propName, options, ]) =>
-            ({
-              ...obj,
-              [propName]:
-            ProductPropertyInput
-              .getOptionValue(options[selectedPropertyIndexes[propName]|0]),
-            })
-          , {},
+    properties: Object.entries(properties).reduce(
+      (obj, [ propName, options ]) => ({
+        ...obj,
+        [propName]: ProductPropertyInput.getOptionValue(
+          options[selectedPropertyIndexes[propName] | 0],
         ),
+      }),
+      {},
+    ),
     name,
-    prices:
-      Object
-        .entries(prices)
-        .reduce(
-          (acc, [ currency, price, ]) => ({
-            ...acc,
-            [currency]: price +
-              Product.calculateAdditionalCost(
-                properties,
-                selectedPropertyIndexes,
-                currency,
-              ),
-          })
-          , {},
-        ),
+    prices: Object.entries(prices).reduce(
+      (acc, [ currency, price,]) => ({
+        ...acc,
+        [currency]:
+          price +
+          Product.calculateAdditionalCost(
+            properties,
+            selectedPropertyIndexes,
+            currency,
+          ),
+      }),
+      {},
+    ),
     path,
     imageSrc,
     propertiesToShowInCart,
@@ -290,10 +279,10 @@ export default class Product
       fixInputValueStartingWithZero(currentTarget, quantity);
       this.setState({ quantity, });
     }
-  }
+  };
 
-  hanglePropertyValueChange: OnChange =
-    ({ value, }) => void this.setState(value);
+  hanglePropertyValueChange: OnChange = ({ value, }) =>
+    void this.setState(value);
 
   addProductFormSubmit = (event: Event) => {
     const { props, state, } = this;
@@ -315,19 +304,19 @@ export default class Product
     event.preventDefault();
 
     if (quantity) {
-      const product =
-        generateCartProduct(props, quantity, selectedPropertyIndexes);
+      const product = generateCartProduct(
+        props,
+        quantity,
+        selectedPropertyIndexes,
+      );
       onAddProduct(
-        generateProductKey(
-          id,
-          product.properties,
-        ),
+        generateProductKey(id, product.properties),
         product,
         currency,
       );
       scrollFunction(currentTarget, scrollPosition, scrollAnimationConfig);
     }
-  }
+  };
 
   render() {
     const {
@@ -350,23 +339,12 @@ export default class Product
       getLocalization,
     } = props;
 
-    const {
-      quantity,
-      ...selectedPropertyIndexes
-    } = state;
+    const { quantity, ...selectedPropertyIndexes } = state;
 
-    const {
-      createPropertiesInputList,
-      calculateAdditionalCost,
-    } = Product;
+    const { createPropertiesInputList, calculateAdditionalCost, } = Product;
 
-    const price =
-      prices[currency]
-      + calculateAdditionalCost(
-        properties,
-        selectedPropertyIndexes,
-        currency,
-      );
+    const price = prices[currency];
+    calculateAdditionalCost(properties, selectedPropertyIndexes, currency);
 
     const localizationScope = {
       name,
@@ -383,27 +361,23 @@ export default class Product
 
     return (
       <div>
-        { descriptionNode }
-        <p>
-          { getLocalization('price', localizationScope) }
-        </p>
-        { afterPriceNode }
+        {descriptionNode}
+        <p>{getLocalization("price", localizationScope)}</p>
+        {afterPriceNode}
         <form className="my-1" onSubmit={addProductFormSubmit}>
-          {
-            createPropertiesInputList(
-              properties,
-              selectedPropertyIndexes,
-              currency,
-              hanglePropertyValueChange,
-              getLocalization,
-            )
-          }
+          {createPropertiesInputList(
+            properties,
+            selectedPropertyIndexes,
+            currency,
+            hanglePropertyValueChange,
+            getLocalization,
+          )}
           <div className="form-group row">
             <label
               htmlFor="product-quantity"
               className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
             >
-              { getLocalization('quantityLabel', localizationScope) }
+              {getLocalization("quantityLabel", localizationScope)}
             </label>
             <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
               <input
@@ -417,8 +391,7 @@ export default class Product
           <div className="form-group row">
             <div
               className={
-                'col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 ' +
-                'm-auto'
+                "col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-6 " + "m-auto"
               }
             >
               <button
@@ -428,11 +401,9 @@ export default class Product
                 disabled={!quantity}
               >
                 <i className={iconAddProductClassName} />
-                {
-                  getLocalization('addToCart', localizationScope)
-                }
+                {getLocalization("addToCart", localizationScope)}
               </button>
-              { checkoutButton }
+              {checkoutButton}
             </div>
           </div>
         </form>
