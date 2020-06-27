@@ -3,12 +3,11 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   module: {
+    mode: "production",
     rules: [
       {
         test: /\.js$/,
-        use: [
-          "babel-loader"
-        ],
+        use: ["babel-loader"],
         exclude: /node_modules/,
       },
       {
