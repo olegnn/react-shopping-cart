@@ -7,10 +7,10 @@
  *
  */
 
-import React from 'react';
-import { animateScroll } from 'react-scroll';
+import React from "react";
+import { animateScroll } from "react-scroll";
 
-import type { GenerateProductKey, DefaultLinkComponentProps } from './types';
+import type { GenerateProductKey, DefaultLinkComponentProps } from "./types";
 
 /**
  * @memberof helpers
@@ -31,7 +31,8 @@ export const configure = <Props>(
 /**
  * @memberof helpers
  */
-export const isNaturalNumber = (num: number): boolean => Number.isSafeInteger(num) && num > -1;
+export const isNaturalNumber = (num: number): boolean =>
+  Number.isSafeInteger(num) && num > -1;
 
 /**
  * @memberof helpers
@@ -45,7 +46,7 @@ export const parseInteger = (num: string): number => {
  * @memberof helpers
  */
 export function isObject(value: mixed): boolean %checks {
-  return value != null && typeof value === 'object';
+  return value != null && typeof value === "object";
 }
 
 /**
@@ -54,18 +55,21 @@ export function isObject(value: mixed): boolean %checks {
 export const getAbsoluteOffsetTop = ({
   offsetTop,
   offsetParent,
-}: HTMLElement = {}): number => offsetTop
-  + (offsetParent
-    && offsetParent instanceof HTMLElement
-    && getAbsoluteOffsetTop(offsetParent));
+}: HTMLElement = {}): number =>
+  offsetTop +
+  (offsetParent &&
+    offsetParent instanceof HTMLElement &&
+    getAbsoluteOffsetTop(offsetParent));
 
 /*
  * key in format id/_property1-valueOfProperty1 etc
  */
-export const generateProductKey: GenerateProductKey = (id, properties) => Object.entries(properties).reduce(
-  (acc: string, [ propName, propValue, ]) => `${acc}_${propName}-${String(propValue)}`,
-  `${id}/`,
-);
+export const generateProductKey: GenerateProductKey = (id, properties) =>
+  Object.entries(properties).reduce(
+    (acc: string, [ propName, propValue,]) =>
+      `${acc}_${propName}-${String(propValue)}`,
+    `${id}/`,
+  );
 
 /**
  * @memberof helpers
@@ -94,12 +98,13 @@ export const scrollFunction = (
   target: EventTarget,
   scrollPosition: number | ((currentTarget: Element) => number),
   scrollAnimationConfig: Object,
-) => void (
-  target instanceof Element
-    && animateScroll.scrollTo(
-      typeof scrollPosition === 'function'
+) =>
+  void (
+    target instanceof Element &&
+    animateScroll.scrollTo(
+      typeof scrollPosition === "function"
         ? scrollPosition(target)
         : scrollPosition,
       scrollAnimationConfig,
     )
-);
+  );

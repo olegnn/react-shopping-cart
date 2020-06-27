@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "plugins": ["prettier"],
-  "extends": ["plugin:prettier/recommended"],
+  "extends": ["airbnb", "plugin:flowtype/recommended", "plugin:prettier/recommended"],
   "env": {
     "browser": true
   },
@@ -113,7 +113,6 @@
       "onlyFilesWithFlowAnnotation": false
     }
   },
-  "extends": ["airbnb", "plugin:flowtype/recommended"],
   "globals": {
     "Generator": true,
     "React$Element": true,

@@ -15,66 +15,47 @@ import type {
   CartAddAction,
   CartUpdateAction,
   CartRemoveAction,
-} from '../../types';
+} from "../../types";
 
-import * as actionTypes from '../../actionTypes';
-import { isNaturalNumber } from '../../helpers';
+import * as actionTypes from "../../actionTypes";
+import { isNaturalNumber } from "../../helpers";
 
 const initialState: Products = {};
 
 const handlers = {
-  [actionTypes.CART_ADD]:
-  (
+  [actionTypes.CART_ADD]: (
     products: Products,
-    {
-      key,
-      product,
-    }: CartAddAction,
+    { key, product, }: CartAddAction,
   ): Products => {
     const {
       [key]: cartProduct = { quantity: 0, },
       ...restOfProducts
     } = products;
-    const newQuantity = product.quantity
-          + cartProduct.quantity;
+    const newQuantity = product.quantity + cartProduct.quantity;
     return {
       [key]: {
         ...product,
-        quantity:
-            +isNaturalNumber(newQuantity)
-            && newQuantity,
+        quantity: +isNaturalNumber(newQuantity) && newQuantity,
       },
       ...restOfProducts,
     };
   },
-  [actionTypes.CART_UPDATE]:
-  (
+  [actionTypes.CART_UPDATE]: (
     products: Products,
-    {
-      key,
-      updatedProduct,
-    }: CartUpdateAction,
+    { key, updatedProduct, }: CartUpdateAction,
   ): Products => {
     const { ...clonedProducts } = products;
     clonedProducts[key] = updatedProduct;
     return clonedProducts;
   },
-  [actionTypes.CART_REMOVE]:
-  (
+  [actionTypes.CART_REMOVE]: (
     products: Products,
     { key, }: CartRemoveAction,
   ): Products => {
     const { [key]: _, ...restOfProducts } = products;
-    return (
-      Object
-        .keys(restOfProducts)
-        .length
-        ? restOfProducts
-        : initialState
-    );
+    return Object.keys(restOfProducts).length ? restOfProducts : initialState;
   },
-  [actionTypes.CART_EMPTY]:
-  (): Products => initialState,
+  [actionTypes.CART_EMPTY]: (): Products => initialState,
 };
 
 Object.setPrototypeOf(handlers, null);
@@ -82,9 +63,5 @@ Object.setPrototypeOf(handlers, null);
 /**
  * @function
  */
-export default (
-  state?: Products = initialState,
-  action: Object,
-): Products => handlers[action.type]
-  ? handlers[action.type](state, action)
-  : state;
+export default (state?: Products = initialState, action: Object): Products =>
+  handlers[action.type] ? handlers[action.type](state, action) : state;

@@ -11,15 +11,15 @@
  *
  */
 
-import React, { PureComponent } from 'react';
-import { isObject } from '../../../helpers';
+import React, { PureComponent } from "react";
+import { isObject } from "../../../helpers";
 
 import type {
   GetLocalization,
   InputEvent,
   ProductPropertyOption,
   Prices,
-} from '../../../types';
+} from "../../../types";
 
 /**
  * @typedef {Object.<string, number>} OptionIndex
@@ -64,12 +64,12 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
 
   static defaultProps = defaultProps;
 
-  static displayName = 'ProductPropertyInput';
+  static displayName = "ProductPropertyInput";
 
   /*
    * If option value is an object, we need to extract primitive value
    */
-  static getOptionValue = (value: PropertyOption): ProductPropertyOption => 
+  static getOptionValue = (value: PropertyOption): ProductPropertyOption =>
     isObject(value) ? ProductPropertyInput.getOptionValue(value.value) : value;
 
   /*
@@ -80,25 +80,26 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
     getLocalization: GetLocalization,
     currency: string,
     localizationScope: Object = {},
-  ): Array<React$Element<*>> => options
-    .map(ProductPropertyInput.getOptionValue)
-    .map((optionValue, index) => (
-      <option key={optionValue} value={optionValue}>
-        {typeof optionValue === 'string'
-          ? getLocalization(optionValue, {
-            ...localizationScope,
-            ...(isObject(options[index])
-              ? {
-                cost:
-                        (isObject(options[index].additionalCost)
-                          && options[index].additionalCost[currency])
-                        || 0,
-              }
-              : {}),
-          })
-          : optionValue}
-      </option>
-    ));
+  ): Array<React$Element<*>> =>
+    options
+      .map(ProductPropertyInput.getOptionValue)
+      .map((optionValue, index) => (
+        <option key={optionValue} value={optionValue}>
+          {typeof optionValue === "string"
+            ? getLocalization(optionValue, {
+                ...localizationScope,
+                ...(isObject(options[index])
+                  ? {
+                      cost:
+                        (isObject(options[index].additionalCost) &&
+                          options[index].additionalCost[currency]) ||
+                        0,
+                    }
+                  : {}),
+              })
+            : optionValue}
+        </option>
+      ));
 
   handleSelectInputValueChange = ({ currentTarget, }: InputEvent) => {
     const { value: optionValue, } = currentTarget;
@@ -113,9 +114,10 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
     const selectedOption = options[selectedOptionIndex];
 
     if (
-      isObject(selectedOption)
-      && typeof selectedOption.onSelect === 'function'
-    ) selectedOption.onSelect(selectedOption);
+      isObject(selectedOption) &&
+      typeof selectedOption.onSelect === "function"
+    )
+      selectedOption.onSelect(selectedOption);
 
     onChange({
       value: { [name]: selectedOptionIndex, },
@@ -152,7 +154,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
           htmlFor={name}
           className="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-form-label"
         >
-          {getLocalization('propertyLabel', localizationScope)}
+          {getLocalization("propertyLabel", localizationScope)}
         </label>
         <div className="col-xs-9 col-sm-9 col-md-9 col-lg-9">
           <select
@@ -160,14 +162,12 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
             className="form-control"
             value={getOptionValue(options[selectedOptionIndex | 0])}
           >
-            {
-              generateOptionsSelectionList(
-                options,
-                getLocalization,
-                currency,
-                localizationScope,
-              )
-            }
+            {generateOptionsSelectionList(
+              options,
+              getLocalization,
+              currency,
+              localizationScope,
+            )}
           </select>
         </div>
       </div>

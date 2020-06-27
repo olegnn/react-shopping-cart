@@ -9,21 +9,18 @@
  * Redux container for CheckoutButton
  */
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import type {
-  CartState,
-} from '../types';
+import type { CartState } from "../types";
 
-import CheckoutButtonComponent
-  from '../components/CheckoutButton/CheckoutButton';
-import { getDefaultLocalization } from '../localization';
+import CheckoutButtonComponent from "../components/CheckoutButton/CheckoutButton";
+import { getDefaultLocalization } from "../localization";
 import {
   totalSelector,
   currencySelector,
   isCartEmptySelector,
-} from '../selectors';
-import { configure } from '../helpers';
+} from "../selectors";
+import { configure } from "../helpers";
 
 const mapStateToProps = (state: CartState) => ({
   grandTotal: totalSelector(state),
@@ -31,10 +28,8 @@ const mapStateToProps = (state: CartState) => ({
   currency: currencySelector(state),
 });
 
-export default (
-  connect(mapStateToProps)(
-    configure(CheckoutButtonComponent, {
-      getLocalization: getDefaultLocalization('checkoutButton'),
-    }),
-  )
+export default connect(mapStateToProps)(
+  configure(CheckoutButtonComponent, {
+    getLocalization: getDefaultLocalization("checkoutButton"),
+  }),
 );

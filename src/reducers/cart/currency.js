@@ -10,15 +10,14 @@
  *
  */
 
-import type { CartSetCurrencyAction } from '../../types';
+import type { CartSetCurrencyAction } from "../../types";
 
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from "../../actionTypes";
 
-const initialState = 'USD';
+const initialState = "USD";
 
 const handlers = {
-  [actionTypes.CART_SET_CURRENCY]:
-  (
+  [actionTypes.CART_SET_CURRENCY]: (
     _: string,
     { currency, }: CartSetCurrencyAction,
   ): string => currency,
@@ -29,9 +28,5 @@ Object.setPrototypeOf(handlers, null);
 /**
  * @function
  */
-export default (
-  state?: string = initialState,
-  action: Object,
-): string => handlers[action.type]
-  ? handlers[action.type](state, action)
-  : state;
+export default (state?: string = initialState, action: Object): string =>
+  handlers[action.type] ? handlers[action.type](state, action) : state;
