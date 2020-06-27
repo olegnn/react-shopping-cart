@@ -5,12 +5,16 @@ import "font-awesome/css/font-awesome.css";
 import React, { PureComponent } from "react";
 import ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
-import Product from "../../src/containers/Product";
-import Cart from "../../src/containers/Cart";
-import CheckoutButton from "../../src/containers/CheckoutButton";
-import { setCartCurrency } from "../../src/actions";
-import { getDefaultLocalization } from "../../src/localization";
+import {
+  Product,
+  Cart,
+  CheckoutButton,
+  setCartCurrency,
+  cartLocalization,
+} from "../..";
 import store from "./store";
+
+const { getDefaultLocalization } = cartLocalization;
 
 const enProductPropertiesWithAdditionalCostLocalization = {
   purple: "Purple (+{cost, number, CUR})",
