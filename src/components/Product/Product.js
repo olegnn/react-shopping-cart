@@ -137,15 +137,15 @@ export type Props = {|
    *  ClassName for cart icon on add to button.
    */
   iconAddProductClassName: string,
-  checkoutButton: React$Element<*>,
+  checkoutButton: ?React$Element<*>,
   /*
    * Node to display before price element.
    */
-  descriptionNode: React$Element<*>,
+  descriptionNode: ?React$Element<*>,
   /*
    * Node to display after price element.
    */
-  afterPriceNode: React$Element<*>,
+  afterPriceNode: ?React$Element<*>,
 |};
 
 const scrollPosition: ScrollPosition = ({ children, }) =>

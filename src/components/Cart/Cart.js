@@ -82,7 +82,7 @@ export type Props = {|
   /*
    * Button to display in the bottom of cart.
    */
-  checkoutButton: React$Element<*>,
+  checkoutButton: ?React$Element<*>,
   /*
    * ClassName for trash icon on remove button.
    */

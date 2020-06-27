@@ -245,7 +245,7 @@ class App extends PureComponent {
                   {` ${additionalLocalization[lang][full]}`}
                 </label>
               </div>
-            )
+            ),
           )}
         </fieldset>
         <fieldset className="form-group text-center">

@@ -504,35 +504,35 @@ __Localization__ default ids and params bindings:
 -   [CheckoutButton][6]
     -   [Props][7]
         -   [Properties][8]
--   [Product][9]
-    -   [Props][10]
-        -   [Properties][11]
--   [ProductPropertiesOptions][12]
--   [ScrollPosition][13]
--   [ScrollFunction][14]
--   [ProductPropertyInput][15]
--   [OptionIndex][16]
--   [OptionObject][17]
--   [PropertyOption][18]
--   [PropertyOptions][19]
--   [OnChange][20]
--   [helpers][21]
-    -   [configure][22]
+-   [helpers][9]
+    -   [configure][10]
+        -   [Parameters][11]
+    -   [isNaturalNumber][12]
+        -   [Parameters][13]
+    -   [parseInteger][14]
+        -   [Parameters][15]
+    -   [isObject][16]
+        -   [Parameters][17]
+    -   [getAbsoluteOffsetTop][18]
+        -   [Parameters][19]
+    -   [DefaultLinkComponent][20]
+        -   [Parameters][21]
+    -   [fixInputValueStartingWithZero][22]
         -   [Parameters][23]
-    -   [isNaturalNumber][24]
+    -   [scrollFunction][24]
         -   [Parameters][25]
-    -   [parseInteger][26]
-        -   [Parameters][27]
-    -   [isObject][28]
-        -   [Parameters][29]
-    -   [getAbsoluteOffsetTop][30]
-        -   [Parameters][31]
-    -   [DefaultLinkComponent][32]
-        -   [Parameters][33]
-    -   [fixInputValueStartingWithZero][34]
-        -   [Parameters][35]
-    -   [scrollFunction][36]
-        -   [Parameters][37]
+-   [Product][26]
+    -   [Props][27]
+        -   [Properties][28]
+-   [ProductPropertiesOptions][29]
+-   [ScrollPosition][30]
+-   [ScrollFunction][31]
+-   [ProductPropertyInput][32]
+-   [OptionIndex][33]
+-   [OptionObject][34]
+-   [PropertyOption][35]
+-   [PropertyOptions][36]
+-   [OnChange][37]
 -   [ProductPropertyOption][38]
 -   [ProductProperties][39]
 -   [Prices][40]
@@ -651,86 +651,6 @@ Type: [Object][69]
 -   `linkComponent` **[Link$Component][76]?** React Component, will receive prop `to="%your product's page%"`.
     I'd recommend you to take a look at react-router's Link.
 
-## Product
-
-**Extends React.PureComponent**
-
-React component - Product form with price.
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-### Props
-
-Type: [Object][69]
-
-#### Properties
-
--   `id` **[string][71]** Product's id. Required.
--   `name` **[string][71]** Name to display pattern. Required.
--   `path` **[string][71]** Path to product. Required.
--   `prices` **[Prices][78]** {currency: value}. Required
--   `imageSrc` **[string][71]** Path to main image. Required.
--   `currency` **[string][71]** Current price currency. Required.
--   `onAddProduct` **[AddProduct][79]** Function to call when user wants to add product in his cart. Required.
--   `generateProductKey` **[GenerateProductKey][80]** Required.
--   `getLocalization` **[GetLocalization][75]** Required.
--   `properties` **[ProductPropertiesOptions][81]?** Custom product properties. Each property option list consists of number,
-    string or shape({ additionalCost(optional), onSelect(optional), value(required)})
--   `propertiesToShowInCart` **[Array][82]&lt;[string][71]>?** Array of propery names to display in cart.
--   `scrollAnimationConfig` **[Object][69]?** Config for animateScroll (from react-scroll) scrollTo function.
--   `scrollPosition` **[ScrollPosition][83]?** Position to scroll after product add. May be number or function returning number.
--   `scrollFunction` **[ScrollFunction][84]?** Function which will be called when product has been added.
--   `iconAddProductClassName` **[string][71]?** ClassName for cart icon on add to button. Default is 'fa fa-cart-plus mx-1'.
--   `checkoutButton` **ReactElement?** 
--   `descriptionNode` **ReactNode?** Node to display before price element.
--   `afterPriceNode` **ReactNode?** Node to display after price element.
-
-## ProductPropertiesOptions
-
-Type: [Object][69]&lt;[string][71], [PropertyOptions][85]>
-
-## ScrollPosition
-
-Type: ([number][77] | function (currentTarget: [Element][86]): [number][77])
-
-## ScrollFunction
-
-Type: function (currentTarget: [EventTarget][87], scrollPosition: ([number][77] | function (currentTarget: [Element][86]): [number][77]), scrollAnimationConfig: [Object][69]): void
-
-## ProductPropertyInput
-
-**Extends React.PureComponent**
-
-React form for product property(options select only).
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-## OptionIndex
-
-Type: [Object][69]&lt;[string][71], [number][77]>
-
-## OptionObject
-
-Type: [Object][69]
-
-## PropertyOption
-
-Type: ([ProductPropertyOption][88] \| [OptionObject][89])
-
-## PropertyOptions
-
-Type: [Array][82]&lt;[PropertyOption][90]>
-
-## OnChange
-
-Type: function (obj: {value: [OptionIndex][91]}): void
-
 ## helpers
 
 **Meta**
@@ -775,7 +695,7 @@ Returns **[boolean][72]**
 
 #### Parameters
 
--   `$0` **[HTMLElement][92]**  (optional, default `{}`)
+-   `$0` **[HTMLElement][78]**  (optional, default `{}`)
     -   `$0.offsetTop`  
     -   `$0.offsetParent`  
 
@@ -785,7 +705,7 @@ Returns **[number][77]**
 
 #### Parameters
 
--   `$0` **[DefaultLinkComponentProps][93]** 
+-   `$0` **[DefaultLinkComponentProps][79]** 
     -   `$0.to`  
     -   `$0.otherProps` **...any** 
 
@@ -795,16 +715,96 @@ Returns **React$Element&lt;any>**
 
 #### Parameters
 
--   `target` **[HTMLInputElement][94]** 
+-   `target` **[HTMLInputElement][80]** 
 -   `quantity` **[number][77]** 
 
 ### scrollFunction
 
 #### Parameters
 
--   `target` **[EventTarget][87]** 
--   `scrollPosition` **([number][77] | function (currentTarget: [Element][86]): [number][77])** 
+-   `target` **[EventTarget][81]** 
+-   `scrollPosition` **([number][77] | function (currentTarget: [Element][82]): [number][77])** 
 -   `scrollAnimationConfig` **[Object][69]** 
+
+## Product
+
+**Extends React.PureComponent**
+
+React component - Product form with price.
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### Props
+
+Type: [Object][69]
+
+#### Properties
+
+-   `id` **[string][71]** Product's id. Required.
+-   `name` **[string][71]** Name to display pattern. Required.
+-   `path` **[string][71]** Path to product. Required.
+-   `prices` **[Prices][83]** {currency: value}. Required
+-   `imageSrc` **[string][71]** Path to main image. Required.
+-   `currency` **[string][71]** Current price currency. Required.
+-   `onAddProduct` **[AddProduct][84]** Function to call when user wants to add product in his cart. Required.
+-   `generateProductKey` **[GenerateProductKey][85]** Required.
+-   `getLocalization` **[GetLocalization][75]** Required.
+-   `properties` **[ProductPropertiesOptions][86]?** Custom product properties. Each property option list consists of number,
+    string or shape({ additionalCost(optional), onSelect(optional), value(required)})
+-   `propertiesToShowInCart` **[Array][87]&lt;[string][71]>?** Array of propery names to display in cart.
+-   `scrollAnimationConfig` **[Object][69]?** Config for animateScroll (from react-scroll) scrollTo function.
+-   `scrollPosition` **[ScrollPosition][88]?** Position to scroll after product add. May be number or function returning number.
+-   `scrollFunction` **[ScrollFunction][89]?** Function which will be called when product has been added.
+-   `iconAddProductClassName` **[string][71]?** ClassName for cart icon on add to button. Default is 'fa fa-cart-plus mx-1'.
+-   `checkoutButton` **ReactElement?** 
+-   `descriptionNode` **ReactNode?** Node to display before price element.
+-   `afterPriceNode` **ReactNode?** Node to display after price element.
+
+## ProductPropertiesOptions
+
+Type: [Object][69]&lt;[string][71], [PropertyOptions][90]>
+
+## ScrollPosition
+
+Type: ([number][77] | function (currentTarget: [Element][82]): [number][77])
+
+## ScrollFunction
+
+Type: function (currentTarget: [EventTarget][81], scrollPosition: ([number][77] | function (currentTarget: [Element][82]): [number][77]), scrollAnimationConfig: [Object][69]): void
+
+## ProductPropertyInput
+
+**Extends React.PureComponent**
+
+React form for product property(options select only).
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+## OptionIndex
+
+Type: [Object][69]&lt;[string][71], [number][77]>
+
+## OptionObject
+
+Type: [Object][69]
+
+## PropertyOption
+
+Type: ([ProductPropertyOption][91] \| [OptionObject][92])
+
+## PropertyOptions
+
+Type: [Array][87]&lt;[PropertyOption][93]>
+
+## OnChange
+
+Type: function (obj: {value: [OptionIndex][94]}): void
 
 ## 
 
@@ -835,10 +835,10 @@ Type: [Object][69]&lt;[string][71], [number][77]>
 -   `quantity` **[number][77]** 
 -   `properties` **[ProductProperties][95]** 
 -   `name` **[string][71]** 
--   `prices` **[Prices][78]** 
+-   `prices` **[Prices][83]** 
 -   `imageSrc` **[string][71]** 
 -   `path` **[string][71]** 
--   `propertiesToShowInCart` **[Array][82]&lt;[string][71]>** 
+-   `propertiesToShowInCart` **[Array][87]&lt;[string][71]>** 
 
 ### Examples
 
@@ -950,7 +950,7 @@ Type: [Object][69]&lt;[string][71], [Object][69]&lt;[string][71], [Localization]
 
 ## Link$Component
 
-Type: function ([DefaultLinkComponentProps][93]): React$Element&lt;any>
+Type: function ([DefaultLinkComponentProps][79]): React$Element&lt;any>
 
 [1]: #cart
 
@@ -968,63 +968,63 @@ Type: function ([DefaultLinkComponentProps][93]): React$Element&lt;any>
 
 [8]: #properties-1
 
-[9]: #product
+[9]: #helpers
 
-[10]: #props-2
+[10]: #configure
 
-[11]: #properties-2
+[11]: #parameters
 
-[12]: #productpropertiesoptions
+[12]: #isnaturalnumber
 
-[13]: #scrollposition
+[13]: #parameters-1
 
-[14]: #scrollfunction
+[14]: #parseinteger
 
-[15]: #productpropertyinput
+[15]: #parameters-2
 
-[16]: #optionindex
+[16]: #isobject
 
-[17]: #optionobject
+[17]: #parameters-3
 
-[18]: #propertyoption
+[18]: #getabsoluteoffsettop
 
-[19]: #propertyoptions
+[19]: #parameters-4
 
-[20]: #onchange
+[20]: #defaultlinkcomponent
 
-[21]: #helpers
+[21]: #parameters-5
 
-[22]: #configure
+[22]: #fixinputvaluestartingwithzero
 
-[23]: #parameters
+[23]: #parameters-6
 
-[24]: #isnaturalnumber
+[24]: #scrollfunction
 
-[25]: #parameters-1
+[25]: #parameters-7
 
-[26]: #parseinteger
+[26]: #product
 
-[27]: #parameters-2
+[27]: #props-2
 
-[28]: #isobject
+[28]: #properties-2
 
-[29]: #parameters-3
+[29]: #productpropertiesoptions
 
-[30]: #getabsoluteoffsettop
+[30]: #scrollposition
 
-[31]: #parameters-4
+[31]: #scrollfunction-1
 
-[32]: #defaultlinkcomponent
+[32]: #productpropertyinput
 
-[33]: #parameters-5
+[33]: #optionindex
 
-[34]: #fixinputvaluestartingwithzero
+[34]: #optionobject
 
-[35]: #parameters-6
+[35]: #propertyoption
 
-[36]: #scrollfunction-1
+[36]: #propertyoptions
 
-[37]: #parameters-7
+[37]: #onchange
 
 [38]: #productpropertyoption
 
@@ -1106,39 +1106,39 @@ Type: function ([DefaultLinkComponentProps][93]): React$Element&lt;any>
 
 [77]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[78]: #prices
+[78]: https://developer.mozilla.org/docs/Web/HTML/Element
 
-[79]: #addproduct
+[79]: #defaultlinkcomponentprops
 
-[80]: #generateproductkey
+[80]: https://developer.mozilla.org/docs/Web/API/HTMLInputElement
 
-[81]: #productpropertiesoptions
+[81]: https://developer.mozilla.org/docs/Web/API/EventTarget
 
-[82]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[82]: https://developer.mozilla.org/docs/Web/API/Element
 
-[83]: #scrollposition
+[83]: #prices
 
-[84]: #scrollfunction
+[84]: #addproduct
 
-[85]: #propertyoptions
+[85]: #generateproductkey
 
-[86]: https://developer.mozilla.org/docs/Web/API/Element
+[86]: #productpropertiesoptions
 
-[87]: https://developer.mozilla.org/docs/Web/API/EventTarget
+[87]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[88]: #productpropertyoption
+[88]: #scrollposition
 
-[89]: #optionobject
+[89]: #scrollfunction
 
-[90]: #propertyoption
+[90]: #propertyoptions
 
-[91]: #optionindex
+[91]: #productpropertyoption
 
-[92]: https://developer.mozilla.org/docs/Web/HTML/Element
+[92]: #optionobject
 
-[93]: #defaultlinkcomponentprops
+[93]: #propertyoption
 
-[94]: https://developer.mozilla.org/docs/Web/API/HTMLInputElement
+[94]: #optionindex
 
 [95]: #productproperties
 
