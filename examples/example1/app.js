@@ -245,23 +245,21 @@ class App extends PureComponent {
                   {` ${additionalLocalization[lang][full]}`}
                 </label>
               </div>
-            ),
+            )
           )}
         </fieldset>
         <fieldset className="form-group text-center">
           <legend>{additionalLocalization[lang].selectCurrency}</legend>
           {["GBP", "EUR", "USD"].map((name) => (
             <div key={name} className="form-check">
-              <label className="form-check-label">
-                <input
-                  type="radio"
-                  className="form-check-input"
-                  onChange={handleCurrencyChange}
-                  value={name}
-                  checked={currency === name}
-                />
-                {` ${name}`}
-              </label>
+              <input
+                type="radio"
+                className="form-check-input"
+                onChange={handleCurrencyChange}
+                value={name}
+                checked={currency === name}
+              />
+              <label className="form-check-label">{` ${name}`}</label>
             </div>
           ))}
         </fieldset>

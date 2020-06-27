@@ -2,12 +2,12 @@
 
 exports[`Cart takes snapshot 1`] = `
 <div
-  className="my-1 w-100 list-group animated"
+  className="my-1 w-100 list-group animate__animated"
 >
   My lovely shopping cart
   <div>
     <div
-      className="list-group-item list-group-item-action align-items-start animated"
+      className="list-group-item list-group-item-action align-items-start animate__animated"
     >
       <div
         className="row align-items-start"

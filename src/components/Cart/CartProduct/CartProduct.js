@@ -166,7 +166,7 @@ export default class CartProduct extends PureComponent<Props, void> {
           "list-group-item",
           "list-group-item-action",
           "align-items-start",
-          "animated",
+          "animate__animated",
         )}
       >
         <div className="row align-items-start">

@@ -2,7 +2,7 @@
 
 exports[`CheckoutButton takes snapshot 1`] = `
 <a
-  className="btn btn-primary btn-block animated"
+  className="btn btn-primary btn-block animate__animated"
   href="/to/checkout/"
   role="button"
 >

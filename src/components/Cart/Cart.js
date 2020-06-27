@@ -115,8 +115,8 @@ const defaultProps = {
   altProductImageSrc: "",
   cartCSSTransition: {
     classNames: {
-      enter: "zoomIn",
-      exit: "fadeOut",
+      enter: "animate__zoomIn",
+      exit: "animate__fadeOut",
     },
     mountOnEnter: true,
     unmountOnExit: true,
@@ -129,8 +129,8 @@ const defaultProps = {
   },
   cartItemCSSTransition: {
     classNames: {
-      enter: "bounceInLeft",
-      exit: "bounceOutRight",
+      enter: "animate__bounceInLeft",
+      exit: "animate__bounceOutRight",
     },
     enter: true,
     exit: true,
@@ -168,7 +168,7 @@ export default class Cart extends PureComponent<Props, void> {
 
     return (
       <CSSTransition in={!isCartEmpty} {...cartCSSTransition}>
-        <div className="my-1 w-100 list-group animated">
+        <div className="my-1 w-100 list-group animate__animated">
           {!hideHeader ? getLocalization("shoppingCartTitle") : null}
           <TransitionGroup>
             {Object.entries(products).map(

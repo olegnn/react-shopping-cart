@@ -12,8 +12,8 @@ module.exports = {
           {
             loader: "babel-loader",
             options: {
-              presets: [ "@babel/preset-env" ],
-              plugins: [ "@babel/plugin-transform-runtime",],
+              presets: ["@babel/preset-env"],
+              plugins: ["@babel/plugin-transform-runtime"],
             },
           },
         ],
@@ -21,11 +21,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [ "style-loader", "css-loader", "sass-loader",],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.css$/,
-        use: [ "style-loader", "css-loader",],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -35,10 +35,15 @@ module.exports = {
         test: /\.jpeg$/,
         use: "file-loader?name=public/[name].jpeg",
       },
+      {
+        test: /\.html$/,
+        use: "file-loader?name=[name].[ext]",
+      },
     ],
   },
   entry: [
     path.resolve(__dirname, "examples/example1/app.js"),
+    path.resolve(__dirname, "examples/example1/index.html"),
     path.resolve(__dirname, "examples/example1/macbook-case-photo.jpeg"),
   ],
   output: {

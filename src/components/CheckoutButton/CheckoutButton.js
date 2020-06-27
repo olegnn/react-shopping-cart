@@ -62,8 +62,8 @@ const defaultProps = {
   iconCheckoutClassName: "fa fa-shopping-cart mx-1",
   buttonCSSTransition: {
     classNames: {
-      enter: "fadeInUp",
-      exit: "fadeOut",
+      enter: "animate__fadeInUp",
+      exit: "animate__fadeOut",
     },
     enter: true,
     exit: true,
@@ -108,7 +108,7 @@ export default class CheckoutButton extends PureComponent<Props, void> {
       <CSSTransition in={!hidden} {...buttonCSSTransition}>
         <LinkComponent
           to={checkoutURL}
-          className={classNames("btn", "btn-primary", "btn-block", "animated", {
+          className={classNames("btn", "btn-primary", "btn-block", "animate__animated", {
             disabled: !grandTotal,
           })}
           role="button"
