@@ -500,28 +500,29 @@ __Localization__ default ids and params bindings:
     -   [Props](#props)
 -   [CartProduct](#cartproduct)
 -   [ProductPropertyLabel](#productpropertylabel)
+-   [helpers](#helpers)
+    -   [configure](#configure)
+    -   [isNaturalNumber](#isnaturalnumber)
+    -   [parseInteger](#parseinteger)
+    -   [isObject](#isobject)
+    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
+    -   [DefaultLinkComponent](#defaultlinkcomponent)
+    -   [fixInputValueStartingWithZero](#fixinputvaluestartingwithzero)
+    -   [scrollFunction](#scrollfunction)
+-   [ReactStatelessComponent](#reactstatelesscomponent)
 -   [CheckoutButton](#checkoutbutton)
     -   [Props](#props-1)
 -   [Product](#product)
     -   [Props](#props-2)
 -   [ProductPropertiesOptions](#productpropertiesoptions)
 -   [ScrollPosition](#scrollposition)
--   [ScrollFunction](#scrollfunction)
+-   [ScrollFunction](#scrollfunction-1)
 -   [ProductPropertyInput](#productpropertyinput)
 -   [OptionIndex](#optionindex)
 -   [OptionObject](#optionobject)
 -   [PropertyOption](#propertyoption)
 -   [PropertyOptions](#propertyoptions)
 -   [OnChange](#onchange)
--   [helpers](#helpers)
-    -   [configure](#configure)
-    -   [isNaturalNumber](#isnaturalnumber)
-    -   [parseInteger](#parseinteger)
-    -   [getAbsoluteOffsetTop](#getabsoluteoffsettop)
-    -   [DefaultLinkComponent](#defaultlinkcomponent)
-    -   [fixInputValueStartingWithZero](#fixinputvaluestartingwithzero)
-    -   [scrollFunction](#scrollfunction-1)
--   [ReactStatelessComponent](#reactstatelesscomponent)
 -   [ProductPropertyOption](#productpropertyoption)
 -   [ProductProperties](#productproperties)
 -   [Prices](#prices)
@@ -603,6 +604,85 @@ React component to display product's property value in cart.
 
 -   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
 -   **license**: MIT
+
+## helpers
+
+**Meta**
+
+-   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
+-   **license**: MIT
+
+### configure
+
+**Parameters**
+
+-   `Component` **React$ComponentType&lt;Props>** 
+-   `configuration` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **React$ComponentType&lt;Props>** 
+
+### isNaturalNumber
+
+**Parameters**
+
+-   `num` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### parseInteger
+
+**Parameters**
+
+-   `num` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### isObject
+
+**Parameters**
+
+-   `value` **any** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### getAbsoluteOffsetTop
+
+**Parameters**
+
+-   `$0` **any**  (optional, default `{}`)
+    -   `$0.offsetTop`  
+    -   `$0.offsetParent`  
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### DefaultLinkComponent
+
+**Parameters**
+
+-   `$0` **any** 
+    -   `$0.to`  
+    -   `$0.otherProps` **...any** 
+
+Returns **React$Element&lt;any>** 
+
+### fixInputValueStartingWithZero
+
+**Parameters**
+
+-   `target` **[HTMLInputElement](https://developer.mozilla.org/docs/Web/API/HTMLInputElement)** 
+-   `quantity` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### scrollFunction
+
+**Parameters**
+
+-   `target` **EventTarget** 
+-   `scrollPosition` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/docs/Web/API/Element)): [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+-   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## ReactStatelessComponent
+
+Type: function (props: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
 
 ## CheckoutButton
 
@@ -716,79 +796,6 @@ Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global
 ## OnChange
 
 Type: function (obj: {value: [OptionIndex](#optionindex)}): void
-
-## helpers
-
-**Meta**
-
--   **author**: Oleg Nosov &lt;olegnosov1@gmail.com>
--   **license**: MIT
-
-### configure
-
-**Parameters**
-
--   `Component` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
--   `configuration` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[ReactStatelessComponent](#reactstatelesscomponent)** 
-
-### isNaturalNumber
-
-**Parameters**
-
--   `num` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
-
-### parseInteger
-
-**Parameters**
-
--   `num` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### 
-
-### getAbsoluteOffsetTop
-
-**Parameters**
-
--   `$0` **any**  (optional, default `{}`)
-    -   `$0.offsetTop`  
-    -   `$0.offsetParent`  
-
-Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### DefaultLinkComponent
-
-**Parameters**
-
--   `$0` **any** 
-    -   `$0.to`  
-    -   `$0.otherProps` **...any** 
-
-Returns **React$Element&lt;any>** 
-
-### fixInputValueStartingWithZero
-
-**Parameters**
-
--   `target` **[HTMLInputElement](https://developer.mozilla.org/docs/Web/API/HTMLInputElement)** 
--   `quantity` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### scrollFunction
-
-**Parameters**
-
--   `target` **EventTarget** 
--   `scrollPosition` **([number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) | function (currentTarget: [Element](https://developer.mozilla.org/docs/Web/API/Element)): [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
--   `scrollAnimationConfig` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## ReactStatelessComponent
-
-Type: function (props: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)): React$Element&lt;any>
 
 ## 
 
@@ -922,7 +929,7 @@ Type: ([CartAddAction](#cartaddaction) \| [CartUpdateAction](#cartupdateaction) 
 
 ## LocalizationPattern
 
-Type: ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | {component: ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | function (): React$Element&lt;any>), props: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?, text: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)})
+Type: ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | {component: ([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | React$ComponentType&lt;any>), props: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?, text: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)})
 
 ## Localization
 

@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/parser",
   "env": {
     "browser": true
   },
@@ -13,7 +13,7 @@
     "func-names": [0],
     "key-spacing": [2, {
       "beforeColon": false,
-      "afterColon": true,
+      "afterColon": true
     }],
     "semi": [2, "always"],
     "no-extra-semi": [2],
@@ -73,13 +73,13 @@
     "react/prefer-es6-class": [2],
     "react/prefer-stateless-function": [2],
     "react/sort-comp": [2, {
-        order: [
-          'props',
-          'defaultProps',
-          'static-methods',
-          'lifecycle',
-          'everything-else',
-          'render'
+        "order": [
+          "props",
+          "defaultProps",
+          "static-methods",
+          "lifecycle",
+          "everything-else",
+          "render"
         ]
       }
     ],
@@ -92,7 +92,7 @@
   },
   "settings": {
     "flowtype": {
-      "onlyFilesWithFlowAnnotation": false,
+      "onlyFilesWithFlowAnnotation": false
     }
   },
   "extends": [

@@ -34,7 +34,6 @@ module.exports = {
     ],
   },
   entry: [
-    'webpack/hot/dev-server',
     path.resolve(__dirname, 'examples/example1/app.js'),
   ],
   output: {
@@ -43,6 +42,7 @@ module.exports = {
   },
   devServer: {
     open: true, // to open the local server in browser
+    index: path.resolve(__dirname, 'examples/example1/app.js'),
     contentBase: path.resolve(__dirname, 'examples/build'),
   },
   plugins: [
