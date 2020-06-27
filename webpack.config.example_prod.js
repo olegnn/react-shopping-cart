@@ -8,15 +8,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"],
-              plugins: ["@babel/plugin-transform-runtime"],
-            },
-          },
-        ],
+        use: ["babel-loader"],
         exclude: /node_modules/,
       },
       {
