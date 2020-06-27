@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - '8'
+  - '10'
 
 cache:
   yarn: true
@@ -17,7 +17,7 @@ before_install:
   - npm i -g yarn
 
 install:
-  - yarn install
+  - yarn
 
 script:
   - yarn test && yarn build && yarn build_example
