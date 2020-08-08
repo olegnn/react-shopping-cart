@@ -148,7 +148,7 @@ export type Props = {|
   afterPriceNode: ?React$Element<*>,
 |};
 
-const scrollPosition: ScrollPosition = ({ children, }) =>
+const scrollPosition: ScrollPosition = ({ children }) =>
   getAbsoluteOffsetTop(children[children.length - 2]) - 5;
 
 const defaultProps = {
@@ -186,7 +186,7 @@ export default class Product extends PureComponent<Props, State> {
     handlePropertyValueChange: OnChange,
     getLocalization: GetLocalization,
   ): Array<React$Element<*>> =>
-    Object.entries(properties).map(([ name, options ]) => (
+    Object.entries(properties).map(([name, options]) => (
       <ProductPropertyInput
         key={name}
         name={name}
@@ -204,7 +204,7 @@ export default class Product extends PureComponent<Props, State> {
     currency: string,
   ): number =>
     Object.entries(properties).reduce(
-      (sum, [ propertyName, propertyOptions,]) => {
+      (sum, [propertyName, propertyOptions]) => {
         const selectedOption =
           propertyOptions[selectedPropertyIndexes[propertyName] || 0];
         return (
@@ -242,7 +242,7 @@ export default class Product extends PureComponent<Props, State> {
     id,
     quantity,
     properties: Object.entries(properties).reduce(
-      (obj, [ propName, options ]) => ({
+      (obj, [propName, options]) => ({
         ...obj,
         [propName]: ProductPropertyInput.getOptionValue(
           options[selectedPropertyIndexes[propName] | 0],
@@ -252,7 +252,7 @@ export default class Product extends PureComponent<Props, State> {
     ),
     name,
     prices: Object.entries(prices).reduce(
-      (acc, [ currency, price,]) => ({
+      (acc, [currency, price]) => ({
         ...acc,
         [currency]:
           price +
@@ -273,19 +273,19 @@ export default class Product extends PureComponent<Props, State> {
     quantity: 1,
   };
 
-  handleQuantityValueChange = ({ currentTarget, }: InputEvent) => {
+  handleQuantityValueChange = ({ currentTarget }: InputEvent) => {
     const quantity = parseInteger(currentTarget.value);
     if (isNaturalNumber(quantity)) {
       fixInputValueStartingWithZero(currentTarget, quantity);
-      this.setState({ quantity, });
+      this.setState({ quantity });
     }
   };
 
-  hanglePropertyValueChange: OnChange = ({ value, }) =>
+  hanglePropertyValueChange: OnChange = ({ value }) =>
     void this.setState(value);
 
   addProductFormSubmit = (event: Event) => {
-    const { props, state, } = this;
+    const { props, state } = this;
     const {
       id,
       currency,
@@ -296,8 +296,8 @@ export default class Product extends PureComponent<Props, State> {
       scrollFunction,
     } = props;
     const { quantity, ...selectedPropertyIndexes } = state;
-    const { generateCartProduct, } = Product;
-    const { currentTarget, } = event;
+    const { generateCartProduct } = Product;
+    const { currentTarget } = event;
     /*
      * Prevent form submission
      */
@@ -341,10 +341,11 @@ export default class Product extends PureComponent<Props, State> {
 
     const { quantity, ...selectedPropertyIndexes } = state;
 
-    const { createPropertiesInputList, calculateAdditionalCost, } = Product;
+    const { createPropertiesInputList, calculateAdditionalCost } = Product;
 
-    const price = prices[currency];
-    calculateAdditionalCost(properties, selectedPropertyIndexes, currency);
+    const price =
+      prices[currency] +
+      calculateAdditionalCost(properties, selectedPropertyIndexes, currency);
 
     const localizationScope = {
       name,

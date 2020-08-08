@@ -66,7 +66,7 @@ export const getAbsoluteOffsetTop = ({
  */
 export const generateProductKey: GenerateProductKey = (id, properties) =>
   Object.entries(properties).reduce(
-    (acc: string, [ propName, propValue,]) =>
+    (acc: string, [propName, propValue]) =>
       `${acc}_${propName}-${String(propValue)}`,
     `${id}/`,
   );

@@ -11,7 +11,7 @@ import {
   CheckoutButton,
   setCartCurrency,
   cartLocalization,
-} from "../..";
+} from "../../src";
 import store from "./store";
 
 const { getDefaultLocalization } = cartLocalization;
@@ -22,6 +22,9 @@ const enProductPropertiesWithAdditionalCostLocalization = {
 };
 
 const enProductLocalization = {
+  USD: "USD",
+  GBP: "GBP",
+  EUR: "EUR",
   primaryColor: "Primary color",
   secondaryColor: "Secondary color",
   red: "Red",
@@ -37,6 +40,9 @@ const frProductPropertiesWithAdditionalCostLocalization = {
 };
 
 const frProductLocalization = {
+  USD: "USD",
+  GBP: "GBP",
+  EUR: "EUR",
   primaryColor: "Couleur primaire",
   secondaryColor: "Couleur supplémentaire",
   red: "Rouge",

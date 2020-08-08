@@ -108,9 +108,15 @@ export default class CheckoutButton extends PureComponent<Props, void> {
       <CSSTransition in={!hidden} {...buttonCSSTransition}>
         <LinkComponent
           to={checkoutURL}
-          className={classNames("btn", "btn-primary", "btn-block", "animate__animated", {
-            disabled: !grandTotal,
-          })}
+          className={classNames(
+            "btn",
+            "btn-primary",
+            "btn-block",
+            "animate__animated",
+            {
+              disabled: !grandTotal,
+            },
+          )}
           role="button"
         >
           <i className={iconCheckoutClassName} />

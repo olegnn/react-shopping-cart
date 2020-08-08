@@ -101,11 +101,11 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
         </option>
       ));
 
-  handleSelectInputValueChange = ({ currentTarget, }: InputEvent) => {
-    const { value: optionValue, } = currentTarget;
-    const { name, options, onChange, } = this.props;
+  handleSelectInputValueChange = ({ currentTarget }: InputEvent) => {
+    const { value: optionValue } = currentTarget;
+    const { name, options, onChange } = this.props;
 
-    const { getOptionValue, } = ProductPropertyInput;
+    const { getOptionValue } = ProductPropertyInput;
 
     const selectedOptionIndex = options
       .map(getOptionValue)
@@ -120,7 +120,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
       selectedOption.onSelect(selectedOption);
 
     onChange({
-      value: { [name]: selectedOptionIndex, },
+      value: { [name]: selectedOptionIndex },
     });
   };
 
@@ -133,7 +133,7 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
       getLocalization,
     } = this.props;
 
-    const { handleSelectInputValueChange, } = this;
+    const { handleSelectInputValueChange } = this;
 
     const {
       generateOptionsSelectionList,

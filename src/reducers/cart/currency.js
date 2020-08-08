@@ -19,7 +19,7 @@ const initialState = "USD";
 const handlers = {
   [actionTypes.CART_SET_CURRENCY]: (
     _: string,
-    { currency, }: CartSetCurrencyAction,
+    { currency }: CartSetCurrencyAction,
   ): string => currency,
 };
 

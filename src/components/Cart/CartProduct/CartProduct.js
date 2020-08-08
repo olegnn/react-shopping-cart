@@ -70,7 +70,7 @@ export default class CartProduct extends PureComponent<Props, void> {
     propertiesToShow: Array<string>,
     getLocalization: GetLocalization,
   ): Array<React$Element<*>> =>
-    Object.entries(properties).reduce((acc, [ name, value,]) => {
+    Object.entries(properties).reduce((acc, [name, value]) => {
       const localizationScope = {
         name,
         value,
@@ -107,7 +107,7 @@ export default class CartProduct extends PureComponent<Props, void> {
   handleRemoveProductClick = () =>
     void this.props.onRemoveProduct(this.props.productKey);
 
-  handleQuantityValueChange = ({ currentTarget, }: InputEvent) => {
+  handleQuantityValueChange = ({ currentTarget }: InputEvent) => {
     const quantity = parseInteger(currentTarget.value);
     const natural = isNaturalNumber(quantity);
     const {
@@ -120,12 +120,12 @@ export default class CartProduct extends PureComponent<Props, void> {
     if (natural) {
       fixInputValueStartingWithZero(currentTarget, quantity);
       if (quantity !== currentQuantity)
-        onUpdateProduct(productKey, { ...product, quantity, });
+        onUpdateProduct(productKey, { ...product, quantity });
     }
   };
 
   render() {
-    const { handleQuantityValueChange, handleRemoveProductClick, props, } = this;
+    const { handleQuantityValueChange, handleRemoveProductClick, props } = this;
 
     const {
       name,
@@ -142,7 +142,7 @@ export default class CartProduct extends PureComponent<Props, void> {
       linkComponent: LinkComponent,
     } = props;
 
-    const { generateProductDescription, } = CartProduct;
+    const { generateProductDescription } = CartProduct;
 
     const total = price * quantity;
 

@@ -20,4 +20,4 @@ import currency from "./cart/currency";
  * Default state value is
  * { products: {}, currency: 'USD' }
  */
-export default combineReducers({ products, currency, });
+export default combineReducers({ products, currency });

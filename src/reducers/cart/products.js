@@ -25,10 +25,10 @@ const initialState: Products = {};
 const handlers = {
   [actionTypes.CART_ADD]: (
     products: Products,
-    { key, product, }: CartAddAction,
+    { key, product }: CartAddAction,
   ): Products => {
     const {
-      [key]: cartProduct = { quantity: 0, },
+      [key]: cartProduct = { quantity: 0 },
       ...restOfProducts
     } = products;
     const newQuantity = product.quantity + cartProduct.quantity;
@@ -42,7 +42,7 @@ const handlers = {
   },
   [actionTypes.CART_UPDATE]: (
     products: Products,
-    { key, updatedProduct, }: CartUpdateAction,
+    { key, updatedProduct }: CartUpdateAction,
   ): Products => {
     const { ...clonedProducts } = products;
     clonedProducts[key] = updatedProduct;
@@ -50,7 +50,7 @@ const handlers = {
   },
   [actionTypes.CART_REMOVE]: (
     products: Products,
-    { key, }: CartRemoveAction,
+    { key }: CartRemoveAction,
   ): Products => {
     const { [key]: _, ...restOfProducts } = products;
     return Object.keys(restOfProducts).length ? restOfProducts : initialState;

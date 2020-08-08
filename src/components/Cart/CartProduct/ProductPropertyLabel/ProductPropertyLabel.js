@@ -28,7 +28,7 @@ export default class ProductPropertyLabel extends PureComponent<Props, void> {
   static displayName = "ProductPropertyLabel";
 
   render() {
-    const { name, value, } = this.props;
+    const { name, value } = this.props;
 
     return (
       <div className="form-group row">
