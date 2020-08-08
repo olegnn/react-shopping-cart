@@ -146,6 +146,9 @@ export default class ProductPropertyInput extends PureComponent<Props, void> {
       get localizedName() {
         return getLocalization(name, localizationScope);
       },
+      get localizedCurrency() {
+        return getLocalization(currency, localizationScope);
+      },
     };
 
     return (
