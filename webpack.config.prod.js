@@ -12,7 +12,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["css-loader"],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -39,7 +39,6 @@ module.exports = {
     "react-overlays": "react-overlays",
     "react-scroll": "react-scroll",
     "react-transition-group": "react-transition-group",
-    "react-fontawesome": "react-fontawesome",
   },
   plugins: [new UglifyJSPlugin()],
 };

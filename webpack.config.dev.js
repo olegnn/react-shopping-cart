@@ -14,10 +14,6 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.scss$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
-      },
-      {
         test: /\.css$/,
         use: [{ loader: "style-loader" }, { loader: "css-loader" }],
       },
