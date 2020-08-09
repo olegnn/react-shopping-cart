@@ -94,7 +94,7 @@ const iPadCaseLocalization = {
 };
 
 const iPadPropertiesWithAdditionalCostLocalization = {
-  yellow: "Yellow (+{cost}{localizedCurrency})"
+  yellow: "Yellow (+{cost, number, CUR})"
 };
 
 const store = createStore(
@@ -221,7 +221,7 @@ const iPadCaseLocalization = {
 };
 
 const iPadPropertiesWithAdditionalCostLocalization = {
-  yellow: "Yellow (+{cost}{localizedCurrency})"
+  yellow: "Yellow (+{cost, number, CUR})"
 };
 
 class App extends PureComponent {

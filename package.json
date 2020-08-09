@@ -26,6 +26,7 @@
     "fmt": "prettier-eslint --write $PWD\"/*.js\" $PWD\"/src/**/*.js\" $PWD\"/__tests__/**/*.js\" $PWD\"/examples/example1/*.js\"",
     "build_example": "NODE_ENV=production webpack --config webpack.config.example_prod",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
+    "start": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
     "prepublish": "yarn build && yarn doc"
   },
   "dependencies": {
