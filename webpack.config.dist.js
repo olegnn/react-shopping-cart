@@ -7,16 +7,12 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: [ "babel-loader" ],
+        use: ["babel-loader"],
         exclude: /node_modules/,
       },
       {
-        test: /\.scss$/,
-        use: [ "style-loader", "css-loader",],
-      },
-      {
         test: /\.css$/,
-        use: [ "style-loader", "css-loader",],
+        use: ["css-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -24,7 +20,7 @@ module.exports = {
       },
     ],
   },
-  entry: [ path.resolve(__dirname, "src/index.js"),],
+  entry: [path.resolve(__dirname, "src/index.js")],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
@@ -37,6 +33,13 @@ module.exports = {
     "prop-types": "prop-types",
     "react-redux": "react-redux",
     redux: "redux",
+    "intl-messageformat": "intl-messageformat",
+    reselect: "reselect",
+    classnames: "classnames",
+    "react-overlays": "react-overlays",
+    "react-scroll": "react-scroll",
+    "react-transition-group": "react-transition-group",
+    "react-fontawesome": "react-fontawesome",
   },
-  plugins: [ new UglifyJSPlugin(),],
+  plugins: [new UglifyJSPlugin()],
 };

@@ -44,12 +44,22 @@ npm run test
 
 **Linter**
 
-[ESLint](https://github.com/eslint/eslint) is used as linter
+[ESLint](https://github.com/eslint/eslint) is used as a linter
 ```shell
 yarn lint
 ```
 ```shell
 npm run lint
+```
+
+**Formatter**
+
+[prettier-eslint](https://github.com/prettier/prettier-eslint) is used as a formatter
+```shell
+yarn fmt
+```
+```shell
+npm run fmt
 ```
 
 **Flow Type**

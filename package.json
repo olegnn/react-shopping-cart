@@ -1,6 +1,6 @@
 {
   "name": "react-shopping-cart",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "author": "Oleg Nosov <olegnosov1@gmail.com>",
   "description": "React shopping cart",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "doc": "gulp doc",
     "test": "jest .",
     "flow": "flow",
-    "lint": "prettier-eslint --write $PWD\"/src/**/*.js\" $PWD\"/__tests__/**/*.js\" $PWD\"/examples/example1/*.js\"",
+    "lint": "eslint *.js $PWD\"/src/**/*.js\"",
+    "fmt": "prettier-eslint --write $PWD\"/*.js\" $PWD\"/src/**/*.js\" $PWD\"/__tests__/**/*.js\" $PWD\"/examples/example1/*.js\"",
     "build_example": "NODE_ENV=production webpack --config webpack.config.example_prod",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.config.dev.js",
     "prepublish": "yarn build && yarn doc"
@@ -89,7 +90,6 @@
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
     "react-test-renderer": "^16.13.1",
-    "style-loader": "^1.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
