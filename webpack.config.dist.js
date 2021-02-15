@@ -24,6 +24,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
+    globalObject: "this",
     library: "react-shopping-cart",
     libraryTarget: "umd",
   },
